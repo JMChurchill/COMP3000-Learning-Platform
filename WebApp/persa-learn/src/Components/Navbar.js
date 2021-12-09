@@ -30,8 +30,10 @@ const Navbar = () => {
           data-visable={navVisibility}
           className="primary-navigation flex"
         >
-          <li className="active">
-            <Link to="/">Home</Link>
+          <li>
+            <Link aria-current="true" to="/">
+              Home
+            </Link>
           </li>
           <li>
             <Link to="/">Activities</Link>

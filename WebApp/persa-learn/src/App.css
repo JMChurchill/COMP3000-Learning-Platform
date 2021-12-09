@@ -1,7 +1,7 @@
 :root {
   --main-bg-color: rgb(245, 245, 245);
-  --nav-color: lightGreen;
-  --nav-text-color: white;
+  --nav-color: white;
+  --nav-text-color: darkGray;
   --front-bg-color: white;
   --title-color: black;
   --heading-color: darkGray;
@@ -72,6 +72,7 @@ h2 {
   justify-content: space-between;
   /* background: hsl(0 0% 0% /0.5); */
   background: var(--nav-color);
+  box-shadow: 0 0.5rem 0.5rem -0.25em black;
 }
 
 .primary-navigation {
@@ -83,7 +84,7 @@ h2 {
 
 @supports (backdrop-filter: blur(0.25rem)) {
   .primary-navigation {
-    background: hsl(0 0% 100% /0.1);
+    background: hsl(0 0% 100% /0.8);
     backdrop-filter: blur(0.25rem);
   }
 }
@@ -91,6 +92,12 @@ h2 {
 .primary-navigation a {
   text-decoration: none;
   color: var(--nav-text-color);
+}
+.primary-navigation a:hover {
+  color: var(--btn-color);
+}
+.primary-navigation a[aria-current="true"] {
+  color: var(--btn-color);
 }
 
 .mobile-nav-toggle {
@@ -109,7 +116,6 @@ h2 {
 @media (max-width: 35em) {
   .primary-navigation {
     --gap: 2em;
-
     position: fixed;
     z-index: 1000;
     inset: 0 0 0 30%;
@@ -140,8 +146,22 @@ h2 {
   .mobile-nav-toggle[aria-expanded="true"] {
     transform: rotate(90deg);
     transition: all 350ms;
-    /* border: 10px solid black; */
-    /* display: none; */
+    position: fixed;
+  }
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .container div {
+    width: 80% !important;
+    margin: 1rem 0;
+  }
+  .container form {
+    width: 100% !important;
+  }
+  .right-box img {
+    border-radius: 50%;
+    width: 50% !important;
   }
 }
 
@@ -156,7 +176,6 @@ h2 {
   background-color: var(--front-bg-color);
   width: 45%;
   padding: 2rem;
-  /* border: black 1px solid; */
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -165,6 +184,7 @@ h2 {
 }
 .right-box img {
   border-radius: 50%;
+  width: 35%;
 }
 .right-box form {
   display: flex;
@@ -174,7 +194,7 @@ h2 {
   font-size: 2rem;
 }
 .left-box img {
-  width: 75%;
+  width: 50%;
 }
 .right-box form input {
   width: 100%;
@@ -183,8 +203,6 @@ h2 {
   padding: 0.5rem 1rem;
   margin: 1rem 0;
   border: 0.01px solid lightgray;
-  /* border: none; */
-  /* box-shadow: 0 0.125rem 0.5rem -0.25em black; */
   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
 }
 .right-box form .btn {
@@ -195,17 +213,3 @@ h2 {
 .right-box form .btn:hover {
   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
 }
-
-/* 
-.left-box {
-  width: 45%;
-  padding: 1rem;
-  border: black 1px solid;
-  border-radius: 1rem;
-}
-.right-box {
-  width: 45%;
-  padding: 1rem;
-  border: black 1px solid;
-  border-radius: 1rem;
-} */
