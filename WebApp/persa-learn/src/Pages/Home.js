@@ -6,8 +6,8 @@ import hero from "../assets/undraw_education_f8ru.svg";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="content-box">
+      {/* <h1>Home</h1> */}
       <div className="container">
         <div className="left-box">
           <img src={hero} alt="woman stood on book" />
