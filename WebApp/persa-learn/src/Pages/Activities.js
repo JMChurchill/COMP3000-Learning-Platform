@@ -12,8 +12,8 @@ const Activities = () => {
         <Link to="/quiz">
           <Activity name="Quiz" />
         </Link>
-        <Link to="/quiz-designer">
-          <Activity name="Quiz Designer" />
+        <Link to="/flash-cards">
+          <Activity name="Flash Cards" />
         </Link>
         <Activity />
         <Activity />

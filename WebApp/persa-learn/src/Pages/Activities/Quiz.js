@@ -1,8 +1,8 @@
 import React from "react";
 
-import QuizBox from "../Components/QuizBox";
-import Progressbar from "../Components/Progressbar";
-import tempQuizData from "../assets/tempQuizData.json";
+import QuizBox from "../../Components/QuizBox";
+import Progressbar from "../../Components/Progressbar";
+import tempQuizData from "../../assets/tempQuizData.json";
 
 const Quiz = () => {
   return (

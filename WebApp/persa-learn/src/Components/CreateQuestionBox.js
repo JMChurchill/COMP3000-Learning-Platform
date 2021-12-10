@@ -2,6 +2,7 @@ import React from "react";
 
 // component
 import AddOptionBtn from "./AddOptionBtn";
+import NewOption from "./NewOption";
 
 const CreateQuestionBox = () => {
   return (
@@ -10,8 +11,11 @@ const CreateQuestionBox = () => {
         <h2>Add Question</h2>
         <p>add details</p>
       </div>
+      <p>Correct answer</p>
       {/* <div className="options-box"> */}
-      <p>aa</p>
+      <NewOption />
+      <NewOption />
+      <NewOption />
       {/* </div> */}
       <div className="bottom">
         <AddOptionBtn />

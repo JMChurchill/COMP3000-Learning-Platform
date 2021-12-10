@@ -41,7 +41,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link aria-current="false" to="/">
+            <Link aria-current="false" to="/create">
               Create
             </Link>
           </li>
