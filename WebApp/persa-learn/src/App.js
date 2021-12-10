@@ -5,14 +5,14 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Error from "./Pages/Error";
 import Login from "./Pages/Login";
-import Quiz from "./Pages/Activities/Quiz";
+import Activities from "./Pages/Activities";
 import CreateActivity from "./Pages/CreateActivity";
+import Quiz from "./Pages/Activities/Quiz";
+import FlashCards from "./Pages/Activities/FlashCards";
+import QuizDesigner from "./Pages/ActivityDesigner/QuizDesigner";
 
 //components
 import Navbar from "./Components/Navbar";
-import Activities from "./Pages/Activities";
-import QuizDesigner from "./Pages/QuizDesigner";
-import FlashCards from "./Pages/Activities/FlashCards";
 
 function App() {
   return (

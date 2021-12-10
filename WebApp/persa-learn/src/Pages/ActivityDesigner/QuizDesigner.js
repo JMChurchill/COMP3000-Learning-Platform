@@ -1,6 +1,6 @@
 import React from "react";
 
-import CreateQuestionBox from "../Components/CreateQuestionBox";
+import CreateQuestionBox from "../../Components/CreateQuestionBox";
 
 const QuizDesigner = () => {
   return (
