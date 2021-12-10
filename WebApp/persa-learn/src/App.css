@@ -333,15 +333,20 @@ div.progressbar .top {
 .container .bottom {
   box-shadow: unset;
   flex-direction: row;
+  border: red 1px solid;
+  height: auto;
 }
 .container .bottom .add-option {
   /* all: unset; */
+  position: relative;
+  border: green 1px solid;
   flex-direction: row;
   width: auto;
-  height: 3rem;
-  padding: 0.5rem 0rem;
+  height: 2.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0rem;
   margin: 1rem;
   border-radius: 2rem;
+  white-space: nowrap;
 }
 .container .add-option .circle {
   border-radius: 50%;
@@ -357,6 +362,9 @@ div.progressbar .top {
   margin: 0;
   color: red;
   font-size: 5rem;
+  height: auto;
+  border: blue 1px solid;
+  transform: translateY(-0.5rem);
 }
 
 .container .add-option p {
