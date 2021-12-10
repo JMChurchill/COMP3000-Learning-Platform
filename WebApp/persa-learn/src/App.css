@@ -7,6 +7,8 @@
   --heading-color: darkGray;
   --text-color: grey;
   --btn-color: #4ffedf;
+  --btn-text-color: white;
+  --success-color: #00ff55;
 }
 .App {
   /* text-align: center; */
@@ -31,7 +33,7 @@ h2 {
   margin: 1rem 0;
 }
 .btn {
-  color: white;
+  color: var(--btn-text-color);
   background-color: var(--btn-color);
   border-radius: 2rem;
   font-size: 1.8rem;
@@ -39,6 +41,7 @@ h2 {
   border: none;
   box-shadow: 0 0.5rem 0.5rem -0.25em black;
   transition: all 300ms ease;
+  margin: 0.5rem;
 }
 .btn:hover {
   color: var(--btn-color);
@@ -212,4 +215,150 @@ h2 {
 
 .right-box form .btn:hover {
   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+}
+
+/* login page */
+.center-container {
+  justify-content: center;
+}
+
+/* quiz box */
+.wide-container {
+  flex-direction: column;
+  padding: 1rem 0;
+  /* justify-self: center; */
+  /* width: 80%; */
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.wide-container div {
+  width: 100%;
+  padding: 0;
+  /* color: #4ffedf; */
+}
+div .quiz-question {
+  padding-top: 0;
+  margin: 1rem 0;
+}
+div .quiz-question .question-box {
+  /* color: green; */
+  /* background-color: greenyellow; */
+  padding: 1rem 0;
+  border-radius: 1rem 1rem;
+  border-bottom: grey solid 1px;
+}
+div .quiz-question .question-box p {
+  /* color: red; */
+  margin: auto 0;
+}
+div .quiz-question .quiz-answers {
+  /* color: #4ffedf; */
+  width: 60%;
+  align-self: center;
+  justify-self: center;
+}
+div .quiz-question ol {
+  /* background-color: red; */
+  /* justify-self: start; */
+  align-self: flex-start;
+
+  font-size: 2rem;
+}
+div .quiz-question .quiz-answers li {
+  border: 1px solid red;
+  width: auto;
+  border-radius: 1.8rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  position: relative;
+}
+div .quiz-question .quiz-answers li:before {
+  /* border: 1px solid red; */
+  /* border-radius: 50%;
+  color: red;
+  background-color: #4ffedf; */
+  /* margin-right: 10px; */
+}
+
+/* activity box */
+.container .activity-box {
+  color: var(--text-color);
+  width: 20vw;
+  text-align: center;
+  margin: 1rem;
+}
+.container .activity-box img {
+  width: 60%;
+  overflow: hidden;
+  /* border: 1px solid black; */
+}
+.container .activity-box h2 {
+  color: black;
+}
+
+/* progressbar */
+div.progressbar {
+}
+div.progressbar .top {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.progressbar h2 {
+  color: black;
+  align-self: flex-start;
+  padding-left: 2rem;
+}
+.progressbar .help-box {
+  flex-direction: row;
+  width: auto;
+  padding: 0 1rem;
+  box-shadow: none;
+}
+.progressbar .help-box .btn {
+  margin: 0 1.5rem;
+}
+.progressbar .bar {
+  background-color: var(--mainbg-color);
+  height: 1rem;
+  align-items: flex-start;
+}
+.progressbar .bar .barFill {
+  height: 1rem;
+  background-color: var(--success-color);
+  width: 50%;
+}
+
+/* add option btn */
+.container .bottom {
+  box-shadow: unset;
+  flex-direction: row;
+}
+.container .bottom .add-option {
+  /* all: unset; */
+  flex-direction: row;
+  width: auto;
+  height: 3rem;
+  padding: 0.5rem 0rem;
+  margin: 1rem;
+  border-radius: 2rem;
+}
+.container .add-option .circle {
+  border-radius: 50%;
+  height: fit-content;
+  aspect-ratio: 1;
+  background-color: var(--btn-color);
+  color: var(--btn-text-color);
+  font-size: 2rem;
+  text-align: center;
+  justify-content: center;
+}
+.container .add-option .circle p {
+  margin: 0;
+  color: red;
+  font-size: 5rem;
+}
+
+.container .add-option p {
+  margin: 0;
 }

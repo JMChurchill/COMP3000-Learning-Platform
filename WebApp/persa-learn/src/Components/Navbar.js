@@ -36,13 +36,19 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/">Activities</Link>
+            <Link aria-current="false" to="/activity">
+              Activities
+            </Link>
           </li>
           <li>
-            <Link to="/">Create</Link>
+            <Link aria-current="false" to="/">
+              Create
+            </Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link aria-current="false" to="/login">
+              Login
+            </Link>
           </li>
         </ul>
       </nav>

@@ -1,8 +1,10 @@
 import React from "react";
 
-import userIcon from "../assets/tempUserIcon.svg";
 import hero from "../assets/undraw_education_f8ru.svg";
 // import userIcon from "../assets/tempLogo.svg";
+
+// components
+import LoginBox from "../Components/LoginBox";
 
 const Home = () => {
   return (
@@ -17,17 +19,9 @@ const Home = () => {
             Join the Community
           </button>
         </div>
-        <div className="right-box">
-          <img src={userIcon} alt="User icon" />
-          <h1>Login</h1>
-          <form action="">
-            <label htmlFor="usermame">User name</label>
-            <input type="text" name="username" />{" "}
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
-            <input type="submit" className="btn" />
-          </form>
-        </div>
+        {/* <div className="right-box"> */}
+        <LoginBox />
+        {/* </div> */}
       </div>
     </div>
   );
