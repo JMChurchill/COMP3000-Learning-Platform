@@ -10,6 +10,7 @@ import CreateActivity from "./Pages/CreateActivity";
 import Quiz from "./Pages/Activities/Quiz";
 import FlashCards from "./Pages/Activities/FlashCards";
 import QuizDesigner from "./Pages/ActivityDesigner/QuizDesigner";
+import FlashCard from "./Pages/Activities/FlashCard";
 
 //components
 import Navbar from "./Components/Navbar";
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/quiz" element={<Quiz />} />
           <Route exact path="/flash-cards" element={<FlashCards />} />
           <Route exact path="/quiz-designer" element={<QuizDesigner />} />
+          <Route exact path="/flash-card" element={<FlashCard />} />
           <Route path="*" element={<Error />} />
           {/* <Home /> */}
           {/* </Route> */}

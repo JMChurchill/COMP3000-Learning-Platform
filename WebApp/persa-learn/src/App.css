@@ -116,6 +116,66 @@ h2 {
   }
 }
 
+.title {
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0.125rem 0.5rem -0.25em black;
+  border-radius: 1rem;
+}
+
+.container .flash-card-decks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1rem;
+  /* background-color: #00ff55; */
+}
+.flash-card-decks .flash-card-deck {
+  /* margin: 1rem 0;
+  width: 10vh !important;
+  border-radius: 0 !important;
+  height: 5vh;
+  justify-content: center;
+  align-items: center;
+  background-color: yellow !important; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
+  height: 12vw;
+  margin: 1rem 0;
+
+  /* padding: 4rem; */
+  background-color: yellow;
+  box-shadow: 0 0.125rem 0.5rem -0.25em black;
+  transition: 500ms ease-out;
+}
+.flash-card-decks .flash-card-deck:hover {
+  transition: 500ms ease-in;
+  width: 26vw;
+  height: 14vw;
+}
+.flash-card-decks .flash-card-deck p {
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.container .flash-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: yellow;
+  width: 150vh;
+  height: 60vh;
+  margin: 1rem;
+  box-shadow: 0 0.125rem 0.5rem -0.25em black;
+}
+.container .flash-card p {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
 @media (max-width: 35em) {
   .primary-navigation {
     --gap: 2em;
@@ -175,7 +235,8 @@ h2 {
   padding: 1% 0;
 }
 
-.container div {
+.container > div,
+.container > a div {
   background-color: var(--front-bg-color);
   width: 45%;
   padding: 2rem;
@@ -185,6 +246,7 @@ h2 {
   align-items: center;
   box-shadow: 0 0.125rem 0.5rem -0.25em black;
 }
+
 .right-box img {
   border-radius: 50%;
   width: 35%;
@@ -247,26 +309,32 @@ div .quiz-question {
 div .quiz-question .question-box {
   /* color: green; */
   /* background-color: greenyellow; */
-  padding: 1rem 0;
+  /* padding: 1rem 0; */
   border-radius: 1rem 1rem;
   border-bottom: grey solid 1px;
 }
+
+div .quiz-question .question-box h2 {
+  padding-left: 2rem;
+}
+
 div .quiz-question .question-box p {
   /* color: red; */
-  margin: auto 0;
+  /* margin: auto 0; */
+  padding-left: 2rem;
 }
 div .quiz-question .quiz-answers {
   /* color: #4ffedf; */
   width: 60%;
   align-self: center;
   justify-self: center;
+  border: solid 1px green;
+  font-size: 2rem;
 }
 div .quiz-question ol {
   /* background-color: red; */
   /* justify-self: start; */
-  align-self: flex-start;
-
-  font-size: 2rem;
+  /* align-self: flex-start; */
 }
 div .quiz-question .quiz-answers li {
   border: 1px solid red;
@@ -302,8 +370,10 @@ div .quiz-question .quiz-answers li:before {
 
 /* progressbar */
 div.progressbar {
+  padding-top: 0.5rem;
 }
 div.progressbar .top {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -313,13 +383,14 @@ div.progressbar .top {
   padding-left: 2rem;
 }
 .progressbar .help-box {
+  display: flex;
   flex-direction: row;
   width: auto;
   padding: 0 1rem;
   box-shadow: none;
 }
 .progressbar .help-box .btn {
-  margin: 0 1.5rem;
+  /* margin: 0 1.5rem; */
 }
 .progressbar .bar {
   background-color: var(--mainbg-color);
@@ -330,6 +401,7 @@ div.progressbar .top {
   height: 1rem;
   background-color: var(--success-color);
   width: 50%;
+  border-radius: 2rem;
 }
 
 /* add option btn */
