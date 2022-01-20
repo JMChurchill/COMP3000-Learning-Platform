@@ -162,18 +162,57 @@ h2 {
 }
 
 .container .flash-card {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: yellow;
+  justify-content: center; */
+  /* background-color: yellow; */
+  position: relative;
   width: 150vh;
   height: 60vh;
   margin: 1rem;
-  box-shadow: 0 0.125rem 0.5rem -0.25em black;
+  padding: 0;
+  /* box-shadow: 0 0.125rem 0.5rem -0.25em black; */
+  transform-style: preserve-3d;
 }
+
+.container .flash-card.flipped .front {
+  transform: rotateY(180deg);
+}
+.container .flash-card.flipped .back {
+  transform: rotateY(0deg);
+}
+
+.container .flash-card .front,
+.back {
+  background-color: yellow;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: absolute;
+  text-align: center;
+  box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.4);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: -webkit-transform ease 500ms;
+  transition: transform ease 500ms;
+}
+.container .flash-card .front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.container .flash-card .back {
+  transform: rotateY(-180deg);
+}
+
 .container .flash-card p {
   font-weight: bold;
   font-size: 2.5rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media (max-width: 35em) {
