@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import hero from "../assets/undraw_education_f8ru.svg";
 // import userIcon from "../assets/tempLogo.svg";
@@ -15,9 +16,16 @@ const Home = () => {
           <img src={hero} alt="woman stood on book" />
           <h1>Welcome</h1>
           <h2>The new way to learn</h2>
-          <button id="joinBtn" className="btn">
-            Join the Community
-          </button>
+          <Link to="/profile">
+            <button id="joinBtn" className="btn">
+              Join the Community
+            </button>
+          </Link>
+          <Link to="/leaderboard">
+            <button id="joinBtn" className="btn">
+              Class leaderboard
+            </button>
+          </Link>
         </div>
         {/* <div className="right-box"> */}
         <LoginBox />
