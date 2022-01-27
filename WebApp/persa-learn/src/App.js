@@ -13,6 +13,7 @@ import QuizDesigner from "./Pages/ActivityDesigner/QuizDesigner";
 import FlashCard from "./Pages/Activities/FlashCard";
 import UserProfile from "./Pages/UserProfile";
 import ClassLeaderboard from "./Pages/ClassLeaderboard";
+import Achievements from "./Pages/Achievements";
 
 //components
 import Navbar from "./Components/Navbar";
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/flash-card" element={<FlashCard />} />
           <Route exact path="/profile" element={<UserProfile />} />
           <Route exact path="/leaderboard" element={<ClassLeaderboard />} />
+          <Route exact path="/achievements" element={<Achievements />} />
           <Route path="*" element={<Error />} />
           {/* <Home /> */}
           {/* </Route> */}

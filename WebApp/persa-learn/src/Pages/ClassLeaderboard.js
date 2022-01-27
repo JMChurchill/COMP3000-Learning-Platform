@@ -12,24 +12,31 @@ const ClassLeaderboard = () => {
         <div className="leaderboard-box">
           <div className="top-students">
             <div className="top-student">
-              <img src={tempUserIcon} alt="user icon" height="100px" />
+              <div className="img-container">
+                <img src={tempUserIcon} alt="user icon" height="100px" />
+              </div>
+              <p>2</p>
               <p>Student 1</p>
-              <p>Position</p>
             </div>
             <div className="top-student">
-              <img src={tempUserIcon} alt="user icon" height="100px" />
+              <div className="img-container">
+                <img src={tempUserIcon} alt="user icon" height="100px" />
+              </div>
+              <p>1</p>
               <p>Student 1</p>
-              <p>Position</p>
+            </div>
+            <div className="top-student">
+              <div className="img-container">
+                <img src={tempUserIcon} alt="user icon" height="100px" />
+              </div>
+              <p>3</p>
+              <p>Student 1</p>
             </div>
           </div>
           <LeaderboardStudent icon={tempUserIcon} />
           <LeaderboardStudent icon={tempUserIcon} />
           <LeaderboardStudent icon={tempUserIcon} />
           <LeaderboardStudent icon={tempUserIcon} />
-          <p>Student 1</p>
-          <p>Student 1</p>
-          <p>Student 1</p>
-          <p>Student 1</p>
         </div>
       </div>
     </div>

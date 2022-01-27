@@ -26,6 +26,11 @@ const Home = () => {
               Class leaderboard
             </button>
           </Link>
+          <Link to="/achievements">
+            <button id="joinBtn" className="btn">
+              Achievements
+            </button>
+          </Link>
         </div>
         {/* <div className="right-box"> */}
         <LoginBox />
