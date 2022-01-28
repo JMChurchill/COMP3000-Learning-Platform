@@ -14,6 +14,8 @@ import FlashCard from "./Pages/Activities/FlashCard";
 import UserProfile from "./Pages/UserProfile";
 import ClassLeaderboard from "./Pages/ClassLeaderboard";
 import Achievements from "./Pages/Achievements";
+import FlashcardDesigner from "./Pages/ActivityDesigner/FlashcardDesigner";
+import StudentProfile from "./Pages/StudentProfile";
 
 //components
 import Navbar from "./Components/Navbar";
@@ -30,11 +32,17 @@ function App() {
           <Route exact path="/create" element={<CreateActivity />} />
           <Route exact path="/quiz" element={<Quiz />} />
           <Route exact path="/flash-cards" element={<FlashCards />} />
-          <Route exact path="/quiz-designer" element={<QuizDesigner />} />
+          <Route exact path="/designer_quiz" element={<QuizDesigner />} />
           <Route exact path="/flash-card" element={<FlashCard />} />
           <Route exact path="/profile" element={<UserProfile />} />
           <Route exact path="/leaderboard" element={<ClassLeaderboard />} />
           <Route exact path="/achievements" element={<Achievements />} />
+          <Route exact path="/profile_student" element={<StudentProfile />} />
+          <Route
+            exact
+            path="/designer_flashcard"
+            element={<FlashcardDesigner />}
+          />
           <Route path="*" element={<Error />} />
           {/* <Home /> */}
           {/* </Route> */}

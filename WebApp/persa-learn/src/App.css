@@ -9,6 +9,7 @@
   --btn-color: #4ffedf;
   --btn-text-color: white;
   --success-color: #00ff55;
+  --progressbar-color: blue;
 }
 .App {
   /* text-align: center; */
@@ -216,6 +217,38 @@ h2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.container .card-designer {
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center; */
+}
+.container .card-designer form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.container .card-designer form > div {
+  border: 1px solid red;
+  width: 40%;
+  margin: 0;
+  padding: 5rem 1rem;
+  border-left: 1.5px solid var(--text-color);
+  text-align: center;
+  /* height: 50vh; */
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column; */
+}
+.container .card-designer form > div:first-child {
+  border-left: 0px;
+  border-right: 1.5px solid var(--text-color);
+}
+.container .card-designer form > div input {
+  font-size: 1.5rem;
+  border-radius: 2rem;
+  padding: 0.5rem;
 }
 
 @media (max-width: 35em) {
@@ -644,4 +677,107 @@ div.progressbar .top {
   margin: 0.5rem 0 0 0;
   overflow: hidden;
   /* height: 11rem; */
+}
+
+/* student profile */
+.content-box .container .banner {
+  /* border: 1px solid green; */
+  /* background-color: #00ff55; */
+  background: url(/src/assets/mountains-g85463b186_1920.jpg);
+  background-position: center;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* bottom: 0; */
+}
+.content-box .container .banner .upper {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  /* height: 400px; */
+}
+.content-box .container .banner .upper .user-icon {
+  /* border: 1px solid purple; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  padding-left: 1rem;
+  transform: translateY(1.5rem);
+  /* margin-bottom: auto; */
+}
+.content-box .container .banner .upper .user-icon img {
+  width: 10rem;
+  height: auto;
+}
+.content-box .container .banner .upper .user-icon .xp {
+  /* border: 1px solid orange; */
+  background-color: white;
+  border-radius: 2rem;
+  width: fit-content;
+  transform: translateY(-1.5rem);
+}
+.content-box .container .banner .upper .user-icon .xp p {
+  margin: 0.25rem 0.5rem;
+  font-weight: bold;
+  color: black;
+}
+.content-box .container .banner .upper .name-box {
+  position: relative;
+}
+.content-box .container .banner .upper .name-box p {
+  position: absolute;
+  bottom: 0;
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: auto;
+  color: white;
+}
+.content-box .container .banner .progressbar {
+  background-color: white;
+  width: 100%;
+  height: 1.5rem;
+  border-radius: 2rem;
+  padding: 0;
+  box-shadow: 0 0.5rem 0.5rem -0.25em black;
+  z-index: 99;
+}
+.content-box .container .banner .progressbar .bar-fill {
+  background-color: var(--progressbar-color);
+  width: 50%;
+  height: 100%;
+  border-radius: 2rem;
+}
+.content-box .container .content .tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.content-box .container .content .tabs h3 {
+  position: relative;
+}
+.content-box .container .content .tabs h3:first-child {
+  color: var(--btn-color);
+}
+.content-box .container .content .tabs h3:hover {
+  color: var(--btn-color);
+}
+.content-box .container .content .tabs h3::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--btn-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.content-box .container .content .tabs h3:hover::before {
+  transform: scaleX(1);
 }

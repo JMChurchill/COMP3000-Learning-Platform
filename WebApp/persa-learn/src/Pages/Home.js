@@ -31,6 +31,11 @@ const Home = () => {
               Achievements
             </button>
           </Link>
+          <Link to="/profile_student">
+            <button id="joinBtn" className="btn">
+              Student Profile
+            </button>
+          </Link>
         </div>
         {/* <div className="right-box"> */}
         <LoginBox />

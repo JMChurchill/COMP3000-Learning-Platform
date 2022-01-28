@@ -8,8 +8,11 @@ const CreateActivity = () => {
     <div className="content-box">
       <h1>Create activity</h1>
       <div className="container center-container flex-wrap">
-        <Link to="/quiz-designer">
+        <Link to="/designer_quiz">
           <MakeActivity name="Quiz Designer" />
+        </Link>
+        <Link to="/designer_flashcard">
+          <MakeActivity name="Flashcard Designer" />
         </Link>
       </div>
     </div>
