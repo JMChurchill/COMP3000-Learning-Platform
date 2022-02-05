@@ -16,6 +16,7 @@ import ClassLeaderboard from "./Pages/ClassLeaderboard";
 import Achievements from "./Pages/Achievements";
 import FlashcardDesigner from "./Pages/ActivityDesigner/FlashcardDesigner";
 import StudentProfile from "./Pages/StudentProfile";
+import TeacherProfile from "./Pages/TeacherProfile";
 
 //components
 import Navbar from "./Components/Navbar";
@@ -38,6 +39,7 @@ function App() {
           <Route exact path="/leaderboard" element={<ClassLeaderboard />} />
           <Route exact path="/achievements" element={<Achievements />} />
           <Route exact path="/profile_student" element={<StudentProfile />} />
+          <Route exact path="/profile_teacher" element={<TeacherProfile />} />
           <Route
             exact
             path="/designer_flashcard"

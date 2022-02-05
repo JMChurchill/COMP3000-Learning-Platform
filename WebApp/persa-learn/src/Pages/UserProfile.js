@@ -16,6 +16,9 @@ const UserProfile = () => {
           <Task />
           <Task />
           <Task />
+          <div className="bottom-bar">
+            <button className="btn">Add Task</button>
+          </div>
         </div>
         <div className="right-box vFill">
           <TaskDetails />

@@ -573,7 +573,20 @@ div.progressbar .top {
 
 .content-box .container .task-box {
   overflow-y: scroll;
+  overflow-x: hidden;
   height: 70vh;
+  position: relative;
+}
+.content-box .container .task-box .bottom-bar {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 110%;
+  transform: translateY(2rem);
+  /* border: solid 1px orange; */
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.5rem -0.25em black;
+  background-color: white;
 }
 .content-box .container .task-box > div {
   /* background-color: #00ff55; */
@@ -780,4 +793,34 @@ div.progressbar .top {
 }
 .content-box .container .content .tabs h3:hover::before {
   transform: scaleX(1);
+}
+
+.content-box .container .right-box .class-details {
+  /* border: solid 1px red; */
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.content-box .container .right-box .class-details .progressbar {
+  /* border: solid 1px blue; */
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: auto;
+}
+.content-box .container .right-box .class-details .bar-fill-left {
+  background-color: green;
+  width: 75%;
+  text-align: center;
+}
+.content-box .container .right-box .class-details .bar-fill-right {
+  background-color: red;
+  width: 25%;
+  text-align: center;
+}
+.content-box .container .right-box .class-details .btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }

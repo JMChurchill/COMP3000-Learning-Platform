@@ -36,6 +36,11 @@ const Home = () => {
               Student Profile
             </button>
           </Link>
+          <Link to="/profile_teacher">
+            <button id="joinBtn" className="btn">
+              Teacher Profile
+            </button>
+          </Link>
         </div>
         {/* <div className="right-box"> */}
         <LoginBox />
