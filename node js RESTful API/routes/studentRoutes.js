@@ -15,15 +15,17 @@ router.route("/login").get(async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   };
-  const query = "SELECT * FROM users WHERE email = ?";
+  const query = "SELECT * FROM students WHERE email = ?";
   pool.query(query, [req.body.email], async (error, results) => {
     if (!results[0]) {
       res.status(404).json({ status: "Email not found" });
     } else {
+      console.log(parseInt(process.env.EXPIRES_IN));
       try {
         if (await bcrypt.compare(req.body.password, results[0].Password)) {
+          data.password = results[0].Password;
           const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
-            expiresIn: 3600,
+            expiresIn: parseInt(process.env.EXPIRES_IN),
           });
           res.status(200).json({
             message: "Successfull login",
@@ -42,24 +44,22 @@ router.route("/login").get(async (req, res) => {
 });
 
 router
-  .route("/:id")
-  .get(async (req, res) => {
-    const query = "SELECT * FROM users WHERE id = ?";
-    pool.query(query, [req.params.id], (error, results) => {
-      if (!results[0]) {
-        res.status(404).json({ status: "Not found!" });
-      } else {
-        res.status(200).json(results[0]);
-      }
-    });
-  })
-  .put(async (req, res) => {
+  .route("/")
+  .put(checkAuth, async (req, res) => {
+    //get these values from check auth (JWT)
+    const oEmail = req.user.email;
+    const oPassword = req.user.password;
+    console.log(oEmail);
+    console.log(oPassword);
+    // new values
     const data = {
       email: req.body.email,
-      name: req.body.name,
+      fName: req.body.firstname,
+      lName: req.body.lastname,
       password: req.body.password,
     };
-    const query = `UPDATE users SET Email = '${data.email}', Name = '${data.email}',Password = '${data.password}' WHERE id = ${req.params.id}`;
+    const query = `CALL update_student ( "${oEmail}", "${oPassword}", "${data.fName}", "${data.lName}", "${data.email}", "${data.password}")`;
+    console.log(query);
     pool.query(query, (error) => {
       if (error) {
         res.status(400).json({ status: "failure", reason: error.code });
@@ -68,32 +68,25 @@ router
       }
     });
   })
-  .delete(async (req, res) => {
-    const query = "DELETE FROM users WHERE id = ?";
-    pool.query(query, [req.params.id], (error) => {
+  .delete(checkAuth, async (req, res) => {
+    //get these values from check auth (JWT)
+    const oEmail = req.user.email;
+    const oPassword = req.user.password;
+    // const query = "DELETE FROM users WHERE id = ?";
+    const query = `CALL delete_student ( "${oEmail}", "${oPassword}")`;
+    pool.query(query, (error) => {
       if (error) {
         res.status(400).json({ status: "failure", reason: error.code });
       } else {
         res.status(200).json({
           status: "success",
-          message: `deleted user: ${req.params.id}`,
+          message: `deleted user: ${oEmail}`,
         });
       }
     });
   });
 
-router.get("/", async (req, res) => {
-  const query = "SELECT * FROM users";
-  pool.query(query, (error, results) => {
-    if (results === null) {
-      res.status(204).json({ status: "Not found" });
-    } else {
-      res.status(200).json(results);
-    }
-  });
-});
-
-//create user
+//create student
 router.post(
   "/",
   [
@@ -112,7 +105,8 @@ router.post(
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const data = {
         email: req.body.email,
-        name: req.body.name,
+        fName: req.body.firstname,
+        lName: req.body.lastname,
         password: hashedPassword,
       };
       email = data.email;
@@ -120,11 +114,12 @@ router.post(
         { email, hashedPassword },
         process.env.SECURE_KEY,
         {
-          expiresIn: 3600,
+          expiresIn: parseInt(process.env.EXPIRES_IN),
         }
       );
-      const query = "INSERT INTO users (Email,Name,Password) VALUES(?,?,?)";
-      pool.query(query, Object.values(data), (error) => {
+      //   const query = "INSERT INTO users (Email,Name,Password) VALUES(?,?,?)";
+      const query = `CALL create_student ("${data.fName}", "${data.lName}", "${data.email}", "${data.password}")`;
+      pool.query(query, (error) => {
         if (error) {
           return res
             .status(400)
@@ -140,6 +135,26 @@ router.post(
     }
   }
 );
+
+//get students by class
+router.route("/class").get(checkAuth, async (req, res) => {
+  const email = req.user.email;
+  const password = req.user.password;
+  const data = {
+    classID: req.body.classID,
+  };
+  // const query = "SELECT * FROM teachers";
+  const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
+  // console.log(query);
+  pool.query(query, (error, results) => {
+    if (results === null) {
+      res.status(204).json({ status: "Not found" });
+    } else {
+      // console.log(results[0]);
+      res.status(200).json(results);
+    }
+  });
+});
 
 // router.post(createNewUser);
 

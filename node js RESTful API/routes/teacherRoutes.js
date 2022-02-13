@@ -22,8 +22,9 @@ router.route("/login").get(async (req, res) => {
     } else {
       try {
         if (await bcrypt.compare(req.body.password, results[0].Password)) {
+          data.password = results[0].Password;
           const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
-            expiresIn: 3600,
+            expiresIn: parseInt(process.env.EXPIRES_IN),
           });
           res.status(200).json({
             message: "Successfull login",
@@ -42,24 +43,19 @@ router.route("/login").get(async (req, res) => {
 });
 
 router
-  .route("/:id")
-  .get(async (req, res) => {
-    const query = "SELECT * FROM teachers WHERE id = ?";
-    pool.query(query, [req.params.id], (error, results) => {
-      if (!results[0]) {
-        res.status(404).json({ status: "Not found!" });
-      } else {
-        res.status(200).json(results[0]);
-      }
-    });
-  })
-  .put(async (req, res) => {
+  .route("/")
+  .put(checkAuth, async (req, res) => {
+    //get these values from check auth (JWT)
+    const oEmail = req.user.email;
+    const oPassword = req.user.password;
+    // new values
     const data = {
       email: req.body.email,
       name: req.body.name,
       password: req.body.password,
     };
-    const query = `UPDATE teachers SET Email = '${data.email}', Name = '${data.email}',Password = '${data.password}' WHERE id = ${req.params.id}`;
+    // const query = `UPDATE teachers SET Email = '${data.email}', Name = '${data.email}',Password = '${data.password}' WHERE id = ${req.params.id}`;
+    const query = `CALL update_teacher ( "${oEmail}", "${oPassword}", "${data.firstName}", "${data.lastName}", "${data.email}", "${data.password}")`;
     pool.query(query, (error) => {
       if (error) {
         res.status(400).json({ status: "failure", reason: error.code });
@@ -68,9 +64,13 @@ router
       }
     });
   })
-  .delete(async (req, res) => {
-    const query = "DELETE FROM teachers WHERE id = ?";
-    pool.query(query, [req.params.id], (error) => {
+  .delete(checkAuth, async (req, res) => {
+    //get these values from check auth (JWT)
+    const email = req.user.email;
+    const password = req.user.password;
+    // const query = "DELETE FROM teachers WHERE id = ?";
+    const query = `CALL delete_teacher ( "${email}", "${password}")`;
+    pool.query(query, (error) => {
       if (error) {
         res.status(400).json({ status: "failure", reason: error.code });
       } else {
@@ -82,7 +82,7 @@ router
     });
   });
 
-//get all teachers
+//get all teachers - for testing
 router.get("/", async (req, res) => {
   const query = "SELECT * FROM teachers";
   pool.query(query, (error, results) => {
@@ -123,12 +123,13 @@ router.post(
         { email, hashedPassword },
         process.env.SECURE_KEY,
         {
-          expiresIn: 3600,
+          expiresIn: parseInt(process.env.EXPIRES_IN),
         }
       );
-      const query =
-        "INSERT INTO teachers (Email, FirstName, LastName, Password, PhoneNumber) VALUES(?,?,?,?,?)";
-      pool.query(query, Object.values(data), (error) => {
+      // const query =
+      //   "INSERT INTO teachers (Email, FirstName, LastName, Password, PhoneNumber) VALUES(?,?,?,?,?)";
+      const query = `CALL create_teacher ("${data.firstName}", "${data.lastName}", "${data.email}", "${data.password}","${data.phoneNumber}")`;
+      pool.query(query, (error) => {
         if (error) {
           return res
             .status(400)
@@ -144,5 +145,67 @@ router.post(
     }
   }
 );
+
+//create class
+router.route("/classes").post(checkAuth, async (req, res) => {
+  //get these values from check auth (JWT)
+  const email = req.user.email;
+  const password = req.user.password;
+  console.log(req.user);
+  console.log(email);
+  try {
+    const data = {
+      name: req.body.name,
+      yGroup: req.body.year,
+    };
+    console.log(data);
+    const query = `CALL create_class ("${data.name}", ${data.yGroup}, "${email}", "${password}")`;
+    console.log(query);
+    pool.query(query, (error, results) => {
+      if (error) {
+        return res.status(400).json({ status: "failure", reason: error.code });
+      } else {
+        return res.status(201).json({
+          status: "success",
+          data: data,
+          message: "created class",
+        });
+      }
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+// assign student to class
+router.route("/classes/assign").post(checkAuth, async (req, res) => {
+  //get these values from check auth (JWT)
+  const email = req.user.email;
+  const password = req.user.password;
+  console.log(req.user);
+  console.log(email);
+  try {
+    const data = {
+      classID: req.body.classID,
+      studentID: req.body.studentID,
+    };
+    console.log(data);
+    const query = `CALL add_student_to_class (${data.classID}, ${data.studentID}, "${email}", "${password}")`;
+    console.log(query);
+    pool.query(query, (error, results) => {
+      if (error) {
+        return res.status(400).json({ status: "failure", reason: error.code });
+      } else {
+        return res.status(201).json({
+          status: "success",
+          data: data,
+          message: "student added to class",
+        });
+      }
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
 
 module.exports = router;
