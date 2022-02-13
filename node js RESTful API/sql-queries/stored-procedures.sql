@@ -25,7 +25,7 @@ BEGIN
     SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
     # check if teacher owns class
     IF EXISTS (SELECT * FROM classdetails WHERE TeacherID = theTeacherID AND ClassDetailsID = classDetailsID) THEN
-            INSERT INTO classes
+            INSERT INTO classes(ClassDetailsID,StudentID)
             VALUES(classDetailsID,studentID);
     ELSE
     ROLLBACK;
@@ -36,16 +36,17 @@ DELIMITER ;
 
 # execute
 CALL add_student_to_class (1, 1, "testEmail", "password")
+CALL add_student_to_class (1, 1, "email2@email.com", "password")
 
 # get students from class
 DELIMITER $$
 CREATE PROCEDURE get_students_by_class (classID int, sEmail varchar(255), sPassword varchar(60))
 BEGIN
-#get student id
+    #get student id
     DECLARE theStudentID int;
     SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
+    #check student is in class
     IF EXISTS (SELECT * FROM classes WHERE StudentID = theStudentID AND ClassDetailsID = classID) THEN
-#check student is in class
     SELECT * FROM classes INNER JOIN students WHERE students.StudentID = theStudentID AND classes.ClassDetailsID = classID;# join with student name
     ELSE
         ROLLBACK;
@@ -54,6 +55,16 @@ END$$
 DELIMITER ;
 
 CALL get_students_by_class ("1", "email@email.com", "password")
+
+# get students from class - testing
+DELIMITER $$
+CREATE PROCEDURE get_all_students ()
+BEGIN
+    SELECT * FROM students;# join with student name
+END$$
+DELIMITER ;
+
+CALL get_all_students ()
 
 # create student
 DELIMITER $$
@@ -73,7 +84,7 @@ BEGIN
     DECLARE theStudentID int;
     SET theStudentID = (SELECT StudentID FROM students WHERE email = oEmail AND password = oPassword LIMIT 1);
     IF EXISTS (SELECT * FROM students WHERE email = oEmail AND password = oPassword) THEN
-        UPDATE students SET Email = nEmail, FirstName = nfName, LastName = nlName, Password = nPassword WHERE studentID = theStudentID;
+        UPDATE students SET Email = nEmail, FirstName = nfName, LastName = nlName, Password = nPassword WHERE studentID = theStudentID AND password = oPassword LIMIT 1;
     ELSE
     ROLLBACK;
     END IF;
