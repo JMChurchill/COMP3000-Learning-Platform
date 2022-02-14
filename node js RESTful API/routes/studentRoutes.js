@@ -19,7 +19,7 @@ router.route("/login").post(async (req, res) => {
   const query = "SELECT * FROM students WHERE email = ?";
   pool.query(query, [req.body.email], async (error, results) => {
     if (!results[0]) {
-      res.status(404).json({ status: "Email not found" });
+      res.status(401).json({ status: "Email not found" });
     } else {
       console.log(parseInt(process.env.EXPIRES_IN));
       try {
@@ -35,7 +35,7 @@ router.route("/login").post(async (req, res) => {
           });
         } else {
           // res.cookie("token", { token }, { maxAge: 3000, httpOnly: false });
-          res.status(404).json({ status: "Password not matching" });
+          res.status(401).json({ status: "Password not matching" });
         }
       } catch {
         res.status(404).json({ status: "error occured" });
