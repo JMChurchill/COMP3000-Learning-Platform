@@ -9,7 +9,7 @@ const studentRouter = require("./routes/studentRoutes");
 const teacherRouter = require("./routes/teacherRoutes");
 const assignmentsRouter = require("./routes/assignmentsRoutes");
 const leaderboardRouter = require("./routes/leaderboardRoutes");
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 
@@ -21,6 +21,9 @@ const app = express();
 //middleware
 // app.use(cookieParser());
 app.use(express.json());
+if (process.env.NODE_ENV != "production") {
+  app.use(cors());
+}
 // app.use(cors(corsOptions));
 
 //redirect requests to endpoint starting with /posts to postRoutes.js

@@ -10,7 +10,7 @@ const { check, validationResult } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
 
-router.route("/login").get(async (req, res) => {
+router.route("/login").post(async (req, res) => {
   data = {
     email: req.body.email,
     password: req.body.password,
@@ -28,7 +28,7 @@ router.route("/login").get(async (req, res) => {
           });
           res.status(200).json({
             message: "Successfull login",
-            data: results[0],
+            // data: results[0],
             token: token,
           });
         } else {
