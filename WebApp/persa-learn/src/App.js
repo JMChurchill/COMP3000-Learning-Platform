@@ -1,5 +1,9 @@
 import "./App.css";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+//import functions
+import useToken from "./useToken";
 
 //import pages
 import Home from "./Pages/Home";
@@ -21,7 +25,21 @@ import TeacherProfile from "./Pages/TeacherProfile";
 //components
 import Navbar from "./Components/Navbar";
 
+// const setToken = (userToken) => {
+//   sessionStorage.setItem("token", JSON.stringify(userToken));
+// };
+
 function App() {
+  // const [token, setToken] = useState();
+  const { token, setToken } = useToken();
+  // console.log(window.location.href);
+  const url = window.location.href;
+  console.log(url.split("/").pop());
+  // console.log(Route.props.location.pathname);
+  if (!token) {
+    return <Login setToken={setToken} />;
+  }
+
   return (
     <div className="App">
       <Router>
