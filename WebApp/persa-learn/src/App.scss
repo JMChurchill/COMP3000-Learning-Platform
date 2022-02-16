@@ -8,6 +8,7 @@
   --text-color: grey;
   --btn-color: #4ffedf;
   --btn-text-color: white;
+  --text-over-image-color: white;
   --success-color: #00ff55;
   --progressbar-color: blue;
 }
@@ -26,6 +27,11 @@ body {
   padding: 0 3%;
 
   .container {
+    //update user
+    #update-user-form {
+      width: 25%;
+      margin: 5%;
+    }
     //quiz creator
     .create-question {
       border: solid 1px red;
@@ -375,27 +381,50 @@ h2 {
     width: 35%;
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
+  // form {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   width: 50%;
+  //   font-size: 2rem;
+  //   input {
+  //     width: 100%;
+  //     border-radius: 2rem;
+  //     font-size: 2rem;
+  //     padding: 0.5rem 1rem;
+  //     margin: 1rem 0;
+  //     border: 0.01px solid lightgray;
+  //     box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+  //   }
+  //   .btn {
+  //     box-shadow: 0 0.5rem 0.5rem -0.25em black;
+  //     border: none;
+  //     &:hover {
+  //       box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+  //     }
+  //   }
+  // }
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  font-size: 2rem;
+  input {
+    width: 100%;
+    border-radius: 2rem;
     font-size: 2rem;
-    input {
-      width: 100%;
-      border-radius: 2rem;
-      font-size: 2rem;
-      padding: 0.5rem 1rem;
-      margin: 1rem 0;
-      border: 0.01px solid lightgray;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    border: 0.01px solid lightgray;
+    box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+  }
+  .btn {
+    box-shadow: 0 0.5rem 0.5rem -0.25em black;
+    border: none;
+    &:hover {
       box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-    }
-    .btn {
-      box-shadow: 0 0.5rem 0.5rem -0.25em black;
-      border: none;
-      &:hover {
-        box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-      }
     }
   }
 }
@@ -407,6 +436,7 @@ h2 {
 .center-container {
   justify-content: center;
 }
+
 .rows {
   flex-direction: row !important;
 }
@@ -630,11 +660,33 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  position: relative;
 
+  .top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    padding: 1vw;
+    .settings-btn {
+      a {
+        text-decoration: none;
+        color: var(--text-over-image-color);
+      }
+      width: auto;
+      // width: 5rem !important;
+      color: var(--text-over-image-color);
+      font-size: 3rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
   .upper {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    position: relative;
 
     .user-icon {
       display: flex;
@@ -749,5 +801,92 @@ h2 {
     position: absolute;
     bottom: 0;
     right: 0;
+  }
+}
+//switch
+//TODO: change this
+.toggle-switch {
+  position: relative;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  text-align: left;
+  &-checkbox {
+    display: none;
+  }
+  &-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 0 solid #bbb;
+    border-radius: 20px;
+    margin: 0;
+  }
+  &-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+    &:before,
+    &:after {
+      display: block;
+      float: left;
+      width: 50%;
+      height: 34px;
+      padding: 0;
+      line-height: 34px;
+      font-size: 14px;
+      color: white;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+    &:before {
+      content: attr(data-yes);
+      text-transform: uppercase;
+      padding-left: 10px;
+      background-color: var(--success-color);
+      color: #fff;
+    }
+  }
+  &-inner:after {
+    content: attr(data-no);
+    text-transform: uppercase;
+    padding-right: 10px;
+    background-color: #bbb;
+    color: #fff;
+    text-align: right;
+  }
+  &-switch {
+    display: block;
+    width: 24px;
+    margin: 5px;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 75%;
+    border: 0 solid #bbb;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+  }
+  &-checkbox:checked + &-label {
+    .toggle-switch-inner {
+      margin-left: 0;
+    }
+    .toggle-switch-switch {
+      right: 0px;
+    }
+  }
+  @media screen and (max-width: 991px) {
+    transform: scale(0.9);
+  }
+  @media screen and (max-width: 767px) {
+    transform: scale(0.825);
+  }
+  @media screen and (max-width: 575px) {
+    transform: scale(0.75);
   }
 }

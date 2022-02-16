@@ -46,8 +46,8 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link aria-current="false" to="/login">
-              Login
+            <Link aria-current="false" to="/profile_student">
+              Profile
             </Link>
           </li>
         </ul>

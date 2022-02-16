@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
-import userIcon from "../assets/tempUserIcon.svg";
-
-const LoginBox = ({ setToken }) => {
+const SignUpBox = ({ setSignUp }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+
   const [error, setError] = useState();
   const [httpResponseCode, setHttpResponseCode] = useState();
 
-  const loginUser = async (credentials) => {
-    return fetch("http://localhost:8080/student/login", {
+  const signUpUser = (credentials) => {
+    return fetch("http://localhost:8080/student/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,46 +27,32 @@ const LoginBox = ({ setToken }) => {
     );
   };
 
-  const logout = () => {
-    sessionStorage.clear();
-    window.location.reload();
-    // setToken("");
-  };
-
-  const login = async (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     try {
-      const data = await loginUser({
+      const data = await signUpUser({
         email,
         password,
+        firstname,
+        lastname,
       });
-      console.log(error);
-      console.log(data);
-      // console.log(response.status);
-      // console.log(data);
-      if (data !== null) {
-        console.log("doing the thing");
-        const token = data.token;
-        console.log(token);
-        if (!token) {
-          console.log("wrong password");
-          return;
-        }
-        setToken(token);
+      //   console.log(error);
+      //   console.log(data);
+
+      if (data !== null && data.status === "success") {
+        setSignUp(false);
       } else {
         console.log(httpResponseCode);
-        console.log("No data returned");
+        console.log("Could not create user");
       }
     } catch (e) {
       console.log("error occured: ", e);
     }
   };
-
   return (
     <div className="right-box">
-      <img src={userIcon} alt="User icon" />
-      <h1>Login</h1>
-      <form action="" onSubmit={login}>
+      <h1>Sign up</h1>
+      <form action="" onSubmit={signUp}>
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -79,17 +65,22 @@ const LoginBox = ({ setToken }) => {
           name="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" className="btn" value="login" />
+        <label htmlFor="firstname">First name</label>
+        <input
+          type="firstname"
+          name="firstname"
+          onChange={(e) => setFirstname(e.target.value)}
+        />
+        <label htmlFor="lastname">Last name</label>
+        <input
+          type="lastname"
+          name="lastname"
+          onChange={(e) => setLastname(e.target.value)}
+        />
+        <input type="submit" className="btn" value="Sign up" />
       </form>
-      <button className="btn" onClick={logout}>
-        Temp logout btn
-      </button>
     </div>
   );
 };
 
-LoginBox.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
-
-export default LoginBox;
+export default SignUpBox;

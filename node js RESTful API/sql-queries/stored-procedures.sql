@@ -79,12 +79,12 @@ CALL create_student ("firstname", "lastname", "email2@email.com", "password")
 
 # update student
 DELIMITER $$
-CREATE PROCEDURE update_student (oEmail varchar(255),oPassword varchar(60),nfName varchar(60),nlName varchar(60), nEmail varchar(255), nPassword varchar(60))
+CREATE PROCEDURE update_student (oEmail varchar(255),oPassword varchar(60),nfName varchar(60),nlName varchar(60), nEmail varchar(255))
 BEGIN
     DECLARE theStudentID int;
     SET theStudentID = (SELECT StudentID FROM students WHERE email = oEmail AND password = oPassword LIMIT 1);
     IF EXISTS (SELECT * FROM students WHERE email = oEmail AND password = oPassword) THEN
-        UPDATE students SET Email = nEmail, FirstName = nfName, LastName = nlName, Password = nPassword WHERE studentID = theStudentID AND password = oPassword LIMIT 1;
+        UPDATE students SET Email = nEmail, FirstName = nfName, LastName = nlName WHERE studentID = theStudentID AND password = oPassword LIMIT 1;
     ELSE
     ROLLBACK;
     END IF;
@@ -93,7 +93,7 @@ DELIMITER ;
 
 # execute
 CALL update_student ( "email2@email.com", "password", "changedFirst", "changedLast", "email2@email.com", "password")
-
+CALL update_student ( "email2@email.com", "$2b$10$.a6c8qVWQm8oZ77bJDVQnupa8oI3Mrhg4K8yZSfKjEfeZtpbEByoG", "changedfirst3", "changedlast", "email2@email.com")
 # delete student
 DELIMITER $$
 CREATE PROCEDURE delete_student (sEmail varchar(255),sPassword varchar(60))
@@ -110,6 +110,23 @@ DELIMITER ;
 
 # execute 
 CALL delete_student ( "email2@email.com", "password")
+
+#get student details
+DELIMITER $$
+CREATE PROCEDURE get_student_details (sEmail varchar(255),sPassword varchar(60))
+BEGIN
+    /* DECLARE theStudentID int; */
+    /* SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1); */
+    IF EXISTS (SELECT * FROM students WHERE email = sEmail AND password = sPassword) THEN
+        SELECT FirstName, LastName, Email FROM students WHERE email = sEmail AND password = sPassword;
+    ELSE
+    ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL get_student_details ( "email2@email.com", "password")
+
 
 # create teacher
 DELIMITER $$

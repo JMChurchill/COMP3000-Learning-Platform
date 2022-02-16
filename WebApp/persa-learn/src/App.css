@@ -8,6 +8,7 @@
   --text-color: grey;
   --btn-color: #4ffedf;
   --btn-text-color: white;
+  --text-over-image-color: white;
   --success-color: #00ff55;
   --progressbar-color: blue;
 }
@@ -32,6 +33,11 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 0 3%;
+}
+
+.content-box .container #update-user-form {
+  width: 25%;
+  margin: 5%;
 }
 
 .content-box .container .create-question {
@@ -466,7 +472,7 @@ h2 {
   width: 35%;
 }
 
-.right-box form {
+form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -481,7 +487,7 @@ h2 {
   font-size: 2rem;
 }
 
-.right-box form input {
+form input {
   width: 100%;
   border-radius: 2rem;
   font-size: 2rem;
@@ -492,13 +498,13 @@ h2 {
           box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
 }
 
-.right-box form .btn {
+form .btn {
   -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black;
           box-shadow: 0 0.5rem 0.5rem -0.25em black;
   border: none;
 }
 
-.right-box form .btn:hover {
+form .btn:hover {
   -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
           box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
 }
@@ -835,6 +841,30 @@ h2 {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  position: relative;
+}
+
+.content-box .container .banner .top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  padding: 1vw;
+}
+
+.content-box .container .banner .top .settings-btn {
+  width: auto;
+  color: var(--text-over-image-color);
+  font-size: 3rem;
+}
+
+.content-box .container .banner .top .settings-btn a {
+  text-decoration: none;
+  color: var(--text-over-image-color);
+}
+
+.content-box .container .banner .top .settings-btn:hover {
+  cursor: pointer;
 }
 
 .content-box .container .banner .upper {
@@ -846,6 +876,7 @@ h2 {
       -ms-flex-direction: row;
           flex-direction: row;
   gap: 1rem;
+  position: relative;
 }
 
 .content-box .container .banner .upper .user-icon {
@@ -1004,5 +1035,112 @@ h2 {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.toggle-switch {
+  position: relative;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  text-align: left;
+}
+
+.toggle-switch-checkbox {
+  display: none;
+}
+
+.toggle-switch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0 solid #bbb;
+  border-radius: 20px;
+  margin: 0;
+}
+
+.toggle-switch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.toggle-switch-inner:before, .toggle-switch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 34px;
+  padding: 0;
+  line-height: 34px;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.toggle-switch-inner:before {
+  content: attr(data-yes);
+  text-transform: uppercase;
+  padding-left: 10px;
+  background-color: var(--success-color);
+  color: #fff;
+}
+
+.toggle-switch-inner:after {
+  content: attr(data-no);
+  text-transform: uppercase;
+  padding-right: 10px;
+  background-color: #bbb;
+  color: #fff;
+  text-align: right;
+}
+
+.toggle-switch-switch {
+  display: block;
+  width: 24px;
+  margin: 5px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 75%;
+  border: 0 solid #bbb;
+  border-radius: 20px;
+  -webkit-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+}
+
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
+  margin-left: 0;
+}
+
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
+  right: 0px;
+}
+
+@media screen and (max-width: 991px) {
+  .toggle-switch {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .toggle-switch {
+    -webkit-transform: scale(0.825);
+            transform: scale(0.825);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .toggle-switch {
+    -webkit-transform: scale(0.75);
+            transform: scale(0.75);
+  }
 }
 /*# sourceMappingURL=App.css.map */

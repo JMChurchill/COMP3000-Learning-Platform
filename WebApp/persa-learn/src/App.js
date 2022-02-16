@@ -24,6 +24,8 @@ import TeacherProfile from "./Pages/TeacherProfile";
 
 //components
 import Navbar from "./Components/Navbar";
+import UserSettings from "./Pages/UserSettings";
+import EditUserSettings from "./Pages/EditUserSettings";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -58,6 +60,12 @@ function App() {
           <Route exact path="/leaderboard" element={<ClassLeaderboard />} />
           <Route exact path="/achievements" element={<Achievements />} />
           <Route exact path="/profile_student" element={<StudentProfile />} />
+          <Route exact path="/user_settings" element={<UserSettings />} />
+          <Route
+            exact
+            path="/user_settings/edit"
+            element={<EditUserSettings />}
+          />
           <Route exact path="/profile_teacher" element={<TeacherProfile />} />
           <Route
             exact
