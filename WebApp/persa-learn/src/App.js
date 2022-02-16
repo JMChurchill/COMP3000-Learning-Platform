@@ -34,8 +34,9 @@ function App() {
   const { token, setToken } = useToken();
   // console.log(window.location.href);
   const url = window.location.href;
-  console.log(url.split("/").pop());
+  // console.log(url.split("/").pop());
   // console.log(Route.props.location.pathname);
+
   if (!token) {
     return <Login setToken={setToken} />;
   }
@@ -45,7 +46,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/" element={<Home setToken={setToken} />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/activity" element={<Activities />} />
           <Route exact path="/create" element={<CreateActivity />} />

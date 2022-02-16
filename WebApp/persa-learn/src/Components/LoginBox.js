@@ -3,41 +3,63 @@ import PropTypes from "prop-types";
 
 import userIcon from "../assets/tempUserIcon.svg";
 
-const loginUser = async (credentials) => {
-  return (
-    fetch("http://localhost:8080/student/login", {
+const LoginBox = ({ setToken }) => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [error, setError] = useState();
+  const [httpResponseCode, setHttpResponseCode] = useState();
+
+  const loginUser = async (credentials) => {
+    return fetch("http://localhost:8080/student/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(credentials),
-    })
-      // .then((response) => {
-      //   console.log(response.status);
-      // })
-      .then((data) => data.json())
-  );
-};
+    }).then(
+      (data) => data.json(),
+      (errorData) => {
+        setError(errorData);
+      },
+      (response) => {
+        setHttpResponseCode(response.status);
+      }
+    );
+  };
 
-const LoginBox = ({ setToken }) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const logout = () => {
+    sessionStorage.clear();
+    window.location.reload();
+    // setToken("");
+  };
 
   const login = async (e) => {
     e.preventDefault();
-    const data = await loginUser({
-      email,
-      password,
-    });
-    // console.log(response.status);
-    // console.log(data);
-    const token = data.token;
-    // console.log(token);
-    if (!token) {
-      console.log("wrong password");
-      return;
+    try {
+      const data = await loginUser({
+        email,
+        password,
+      });
+      console.log(error);
+      console.log(data);
+      // console.log(response.status);
+      // console.log(data);
+      if (data !== null) {
+        console.log("doing the thing");
+        const token = data.token;
+        // console.log(token);
+        if (!token) {
+          console.log("wrong password");
+          return;
+        }
+        setToken(token);
+      } else {
+        console.log(httpResponseCode);
+        console.log("No data returned");
+      }
+    } catch (e) {
+      console.log("error occured: ", e);
     }
-    setToken(token);
   };
 
   return (
@@ -59,6 +81,9 @@ const LoginBox = ({ setToken }) => {
         />
         <input type="submit" className="btn" />
       </form>
+      <button className="btn" onClick={logout}>
+        Temp logout btn
+      </button>
     </div>
   );
 };

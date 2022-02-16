@@ -18,7 +18,13 @@ router.route("/login").post(async (req, res) => {
   console.log("logging in");
   const query = "SELECT * FROM students WHERE email = ?";
   pool.query(query, [req.body.email], async (error, results) => {
+    console.log(results);
+    // console.log(error);
+    if (error) {
+      return res.status(500).json({ status: "failure", reason: error.code });
+    }
     if (!results[0]) {
+      console.log("Email");
       res.status(401).json({ status: "Email not found" });
     } else {
       console.log(parseInt(process.env.EXPIRES_IN));
@@ -60,7 +66,6 @@ router
       password: req.body.password,
     };
     const query = `CALL update_student ( "${oEmail}", "${oPassword}", "${data.fName}", "${data.lName}", "${data.email}", "${data.password}")`;
-    console.log(query);
     pool.query(query, (error) => {
       if (error) {
         res.status(400).json({ status: "failure", reason: error.code });

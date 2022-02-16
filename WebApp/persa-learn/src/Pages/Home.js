@@ -7,7 +7,7 @@ import hero from "../assets/undraw_education_f8ru.svg";
 // components
 import LoginBox from "../Components/LoginBox";
 
-const Home = () => {
+const Home = ({ setToken }) => {
   return (
     <div className="content-box">
       {/* <h1>Home</h1> */}
@@ -43,7 +43,7 @@ const Home = () => {
           </Link>
         </div>
         {/* <div className="right-box"> */}
-        <LoginBox />
+        <LoginBox setToken={setToken} />
         {/* </div> */}
       </div>
     </div>
