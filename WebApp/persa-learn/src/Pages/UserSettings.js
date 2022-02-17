@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import studentIcon from "../assets/UserIcons/001-man-1.png";
 
+// import getUserDetails from "../"
+import { getUserDetails } from "../http_Requests/userRequests";
+
 const UserSettings = () => {
   const [email, setEmail] = useState();
   const [firstName, setFirstName] = useState();
@@ -12,16 +15,9 @@ const UserSettings = () => {
   //get user details from api on load
   useEffect(async () => {
     const token = JSON.parse(sessionStorage.getItem("token"));
-    // token = JSON.parse(token);
-    console.log(token);
+    // console.log(token);
 
-    let data = await fetch("http://localhost:8080/student/details", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        autherization: token,
-      },
-    }).then((data) => data.json());
+    let data = await getUserDetails(token);
 
     console.log(data);
 

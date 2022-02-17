@@ -182,6 +182,28 @@ router.route("/class").get(checkAuth, async (req, res) => {
   });
 });
 
+//get the students classes
+router.route("/classes").get(checkAuth, async (req, res) => {
+  const email = req.user.email;
+  const password = req.user.password;
+  // const data = {
+  //   classID: req.body.classID,
+  // };
+  // const query = "SELECT * FROM teachers";
+  // const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
+  const query = `CALL get_students_classes ("${email}", "${password}")`;
+  console.log(query);
+  // console.log(query);
+  pool.query(query, (error, results) => {
+    if (results === null) {
+      res.status(204).json({ status: "Not found" });
+    } else {
+      // console.log(results[0]);
+      res.status(200).json(results[0]);
+    }
+  });
+});
+
 //get students by class
 router.route("/details").get(checkAuth, async (req, res) => {
   const email = req.user.email;

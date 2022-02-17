@@ -1,37 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { loginUser } from "../http_Requests/userRequests";
 
 import userIcon from "../assets/tempUserIcon.svg";
 
 const LoginBox = ({ setToken, isTeacher }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [error, setError] = useState();
-  const [httpResponseCode, setHttpResponseCode] = useState();
-
-  const loginUser = async (credentials) => {
-    let url;
-    if (isTeacher) {
-      url = "http://localhost:8080/teacher/login";
-    } else {
-      url = "http://localhost:8080/student/login";
-    }
-    return fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }).then(
-      (data) => data.json(),
-      (errorData) => {
-        setError(errorData);
-      },
-      (response) => {
-        setHttpResponseCode(response.status);
-      }
-    );
-  };
+  // const [error, setError] = useState();
+  // const [httpResponseCode, setHttpResponseCode] = useState();
 
   const logout = () => {
     sessionStorage.clear();
@@ -42,16 +19,18 @@ const LoginBox = ({ setToken, isTeacher }) => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const data = await loginUser({
-        email,
-        password,
-      });
-      console.log(error);
+      const data = await loginUser(
+        {
+          email,
+          password,
+        },
+        isTeacher
+      );
+      // console.log(error);
       console.log(data);
       // console.log(response.status);
       // console.log(data);
       if (data !== null) {
-        console.log("doing the thing");
         const token = data.token;
         console.log(token);
         if (!token) {
@@ -65,7 +44,7 @@ const LoginBox = ({ setToken, isTeacher }) => {
         }
         setToken(token);
       } else {
-        console.log(httpResponseCode);
+        // console.log(httpResponseCode);
         console.log("No data returned");
       }
     } catch (e) {
