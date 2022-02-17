@@ -43,27 +43,40 @@ router.route("/login").post(async (req, res) => {
 });
 
 router
-  .route("/")
-  .put(checkAuth, async (req, res) => {
-    //get these values from check auth (JWT)
-    const oEmail = req.user.email;
-    const oPassword = req.user.password;
-    // new values
-    const data = {
-      email: req.body.email,
-      name: req.body.name,
-      password: req.body.password,
-    };
-    // const query = `UPDATE teachers SET Email = '${data.email}', Name = '${data.email}',Password = '${data.password}' WHERE id = ${req.params.id}`;
-    const query = `CALL update_teacher ( "${oEmail}", "${oPassword}", "${data.firstName}", "${data.lastName}", "${data.email}", "${data.password}")`;
-    pool.query(query, (error) => {
-      if (error) {
-        res.status(400).json({ status: "failure", reason: error.code });
-      } else {
-        res.status(200).json({ status: "success", data: data });
-      }
-    });
-  })
+  .route("/update")
+  .put(
+    [
+      check("email", "Invalid email").isEmail(),
+      check("password", "Password < 6").isLength({ min: 6 }),
+      check("firstname", "First name is required").not().isEmpty(),
+      check("lastname", "Last name is required").not().isEmpty(),
+      check("phonenumber", "Phone number is required").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      //get these values from check auth (JWT)
+      const oEmail = req.user.email;
+      const oPassword = req.user.password;
+      // new values
+      const data = {
+        email: req.body.email,
+        fName: req.body.firstname,
+        lName: req.body.lastname,
+        phonenumber: req.body.phonenumber,
+        // password: req.body.password,
+      };
+      // const query = `UPDATE teachers SET Email = '${data.email}', Name = '${data.email}',Password = '${data.password}' WHERE id = ${req.params.id}`;
+      const query = `CALL update_teacher ( "${oEmail}", "${oPassword}", "${data.fName}", "${data.lName}", "${data.email}","${data.phonenumber}")`;
+      console.log(query);
+      pool.query(query, (error) => {
+        if (error) {
+          res.status(400).json({ status: "failure", reason: error.code });
+        } else {
+          res.status(200).json({ status: "success", data: data });
+        }
+      });
+    }
+  )
   .delete(checkAuth, async (req, res) => {
     //get these values from check auth (JWT)
     const email = req.user.email;
@@ -95,56 +108,62 @@ router.get("/", async (req, res) => {
 });
 
 //create teacher
-router.post(
-  "/",
-  [
-    check("email", "Invalid email").isEmail(),
-    check("password", "Password < 6").isLength({ min: 6 }),
-  ],
-  async (req, res) => {
-    try {
-      //validate inputs
-      const errs = validationResult(req);
-      if (!errs.isEmpty()) {
-        return res.status(400).json({
-          errors: errs.array(),
+router
+  .route("/create")
+  .post(
+    [
+      check("email", "Invalid email").isEmail(),
+      check("password", "Password < 6").isLength({ min: 6 }),
+      check("firstname", "First name is required").not().isEmpty(),
+      check("lastname", "Last name is required").not().isEmpty(),
+      check("phonenumber", "Phone number is required").not().isEmpty(),
+    ],
+    async (req, res) => {
+      try {
+        //validate inputs
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const data = {
+          email: req.body.email,
+          firstName: req.body.firstname,
+          lastName: req.body.lastname,
+          password: hashedPassword,
+          phoneNumber: req.body.phonenumber,
+        };
+        console.log(data);
+        email = data.email;
+        const token = await JWT.sign(
+          //TODO: Stop generating token its unused
+          { email, hashedPassword },
+          process.env.SECURE_KEY,
+          {
+            expiresIn: parseInt(process.env.EXPIRES_IN),
+          }
+        );
+        // const query =
+        //   "INSERT INTO teachers (Email, FirstName, LastName, Password, PhoneNumber) VALUES(?,?,?,?,?)";
+        const query = `CALL create_teacher ("${data.firstName}", "${data.lastName}", "${data.email}", "${data.password}","${data.phoneNumber}")`;
+        pool.query(query, (error) => {
+          if (error) {
+            return res
+              .status(400)
+              .json({ status: "failure", reason: error.code });
+          } else {
+            return res.status(201).json({ status: "success" });
+            // .json({ status: "success", data: data, token: token });
+          }
         });
+      } catch (err) {
+        return res.status(500).send(err);
       }
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const data = {
-        email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: hashedPassword,
-        phoneNumber: req.body.phoneNumber,
-      };
-      email = data.email;
-      const token = await JWT.sign(
-        { email, hashedPassword },
-        process.env.SECURE_KEY,
-        {
-          expiresIn: parseInt(process.env.EXPIRES_IN),
-        }
-      );
-      // const query =
-      //   "INSERT INTO teachers (Email, FirstName, LastName, Password, PhoneNumber) VALUES(?,?,?,?,?)";
-      const query = `CALL create_teacher ("${data.firstName}", "${data.lastName}", "${data.email}", "${data.password}","${data.phoneNumber}")`;
-      pool.query(query, (error) => {
-        if (error) {
-          return res
-            .status(400)
-            .json({ status: "failure", reason: error.code });
-        } else {
-          return res
-            .status(201)
-            .json({ status: "success", data: data, token: token });
-        }
-      });
-    } catch (err) {
-      return res.status(500).send(err);
     }
-  }
-);
+  );
 
 //create class
 router.route("/classes").post(checkAuth, async (req, res) => {

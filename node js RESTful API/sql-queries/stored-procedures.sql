@@ -141,12 +141,12 @@ CALL create_teacher ("firstname", "lastname", "email2@email.com", "password","01
 
 # update teacher
 DELIMITER $$
-CREATE PROCEDURE update_teacher (oEmail varchar(255),oPassword varchar(60),nfName varchar(60),nlName varchar(60), nEmail varchar(255), nPassword varchar(60))
+CREATE PROCEDURE update_teacher (oEmail varchar(255),oPassword varchar(60),nfName varchar(60),nlName varchar(60), nEmail varchar(255),nfNumber varchar(13))
 BEGIN
     DECLARE theTeacherID int;
     SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = oEmail AND password = oPassword LIMIT 1);
     IF EXISTS (SELECT * FROM teachers WHERE email = oEmail AND password = oPassword) THEN
-        UPDATE teachers SET Email = nEmail, FirstName = nfName, LastName = nlName, Password = nPassword WHERE teacherID = theTeacherID;
+        UPDATE teachers SET Email = nEmail, FirstName = nfName, LastName = nlName, PhoneNumber=nfNumber WHERE teacherID = theTeacherID;
     ELSE
     ROLLBACK;
     END IF;
@@ -154,7 +154,7 @@ END$$
 DELIMITER ;
 
 # execute
-CALL update_teacher ( "email2@email.com", "password", "changedFirst2", "changedLast2", "email2@email.com", "password")
+CALL update_teacher ( "email2@email.com", "password", "changedFirst2", "changedLast2", "email2@email.com", "password","1234567890")
 
 # delete teacher
 DELIMITER $$

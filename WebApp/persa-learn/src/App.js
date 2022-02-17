@@ -34,8 +34,9 @@ import EditUserSettings from "./Pages/EditUserSettings";
 function App() {
   // const [token, setToken] = useState();
   const { token, setToken } = useToken();
+  const { isTeacher, setIsTeacher } = useState();
   // console.log(window.location.href);
-  const url = window.location.href;
+  // const url = window.location.href;
   // console.log(url.split("/").pop());
   // console.log(Route.props.location.pathname);
 

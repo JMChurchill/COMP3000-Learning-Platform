@@ -3,14 +3,20 @@ import PropTypes from "prop-types";
 
 import userIcon from "../assets/tempUserIcon.svg";
 
-const LoginBox = ({ setToken }) => {
+const LoginBox = ({ setToken, isTeacher }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
   const [httpResponseCode, setHttpResponseCode] = useState();
 
   const loginUser = async (credentials) => {
-    return fetch("http://localhost:8080/student/login", {
+    let url;
+    if (isTeacher) {
+      url = "http://localhost:8080/teacher/login";
+    } else {
+      url = "http://localhost:8080/student/login";
+    }
+    return fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,6 +57,11 @@ const LoginBox = ({ setToken }) => {
         if (!token) {
           console.log("wrong password");
           return;
+        }
+        if (isTeacher) {
+          sessionStorage.setItem("teacher", true);
+        } else {
+          sessionStorage.setItem("teacher", false);
         }
         setToken(token);
       } else {

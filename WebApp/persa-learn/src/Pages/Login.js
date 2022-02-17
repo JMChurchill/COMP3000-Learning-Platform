@@ -29,9 +29,9 @@ const Login = ({ setToken }) => {
           />
         </div>
         {!signUp ? (
-          <LoginBox setToken={setToken} />
+          <LoginBox setToken={setToken} isTeacher={isTeacher} />
         ) : (
-          <SignUpBox setSignUp={setSignUp} />
+          <SignUpBox setSignUp={setSignUp} isTeacher={isTeacher} />
         )}
         {/* <LoginBox setToken={setToken} /> */}
       </div>

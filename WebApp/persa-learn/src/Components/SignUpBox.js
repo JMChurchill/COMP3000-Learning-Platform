@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 
-const SignUpBox = ({ setSignUp }) => {
+const SignUpBox = ({ setSignUp, isTeacher }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
+  const [phonenumber, setPhonenumber] = useState();
 
   const [error, setError] = useState();
   const [httpResponseCode, setHttpResponseCode] = useState();
 
   const signUpUser = (credentials) => {
-    return fetch("http://localhost:8080/student/create", {
+    let url;
+    if (isTeacher) {
+      url = "http://localhost:8080/teacher/create";
+    } else {
+      url = "http://localhost:8080/student/create";
+    }
+    return fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,12 +37,23 @@ const SignUpBox = ({ setSignUp }) => {
   const signUp = async (e) => {
     e.preventDefault();
     try {
-      const data = await signUpUser({
-        email,
-        password,
-        firstname,
-        lastname,
-      });
+      let data;
+      if (!isTeacher) {
+        data = await signUpUser({
+          email,
+          password,
+          firstname,
+          lastname,
+        });
+      } else {
+        data = await signUpUser({
+          email,
+          password,
+          firstname,
+          lastname,
+          phonenumber,
+        });
+      }
       //   console.log(error);
       //   console.log(data);
 
@@ -77,6 +95,18 @@ const SignUpBox = ({ setSignUp }) => {
           name="lastname"
           onChange={(e) => setLastname(e.target.value)}
         />
+        {isTeacher ? (
+          <>
+            <label htmlFor="phonenumber">Phone number</label>
+            <input
+              type="phonenumber"
+              name="phonenumber"
+              onChange={(e) => setPhonenumber(e.target.value)}
+            />
+          </>
+        ) : (
+          <></>
+        )}
         <input type="submit" className="btn" value="Sign up" />
       </form>
     </div>
