@@ -29,7 +29,6 @@ const StudentProfile = () => {
     data = await getUserDetails(token);
     const { FirstName, LastName, Email } = data[0];
     setUsersName(`${FirstName} ${LastName}`);
-    // console.log(usersName);
   }, []);
   const goToSettings = () => {
     console.log("go to settings");
@@ -109,18 +108,6 @@ const StudentProfile = () => {
             ) : (
               <></>
             )}
-
-            {/* // <div className="class-items">
-            //   {classes.map((c) => (
-            //     <ClassItem
-            //       id={c.ClassDetailsID}
-            //       name={c.Name}
-            //       firstname={c.FirstName}
-            //       lastname={c.LastName}
-            //       yearGroup={c.YearGroup}
-            //     />
-            //   ))}
-            // </div> */}
           </div>
         </div>
       </div>

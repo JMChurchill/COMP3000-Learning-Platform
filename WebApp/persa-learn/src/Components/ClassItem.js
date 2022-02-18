@@ -10,6 +10,7 @@ const ClassItem = ({ id, name, firstname, lastname, yearGroup }) => {
   return (
     <div
       key={id}
+      id={id}
       className="class-item"
       onClick={() =>
         navigate("/leaderboard", {

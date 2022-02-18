@@ -1,5 +1,3 @@
-//login //TODO: make use
-
 export const loginUser = async (credentials, isTeacher) => {
   let url;
   if (isTeacher) {
@@ -34,7 +32,9 @@ export const getUserDetails = (token) => {
   }).then((data) => data.json());
 };
 
+//TODO: this
 export const getUsersAssignments = () => {};
+
 export const getStudentsClassses = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   return fetch("http://localhost:8080/student/classes", {
@@ -46,7 +46,7 @@ export const getStudentsClassses = () => {
   }).then((data) => data.json());
 };
 export const getStudentsInClass = (classID) => {
-  console.log(JSON.stringify(classID));
+  // console.log(JSON.stringify(classID));
 
   const token = JSON.parse(sessionStorage.getItem("token"));
   return fetch("http://localhost:8080/student/class", {

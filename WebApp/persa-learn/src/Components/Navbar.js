@@ -12,7 +12,7 @@ const Navbar = () => {
   const navToggle = () => {
     setNavVisibility(!navVisibility);
   };
-  console.log(isTeacher);
+  // console.log(isTeacher);
 
   return (
     <header className="primary-header flex">

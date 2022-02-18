@@ -166,6 +166,25 @@ router
     }
   );
 
+// Get teachers classes
+router.route("/classes").get(checkAuth, async (req, res) => {
+  //get these values from check auth (JWT)
+  const email = req.user.email;
+  const password = req.user.password;
+  const query = `CALL get_classes_by_teacher ("${email}", "${password}")`;
+  pool.query(query, (error, results) => {
+    if (error) {
+      return res.status(400).json({ status: "failure", reason: error.code });
+    } else {
+      if (results === null) {
+        res.status(204).json({ status: "Not found" });
+      } else {
+        res.status(200).json(results[0]);
+      }
+    }
+  });
+});
+
 //create class
 router.route("/classes").post(checkAuth, async (req, res) => {
   //get these values from check auth (JWT)
