@@ -19,7 +19,7 @@ const UserSettings = () => {
 
     let data = await getUserDetails(token);
 
-    console.log(data);
+    // console.log(data);
 
     const { FirstName, LastName, Email } = data[0];
     setEmail(Email);

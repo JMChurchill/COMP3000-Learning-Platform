@@ -1,3 +1,16 @@
+# get all teachers classes
+DELIMITER $$
+CREATE PROCEDURE get_classes_by_teacher (tEmail varchar(255), tPassword varchar(60))
+BEGIN
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+    SELECT classdetailsID, Name, YearGroup FROM classdetails WHERE TeacherID = theTeacherID;
+END$$
+DELIMITER ;
+
+# execute
+CALL get_classes_by_teacher ("teacher20@email.com", "password")
+
 # create class (using email and password to get teacher id)
 DELIMITER $$
 CREATE PROCEDURE create_class (cName varchar(60), cYearGroup int, tEmail varchar(255), tPassword varchar(60))
@@ -47,7 +60,7 @@ BEGIN
     SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
     #check student is in class
     IF EXISTS (SELECT * FROM classes WHERE StudentID = theStudentID AND ClassDetailsID = classID) THEN
-    SELECT * FROM classes INNER JOIN students ON students.StudentID = classes.StudentID WHERE classes.ClassDetailsID = classID;# join with student name
+    SELECT FirstName,LastName FROM classes INNER JOIN students ON students.StudentID = classes.StudentID WHERE classes.ClassDetailsID = classID;# join with student name
     ELSE
         ROLLBACK;
     END IF;

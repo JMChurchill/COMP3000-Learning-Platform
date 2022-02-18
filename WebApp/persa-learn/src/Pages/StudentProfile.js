@@ -35,7 +35,7 @@ const StudentProfile = () => {
     console.log("go to settings");
     // <Route to="/somewhere/else" />;
   };
-  console.log(selectedTab);
+  // console.log(selectedTab);
 
   return (
     <div className="content-box">
@@ -69,7 +69,14 @@ const StudentProfile = () => {
             <div className="tabs">
               <h3 onClick={() => setSelectedTab(1)}>Classes</h3>
               <h3 onClick={() => setSelectedTab(2)}>Achievements</h3>
-              <h3 onClick={() => setSelectedTab(3)}>Assignments</h3>
+              <h3
+                onClick={(e) => {
+                  // e.target.style.color = "red";
+                  setSelectedTab(3);
+                }}
+              >
+                Assignments
+              </h3>
             </div>
             {selectedTab == 1 ? (
               <div className="class-items list-items">

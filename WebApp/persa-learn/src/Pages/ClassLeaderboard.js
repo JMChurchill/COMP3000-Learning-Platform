@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import { useLocation } from "react-router-dom";
 
 import LeaderboardStudent from "../Components/LeaderboardStudent";
 
 import tempUserIcon from "../assets/UserIcons/001-man-1.png";
+import { getStudentsInClass } from "../http_Requests/userRequests";
 
 const ClassLeaderboard = () => {
+  const { state } = useLocation();
+  const [students, setStudents] = useState([]);
+  // console.log(state.classID);
+
+  useEffect(async () => {
+    // console.log(JSON.stringify(state));
+    const data = await getStudentsInClass(state);
+    console.log(data);
+    setStudents(data);
+  }, []);
+
   return (
     <div className="content-box">
       <h1>Class leaderboard</h1>
@@ -33,10 +47,18 @@ const ClassLeaderboard = () => {
               <p>Student 1</p>
             </div>
           </div>
+          {students.map((student, i) => (
+            <LeaderboardStudent
+              key={i}
+              icon={tempUserIcon}
+              name={`${student.FirstName} ${student.LastName}`}
+              position={i}
+            />
+          ))}
+          {/* <LeaderboardStudent icon={tempUserIcon} />
           <LeaderboardStudent icon={tempUserIcon} />
           <LeaderboardStudent icon={tempUserIcon} />
-          <LeaderboardStudent icon={tempUserIcon} />
-          <LeaderboardStudent icon={tempUserIcon} />
+          <LeaderboardStudent icon={tempUserIcon} /> */}
         </div>
       </div>
     </div>

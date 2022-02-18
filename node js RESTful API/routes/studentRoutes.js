@@ -161,24 +161,37 @@ router
   );
 
 //get students by class
-router.route("/class").get(checkAuth, async (req, res) => {
-  const email = req.user.email;
-  const password = req.user.password;
-  const data = {
-    classID: req.body.classID,
-  };
-  // const query = "SELECT * FROM teachers";
-  const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
-  // console.log(query);
-  pool.query(query, (error, results) => {
-    if (results === null) {
-      res.status(204).json({ status: "Not found" });
-    } else {
-      // console.log(results[0]);
-      res.status(200).json(results);
+router
+  .route("/class")
+  .post(
+    [check("classID", "ClassID is required").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      const errs = validationResult(req);
+      if (!errs.isEmpty()) {
+        return res.status(400).json({
+          errors: errs.array(),
+        });
+      }
+
+      const email = req.user.email;
+      const password = req.user.password;
+      const data = {
+        classID: req.body.classID,
+      };
+      // const query = "SELECT * FROM teachers";
+      const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
+      console.log(query);
+      pool.query(query, (error, results) => {
+        if (results === null) {
+          res.status(204).json({ status: "Not found" });
+        } else {
+          console.log(results);
+          res.status(200).json(results[0]);
+        }
+      });
     }
-  });
-});
+  );
 
 //get the students classes
 router.route("/classes").get(checkAuth, async (req, res) => {

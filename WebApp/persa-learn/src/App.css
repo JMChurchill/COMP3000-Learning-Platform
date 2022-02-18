@@ -285,10 +285,6 @@ h2 {
   background: HSL(0 0% 0%/0.5);
 }
 
-.primary-header .primary-navigation a[aria-current="true"] {
-  color: var(--btn-color);
-}
-
 .primary-header .primary-navigation a {
   text-decoration: none;
   color: var(--nav-text-color);
@@ -767,13 +763,10 @@ form .btn:hover {
 }
 
 .content-box .container .leaderboard-box .leaderboard-student {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 5% 10% 30% 20%;
+      grid-template-columns: 5% 10% 30% 20%;
   padding: 1rem 0;
   width: 95%;
   border-bottom: 1px solid #3a3a3a;
@@ -789,6 +782,10 @@ form .btn:hover {
 
 .content-box .container .leaderboard-box .leaderboard-student img {
   margin-left: 2rem;
+}
+
+.content-box .container .leaderboard-box .leaderboard-student:last-child {
+  margin-bottom: 2rem;
 }
 
 .content-box .container .achievement-box {
@@ -977,10 +974,6 @@ form .btn:hover {
   cursor: pointer;
 }
 
-.content-box .container .content .tabs h3:first-child {
-  color: var(--btn-color);
-}
-
 .content-box .container .content .tabs h3:hover {
   color: var(--btn-color);
 }
@@ -1030,6 +1023,7 @@ form .btn:hover {
   color: #00ff55;
   border: solid 1px red;
   width: 90%;
+  cursor: pointer;
 }
 
 .content-box .container .content .class-items .class-item p {

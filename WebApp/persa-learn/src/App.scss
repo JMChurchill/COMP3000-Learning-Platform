@@ -233,8 +233,8 @@ h2 {
     background: HSL(0 0% 0% /0.5);
 
     a[aria-current="true"] {
-      //doesnt work
-      color: var(--btn-color);
+      //TODO: fix -> doesnt work
+      // color: var(--btn-color);
     }
     a {
       text-decoration: none;
@@ -611,8 +611,11 @@ form {
     }
   }
   .leaderboard-student {
-    display: flex;
-    flex-direction: row;
+    // display: flex;
+    // flex-direction: row;
+
+    display: grid;
+    grid-template-columns: 5% 10% 30% 20%;
     padding: 1rem 0;
     width: 95%;
     border-bottom: 1px solid rgb(58, 58, 58);
@@ -624,6 +627,9 @@ form {
     }
     img {
       margin-left: 2rem;
+    }
+    &:last-child {
+      margin-bottom: 2rem;
     }
   }
 }
@@ -756,9 +762,9 @@ form {
     h3 {
       position: relative;
       cursor: pointer;
-      &:first-child {
-        color: var(--btn-color);
-      }
+      // &:first-child {
+      //   color: var(--btn-color);
+      // }
       &:hover {
         color: var(--btn-color);
         &::before {
@@ -793,6 +799,7 @@ form {
       color: #00ff55;
       border: solid 1px red;
       width: 90%;
+      cursor: pointer;
       p {
         margin: 1rem;
       }

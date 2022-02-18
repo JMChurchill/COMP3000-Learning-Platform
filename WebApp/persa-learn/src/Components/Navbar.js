@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import logo from "../assets/tempLogo.svg";
 
 const Navbar = () => {
   const [navVisibility, setNavVisibility] = useState(false);
+  const [isTeacher, setIsTeacher] = useState(
+    sessionStorage.getItem("teacher") === "true"
+  );
 
   const navToggle = () => {
     setNavVisibility(!navVisibility);
   };
+  console.log(isTeacher);
 
   return (
     <header className="primary-header flex">
@@ -46,10 +50,22 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
+            {!isTeacher ? (
+              <Link aria-current="false" to="/profile_student">
+                Profile
+              </Link>
+            ) : (
+              <Link aria-current="false" to="/profile_teacher">
+                Teacher
+              </Link>
+            )}
+          </li>
+
+          {/* <li>
             <Link aria-current="false" to="/profile_student">
               Profile
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>
