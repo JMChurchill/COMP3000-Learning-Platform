@@ -17,6 +17,9 @@ router.route("/login").post(async (req, res) => {
   };
   const query = "SELECT * FROM teachers WHERE email = ?";
   pool.query(query, [req.body.email], async (error, results) => {
+    if (error) {
+      return res.status(500).json({ status: "failure", reason: error.code });
+    }
     if (!results[0]) {
       res.status(401).json({ status: "Email not found" });
     } else {
@@ -28,11 +31,9 @@ router.route("/login").post(async (req, res) => {
           });
           res.status(200).json({
             message: "Successfull login",
-            // data: results[0],
             token: token,
           });
         } else {
-          // res.cookie("token", { token }, { maxAge: 3000, httpOnly: false });
           res.status(401).json({ status: "Password not matching" });
         }
       } catch {

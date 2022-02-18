@@ -36,11 +36,9 @@ router.route("/login").post(async (req, res) => {
           });
           res.status(200).json({
             message: "Successfull login",
-            // data: results[0],
             token: token,
           });
         } else {
-          // res.cookie("token", { token }, { maxAge: 3000, httpOnly: false });
           res.status(401).json({ status: "Password not matching" });
         }
       } catch {
