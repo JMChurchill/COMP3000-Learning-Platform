@@ -1082,6 +1082,68 @@ form .btn:hover {
   right: 0;
 }
 
+.content-box .container .user-search .search-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
+  border: solid 1px green;
+  width: 100%;
+  padding: 0 2rem;
+  border-radius: 1rem;
+  -webkit-transform: translateY(-2rem);
+          transform: translateY(-2rem);
+}
+
+.content-box .container .user-search .search-box p {
+  font-size: 1.5rem;
+}
+
+.content-box .container .user-search .search-box input {
+  border-radius: 1rem;
+  margin: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.content-box .container .user-search .column-names {
+  display: -ms-grid;
+  display: grid;
+  width: 100%;
+  -ms-grid-columns: 40% 20% 20%;
+      grid-template-columns: 40% 20% 20%;
+  background-color: lightgray;
+}
+
+.content-box .container .user-search .column-names p {
+  margin: 0.8rem 0;
+}
+
+.content-box .container .user-search .search-results {
+  border: solid 1px orange;
+  width: 100%;
+  overflow-x: none;
+  overflow-y: scroll;
+}
+
+.content-box .container .user-search .search-results > div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 40% 20% 20% 15%;
+      grid-template-columns: 40% 20% 20% 15%;
+  margin-bottom: 0.23rem;
+  border-bottom: #bbb 1px solid;
+  cursor: pointer;
+}
+
+.content-box .container .user-search .search-results > div .btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.content-box .container .user-search .search-results > div p {
+  margin: 0.8rem 0;
+}
+
 .toggle-switch {
   position: relative;
   width: auto;

@@ -247,4 +247,34 @@ router.route("/classes/assign").post(checkAuth, async (req, res) => {
   }
 });
 
+// Search students
+router.route("/search").post(checkAuth, async (req, res) => {
+  //get these values from check auth (JWT)
+  const email = req.user.email;
+  const password = req.user.password;
+  // console.log(req.user);
+  // console.log(email);
+  try {
+    const data = {
+      sTerm: req.body.searchTerm,
+    };
+    // console.log(data);
+    const query = `CALL search_students ("${email}", "${password}", "${data.sTerm}")`;
+    // console.log(query);
+    pool.query(query, (error, results) => {
+      if (error) {
+        return res.status(400).json({ status: "failure", reason: error.code });
+      } else {
+        if (results === null) {
+          res.status(204).json({ status: "Not found" });
+        } else {
+          res.status(200).json(results[0]);
+        }
+      }
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
 module.exports = router;
