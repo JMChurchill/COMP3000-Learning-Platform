@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { searchStudents } from "../../http_Requests/teacherRequests";
+import {
+  addStudentToClass,
+  searchStudents,
+} from "../../http_Requests/teacherRequests";
 
 const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const addStudent = async (studentID) => {};
+  const addStudent = async (studentID) => {
+    let details = { studentID, classID };
+    // add student to the class
+    let data = await addStudentToClass(details);
+    if (data.status === "success") console.log("student added to class");
+    else if (data.reason === "ER_DUP_ENTRY")
+      console.log("student already in class");
+  };
 
   const searchForStudents = async () => {
     console.log(searchTerm);

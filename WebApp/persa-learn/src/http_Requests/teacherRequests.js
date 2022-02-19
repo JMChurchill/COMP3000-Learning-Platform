@@ -22,7 +22,7 @@ export const searchStudents = (searchTerm) => {
   }).then((data) => data.json());
 };
 
-export const addStudentToClass = (studentID, classID) => {
+export const addStudentToClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   return fetch("http://localhost:8080/teacher/classes/assign", {
     method: "POST",
@@ -30,7 +30,7 @@ export const addStudentToClass = (studentID, classID) => {
       "Content-Type": "application/json",
       autherization: token,
     },
-    body: JSON.stringify({ studentID, classID }),
+    body: JSON.stringify(details),
   }).then((data) => data.json());
 };
 
