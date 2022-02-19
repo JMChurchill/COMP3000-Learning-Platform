@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
-import ClassDetails from "./ClassDetails";
 import Class from "../Components/Class";
 import {
   getTeachersClasses,
   searchStudents,
 } from "../http_Requests/teacherRequests";
 import { useNavigate } from "react-router-dom";
+import SearchStudents from "../Components/TeacherProfile/SearchStudents";
+import ClassDetails from "../Components/TeacherProfile/ClassDetails";
+import AddClass from "../Components/TeacherProfile/AddClass";
 
 const TeacherProfile = () => {
   const [classes, setClasses] = useState([]);
+  const [selectedClass, setSelectedClass] = useState();
+  const [addingClass, setAddingClass] = useState(false);
+  const [classSuccess, setClassSuccess] = useState(false);
   // const [usersName, setUsersName] = useState();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+
+  const classChanged = () => {
+    setClassSuccess(!classSuccess);
+  };
 
   useEffect(async () => {
     let data = await getTeachersClasses();
     setClasses(data);
-  }, []);
+  }, [classSuccess]);
 
+  const flipAddClass = () => {
+    setAddingClass(!addingClass);
+  };
   const navigate = useNavigate();
 
-  const searchForStudents = async () => {
-    console.log(searchTerm);
-    //get students
-    let data = await searchStudents(searchTerm);
-    //add to array
-    setSearchResults(data);
-    console.log(data);
-  };
-
-  const addStudent = async (studentID) => {};
+  console.log(selectedClass);
 
   // useEffect(async () => {
   //   console.log(classes);
@@ -40,62 +41,50 @@ const TeacherProfile = () => {
       <h1>Teacher Profile</h1>
       <div className="container">
         <div className="left-box task-box">
-          {classes.map((c, i) => (
-            <Class
-              key={c.classdetailsID}
-              id={c.classdetailsID}
-              name={c.Name}
-              yearGroup={c.YearGroup}
-            />
-          ))}
+          {classes.map((c, i) => {
+            let classSelected = false;
+            if (selectedClass) {
+              if (selectedClass.id === c.classdetailsID) {
+                classSelected = true;
+              }
+            }
+            return (
+              <Class
+                key={c.classdetailsID}
+                id={c.classdetailsID}
+                name={c.Name}
+                yearGroup={c.YearGroup}
+                setSelectedClass={setSelectedClass}
+                classSelected={classSelected}
+              />
+            );
+          })}
           <div className="bottom-bar">
             <button
               className="btn"
-              // onClick={() => {
-              //   navigate("");
-              // }}
+              onClick={() => {
+                flipAddClass();
+              }}
             >
               Add class
             </button>
           </div>
         </div>
-        {/* <div className="right-box vFill">
-          <ClassDetails />
-        </div> */}
-        <div className="right-box vFill user-search">
-          <div className="search-box">
-            <p>Search</p>
-            <input
-              type="text"
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="btn" onClick={() => searchForStudents()}>
-              Search
-            </button>
+        {addingClass ? (
+          <AddClass flipAddClass={flipAddClass} classChanged={classChanged} />
+        ) : selectedClass ? (
+          <ClassDetails
+            selectedClass={selectedClass}
+            classID={selectedClass.id}
+            name={selectedClass.name}
+            yearGroup={selectedClass.yearGroup}
+            classChanged={classChanged}
+          />
+        ) : (
+          <div className="right-box vFill">
+            <h2>Select a class</h2>
           </div>
-          <div className="column-names">
-            <p>Email</p>
-            <p>First name</p>
-            <p>Last name</p>
-          </div>
-          <div className="search-results">
-            {searchResults.map((student, i) => (
-              <div className="result" key={i}>
-                {/* <p>{student.StudentID}</p> */}
-                <p>{student.Email}</p>
-                <p>{student.FirstName}</p>
-                <p>{student.LastName}</p>
-                <button
-                  className="btn"
-                  onClick={() => addStudent(student.StudentID)}
-                >
-                  Add
-                </button>
-              </div>
-            ))}
-            {/* <div className="result">studentName</div> */}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

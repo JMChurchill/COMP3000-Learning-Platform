@@ -11,6 +11,7 @@
   --text-over-image-color: white;
   --success-color: #00ff55;
   --progressbar-color: blue;
+  --selected-color: rgba(177, 186, 187, 0.1);
 }
 .App {
   /* text-align: center; */
@@ -454,7 +455,7 @@ form {
 }
 
 .vFill {
-  height: 70vh;
+  height: MIN(70vh);
 }
 
 .flex-wrap {
@@ -563,6 +564,10 @@ form {
     border-bottom: 1px solid rgb(58, 58, 58);
     font-weight: bold;
   }
+  > div[aria-selected="true"] {
+    background-color: var(--selected-color);
+  }
+
   .bottom-bar {
     position: sticky;
     bottom: 0;
@@ -845,7 +850,7 @@ form {
         text-align: center;
       }
       .btn {
-        position: absolute;
+        position: relative;
         bottom: 0;
         right: 0;
       }

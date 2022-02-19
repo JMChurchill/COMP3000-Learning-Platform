@@ -11,6 +11,7 @@
   --text-over-image-color: white;
   --success-color: #00ff55;
   --progressbar-color: blue;
+  --selected-color: rgba(177, 186, 187, 0.1);
 }
 
 .App {
@@ -540,7 +541,7 @@ form .btn:hover {
 }
 
 .vFill {
-  height: 70vh;
+  height: MIN(70vh);
 }
 
 .flex-wrap {
@@ -690,6 +691,10 @@ form .btn:hover {
           justify-content: space-between;
   border-bottom: 1px solid #3a3a3a;
   font-weight: bold;
+}
+
+.content-box .container .task-box > div[aria-selected="true"] {
+  background-color: var(--selected-color);
 }
 
 .content-box .container .task-box .bottom-bar {
@@ -1077,7 +1082,7 @@ form .btn:hover {
 }
 
 .content-box .container .right-box .class-details .btn {
-  position: absolute;
+  position: relative;
   bottom: 0;
   right: 0;
 }

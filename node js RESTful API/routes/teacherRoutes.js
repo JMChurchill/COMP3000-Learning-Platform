@@ -186,35 +186,144 @@ router.route("/classes").get(checkAuth, async (req, res) => {
 });
 
 //create class
-router.route("/classes").post(checkAuth, async (req, res) => {
-  //get these values from check auth (JWT)
-  const email = req.user.email;
-  const password = req.user.password;
-  console.log(req.user);
-  console.log(email);
-  try {
-    const data = {
-      name: req.body.name,
-      yGroup: req.body.year,
-    };
-    console.log(data);
-    const query = `CALL create_class ("${data.name}", ${data.yGroup}, "${email}", "${password}")`;
-    console.log(query);
-    pool.query(query, (error, results) => {
-      if (error) {
-        return res.status(400).json({ status: "failure", reason: error.code });
-      } else {
-        return res.status(201).json({
-          status: "success",
-          data: data,
-          message: "created class",
+router
+  .route("/classes")
+  .post(
+    [
+      check("name", "A class name is required").not().isEmpty(),
+      check("year", "A year group is required").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      const errs = validationResult(req);
+      if (!errs.isEmpty()) {
+        console.log(errs);
+        return res.status(400).json({
+          errors: errs.array(),
         });
       }
-    });
-  } catch (err) {
-    return res.status(500).send(err);
-  }
-});
+      //get these values from check auth (JWT)
+      const email = req.user.email;
+      const password = req.user.password;
+      console.log(req.user);
+      console.log(email);
+      try {
+        const data = {
+          name: req.body.name,
+          yGroup: req.body.year,
+        };
+        console.log(data);
+        const query = `CALL create_class ("${data.name}", ${data.yGroup}, "${email}", "${password}")`;
+        console.log(query);
+        pool.query(query, (error, results) => {
+          if (error) {
+            return res
+              .status(400)
+              .json({ status: "failure", reason: error.code });
+          } else {
+            return res.status(201).json({
+              status: "success",
+              data: data,
+              message: "created class",
+            });
+          }
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+//update class
+router
+  .route("/classes")
+  .put(
+    [
+      check("classID", "Class ID is required").not().isEmpty(),
+      check("name", "A class name is required").not().isEmpty(),
+      check("year", "A year group is required").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      const errs = validationResult(req);
+      if (!errs.isEmpty()) {
+        console.log(errs);
+        return res.status(400).json({
+          errors: errs.array(),
+        });
+      }
+      //get these values from check auth (JWT)
+      const email = req.user.email;
+      const password = req.user.password;
+      try {
+        const data = {
+          classID: req.body.classID,
+          name: req.body.name,
+          yGroup: req.body.year, //TODO: this
+        };
+        console.log(data);
+        // const query = `CALL create_class ("${data.name}", ${data.yGroup}, "${email}", "${password}")`;
+        const query = `CALL update_class (${data.classID},"${data.name}", ${data.yGroup}, "${email}", "${password}")`;
+        console.log(query);
+        pool.query(query, (error, results) => {
+          if (error) {
+            return res
+              .status(400)
+              .json({ status: "failure", reason: error.code });
+          } else {
+            return res.status(201).json({
+              status: "success",
+              data: data,
+              message: "created class",
+            });
+          }
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+// delete class
+router
+  .route("/classes")
+  .delete(
+    [check("classID", "Class ID is required").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      const errs = validationResult(req);
+      if (!errs.isEmpty()) {
+        console.log(errs);
+        return res.status(400).json({
+          errors: errs.array(),
+        });
+      }
+      //get these values from check auth (JWT)
+      const email = req.user.email;
+      const password = req.user.password;
+      try {
+        const data = {
+          classID: req.body.classID,
+        };
+        const query = `CALL delete_class (${data.classID}, "${email}", "${password}")`;
+        console.log(query);
+        pool.query(query, (error, results) => {
+          if (error) {
+            return res
+              .status(400)
+              .json({ status: "failure", reason: error.code });
+          } else {
+            return res.status(201).json({
+              status: "success",
+              message: "Class successfully deleted",
+            });
+          }
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
 
 // assign student to class
 router.route("/classes/assign").post(checkAuth, async (req, res) => {
@@ -252,15 +361,11 @@ router.route("/search").post(checkAuth, async (req, res) => {
   //get these values from check auth (JWT)
   const email = req.user.email;
   const password = req.user.password;
-  // console.log(req.user);
-  // console.log(email);
   try {
     const data = {
       sTerm: req.body.searchTerm,
     };
-    // console.log(data);
     const query = `CALL search_students ("${email}", "${password}", "${data.sTerm}")`;
-    // console.log(query);
     pool.query(query, (error, results) => {
       if (error) {
         return res.status(400).json({ status: "failure", reason: error.code });
