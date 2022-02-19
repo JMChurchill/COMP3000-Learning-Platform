@@ -34,6 +34,19 @@ export const addStudentToClass = (details) => {
   }).then((data) => data.json());
 };
 
+export const removeStudentFromClass = (details) => {
+  console.log(details);
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  return fetch("http://localhost:8080/teacher/classes/remove", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(details),
+  }).then((data) => data.json());
+};
+
 export const createClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   return fetch("http://localhost:8080/teacher/classes", {
@@ -71,8 +84,6 @@ export const deleteClass = (details) => {
 };
 
 export const getStudentsInClass = (classID) => {
-  // console.log(JSON.stringify(classID));
-
   const token = JSON.parse(sessionStorage.getItem("token"));
   return fetch("http://localhost:8080/teacher/class", {
     method: "POST",

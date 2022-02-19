@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { getStudentsInClass } from "../../http_Requests/teacherRequests";
+import {
+  getStudentsInClass,
+  removeStudentFromClass,
+} from "../../http_Requests/teacherRequests";
 
 const ListStudents = ({ classID, flipIsShowStudents }) => {
   const [students, setStudents] = useState([]);
+  //   const [searchResults, setSearchResults] = useState([]);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   useEffect(async () => {
-    // console.log({ classID });
-    // console.log(JSON.stringify({ classID }));
     let details = { classID: classID };
     let data = await getStudentsInClass(details);
     console.log(data);
     setStudents(data);
-  }, []);
+  }, [isDeleted]);
 
-  const removeStudent = (studentID) => {
-    console.log("remove student: ", studentID);
+  const removeStudent = async (studentID) => {
+    let data = await removeStudentFromClass({ studentID, classID });
+    if (data.status === "success") {
+      console.log("successfully deleted user");
+      setIsDeleted(!isDeleted);
+    }
   };
   return (
     <div className="right-box vFill user-search">
       <div className="search-box">
         <button className="btn" onClick={() => flipIsShowStudents()}>
-          Stop Searching
+          Back to details
         </button>
         {/* <p>Search</p>
         <input type="text" onChange={(e) => setSearchTerm(e.target.value)} />

@@ -356,6 +356,35 @@ router.route("/classes/assign").post(checkAuth, async (req, res) => {
   }
 });
 
+// remove student from class
+router.route("/classes/remove").delete(checkAuth, async (req, res) => {
+  //get these values from check auth (JWT)
+  const email = req.user.email;
+  const password = req.user.password;
+  try {
+    const data = {
+      classID: req.body.classID,
+      studentID: req.body.studentID,
+    };
+    console.log(data);
+    const query = `CALL remove_student_from_class (${data.classID}, ${data.studentID}, "${email}", "${password}")`;
+    console.log(query);
+    pool.query(query, (error, results) => {
+      if (error) {
+        return res.status(400).json({ status: "failure", reason: error.code });
+      } else {
+        return res.status(201).json({
+          status: "success",
+          data: data,
+          message: "student added to class",
+        });
+      }
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
 // Search students
 router.route("/search").post(checkAuth, async (req, res) => {
   //get these values from check auth (JWT)
@@ -407,7 +436,7 @@ router
         if (results === null) {
           res.status(204).json({ status: "Not found" });
         } else {
-          console.log(results);
+          console.log(results[0]);
           res.status(200).json(results[0]);
         }
       });
