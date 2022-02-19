@@ -30,7 +30,9 @@ CREATE TABLE ClassDetails (
     YearGroup int,
     TeacherID int NOT NULL,
     PRIMARY KEY (ClassDetailsID),
-    FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID)
+    FOREIGN KEY (TeacherID) 
+        REFERENCES Teachers(TeacherID) 
+        ON DELETE CASCADE
     );
 
 -- Classes table
@@ -38,8 +40,12 @@ CREATE TABLE Classes (
     StudentID int NOT NULL, 
     ClassDetailsID int NOT NULL, 
     PRIMARY KEY (StudentID, ClassDetailsID),
-    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
-    FOREIGN KEY (ClassDetailsID) REFERENCES ClassDetails(ClassDetailsID)
+    FOREIGN KEY (StudentID) 
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (ClassDetailsID) 
+        REFERENCES ClassDetails(ClassDetailsID)
+        ON DELETE CASCADE
     );
 
 -- Achievements table
@@ -56,8 +62,12 @@ CREATE TABLE StudentsAchievements (
     StudentID int NOT NULL, 
     AchievementID int NOT NULL, 
     PRIMARY KEY (StudentID, AchievementID),
-    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
-    FOREIGN KEY (AchievementID) REFERENCES Achievements(AchievementID)
+    FOREIGN KEY (StudentID) 
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (AchievementID) 
+        REFERENCES Achievements(AchievementID)
+        ON DELETE CASCADE
     );
 
 
@@ -67,7 +77,9 @@ CREATE TABLE FlashCardDeck (
     Name varchar(60) NOT NULL, 
     StudentID int NOT NULL,
     PRIMARY KEY (DeckID),
-    FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
+    FOREIGN KEY (StudentID) 
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE
     );
 
 -- Flashcards table
@@ -77,7 +89,9 @@ CREATE TABLE FlashCards (
     Question text NOT NULL, 
     Answer text NOT NULL, 
     PRIMARY KEY (CardID),
-    FOREIGN KEY (DeckID) REFERENCES FlashCardDeck(DeckID)
+    FOREIGN KEY (DeckID) 
+        REFERENCES FlashCardDeck(DeckID)
+        ON DELETE CASCADE
     );
 
 -- Assignments table
@@ -88,8 +102,12 @@ CREATE TABLE Assignments (
     -- TaskName text NOT NULL, 
     TaskType varchar(60) NOT NULL,
     PRIMARY KEY (TaskID),
-    FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID),
-    FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
+    FOREIGN KEY (TeacherID) 
+        REFERENCES Teachers(TeacherID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (StudentID) 
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE
     );
 
 -- Quizzes table
@@ -98,7 +116,9 @@ CREATE TABLE Quizzes (
     QuizName text NOT NULL, 
     TaskID int NOT NULL, 
     PRIMARY KEY (QuizID),
-    FOREIGN KEY (TaskID) REFERENCES Assignments(TaskID)
+    FOREIGN KEY (TaskID) 
+        REFERENCES Assignments(TaskID)
+        ON DELETE CASCADE
     );
 
 -- Quiz questions table
@@ -108,7 +128,9 @@ CREATE TABLE QuizQuestions (
     Question text NOT NULL, 
     Answer text NOT NULL, 
     PRIMARY KEY (QuestionID),
-    FOREIGN KEY (QuizID) REFERENCES Quizzes(QuizID)
+    FOREIGN KEY (QuizID) 
+        REFERENCES Quizzes(QuizID)
+        ON DELETE CASCADE
     );
 
 -- Quiz Options table
@@ -117,7 +139,9 @@ CREATE TABLE QuizOptions (
     QuestionID int NOT NULL, 
     TheOption text NOT NULL, 
     PRIMARY KEY (QuizOptionsID),
-    FOREIGN KEY (QuestionID) REFERENCES QuizQuestions(QuestionID)
+    FOREIGN KEY (QuestionID) 
+        REFERENCES QuizQuestions(QuestionID)
+        ON DELETE CASCADE
     );
 
 -- Word Links table
@@ -126,7 +150,9 @@ CREATE TABLE WordLinks (
     WordLinkName text NOT NULL, 
     TaskID int NOT NULL, 
     PRIMARY KEY (WordLinkID),
-    FOREIGN KEY (TaskID) REFERENCES Assignments(TaskID)
+    FOREIGN KEY (TaskID) 
+        REFERENCES Assignments(TaskID)
+        ON DELETE CASCADE
     );
 
 -- Words table
@@ -136,7 +162,9 @@ CREATE TABLE Words (
     Answer text NOT NULL, 
     WordLinkID int NOT NULL, 
     PRIMARY KEY (WordID),
-    FOREIGN KEY (WordLinkID) REFERENCES WordLinks(WordLinkID)
+    FOREIGN KEY (WordLinkID) 
+        REFERENCES WordLinks(WordLinkID)
+        ON DELETE CASCADE
     );
 
 
