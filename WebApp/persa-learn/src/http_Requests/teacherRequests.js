@@ -69,3 +69,17 @@ export const deleteClass = (details) => {
     body: JSON.stringify(details),
   }).then((data) => data.json());
 };
+
+export const getStudentsInClass = (classID) => {
+  // console.log(JSON.stringify(classID));
+
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  return fetch("http://localhost:8080/teacher/class", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(classID),
+  }).then((data) => data.json());
+};

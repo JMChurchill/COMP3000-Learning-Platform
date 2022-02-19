@@ -881,6 +881,9 @@ form {
       width: 100%;
       grid-template-columns: 40% 20% 20%;
       background-color: lightgray;
+      &.in-class {
+        grid-template-columns: 20% 40% 20%;
+      }
       p {
         margin: 0.8rem 0;
       }
@@ -895,6 +898,9 @@ form {
         grid-template-columns: 40% 20% 20% 15%;
         margin-bottom: 0.23rem;
         border-bottom: #bbb 1px solid;
+        &.in-class {
+          grid-template-columns: 20% 40% 20%;
+        }
         .btn {
           font-size: 1.5rem;
           font-weight: bold;
@@ -904,6 +910,7 @@ form {
           margin: 0.8rem 0;
         }
       }
+
       // .column-names {
       //   background-color: lightgray;
       // }

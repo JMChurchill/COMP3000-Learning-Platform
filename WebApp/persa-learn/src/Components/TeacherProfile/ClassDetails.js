@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { deleteClass } from "../../http_Requests/teacherRequests";
+import ListStudents from "./ListStudents";
 import SearchStudents from "./SearchStudents";
 import UpdateClass from "./UpdateClass";
 
@@ -12,9 +13,14 @@ const ClassDetails = ({
 }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isShowStudents, setIsShowStudents] = useState(false);
 
   const flipIsUpdating = () => {
     setIsUpdating(!isUpdating);
+  };
+
+  const flipIsShowStudents = () => {
+    setIsShowStudents(!isShowStudents);
   };
 
   const deleteThisClass = async () => {
@@ -39,6 +45,11 @@ const ClassDetails = ({
         flipIsUpdating={flipIsUpdating}
       />
     );
+  if (isShowStudents)
+    return (
+      <ListStudents classID={classID} flipIsShowStudents={flipIsShowStudents} />
+    );
+
   return (
     <div className="right-box vFill">
       <div className="class-details">
@@ -63,6 +74,9 @@ const ClassDetails = ({
         </button>
         <button className="btn" onClick={() => deleteThisClass(!isUpdating)}>
           Delete class
+        </button>
+        <button className="btn" onClick={() => flipIsShowStudents()}>
+          Show all students
         </button>
       </div>
     </div>

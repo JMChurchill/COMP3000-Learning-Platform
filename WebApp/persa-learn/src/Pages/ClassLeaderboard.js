@@ -14,6 +14,7 @@ const ClassLeaderboard = () => {
 
   useEffect(async () => {
     // console.log(JSON.stringify(state));
+    console.log(state);
     const data = await getStudentsInClass(state);
     console.log(data);
     setStudents(data);
