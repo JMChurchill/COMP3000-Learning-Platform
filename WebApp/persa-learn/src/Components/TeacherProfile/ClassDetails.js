@@ -26,6 +26,7 @@ const ClassDetails = ({
   const deleteThisClass = async () => {
     let data = await deleteClass({ classID });
     console.log(data);
+    classChanged();
   };
   if (isSearching)
     return (
@@ -72,7 +73,7 @@ const ClassDetails = ({
         <button className="btn" onClick={() => flipIsUpdating()}>
           Update class
         </button>
-        <button className="btn" onClick={() => deleteThisClass(!isUpdating)}>
+        <button className="btn" onClick={() => deleteThisClass()}>
           Delete class
         </button>
         <button className="btn" onClick={() => flipIsShowStudents()}>
