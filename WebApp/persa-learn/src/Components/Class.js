@@ -8,13 +8,10 @@ const Class = ({
   setSelectedClass,
   classSelected,
 }) => {
-  // console.log(classSelected);
-  // if (classSelected)
   return (
     <div
       className="Task"
       aria-selected={classSelected}
-      // aria-selected="true"
       onClick={() => setSelectedClass({ id, name, yearGroup })}
     >
       <h2>{name}</h2>

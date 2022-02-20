@@ -10,10 +10,16 @@ const ClassDetails = ({
   classID,
   yearGroup,
   classChanged,
+  setIsSearching,
+  isSearching,
+  setIsUpdating,
+  isUpdating,
+  setIsShowStudents,
+  isShowStudents,
 }) => {
-  const [isSearching, setIsSearching] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [isShowStudents, setIsShowStudents] = useState(false);
+  // const [isSearching, setIsSearching] = useState(false);
+  // const [isUpdating, setIsUpdating] = useState(false);
+  // const [isShowStudents, setIsShowStudents] = useState(false);
 
   const flipIsUpdating = () => {
     setIsUpdating(!isUpdating);

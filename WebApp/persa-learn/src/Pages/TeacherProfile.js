@@ -14,11 +14,27 @@ const TeacherProfile = () => {
   const [selectedClass, setSelectedClass] = useState();
   const [addingClass, setAddingClass] = useState(false);
   const [classSuccess, setClassSuccess] = useState(false);
+  // current right view
+  const [isSearching, setIsSearching] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isShowStudents, setIsShowStudents] = useState(false);
+
   // const [usersName, setUsersName] = useState();
+
+  useEffect(async () => {
+    classChanged();
+  }, [selectedClass]);
 
   const classChanged = () => {
     setClassSuccess(!classSuccess);
+    setIsUpdating(false);
+    setIsSearching(false);
+    setIsShowStudents(false);
   };
+
+  // const flipIsUpdating = () => {
+  //   setIsUpdating(!isUpdating);
+  // };
 
   useEffect(async () => {
     let data = await getTeachersClasses();
@@ -31,6 +47,11 @@ const TeacherProfile = () => {
   const navigate = useNavigate();
 
   console.log(selectedClass);
+
+  // const selectionChanged = (selectedClass) =>{
+  //   setSelectedClass(selectedClass);
+
+  // }
 
   // useEffect(async () => {
   //   console.log(classes);
@@ -79,6 +100,12 @@ const TeacherProfile = () => {
             name={selectedClass.name}
             yearGroup={selectedClass.yearGroup}
             classChanged={classChanged}
+            setIsSearching={setIsSearching}
+            isSearching={isSearching}
+            setIsUpdating={setIsUpdating}
+            isUpdating={isUpdating}
+            setIsShowStudents={setIsShowStudents}
+            isShowStudents={isShowStudents}
           />
         ) : (
           <div className="right-box vFill">

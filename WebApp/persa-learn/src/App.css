@@ -679,18 +679,13 @@ form .btn:hover {
 
 .content-box .container .task-box > div {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 30% 30% 30%;
+      grid-template-columns: 30% 30% 30%;
   border-bottom: 1px solid #3a3a3a;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .content-box .container .task-box > div[aria-selected="true"] {
