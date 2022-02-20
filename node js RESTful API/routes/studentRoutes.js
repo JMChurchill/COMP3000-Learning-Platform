@@ -186,7 +186,7 @@ router
         if (results === null) {
           res.status(204).json({ status: "Not found" });
         } else {
-          console.log(results);
+          // console.log(results);
           res.status(200).json(results[0]);
         }
       });

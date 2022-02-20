@@ -47,6 +47,7 @@ export const getStudentsClassses = () => {
 };
 export const getStudentsInClass = (classID) => {
   // console.log(JSON.stringify(classID));
+  console.log(classID);
 
   const token = JSON.parse(sessionStorage.getItem("token"));
   return fetch("http://localhost:8080/student/class", {

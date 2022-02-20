@@ -16,11 +16,13 @@ import {
 } from "../http_Requests/userRequests";
 import ClassItem from "../Components/ClassItem";
 import AssignmentItem from "../Components/AssignmentItem";
+// import Achievements from "./Achievements";
 
 const StudentProfile = () => {
   const [classes, setClasses] = useState([]);
   const [usersName, setUsersName] = useState();
   const [selectedTab, setSelectedTab] = useState(1);
+  const tabs = ["Classes", "Achievements", "Assignments"];
   useEffect(async () => {
     let data = await getStudentsClassses();
     setClasses(data);
@@ -66,16 +68,21 @@ const StudentProfile = () => {
           </div>
           <div className="content">
             <div className="tabs">
-              <h3 onClick={() => setSelectedTab(1)}>Classes</h3>
-              <h3 onClick={() => setSelectedTab(2)}>Achievements</h3>
-              <h3
-                onClick={(e) => {
-                  // e.target.style.color = "red";
-                  setSelectedTab(3);
-                }}
-              >
-                Assignments
-              </h3>
+              {tabs.map((tab, i) => {
+                let isSelected = false;
+                let j = i + 1;
+                if (j === selectedTab) {
+                  isSelected = true;
+                }
+                return (
+                  <h3
+                    aria-selected={isSelected}
+                    onClick={() => setSelectedTab(j)}
+                  >
+                    {tab}
+                  </h3>
+                );
+              })}
             </div>
             {selectedTab == 1 ? (
               <div className="class-items list-items">

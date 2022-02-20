@@ -589,7 +589,9 @@ form {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 3rem;
+    // gap: 3rem;
+    // gap: clamp(1rem 5% 10%);
+    gap: clamp(1rem, 5vw, 5rem);
     background-color: #00ff55;
     .top-student {
       display: flex;
@@ -597,7 +599,10 @@ form {
       text-align: center;
       justify-content: center;
       background-color: #4ffedf;
-      width: 10%;
+      // width: MIN(10%);
+      // width: clamp(10% 20% 5%);
+      // width: clamp(20%, 30%, 50%);
+      width: 30%;
       p {
         margin: 0.2rem;
       }
@@ -608,33 +613,35 @@ form {
         margin: auto;
         display: flex;
         justify-content: center;
-        width: 11rem;
-        height: 11rem;
+        width: 50%;
+        // height: 50%;
+        aspect-ratio: 1;
         img {
-          width: 10rem;
-          height: 10rem;
+          width: 90%;
+          height: 90%;
           margin: auto;
         }
       }
     }
   }
   .leaderboard-student {
-    // display: flex;
-    // flex-direction: row;
-
     display: grid;
-    grid-template-columns: 5% 10% 30% 20%;
+    grid-template-columns: 2% 10% 50% 10%;
+    gap: clamp(1rem, 5vw, 2rem);
+
     padding: 1rem 0;
     width: 95%;
     border-bottom: 1px solid rgb(58, 58, 58);
     p {
-      margin-left: 2rem;
+      // margin-left: 2rem;
     }
     h2 {
-      margin-left: 2rem;
+      // margin-left: 2rem;
     }
     img {
-      margin-left: 2rem;
+      // margin-left: 2rem;
+      width: 5rems;
+      height: 5rem;
     }
     &:last-child {
       margin-bottom: 2rem;
@@ -778,6 +785,9 @@ form {
         &::before {
           transform: scaleX(1);
         }
+      }
+      &[aria-selected="true"] {
+        color: var(--btn-color) !important;
       }
       &::before {
         content: "";

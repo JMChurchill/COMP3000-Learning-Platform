@@ -6,56 +6,77 @@ import LeaderboardStudent from "../Components/LeaderboardStudent";
 
 import tempUserIcon from "../assets/UserIcons/001-man-1.png";
 import { getStudentsInClass } from "../http_Requests/userRequests";
+import TopStudent from "../Components/LeaderBoard/TopStudent";
 
 const ClassLeaderboard = () => {
   const { state } = useLocation();
   const [students, setStudents] = useState([]);
+  const [topThree, setTopThree] = useState([]);
   // console.log(state.classID);
 
   useEffect(async () => {
-    // console.log(JSON.stringify(state));
-    console.log(state);
     const data = await getStudentsInClass(state);
-    console.log(data);
     setStudents(data);
   }, []);
 
+  useEffect(async () => {
+    getTopThree();
+  }, [students]);
+
+  const getTopThree = () => {
+    if (students.length > 0) {
+      // get first 3 values from array
+      const tempArray = students.slice(0, 3);
+      // switch order to be displayed later
+      const tempVal = tempArray[0];
+      tempArray[0] = tempArray[1];
+      tempArray[1] = tempVal;
+      setTopThree(tempArray);
+    }
+  };
+  //TODO: order by xp
   return (
     <div className="content-box">
       <h1>Class leaderboard</h1>
       <div className="container wide-container center-container">
         <div className="leaderboard-box">
           <div className="top-students">
-            <div className="top-student">
-              <div className="img-container">
-                <img src={tempUserIcon} alt="user icon" height="100px" />
-              </div>
-              <p>2</p>
-              <p>Student 1</p>
-            </div>
-            <div className="top-student">
-              <div className="img-container">
-                <img src={tempUserIcon} alt="user icon" height="100px" />
-              </div>
-              <p>1</p>
-              <p>Student 1</p>
-            </div>
-            <div className="top-student">
-              <div className="img-container">
-                <img src={tempUserIcon} alt="user icon" height="100px" />
-              </div>
-              <p>3</p>
-              <p>Student 1</p>
-            </div>
+            {topThree.map((student, i) => {
+              let pos = i + 1;
+              //adjust position for order of array (to display fist place in center)
+              if (pos == 1) pos = 2;
+              else if (pos == 2) pos = 1;
+              if (i < 3) {
+                return (
+                  <TopStudent
+                    key={i}
+                    icon={tempUserIcon}
+                    name={`${student.FirstName} ${student.LastName}`}
+                    position={pos}
+                  />
+                );
+              }
+            })}
           </div>
-          {students.map((student, i) => (
-            <LeaderboardStudent
-              key={i}
-              icon={tempUserIcon}
-              name={`${student.FirstName} ${student.LastName}`}
-              position={i}
-            />
-          ))}
+
+          {students.map((student, i) => {
+            if (i > -1) {
+              return (
+                <LeaderboardStudent
+                  key={i}
+                  icon={tempUserIcon}
+                  name={`${student.FirstName} ${student.LastName}`}
+                  position={i}
+                />
+              );
+            }
+            // <LeaderboardStudent
+            //   key={i}
+            //   icon={tempUserIcon}
+            //   name={`${student.FirstName} ${student.LastName}`}
+            //   position={i}
+            // />;
+          })}
           {/* <LeaderboardStudent icon={tempUserIcon} />
           <LeaderboardStudent icon={tempUserIcon} />
           <LeaderboardStudent icon={tempUserIcon} />

@@ -46,7 +46,7 @@ const TeacherProfile = () => {
   };
   const navigate = useNavigate();
 
-  console.log(selectedClass);
+  // console.log(selectedClass);
 
   // const selectionChanged = (selectedClass) =>{
   //   setSelectedClass(selectedClass);
