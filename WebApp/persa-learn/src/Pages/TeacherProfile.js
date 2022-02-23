@@ -38,7 +38,9 @@ const TeacherProfile = () => {
 
   useEffect(async () => {
     let data = await getTeachersClasses();
-    setClasses(data);
+    if (data.hasOwnProperty("data")) {
+      setClasses(data.data);
+    }
   }, [classSuccess]);
 
   const flipAddClass = () => {

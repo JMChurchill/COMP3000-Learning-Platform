@@ -24,8 +24,8 @@ router.route("/login").post(async (req, res) => {
       return res.status(500).json({ status: "failure", reason: error.code });
     }
     if (!results[0]) {
-      console.log("Email");
-      res.status(401).json({ status: "Email not found" });
+      // console.log("Email");
+      res.status(401).json({ status: "Email or Password incorrect" });
     } else {
       console.log(parseInt(process.env.EXPIRES_IN));
       try {
@@ -39,7 +39,7 @@ router.route("/login").post(async (req, res) => {
             token: token,
           });
         } else {
-          res.status(401).json({ status: "Password not matching" });
+          res.status(401).json({ status: "Email or Password incorrect" });
         }
       } catch {
         res.status(404).json({ status: "error occured" });
@@ -187,7 +187,7 @@ router
           res.status(204).json({ status: "Not found" });
         } else {
           // console.log(results);
-          res.status(200).json(results[0]);
+          res.status(200).json({ status: "success", data: results[0] });
         }
       });
     }
@@ -210,12 +210,12 @@ router.route("/classes").get(checkAuth, async (req, res) => {
       res.status(204).json({ status: "Not found" });
     } else {
       // console.log(results[0]);
-      res.status(200).json(results[0]);
+      res.status(200).json({ status: "success", data: results[0] });
     }
   });
 });
 
-//get students by class
+//get students details
 router.route("/details").get(checkAuth, async (req, res) => {
   const email = req.user.email;
   const password = req.user.password;
@@ -228,7 +228,7 @@ router.route("/details").get(checkAuth, async (req, res) => {
       res.status(204).json({ status: "Not found" });
     } else {
       // console.log(results[0]);
-      res.status(200).json(results[0]);
+      res.status(200).json({ status: "success", data: results[0] });
     }
   });
 });

@@ -13,7 +13,12 @@ const Navbar = () => {
     setNavVisibility(!navVisibility);
   };
   // console.log(isTeacher);
-
+  const logout = (e) => {
+    // e.preventDefault();
+    sessionStorage.clear();
+    window.location.reload();
+    // setToken("");
+  };
   return (
     <header className="primary-header flex">
       <div>
@@ -59,6 +64,9 @@ const Navbar = () => {
                 Teacher
               </Link>
             )}
+          </li>
+          <li>
+            <a onClick={() => logout()}>Logout</a>
           </li>
 
           {/* <li>

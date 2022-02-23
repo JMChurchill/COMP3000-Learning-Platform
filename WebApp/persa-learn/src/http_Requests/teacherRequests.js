@@ -1,18 +1,22 @@
+import { checkTokenCorrect } from "./userRequests";
+
 export const getTeachersClasses = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
 
-  return fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/teacher/classes", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       autherization: token,
     },
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };
 
 export const searchStudents = (searchTerm) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  return fetch("http://localhost:8080/teacher/search", {
+  const data = fetch("http://localhost:8080/teacher/search", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,11 +24,13 @@ export const searchStudents = (searchTerm) => {
     },
     body: JSON.stringify({ searchTerm: searchTerm }),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };
 
 export const addStudentToClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  return fetch("http://localhost:8080/teacher/classes/assign", {
+  const data = fetch("http://localhost:8080/teacher/classes/assign", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,12 +38,14 @@ export const addStudentToClass = (details) => {
     },
     body: JSON.stringify(details),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };
 
 export const removeStudentFromClass = (details) => {
   console.log(details);
   const token = JSON.parse(sessionStorage.getItem("token"));
-  return fetch("http://localhost:8080/teacher/classes/remove", {
+  const data = fetch("http://localhost:8080/teacher/classes/remove", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -45,11 +53,13 @@ export const removeStudentFromClass = (details) => {
     },
     body: JSON.stringify(details),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };
 
 export const createClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  return fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/teacher/classes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -57,11 +67,13 @@ export const createClass = (details) => {
     },
     body: JSON.stringify(details),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };
 
 export const updateClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  return fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/teacher/classes", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -69,11 +81,13 @@ export const updateClass = (details) => {
     },
     body: JSON.stringify(details),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };
 
 export const deleteClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  return fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/teacher/classes", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -81,11 +95,13 @@ export const deleteClass = (details) => {
     },
     body: JSON.stringify(details),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };
 
 export const getStudentsInClass = (classID) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  return fetch("http://localhost:8080/teacher/class", {
+  const data = fetch("http://localhost:8080/teacher/class", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -93,4 +109,6 @@ export const getStudentsInClass = (classID) => {
     },
     body: JSON.stringify(classID),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
 };

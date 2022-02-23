@@ -12,6 +12,7 @@ const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
     let details = { studentID, classID };
     // add student to the class
     let data = await addStudentToClass(details);
+    // console.log(data);
     if (data.status === "success") console.log("student added to class");
     else if (data.reason === "ER_DUP_ENTRY")
       console.log("student already in class");
@@ -22,8 +23,10 @@ const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
     //get students
     let data = await searchStudents(searchTerm);
     //add to array
-    setSearchResults(data);
     console.log(data);
+    if (data.status === "success") {
+      setSearchResults(data.data);
+    }
   };
   console.log(classID);
 

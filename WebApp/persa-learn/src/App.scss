@@ -242,6 +242,7 @@ h2 {
       color: var(--nav-text-color);
       &:hover {
         color: var(--btn-color);
+        cursor: pointer;
       }
     }
   }
@@ -435,13 +436,21 @@ form {
   width: 50%;
 }
 
-/* login page */
 .center-container {
   justify-content: center;
 }
 
 .rows {
   flex-direction: row !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.8rem;
+}
+.success-message {
+  color: green;
+  font-size: 1.8rem;
 }
 
 /* quiz box */

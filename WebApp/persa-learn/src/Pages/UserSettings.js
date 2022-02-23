@@ -20,11 +20,12 @@ const UserSettings = () => {
     let data = await getUserDetails(token);
 
     // console.log(data);
-
-    const { FirstName, LastName, Email } = data[0];
-    setEmail(Email);
-    setFirstName(FirstName);
-    setLastName(LastName);
+    if (data.hasOwnProperty("data")) {
+      const { FirstName, LastName, Email } = data.data[0];
+      setEmail(Email);
+      setFirstName(FirstName);
+      setLastName(LastName);
+    }
   }, []);
   const deleteAccount = () => {
     //TODO: Make delete user

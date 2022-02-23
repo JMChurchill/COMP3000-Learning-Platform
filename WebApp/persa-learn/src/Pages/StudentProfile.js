@@ -20,23 +20,27 @@ import AssignmentItem from "../Components/AssignmentItem";
 
 const StudentProfile = () => {
   const [classes, setClasses] = useState([]);
-  const [usersName, setUsersName] = useState();
+  const [usersName, setUsersName] = useState("");
   const [selectedTab, setSelectedTab] = useState(1);
   const tabs = ["Classes", "Achievements", "Assignments"];
   useEffect(async () => {
     let data = await getStudentsClassses();
-    setClasses(data);
+    // if (data == ) {
+
+    // }
+    // console.log(data);
+    if (data.hasOwnProperty("data")) {
+      setClasses(data.data);
+    }
 
     const token = JSON.parse(sessionStorage.getItem("token"));
     data = await getUserDetails(token);
-    const { FirstName, LastName, Email } = data[0];
-    setUsersName(`${FirstName} ${LastName}`);
+    // console.log(data);
+    if (data.hasOwnProperty("data")) {
+      const { FirstName, LastName, Email } = data.data[0];
+      setUsersName(`${FirstName} ${LastName}`);
+    }
   }, []);
-  const goToSettings = () => {
-    console.log("go to settings");
-    // <Route to="/somewhere/else" />;
-  };
-  // console.log(selectedTab);
 
   return (
     <div className="content-box">
@@ -47,7 +51,7 @@ const StudentProfile = () => {
             <div className="top">
               <div className="settings-btn">
                 <Link to="/user_settings" style={{ textDecoration: "none" }}>
-                  <FaCog onClick={goToSettings} />
+                  <FaCog />
                 </Link>
               </div>
             </div>
@@ -108,7 +112,7 @@ const StudentProfile = () => {
                 {classes.map((c) => (
                   <>
                     <AssignmentItem key={c.ClassDetailsID} />
-                    <AssignmentItem key={c.ClassDetailsID} />
+                    {/* <AssignmentItem key={c.ClassDetailsID} /> */}
                   </>
                 ))}
               </div>

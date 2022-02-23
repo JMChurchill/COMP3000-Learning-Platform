@@ -30,7 +30,7 @@ const ClassDetails = ({
   };
 
   const deleteThisClass = async () => {
-    let data = await deleteClass({ classID });
+    let data = await deleteClass({ classID }); //TODO: check if want to delete
     console.log(data);
     classChanged();
   };

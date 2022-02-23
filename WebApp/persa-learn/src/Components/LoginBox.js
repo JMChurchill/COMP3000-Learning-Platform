@@ -7,7 +7,8 @@ import userIcon from "../assets/tempUserIcon.svg";
 const LoginBox = ({ setToken, isTeacher }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  // const [error, setError] = useState();
+  const [isError, setIsError] = useState(false);
+  const [reason, setReason] = useState("");
   // const [httpResponseCode, setHttpResponseCode] = useState();
 
   const logout = () => {
@@ -27,14 +28,21 @@ const LoginBox = ({ setToken, isTeacher }) => {
         isTeacher
       );
       // console.log(error);
-      console.log(data);
+      console.log("data: ", data);
       // console.log(response.status);
       // console.log(data);
-      if (data !== null) {
+      if (data !== null && data !== undefined) {
         const token = data.token;
         console.log(token);
         if (!token) {
-          console.log("wrong password");
+          setIsError(true);
+          if (data.reason === "ENOTFOUND" || data.reason === "ECONNREFUSED") {
+            // console.log("could not connect to db");
+            setReason("could not connect to db");
+            return;
+          }
+          // console.log("Email or Password incorrect");
+          setReason("Email or Password incorrect");
           return;
         }
         if (isTeacher) {
@@ -42,6 +50,7 @@ const LoginBox = ({ setToken, isTeacher }) => {
         } else {
           sessionStorage.setItem("teacher", false);
         }
+        setIsError(false);
         setToken(token);
       } else {
         // console.log(httpResponseCode);
@@ -56,6 +65,8 @@ const LoginBox = ({ setToken, isTeacher }) => {
     <div className="right-box">
       <img src={userIcon} alt="User icon" />
       <h1>Login</h1>
+      {isError ? <p className="error-message">{reason}</p> : ""}
+      {/* <p>An error occured</p> */}
       <form action="" onSubmit={login}>
         <label htmlFor="email">Email</label>
         <input

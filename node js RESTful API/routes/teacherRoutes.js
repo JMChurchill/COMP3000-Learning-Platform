@@ -179,7 +179,7 @@ router.route("/classes").get(checkAuth, async (req, res) => {
       if (results === null) {
         res.status(204).json({ status: "Not found" });
       } else {
-        res.status(200).json(results[0]);
+        res.status(200).json({ status: "success", data: results[0] });
       }
     }
   });
@@ -402,7 +402,7 @@ router.route("/search").post(checkAuth, async (req, res) => {
         if (results === null) {
           res.status(204).json({ status: "Not found" });
         } else {
-          res.status(200).json(results[0]);
+          res.status(200).json({ status: "success", data: results[0] });
         }
       }
     });
@@ -437,7 +437,7 @@ router
           res.status(204).json({ status: "Not found" });
         } else {
           console.log(results[0]);
-          res.status(200).json(results[0]);
+          res.status(200).json({ status: "success", data: results[0] });
         }
       });
     }

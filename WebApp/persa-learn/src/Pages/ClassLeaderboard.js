@@ -16,7 +16,7 @@ const ClassLeaderboard = () => {
 
   useEffect(async () => {
     const data = await getStudentsInClass(state);
-    setStudents(data);
+    if (data.status === "success") setStudents(data.data);
   }, []);
 
   useEffect(async () => {

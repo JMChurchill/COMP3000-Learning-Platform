@@ -13,7 +13,7 @@ const ListStudents = ({ classID, flipIsShowStudents }) => {
     let details = { classID: classID };
     let data = await getStudentsInClass(details);
     console.log(data);
-    setStudents(data);
+    if (data.status === "success") setStudents(data.data);
   }, [isDeleted]);
 
   const removeStudent = async (studentID) => {

@@ -293,6 +293,7 @@ h2 {
 
 .primary-header .primary-navigation a:hover {
   color: var(--btn-color);
+  cursor: pointer;
 }
 
 @supports ((-webkit-backdrop-filter: blur(0.25rem)) or (backdrop-filter: blur(0.25rem))) {
@@ -512,7 +513,6 @@ form .btn:hover {
   width: 50%;
 }
 
-/* login page */
 .center-container {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -524,6 +524,16 @@ form .btn:hover {
   -webkit-box-direction: normal !important;
       -ms-flex-direction: row !important;
           flex-direction: row !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.8rem;
+}
+
+.success-message {
+  color: green;
+  font-size: 1.8rem;
 }
 
 /* quiz box */
