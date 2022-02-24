@@ -43,6 +43,21 @@ body {
   margin: 5%;
 }
 
+.content-box .container .create-quiz-title {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 1rem 0;
+}
+
+.content-box .container .create-quiz-title input {
+  width: 80%;
+  border-radius: 2rem;
+  font-size: 2rem;
+  margin: 0.75rem 2rem;
+  padding: 0.5rem;
+}
+
 .content-box .container .create-question {
   border: solid 1px red;
   margin: 1rem 0;

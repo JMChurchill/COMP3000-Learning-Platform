@@ -35,6 +35,24 @@ body {
       width: 25%;
       margin: 5%;
     }
+    .create-quiz-title {
+      align-items: flex-start;
+      padding: 1rem 0;
+      // input {
+      //   margin: ;
+      //   height: 2rem;
+      // }
+      input {
+        // border-radius: 2rem;
+        // font-size: 1.5rem;
+        // padding: 0.25rem;
+        width: 80%;
+        border-radius: 2rem;
+        font-size: 2rem;
+        margin: 0.75rem 2rem;
+        padding: 0.5rem;
+      }
+    }
     //quiz creator
     .create-question {
       border: solid 1px red;

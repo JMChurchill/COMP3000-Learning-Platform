@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CreateQuestionBox from "../../Components/CreateQuestionBox";
 
 const QuizDesigner = () => {
+  const [title, setTitle] = useState();
   const [questions, setQuestions] = useState([]);
 
   //for testing
@@ -31,13 +32,21 @@ const QuizDesigner = () => {
   };
 
   const createQuiz = () => {
-    console.log(questions);
+    console.log("Title: ", title);
+    console.log("Questions: ", questions);
   };
   //TODO: create quiz title
   return (
     <div className="content-box">
       <h1>Quiz designer</h1>
       <div className="container wide-container">
+        <div className="create-quiz-title">
+          <input
+            type="text"
+            placeholder="QuizTitle"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
         {questions.map((quest, index) => {
           return (
             <CreateQuestionBox
