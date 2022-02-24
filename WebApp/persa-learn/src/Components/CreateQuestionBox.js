@@ -1,43 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // component
 // import AddOptionBtn from "./AddOptionBtn";
 import NewOption from "./NewOption";
-// import { useState } from "react/cjs/react.development";
 
-const CreateQuestionBox = () => {
+const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
+  const [questionName, setQuestionName] = useState("");
+  const [questionDetails, setQuestionDetails] = useState("");
+
   const [options, setOptions] = useState([]);
+  const [correctAns, setCorrectAns] = useState(0);
   // const [option, setOption] = useState({ value: "", isTrue: false });
+  useEffect(() => {
+    updateThisQuestion();
+    setOptions([...options]); //to trigger component update
+  }, [correctAns]);
+
   const addOption = (e) => {
     e.preventDefault();
-    console.log(e);
     setOptions([...options, ""]);
-    console.log(options);
-    if (options.length > 0) {
-      let recentOption = document.getElementById("options-box").lastChild;
-      // recentOption.children.lastChild.value = 10;
-      recentOption.lastChild.value = 10;
-      console.log(recentOption.lastChild);
-    }
+    console.log("option array: ", options);
+    updateThisQuestion();
+  };
+
+  const updateThisQuestion = async () => {
+    thisQuestion.name = questionName;
+    thisQuestion.details = questionDetails;
+    thisQuestion.options = options;
+    thisQuestion.correct = correctAns;
+
+    updateQuestion(thisQuestion);
+  };
+
+  const updateOption = (opID, opValue) => {
+    options[opID] = opValue;
+    updateThisQuestion();
+  };
+  const updateCorrectAns = (opID) => {
+    setCorrectAns(opID);
   };
   return (
     <div className="create-question">
       <form action="">
         <div className="question-box">
-          <input placeholder="Enter Question"></input>
-          <input placeholder="More details"></input>
+          <input
+            placeholder="Enter Question"
+            onChange={(e) => {
+              setQuestionName(e.target.value);
+              updateThisQuestion();
+            }}
+          ></input>
+          <input
+            placeholder="More details"
+            onChange={(e) => {
+              setQuestionDetails(e.target.value);
+              updateThisQuestion();
+            }}
+          ></input>
         </div>
-        <p>Correct answer</p>
+        <div className="correct-ans">
+          <div></div>
+          <p>Correct answer</p>
+        </div>
         <div id="options-box">
-          {/* <NewOption />
-          <NewOption />
-          <NewOption /> */}
           {options.map((option, index) => {
-            return <NewOption key={index} />;
+            let correctAnsw = false;
+            if (thisQuestion.correct == index) {
+              correctAnsw = true;
+            }
+            return (
+              <NewOption
+                key={index}
+                opID={index}
+                updateOption={updateOption}
+                correctAns={correctAnsw}
+                updateCorrectAns={updateCorrectAns}
+              />
+            );
           })}
         </div>
         <button className="btn" onClick={addOption}>
-          add question
+          add option
         </button>
       </form>
     </div>

@@ -50,7 +50,6 @@ body {
 
 .content-box .container .create-question p {
   color: #00ff55;
-  margin-left: 30%;
 }
 
 .content-box .container .create-question form {
@@ -100,15 +99,49 @@ body {
   font-weight: bold;
 }
 
+.content-box .container .create-question form .correct-ans {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25% 10%;
+      grid-template-columns: 25% 10%;
+}
+
+.content-box .container .create-question form .correct-ans p {
+  margin: 1rem auto;
+}
+
 .content-box .container .create-question form .new-option {
   border: 1px solid #4ffedf;
   background-color: blueviolet;
   width: auto;
   margin: 0.25rem 2rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25% 5%;
+      grid-template-columns: 25% 5%;
+  gap: 2rem;
 }
 
 .content-box .container .create-question form .new-option input {
-  width: 25%;
+  width: 100%;
+  margin: 0.5rem;
+}
+
+.content-box .container .create-question form .new-option .check-box {
+  background-color: #bbb;
+  width: 50%;
+  margin: auto;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+.content-box .container .create-question form .new-option .check-box[aria-selected="true"] {
+  background-color: var(--success-color);
+}
+
+.content-box .container .create-question form .new-option .check-box:hover {
+  background-color: var(--success-color);
 }
 
 .content-box .container .create-question form .btn {

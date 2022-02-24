@@ -42,7 +42,7 @@ body {
 
       p {
         color: #00ff55;
-        margin-left: 30%;
+        // margin-left: 30%;
       }
 
       form {
@@ -80,15 +80,39 @@ body {
             }
           }
         }
-
+        .correct-ans {
+          display: grid;
+          grid-template-columns: 25% 10%;
+          p {
+            margin: 1rem auto;
+          }
+        }
         .new-option {
           border: 1px solid #4ffedf;
           background-color: blueviolet;
           width: auto;
           margin: 0.25rem 2rem;
+          display: grid;
+          grid-template-columns: 25% 5%;
+          gap: 2rem;
 
           input {
-            width: 25%;
+            width: 100%;
+            margin: 0.5rem;
+          }
+          .check-box {
+            background-color: #bbb;
+            width: 50%;
+            margin: auto;
+            border-radius: 50%;
+            aspect-ratio: 1;
+            cursor: pointer;
+            &[aria-selected="true"] {
+              background-color: var(--success-color);
+            }
+            &:hover {
+              background-color: var(--success-color);
+            }
           }
         }
 
