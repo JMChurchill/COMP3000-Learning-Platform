@@ -110,15 +110,16 @@ CREATE TABLE Assignments (
         ON DELETE CASCADE
     );
 
+
 -- Quizzes table
 CREATE TABLE Quizzes (
     QuizID int NOT NULL AUTO_INCREMENT, 
     QuizName text NOT NULL, 
-    TaskID int NOT NULL, 
-    PRIMARY KEY (QuizID),
-    FOREIGN KEY (TaskID) 
-        REFERENCES Assignments(TaskID)
-        ON DELETE CASCADE
+    #TaskID int NOT NULL, 
+    PRIMARY KEY (QuizID)
+    #FOREIGN KEY (TaskID) 
+        #REFERENCES Assignments(TaskID)
+        #ON DELETE CASCADE
     );
 
 -- Quiz questions table
@@ -126,7 +127,8 @@ CREATE TABLE QuizQuestions (
     QuestionID int NOT NULL AUTO_INCREMENT, 
     QuizID int NOT NULL, 
     Question text NOT NULL, 
-    Answer text NOT NULL, 
+    Details text,
+    Answer int NOT NULL, 
     PRIMARY KEY (QuestionID),
     FOREIGN KEY (QuizID) 
         REFERENCES Quizzes(QuizID)
@@ -148,11 +150,11 @@ CREATE TABLE QuizOptions (
 CREATE TABLE WordLinks (
     WordLinkID int NOT NULL AUTO_INCREMENT, 
     WordLinkName text NOT NULL, 
-    TaskID int NOT NULL, 
-    PRIMARY KEY (WordLinkID),
-    FOREIGN KEY (TaskID) 
-        REFERENCES Assignments(TaskID)
-        ON DELETE CASCADE
+    #TaskID int NOT NULL, 
+    PRIMARY KEY (WordLinkID)
+    #FOREIGN KEY (TaskID) 
+    #    REFERENCES Assignments(TaskID)
+    #    ON DELETE CASCADE
     );
 
 -- Words table

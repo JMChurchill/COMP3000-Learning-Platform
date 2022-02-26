@@ -151,5 +151,113 @@ CALL remove_student_from_class (1, 1, "email2@email.com", "password")
 
 
 
+# Create quiz
+DELIMITER $$
+CREATE PROCEDURE quiz_create(QuizTitle text)
+BEGIN 
+    #START TRANSACTION
+        INSERT INTO quizzes(QuizName)
+        VALUES (QuizTitle);
+        # get the new quizzes id
+        SELECT LAST_INSERT_ID();
+    #COMMIT
+END$$
+DELIMITER ;
 
+CALL quiz_create ("test")
+
+
+# add question to quiz
+DELIMITER $$
+CREATE PROCEDURE quiz_add_question(theQuizID int, nQuestion text, nDetails text, ans int)
+BEGIN 
+    #START TRANSACTION
+        INSERT INTO quizquestions(QuizID, Question, Details,Answer)
+        VALUES (theQuizID, nQuestion, nDetails, Answer);
+        # get the new quizzes id
+        SELECT LAST_INSERT_ID();
+    #COMMIT
+END$$
+DELIMITER ;
+
+# execute
+CALL quiz_add_question (4,"1+1", "", 0)
+
+
+# add option to quiz question
+DELIMITER $$
+CREATE PROCEDURE quiz_add_question_option(questID int, anOption text)
+BEGIN 
+    INSERT INTO quizoptions(QuestionID, TheOption)
+    VALUES (questID, anOption);
+END$$
+DELIMITER ;
+
+# execute
+CALL quiz_add_question_option (2,"2")
+
+# view quiz
+DELIMITER $$
+CREATE PROCEDURE quiz_view(quid_ID int)
+BEGIN 
+    SELECT * FROM quizzes WHERE QuizID = quid_ID;
+    #SELECT * FROM quizquestions WHERE QuizID = quid_ID;
+    #SELECT quizquestions.QuestionID, TheOption FROM QuizOptions 
+    #INNER JOIN QuizQuestions 
+    #ON quizquestions.QuestionID = QuizOptions.QuestionID
+    #WHERE quizquestions.QuizID = quid_ID;
+END$$
+DELIMITER ;
+
+# execute
+CALL quiz_view (35)
+
+# view quiz question
+DELIMITER $$
+CREATE PROCEDURE quiz_question_view(quid_ID int)
+BEGIN 
+    #SELECT * FROM quizzes WHERE QuizID = quid_ID;
+    SELECT * FROM quizquestions WHERE QuizID = quid_ID;
+    #SELECT quizquestions.QuestionID, TheOption FROM QuizOptions 
+    #INNER JOIN QuizQuestions 
+    #ON quizquestions.QuestionID = QuizOptions.QuestionID
+    #WHERE quizquestions.QuizID = quid_ID;
+END$$
+DELIMITER ;
+
+# execute
+CALL quiz_question_view (35)
+
+# view quiz question options
+DELIMITER $$
+CREATE PROCEDURE quiz_question_option_view(quiz_ID int, quest_ID int)
+BEGIN 
+    #SELECT * FROM quizzes WHERE QuizID = quid_ID;
+    #SELECT * FROM quizquestions WHERE QuizID = quid_ID;
+    SELECT quizquestions.QuestionID, TheOption FROM QuizOptions 
+    INNER JOIN QuizQuestions 
+    ON quizquestions.QuestionID = QuizOptions.QuestionID
+    WHERE quizquestions.QuizID = quiz_ID AND quizquestions.QuestionID = quest_ID;
+END$$
+DELIMITER ;
+
+# execute
+CALL quiz_question_option_view (35,18)
+
+
+/* # view quiz -- test
+DELIMITER $$
+CREATE PROCEDURE quiz_view(IN quid_ID int, OUT quizzes, OUT )
+BEGIN 
+    SELECT * FROM quizzes WHERE QuizID = quid_ID;
+    SELECT * FROM quizquestions WHERE QuizID = quid_ID;
+    SELECT * FROM QuizOptions 
+    INNER JOIN QuizQuestions 
+    ON quizquestions.QuestionID = QuizOptions.QuestionID
+    WHERE quizquestions.QuizID = quid_ID;
+END$$
+DELIMITER ;
+
+# execute
+CALL quiz_view (35) */
 

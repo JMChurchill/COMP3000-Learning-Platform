@@ -5,6 +5,7 @@ if (process.env.NODE_ENV != "production") {
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const userRouter = require("./routes/userRoutes");
+const teacherActivityRouter = require("./routes/teacherActivityRoutes");
 const studentRouter = require("./routes/studentRoutes");
 const teacherRouter = require("./routes/teacherRoutes");
 const assignmentsRouter = require("./routes/assignmentsRoutes");
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV != "production") {
 //redirect requests to endpoint starting with /posts to postRoutes.js
 app.use("/user", userRouter);
 app.use("/student", studentRouter);
+app.use("/teacher/activity", teacherActivityRouter);
 app.use("/teacher", teacherRouter);
 app.use("/leaderboard", leaderboardRouter);
 app.use("/assignments", assignmentsRouter);
