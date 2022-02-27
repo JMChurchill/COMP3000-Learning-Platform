@@ -112,3 +112,17 @@ export const getStudentsInClass = (classID) => {
   checkTokenCorrect(data);
   return data;
 };
+
+export const createTheQuiz = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/teacher/activity/quiz/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-const Progressbar = ({ progress = 1, numQuestions = 10 }) => {
+const Progressbar = ({ progress = 0, numQuestions }) => {
   const [widthPer, setWidthPer] = useState();
   useEffect(() => {
-    const perc = `${(progress / numQuestions) * 100}%`;
+    let perc = 0;
+    if (numQuestions !== 0) perc = `${(progress / numQuestions) * 100}%`;
     setWidthPer(perc);
-    // alert(perc);
-    //   return () => {
-    //       cleanup
-    //   }
   }, [progress]);
 
   return (

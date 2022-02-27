@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import CreateQuestionBox from "../../Components/CreateQuestionBox";
+import CreateQuestionBox from "../../Components/QuizDesigner/CreateQuestionBox";
+import { createTheQuiz } from "../../http_Requests/teacherRequests";
 
 const QuizDesigner = () => {
   const [title, setTitle] = useState();
@@ -31,23 +32,17 @@ const QuizDesigner = () => {
     newData[qID] = updatedQuestion;
   };
 
-  const createQuiz = () => {
+  const createQuiz = async () => {
     // send this to API
     console.log("Title: ", title);
     console.log("Questions: ", questions);
 
-    // console.log("-----vals for db-----");
-    // //for quiz table
-    // console.log("Title: ", title);
+    const data = await createTheQuiz({ title, questions });
 
-    // questions.map((ques, i) => {
-    //   //for quiz questions
-    //   console.log("Question: ", ques);
-    //   //for quiz options
-    //   console.log("Options: ", ques.options);
-    // });
+    //{status, quizID} = data
+    console.log(data);
   };
-  //TODO: create quiz title
+
   return (
     <div className="content-box">
       <h1>Quiz designer</h1>

@@ -261,3 +261,15 @@ DELIMITER ;
 # execute
 CALL quiz_view (35) */
 
+
+
+#get answers by quiz id
+DELIMITER $$
+CREATE PROCEDURE quiz_answers_by_id(quiz_ID int)
+BEGIN 
+    SELECT QuestionID,QuizID,Answer FROM quizquestions WHERE QuizID = quiz_ID;
+END$$
+DELIMITER ;
+
+CALL quiz_answers_by_id(35)
+

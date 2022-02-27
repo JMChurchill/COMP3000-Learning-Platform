@@ -6,8 +6,6 @@ const { check, validationResult } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
 
-//TODO:create quiz
-
 // quiz object
 // [
 //   {
@@ -25,6 +23,8 @@ const checkAuth = require("../middleware/checkAuth");
 //     options: ["3", "5", "4"],
 //   },
 // ];
+
+//create quiz
 router
   .route("/quiz/create")
   .post(
@@ -98,6 +98,7 @@ router
           }
           return res.status(201).json({
             status: "success",
+            quizID,
             // data: results[0],
           });
         });
@@ -150,7 +151,8 @@ router
           };
           tempQuestion.id = quest.QuestionID;
           tempQuestion.name = quest.Question;
-          tempQuestion.details = quest.details;
+          if (quest.details !== null && quest.details !== undefined)
+            tempQuestion.details = quest.details;
           tempQuestion.correct = quest.Answer;
 
           // console.log(tempQuestion);
@@ -177,6 +179,7 @@ router
           // console.log(i);
           if (i === numQuests - 1) {
             // console.log("ops: ", quiz.questions);
+            console.log(quiz);
             res.status(201).json(quiz);
           }
         });
@@ -186,26 +189,58 @@ router
     }
   );
 
+router
+  .route("/quiz/checkAnswers")
+  .post(
+    [
+      check("quizID", "Invalid quizID").not().isEmpty(),
+      check("answers", "No answers").isArray({ min: 1 }),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        const data = {
+          quizID: req.body.quizID,
+          ans: req.body.answers,
+        };
+        const query = `CALL quiz_answers_by_id(${data.quizID})`;
+        console.log(query);
+        const [correctAnswers] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        let isCorrect = true;
+        const wrongAnswers = [];
+        //check answers
+        //check if same length
+        if (data.ans.length === correctAnswers.length) {
+          //loop through correct and check against answers
+          correctAnswers.map((corAns) => {
+            data.ans.map((answer, i) => {
+              if (answer.questionID === corAns.QuestionID) {
+                if (answer.ans != corAns.Answer) {
+                  isCorrect = false;
+                  wrongAnswers.push(answer.questionID);
+                }
+              }
+            });
+          });
+        } else {
+          isCorrect = false;
+        }
+        return res
+          .status(200)
+          .json({ status: "success", correctAnswers, isCorrect, wrongAnswers });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
 module.exports = router;
-
-// connection.query(
-//   queryString,
-//   (err, rows, fields) => {
-//     if (err) throw err;
-
-//     async.each(rows, (row, callback) => {
-//       console.log("Product Name: ", row.product_name);
-//       var emp_query = "SELECT * FROM tbl_employer";
-//       connection.query(queryString, function (emp_err, emp_rows, emp_fields) {
-//         if (emp_err) callback(emp_err);
-//         for (var e in emp_rows) {
-//           console.log("Employer Name: ", emp_rows[e].company_name);
-//         }
-//         callback();
-//       });
-//     });
-//   },
-//   (err) => {
-//     connection.end();
-//   }
-// );

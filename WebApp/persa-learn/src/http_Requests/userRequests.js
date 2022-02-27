@@ -1,6 +1,6 @@
 export const checkTokenCorrect = (status) => {
   status.then((value) => {
-    console.log(value.errors[0].message);
+    // console.log(value.errors[0].message);
     // ask to log back in if token invalid
     if (
       value.hasOwnProperty("errors") &&
@@ -78,6 +78,39 @@ export const getStudentsInClass = (classID) => {
     },
     body: JSON.stringify(classID),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const getQuiz = (quizID) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/teacher/activity/quiz/view?quizID=${quizID}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }
+  ).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const checkAnswers = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/teacher/activity/quiz/checkAnswers`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+      body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
   checkTokenCorrect(data);
   return data;
 };
