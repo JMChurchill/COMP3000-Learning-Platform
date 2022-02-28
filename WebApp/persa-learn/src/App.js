@@ -26,6 +26,7 @@ import TeacherProfile from "./Pages/TeacherProfile";
 import Navbar from "./Components/Navbar";
 import UserSettings from "./Pages/UserSettings";
 import EditUserSettings from "./Pages/EditUserSettings";
+import AllQuizzes from "./Pages/AllQuizzes";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -53,6 +54,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/activity" element={<Activities />} />
           <Route exact path="/create" element={<CreateActivity />} />
+          <Route exact path="/quiz/all" element={<AllQuizzes />} />
           <Route exact path="/quiz" element={<Quiz />} />
           <Route exact path="/flash-cards" element={<FlashCards />} />
           <Route exact path="/designer_quiz" element={<QuizDesigner />} />

@@ -1129,6 +1129,83 @@ form .btn:hover {
   margin: 1rem;
 }
 
+.content-box .container .content .quiz-items {
+  display: -ms-grid;
+  display: grid;
+  margin-bottom: clamp(2rem, 5%, 5rem);
+  position: relative;
+}
+
+.content-box .container .content .quiz-items .quiz-cols {
+  display: -ms-grid;
+  display: grid;
+  width: 98%;
+  -ms-grid-columns: 40% 30% 20%;
+      grid-template-columns: 40% 30% 20%;
+  margin: auto;
+  border: solid 1px red;
+}
+
+.content-box .container .content .quiz-items .quiz-col-names {
+  background-color: var(--selected-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.content-box .container .content .quiz-items .add-quiz {
+  background-color: var(--selected-color);
+  margin: 1rem;
+  width: 11%;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  padding: 0 1rem 0 0;
+  border-radius: 2rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25% 75%;
+      grid-template-columns: 25% 75%;
+  gap: 1rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0 0.3rem 0.3rem -0.25em black;
+          box-shadow: 0 0.3rem 0.3rem -0.25em black;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.content-box .container .content .quiz-items .add-quiz:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.content-box .container .content .quiz-items .add-quiz .circle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: var(--btn-color);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.content-box .container .content .quiz-items .add-quiz p {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
 .content-box .container .right-box .class-details {
   /* border: solid 1px red; */
   width: 100%;
