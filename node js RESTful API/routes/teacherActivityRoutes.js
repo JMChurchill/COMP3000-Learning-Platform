@@ -29,12 +29,16 @@ router
   .route("/quiz/create")
   .post(
     [
-      check("title", "Invalid email").not().isEmpty(),
+      check("title", "Invalid title").not().isEmpty(),
       check("questions", "Quiz has no questions").isArray({ min: 1 }),
     ],
     checkAuth,
     async (req, res) => {
       try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
         let quizID;
         let opID;
         //validate inputs
@@ -53,7 +57,7 @@ router
         // console.log(data);
         // console.log(data.questions[0].options);
 
-        const query = `CALL quiz_create ("${data.title}")`;
+        const query = `CALL quiz_create ("${data.title}", "${email}", "${password}")`;
         pool.query(query, (error, results) => {
           if (error) {
             return res
@@ -243,4 +247,22 @@ router
       }
     }
   );
+
+router.route("/quiz/all").get(checkAuth, async (req, res) => {
+  try {
+    //get these values from check auth (JWT)
+    const email = req.user.email;
+    const password = req.user.password;
+    const query = `CALL quiz_all_by_teacher ("${email}", "${password}")`;
+    console.log(query);
+    const [quizzes] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
+    });
+    return res.status(200).json({
+      status: "success",
+      quizzes,
+    });
+  } catch (err) {}
+});
 module.exports = router;

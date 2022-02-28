@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import QuizListItem from "../Components/QuizDesigner/QuizListItem";
+import { viewTeachersQuizzes } from "../http_Requests/teacherRequests";
 
 const AllQuizzes = () => {
+  const [quizzes, setQuizzes] = useState([]);
+
   const navigate = useNavigate();
+
+  useEffect(async () => {
+    const data = await viewTeachersQuizzes();
+    console.log(data);
+    setQuizzes(data.quizzes);
+  }, []);
 
   return (
     <div className="content-box">
@@ -17,7 +27,10 @@ const AllQuizzes = () => {
                 <p>Module</p>
                 <p>Number of Questions</p>
               </div>
-              <div className="quiz-list-items quiz-cols">
+              {quizzes.map((quiz) => {
+                return <QuizListItem key={quiz.QuizID} name={quiz.QuizName} />;
+              })}
+              {/* <div className="quiz-list-items quiz-cols">
                 <p>quiz name</p>
                 <p>module</p>
                 <p>12</p>
@@ -31,7 +44,7 @@ const AllQuizzes = () => {
                 <p>quiz name</p>
                 <p>module</p>
                 <p>12</p>
-              </div>
+              </div> */}
               <div
                 className="add-quiz"
                 onClick={() => navigate("/designer_quiz")}

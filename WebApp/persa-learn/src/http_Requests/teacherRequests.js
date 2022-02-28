@@ -126,3 +126,16 @@ export const createTheQuiz = (credentials) => {
   checkTokenCorrect(data);
   return data;
 };
+
+export const viewTeachersQuizzes = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/teacher/activity/quiz/all", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};

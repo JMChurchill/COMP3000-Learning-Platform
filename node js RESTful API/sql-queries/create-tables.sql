@@ -117,9 +117,9 @@ CREATE TABLE Quizzes (
     QuizName text NOT NULL, 
     #TaskID int NOT NULL, 
     PRIMARY KEY (QuizID)
-    #FOREIGN KEY (TaskID) 
-        #REFERENCES Assignments(TaskID)
-        #ON DELETE CASCADE
+    FOREIGN KEY (TeacherID) 
+        REFERENCES Teachers(TeacherID)
+        ON DELETE CASCADE
     );
 
 -- Quiz questions table
@@ -152,9 +152,9 @@ CREATE TABLE WordLinks (
     WordLinkName text NOT NULL, 
     #TaskID int NOT NULL, 
     PRIMARY KEY (WordLinkID)
-    #FOREIGN KEY (TaskID) 
-    #    REFERENCES Assignments(TaskID)
-    #    ON DELETE CASCADE
+    FOREIGN KEY (TeacherID) 
+        REFERENCES Teachers(TeacherID)
+        ON DELETE CASCADE
     );
 
 -- Words table

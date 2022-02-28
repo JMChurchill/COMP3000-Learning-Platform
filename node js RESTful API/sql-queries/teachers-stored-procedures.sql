@@ -153,18 +153,20 @@ CALL remove_student_from_class (1, 1, "email2@email.com", "password")
 
 # Create quiz
 DELIMITER $$
-CREATE PROCEDURE quiz_create(QuizTitle text)
+CREATE PROCEDURE quiz_create(QuizTitle text, tEmail varchar(255), tPassword varchar(60))
 BEGIN 
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
     #START TRANSACTION
-        INSERT INTO quizzes(QuizName)
-        VALUES (QuizTitle);
+        INSERT INTO quizzes(QuizName, TeacherID)
+        VALUES (QuizTitle, theTeacherID);
         # get the new quizzes id
         SELECT LAST_INSERT_ID();
     #COMMIT
 END$$
 DELIMITER ;
 
-CALL quiz_create ("test")
+CALL quiz_create ("test", "email","password")
 
 
 # add question to quiz
@@ -273,3 +275,16 @@ DELIMITER ;
 
 CALL quiz_answers_by_id(35)
 
+
+# get all quizzes
+DELIMITER $$
+CREATE PROCEDURE quiz_all_by_teacher(tEmail varchar(255), tPassword varchar(60))
+BEGIN 
+    SELECT QuizID, QuizName FROM quizzes 
+    INNER JOIN teachers ON quizzes.TeacherID = teachers.TeacherID 
+    WHERE teachers.email = tEmail AND teachers.password = tPassword;
+END$$
+DELIMITER ;
+
+# execute
+CALL quiz_all_by_teacher ("teacher", "password")
