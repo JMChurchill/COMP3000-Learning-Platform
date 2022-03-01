@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../config/db");
 const bcrypt = require("bcrypt");
-const { check, validationResult } = require("express-validator");
+const { check, validationResult, oneOf } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
 
@@ -23,6 +23,152 @@ const checkAuth = require("../middleware/checkAuth");
 //     options: ["3", "5", "4"],
 //   },
 // ];
+// create module
+router
+  .route("/module/create")
+  .post(
+    [check("moduleName", "Invalid module name").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        let query = `CALL modules_create ("${req.body.moduleName}","${email}","${password}")`;
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+// update module
+router
+  .route("/module/update")
+  .put(
+    [
+      check("moduleID", "Invalid module id").not().isEmpty().isInt(),
+      check("moduleName", "Invalid module name").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const module = {
+          id: req.body.moduleID,
+          name: req.body.moduleName,
+        };
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        let query = `CALL modules_update ("${module.id}","${module.name}","${email}","${password}")`;
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+//view module
+router.route("/module/view").get(checkAuth, async (req, res) => {
+  try {
+    //get these values from check auth (JWT)
+    const email = req.user.email;
+    const password = req.user.password;
+
+    const errs = validationResult(req);
+    if (!errs.isEmpty()) {
+      console.log(errs);
+      return res.status(400).json({
+        errors: errs.array(),
+      });
+    }
+
+    let query = `CALL modules_view_by_teacher("${email}","${password}")`;
+
+    const [modules] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
+    });
+    return res.status(200).json({
+      status: "success",
+      modules,
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+// update module
+router
+  .route("/module/delete")
+  .delete(
+    [check("moduleID", "Invalid module id").not().isEmpty().isInt()],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const module = {
+          id: req.body.moduleID,
+        };
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        let query = `CALL modules_delete ("${module.id}","${email}","${password}")`;
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
 
 //create quiz
 router
@@ -31,6 +177,10 @@ router
     [
       check("title", "Invalid title").not().isEmpty(),
       check("questions", "Quiz has no questions").isArray({ min: 1 }),
+      oneOf([
+        check("selectedModule", "Incorrect module id").isInt(),
+        check("selectedModule", "Incorrect module id").isEmpty(),
+      ]),
     ],
     checkAuth,
     async (req, res) => {
@@ -52,12 +202,13 @@ router
         const data = {
           title: req.body.title,
           questions: req.body.questions,
+          moduleID: req.body.selectedModule,
         };
         // console.log(data.title);
         // console.log(data);
         // console.log(data.questions[0].options);
 
-        const query = `CALL quiz_create ("${data.title}", "${email}", "${password}")`;
+        const query = `CALL quiz_create ("${data.title}",${data.moduleID}, "${email}", "${password}")`;
         pool.query(query, (error, results) => {
           if (error) {
             return res
@@ -265,4 +416,91 @@ router.route("/quiz/all").get(checkAuth, async (req, res) => {
     });
   } catch (err) {}
 });
+
+// create quiz assignment
+router
+  .route("quiz/assignments")
+  .post(
+    [
+      check("StudentID", "Invalid student ID").not().isEmpty(),
+      check("QuizID", "Invalid quiz ID").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        data = {
+          studentID: req.body.studentID,
+          quizID: req.body.quizID,
+        };
+
+        let query = `CALL assignment_quiz_create (${data.studentID},${data.quizID},"${email}","${password}")`;
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+// delete quiz assignment
+router
+  .route("quiz/assignments")
+  .delete(
+    [
+      check("StudentID", "Invalid student ID").not().isEmpty(),
+      check("QuizID", "Invalid quiz ID").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        data = {
+          studentID: req.body.studentID,
+          quizID: req.body.quizID,
+        };
+
+        let query = `CALL assignment_quiz_delete (${data.studentID},${data.quizID},"${email}","${password}")`;
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
 module.exports = router;

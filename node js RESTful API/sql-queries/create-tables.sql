@@ -121,6 +121,19 @@ CREATE TABLE Modules (
         ON DELETE CASCADE
     );
 
+#Quiz assignments
+CREATE TABLE QuizAssignments (
+    StudentID int NOT NULL, 
+    QuizID INT NOT NULL, 
+    PRIMARY KEY (StudentID, QuizID),
+    FOREIGN KEY (StudentID) 
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (QuizID) 
+        REFERENCES Quizzes(QuizID)
+        ON DELETE CASCADE
+    );
+
 -- Quizzes table
 CREATE TABLE Quizzes (
     QuizID int NOT NULL AUTO_INCREMENT, 
