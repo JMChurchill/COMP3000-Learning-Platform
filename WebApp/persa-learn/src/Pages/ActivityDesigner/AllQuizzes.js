@@ -28,23 +28,14 @@ const AllQuizzes = () => {
                 <p>Number of Questions</p>
               </div>
               {quizzes.map((quiz) => {
-                return <QuizListItem key={quiz.QuizID} name={quiz.QuizName} />;
+                return (
+                  <QuizListItem
+                    key={quiz.QuizID}
+                    name={quiz.QuizName}
+                    module={quiz.ModuleName}
+                  />
+                );
               })}
-              {/* <div className="quiz-list-items quiz-cols">
-                <p>quiz name</p>
-                <p>module</p>
-                <p>12</p>
-              </div>
-              <div className="quiz-list-items quiz-cols">
-                <p>quiz name</p>
-                <p>module</p>
-                <p>12</p>
-              </div>
-              <div className="quiz-list-items quiz-cols">
-                <p>quiz name</p>
-                <p>module</p>
-                <p>12</p>
-              </div> */}
               <div
                 className="add-quiz"
                 onClick={() => navigate("/designer_quiz")}

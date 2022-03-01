@@ -41,6 +41,7 @@ body {
     &[aria-disabled="true"] {
       display: none;
     }
+
     .message-box {
       // width: 40%;
       background-color: white;
@@ -51,6 +52,13 @@ body {
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
+      input {
+        width: 70%;
+        border-radius: 2rem;
+        font-size: 2rem;
+        padding: 0.5rem;
+        box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+      }
     }
   }
 
@@ -61,8 +69,11 @@ body {
       margin: 5%;
     }
     .create-quiz-title {
-      align-items: flex-start;
+      // align-items: flex-start;
+      display: grid;
+      grid-template-columns: 60% 20% 10%;
       padding: 1rem 0;
+      gap: 0.5rem;
       // input {
       //   margin: ;
       //   height: 2rem;
@@ -71,12 +82,18 @@ body {
         // border-radius: 2rem;
         // font-size: 1.5rem;
         // padding: 0.25rem;
-        width: 80%;
+        width: 90%;
         border-radius: 2rem;
         font-size: 2rem;
-        margin: 0.75rem 2rem;
+        margin: 0.75rem 1rem 0.75rem 2rem;
         padding: 0.5rem;
         box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+      }
+
+      .selector {
+        font-size: 2rem;
+        width: 100%;
+        // padding: 1rem;
       }
     }
     //quiz creator

@@ -64,26 +64,42 @@ body {
   text-align: center;
 }
 
+.content-box .overlay .message-box input {
+  width: 70%;
+  border-radius: 2rem;
+  font-size: 2rem;
+  padding: 0.5rem;
+  -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+          box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+}
+
 .content-box .container #update-user-form {
   width: 25%;
   margin: 5%;
 }
 
 .content-box .container .create-quiz-title {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 60% 20% 10%;
+      grid-template-columns: 60% 20% 10%;
   padding: 1rem 0;
+  gap: 0.5rem;
 }
 
 .content-box .container .create-quiz-title input {
-  width: 80%;
+  width: 90%;
   border-radius: 2rem;
   font-size: 2rem;
-  margin: 0.75rem 2rem;
+  margin: 0.75rem 1rem 0.75rem 2rem;
   padding: 0.5rem;
   -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
           box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+}
+
+.content-box .container .create-quiz-title .selector {
+  font-size: 2rem;
+  width: 100%;
 }
 
 .content-box .container .create-question {
