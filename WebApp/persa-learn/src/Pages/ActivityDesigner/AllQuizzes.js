@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import QuizListItem from "../Components/QuizDesigner/QuizListItem";
-import { viewTeachersQuizzes } from "../http_Requests/teacherRequests";
+import QuizListItem from "../../Components/QuizDesigner/QuizListItem";
+import { viewTeachersQuizzes } from "../../http_Requests/teacherRequests";
 
 const AllQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);

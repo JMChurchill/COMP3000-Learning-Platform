@@ -26,7 +26,7 @@ import TeacherProfile from "./Pages/TeacherProfile";
 import Navbar from "./Components/Navbar";
 import UserSettings from "./Pages/UserSettings";
 import EditUserSettings from "./Pages/EditUserSettings";
-import AllQuizzes from "./Pages/AllQuizzes";
+import AllQuizzes from "./Pages/ActivityDesigner/AllQuizzes";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));

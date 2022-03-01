@@ -6,6 +6,7 @@ import UpdateClass from "./UpdateClass";
 
 const ClassDetails = ({
   name = "Name",
+  setSelectedClass,
   selectedClass,
   classID,
   yearGroup,
@@ -21,6 +22,8 @@ const ClassDetails = ({
   // const [isUpdating, setIsUpdating] = useState(false);
   // const [isShowStudents, setIsShowStudents] = useState(false);
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const flipIsUpdating = () => {
     setIsUpdating(!isUpdating);
   };
@@ -30,9 +33,13 @@ const ClassDetails = ({
   };
 
   const deleteThisClass = async () => {
-    let data = await deleteClass({ classID }); //TODO: check if want to delete
+    // check if user wants to delete
+
+    let data = await deleteClass({ classID });
     console.log(data);
     classChanged();
+    setIsDeleting(false);
+    setSelectedClass();
   };
   if (isSearching)
     return (
@@ -79,12 +86,23 @@ const ClassDetails = ({
         <button className="btn" onClick={() => flipIsUpdating()}>
           Update class
         </button>
-        <button className="btn" onClick={() => deleteThisClass()}>
+        <button className="btn" onClick={() => setIsDeleting(true)}>
           Delete class
         </button>
         <button className="btn" onClick={() => flipIsShowStudents()}>
           Show all students
         </button>
+      </div>
+      <div className="overlay" aria-disabled={!isDeleting}>
+        <div className="message-box">
+          <h1>Are you sure you want to delete this class?</h1>
+          <button className="btn" onClick={() => deleteThisClass()}>
+            yes
+          </button>
+          <button className="btn" onClick={() => setIsDeleting(false)}>
+            no
+          </button>
+        </div>
       </div>
     </div>
   );

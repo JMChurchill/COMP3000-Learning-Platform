@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CreateQuestionBox from "../../Components/QuizDesigner/CreateQuestionBox";
 import { createTheQuiz } from "../../http_Requests/teacherRequests";
@@ -6,6 +7,10 @@ import { createTheQuiz } from "../../http_Requests/teacherRequests";
 const QuizDesigner = () => {
   const [title, setTitle] = useState();
   const [questions, setQuestions] = useState([]);
+
+  const [isComplete, setIsComplete] = useState(false);
+
+  const navigate = useNavigate();
 
   //for testing
   useEffect(() => {
@@ -41,6 +46,7 @@ const QuizDesigner = () => {
 
     //{status, quizID} = data
     console.log(data);
+    setIsComplete(true);
   };
 
   return (
@@ -71,6 +77,14 @@ const QuizDesigner = () => {
         <button className="btn" onClick={createQuiz}>
           Finish
         </button>
+      </div>
+      <div className="overlay" aria-disabled={!isComplete}>
+        <div className="message-box">
+          <h1>Created {title} Quiz</h1>
+          <button className="btn" onClick={() => navigate("/quiz/all")}>
+            View all quizzes
+          </button>
+        </div>
       </div>
     </div>
   );

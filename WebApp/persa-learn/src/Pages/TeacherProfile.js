@@ -97,6 +97,7 @@ const TeacherProfile = () => {
           <AddClass flipAddClass={flipAddClass} classChanged={classChanged} />
         ) : selectedClass ? (
           <ClassDetails
+            setSelectedClass={setSelectedClass}
             selectedClass={selectedClass}
             classID={selectedClass.id}
             name={selectedClass.name}

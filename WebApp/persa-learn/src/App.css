@@ -38,6 +38,32 @@ body {
   padding: 0 3%;
 }
 
+.content-box .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.content-box .overlay[aria-disabled="true"] {
+  display: none;
+}
+
+.content-box .overlay .message-box {
+  background-color: white;
+  padding: 5% 10%;
+  margin: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+}
+
 .content-box .container #update-user-form {
   width: 25%;
   margin: 5%;

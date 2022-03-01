@@ -29,6 +29,31 @@ body {
   flex-direction: column;
   padding: 0 3%;
 
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    // display: none;
+    &[aria-disabled="true"] {
+      display: none;
+    }
+    .message-box {
+      // width: 40%;
+      background-color: white;
+      padding: 5% 10%;
+      margin: auto;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+  }
+
   .container {
     //update user
     #update-user-form {
