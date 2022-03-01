@@ -110,15 +110,30 @@ CREATE TABLE Assignments (
         ON DELETE CASCADE
     );
 
+# Module table
+CREATE TABLE Modules (
+    ModuleID int NOT NULL AUTO_INCREMENT, 
+    ModuleName text NOT NULL, 
+    TeacherID int NOT NULL,
+    PRIMARY KEY (ModuleID),
+    FOREIGN KEY (TeacherID) 
+        REFERENCES Teachers(TeacherID)
+        ON DELETE CASCADE
+    );
 
 -- Quizzes table
 CREATE TABLE Quizzes (
     QuizID int NOT NULL AUTO_INCREMENT, 
     QuizName text NOT NULL, 
+    TeacherID int NOT NULL,
+    ModuleID int NOT NULL,
     #TaskID int NOT NULL, 
-    PRIMARY KEY (QuizID)
+    PRIMARY KEY (QuizID),
     FOREIGN KEY (TeacherID) 
         REFERENCES Teachers(TeacherID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (ModuleID) 
+        REFERENCES Modules(ModuleID)
         ON DELETE CASCADE
     );
 
