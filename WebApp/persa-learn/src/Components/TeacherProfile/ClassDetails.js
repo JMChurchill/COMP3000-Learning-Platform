@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { deleteClass } from "../../http_Requests/teacherRequests";
 import ListStudents from "./ListStudents";
 import SearchStudents from "./SearchStudents";
@@ -23,6 +24,8 @@ const ClassDetails = ({
   // const [isShowStudents, setIsShowStudents] = useState(false);
 
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const navigate = useNavigate();
 
   const flipIsUpdating = () => {
     setIsUpdating(!isUpdating);
@@ -72,6 +75,7 @@ const ClassDetails = ({
         <p>Year Group: {yearGroup}</p>
         <p>Nearest due date: </p>
         <p>Overall class progress</p>
+        <p>Number of students</p>
         <div className="progressbar">
           <div className="bar-fill-left">
             <p>23</p>
@@ -91,6 +95,24 @@ const ClassDetails = ({
         </button>
         <button className="btn" onClick={() => flipIsShowStudents()}>
           Show all students
+        </button>
+        <button
+          className="btn"
+          onClick={() =>
+            navigate("/Assign", {
+              state: selectedClass,
+            })
+          }
+          // onClick={
+          //   (() => navigate("/Assign"),
+          //   {
+          //     state: {
+          //       selectedClass,
+          //     },
+          //   })
+          // }
+        >
+          Assign activity
         </button>
       </div>
       <div className="overlay" aria-disabled={!isDeleting}>

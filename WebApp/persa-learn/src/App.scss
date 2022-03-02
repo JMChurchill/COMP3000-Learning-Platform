@@ -12,6 +12,7 @@
   --success-color: #00ff55;
   --progressbar-color: blue;
   --selected-color: rgba(177, 186, 187, 0.1);
+  --on-text-hover: darkGray;
 }
 .App {
   /* text-align: center; */
@@ -551,6 +552,9 @@ form {
 .vFill {
   height: MIN(70vh);
 }
+.hFill {
+  width: 100%;
+}
 
 .flex-wrap {
   flex-wrap: wrap;
@@ -962,10 +966,43 @@ form {
     margin-bottom: clamp(2rem, 5%, 5rem);
     position: relative;
     // min-height: 80vh;
+    .icon {
+      display: flex;
+      div {
+        width: fit-content;
+      }
+      .tooltip {
+        position: relative;
+        cursor: pointer;
+        &:hover {
+          color: var(--on-text-hover);
+          .tooltiptext {
+            visibility: visible;
+          }
+        }
+        .tooltiptext {
+          font-size: 1rem;
+          visibility: hidden;
+          background-color: rgba(0, 0, 0, 0.5);
+          color: #fff;
+          font-weight: bold;
+          text-align: center;
+          border-radius: 6px;
+          padding: 2px 1rem;
+          position: absolute;
+          z-index: 1;
+          top: 90%;
+          left: -100%;
+          width: 200%;
+        }
+      }
+      font-size: 2.5rem;
+      margin: auto 0;
+    }
     .quiz-cols {
       display: grid;
       width: 98%;
-      grid-template-columns: 40% 30% 20%;
+      grid-template-columns: 35% 30% 25% 10%;
       margin: auto;
       border: solid 1px red;
     }
@@ -1027,6 +1064,7 @@ form {
 //teacher profile
 .content-box .container {
   .right-box {
+    height: fit-content;
     .class-details {
       /* border: solid 1px red; */
       width: 100%;

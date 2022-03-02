@@ -127,6 +127,20 @@ export const createTheQuiz = (credentials) => {
   return data;
 };
 
+export const deleteTheQuiz = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/teacher/activity/quiz/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
 export const viewTeachersQuizzes = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch("http://localhost:8080/teacher/activity/quiz/all", {
@@ -163,6 +177,23 @@ export const createModule = (credentials) => {
     },
     body: JSON.stringify(credentials),
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const assignQuizToClass = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    "http://localhost:8080/teacher/activity/assignments/quiz/class",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+      body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
   checkTokenCorrect(data);
   return data;
 };

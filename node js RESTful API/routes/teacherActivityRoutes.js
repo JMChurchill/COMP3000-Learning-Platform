@@ -131,7 +131,7 @@ router.route("/module/view").get(checkAuth, async (req, res) => {
   }
 });
 
-// update module
+// delete module
 router
   .route("/module/delete")
   .delete(
@@ -344,6 +344,40 @@ router
     }
   );
 
+// delete quiz
+router
+  .route("/quiz/delete")
+  .delete(
+    [check("quizID", "Enter a quiz id").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      try {
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+        // const data = {
+        //   quizID: req.body.quizID
+        // };
+        const query = `CALL quiz_delete(${req.body.quizID},"${email}","${password}")`;
+        console.log(query);
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        return res.status(200).json({ status: "success" });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
 router
   .route("/quiz/checkAnswers")
   .post(
@@ -417,9 +451,63 @@ router.route("/quiz/all").get(checkAuth, async (req, res) => {
   } catch (err) {}
 });
 
+// create quiz assignment for class
+router
+  .route("/assignments/quiz/class")
+  .post(
+    [
+      check("classID", "Invalid class ID").not().isEmpty(),
+      check("quizID", "Invalid quiz ID").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        data = {
+          classID: req.body.classID,
+          quizID: req.body.quizID,
+        };
+
+        //get students from class
+        let query = `CALL teacher_get_students_by_class ("${data.classID}", "${email}", "${password}")`;
+        const [users] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        console.log(users);
+        await users.map(async (user) => {
+          // assign students to class
+          let query = `CALL assignment_quiz_create (${user.StudentID},${data.quizID},"${email}","${password}")`;
+          console.log(query);
+          await pool.query(query).catch((err) => {
+            // throw err;
+            return res.status(400).json({ status: "failure", reason: err });
+          });
+        });
+
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
 // create quiz assignment
 router
-  .route("quiz/assignments")
+  .route("/assignments/quiz")
   .post(
     [
       check("StudentID", "Invalid student ID").not().isEmpty(),
@@ -462,7 +550,7 @@ router
 
 // delete quiz assignment
 router
-  .route("quiz/assignments")
+  .route("/assignments/quiz")
   .delete(
     [
       check("StudentID", "Invalid student ID").not().isEmpty(),

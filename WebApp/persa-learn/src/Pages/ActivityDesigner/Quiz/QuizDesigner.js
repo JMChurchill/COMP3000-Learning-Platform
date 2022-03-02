@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import CreateQuestionBox from "../../Components/QuizDesigner/CreateQuestionBox";
+import CreateQuestionBox from "../../../Components/QuizDesigner/CreateQuestionBox";
 import {
   createModule,
   createTheQuiz,
   viewTeachersModules,
-} from "../../http_Requests/teacherRequests";
+} from "../../../http_Requests/teacherRequests";
 
 const QuizDesigner = () => {
   const [title, setTitle] = useState();

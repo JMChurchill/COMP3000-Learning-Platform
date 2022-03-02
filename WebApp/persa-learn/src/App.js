@@ -13,7 +13,8 @@ import Activities from "./Pages/Activities";
 import CreateActivity from "./Pages/CreateActivity";
 import Quiz from "./Pages/Activities/Quiz";
 import FlashCards from "./Pages/Activities/FlashCards";
-import QuizDesigner from "./Pages/ActivityDesigner/QuizDesigner";
+import QuizDesigner from "./Pages/ActivityDesigner/Quiz/QuizDesigner";
+// import QuizDesigner from "./Pages/ActivityDesigner/Quiz/QuizDesigner";
 import FlashCard from "./Pages/Activities/FlashCard";
 import UserProfile from "./Pages/UserProfile";
 import ClassLeaderboard from "./Pages/ClassLeaderboard";
@@ -26,7 +27,8 @@ import TeacherProfile from "./Pages/TeacherProfile";
 import Navbar from "./Components/Navbar";
 import UserSettings from "./Pages/UserSettings";
 import EditUserSettings from "./Pages/EditUserSettings";
-import AllQuizzes from "./Pages/ActivityDesigner/AllQuizzes";
+import AllQuizzes from "./Pages/ActivityDesigner/Quiz/AllQuizzes/AllQuizzes";
+import AssignActivities from "./Pages/AssignActivities/AssignActivities";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -64,6 +66,7 @@ function App() {
           <Route exact path="/achievements" element={<Achievements />} />
           <Route exact path="/profile_student" element={<StudentProfile />} />
           <Route exact path="/user_settings" element={<UserSettings />} />
+          <Route exact path="/Assign" element={<AssignActivities />} />
           <Route
             exact
             path="/user_settings/edit"

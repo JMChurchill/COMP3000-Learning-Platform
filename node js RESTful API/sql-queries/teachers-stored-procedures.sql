@@ -311,7 +311,18 @@ DELIMITER ;
 # execute
 CALL quiz_view (35) */
 
+# delete quiz
+DELIMITER $$
+CREATE PROCEDURE quiz_delete(qID int, tEmail varchar(255), tPassword varchar(60))
+BEGIN 
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+    DELETE FROM quizzes WHERE QuizID = qID AND TeacherID = theTeacherID;
+END$$
+DELIMITER ;
 
+#execute
+CALL quiz_delete(1,"email","password")
 
 #get answers by quiz id
 DELIMITER $$
@@ -349,7 +360,8 @@ BEGIN
     IF EXISTS (SELECT * FROM classes 
     INNER JOIN classdetails ON classes.ClassDetailsID = classdetails.ClassDetailsID
     WHERE StudentID = sID AND TeacherID = theTeacherID) THEN
-        INSERT INTO quizassignments(StudentID, QuizID)
+    #does not attempt to insert if duplicate
+        INSERT IGNORE INTO quizassignments(StudentID, QuizID)
         VALUES (sID,qID);
     ELSE
         ROLLBACK;
