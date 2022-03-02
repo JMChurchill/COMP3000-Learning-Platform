@@ -215,6 +215,37 @@ router.route("/classes").get(checkAuth, async (req, res) => {
   });
 });
 
+// get students assignments
+//view module
+router.route("/assignments/quizzes").get(checkAuth, async (req, res) => {
+  try {
+    //get these values from check auth (JWT)
+    const email = req.user.email;
+    const password = req.user.password;
+
+    const errs = validationResult(req);
+    if (!errs.isEmpty()) {
+      console.log(errs);
+      return res.status(400).json({
+        errors: errs.array(),
+      });
+    }
+
+    let query = `CALL assignments_by_students("${email}","${password}")`;
+
+    const [quizzes] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
+    });
+    return res.status(200).json({
+      status: "success",
+      quizzes,
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
 //get students details
 router.route("/details").get(checkAuth, async (req, res) => {
   const email = req.user.email;

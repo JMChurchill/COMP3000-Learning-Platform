@@ -1,18 +1,32 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AssignmentItem = ({
   id,
-  name = "task",
-  className = "class",
-  teacherName = "teacher",
-  taskType = "quiz",
+  assignmentName = "placeholder",
+  // assignmentName = "class",
+  teacherName = "placeholder",
+  taskType = "placeholder",
+  ModuleName,
 }) => {
+  const navigate = useNavigate();
+
   return (
-    <div key={id} className="assignment-item">
-      <p>{name}</p>
-      <p>{`Class: ${className}`}</p>
+    <div
+      key={id}
+      className="assignment-item"
+      onClick={() =>
+        navigate("/quiz", {
+          state: {
+            quizID: id,
+          },
+        })
+      }
+    >
+      <p>{`Class: ${assignmentName}`}</p>
       <p>Type: {taskType}</p>
-      <p>Teacher: {taskType}</p>
+      <p>Teacher: {teacherName}</p>
+      <p>Module: {ModuleName}</p>
     </div>
   );
 };

@@ -51,6 +51,20 @@ export const getUserDetails = (token) => {
 //TODO: this
 export const getUsersAssignments = () => {};
 
+export const getStudentsAssignmentQuizzes = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/student/assignments/quizzes", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+
+  checkTokenCorrect(data);
+  return data;
+};
+
 export const getStudentsClassses = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch("http://localhost:8080/student/classes", {

@@ -4,6 +4,7 @@ import QuizBox from "../../Components/QuizBox";
 import Progressbar from "../../Components/Progressbar";
 // import tempQuizData from "../../assets/tempQuizData.json";
 import { checkAnswers, getQuiz } from "../../http_Requests/userRequests";
+import { useLocation } from "react-router-dom";
 
 const Quiz = () => {
   const [quizID, setQuizID] = useState();
@@ -11,16 +12,20 @@ const Quiz = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
 
-  useEffect(async () => {
-    //TODO: adjust for different questions
-    // get quiz data
-    const data = await getQuiz(35);
-    console.log(data);
+  const { state } = useLocation();
 
-    //set quiz title
-    setTitle(data.quizName);
-    setQuizID(data.quizID);
-    setQuestions(data.questions);
+  console.log(state);
+  useEffect(async () => {
+    // get quiz data
+    if (state !== null) {
+      const data = await getQuiz(state.quizID);
+      // console.log(data);
+
+      //set quiz title
+      setTitle(data.quizName);
+      setQuizID(data.quizID);
+      setQuestions(data.questions);
+    }
   }, []);
   // useEffect(() => {
   //   console.log(answers);

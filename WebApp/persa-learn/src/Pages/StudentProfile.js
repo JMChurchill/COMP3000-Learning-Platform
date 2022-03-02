@@ -11,6 +11,7 @@ import { FaCog } from "react-icons/fa";
 
 import studentIcon from "../assets/UserIcons/001-man-1.png";
 import {
+  getStudentsAssignmentQuizzes,
   getStudentsClassses,
   getUserDetails,
 } from "../http_Requests/userRequests";
@@ -20,15 +21,15 @@ import AssignmentItem from "../Components/AssignmentItem";
 
 const StudentProfile = () => {
   const [classes, setClasses] = useState([]);
+  const [assignments, setAssignments] = useState([]);
+
   const [usersName, setUsersName] = useState("");
   const [selectedTab, setSelectedTab] = useState(1);
   const tabs = ["Classes", "Achievements", "Assignments"];
   useEffect(async () => {
+    // get students classes
     let data = await getStudentsClassses();
-    // if (data == ) {
 
-    // }
-    // console.log(data);
     if (data.hasOwnProperty("data")) {
       setClasses(data.data);
     }
@@ -39,6 +40,12 @@ const StudentProfile = () => {
     if (data.hasOwnProperty("data")) {
       const { FirstName, LastName, Email } = data.data[0];
       setUsersName(`${FirstName} ${LastName}`);
+    }
+
+    data = await getStudentsAssignmentQuizzes();
+    console.log(data);
+    if (data.hasOwnProperty("quizzes")) {
+      setAssignments(data.quizzes);
     }
   }, []);
 
@@ -80,6 +87,7 @@ const StudentProfile = () => {
                 }
                 return (
                   <h3
+                    key={j}
                     aria-selected={isSelected}
                     onClick={() => setSelectedTab(j)}
                   >
@@ -109,11 +117,14 @@ const StudentProfile = () => {
 
             {selectedTab == 3 ? (
               <div className="assignment-items list-items">
-                {classes.map((c) => (
-                  <>
-                    <AssignmentItem key={c.ClassDetailsID} />
-                    {/* <AssignmentItem key={c.ClassDetailsID} /> */}
-                  </>
+                {assignments.map((a) => (
+                  <AssignmentItem
+                    key={a.QuizID}
+                    id={a.QuizID}
+                    assignmentName={a.QuizName}
+                    teacherName={`${a.FirstName} ${a.LastName}`}
+                    ModuleName={a.ModuleName}
+                  />
                 ))}
               </div>
             ) : (

@@ -70,17 +70,7 @@ const ClassLeaderboard = () => {
                 />
               );
             }
-            // <LeaderboardStudent
-            //   key={i}
-            //   icon={tempUserIcon}
-            //   name={`${student.FirstName} ${student.LastName}`}
-            //   position={i}
-            // />;
           })}
-          {/* <LeaderboardStudent icon={tempUserIcon} />
-          <LeaderboardStudent icon={tempUserIcon} />
-          <LeaderboardStudent icon={tempUserIcon} />
-          <LeaderboardStudent icon={tempUserIcon} /> */}
         </div>
       </div>
     </div>
