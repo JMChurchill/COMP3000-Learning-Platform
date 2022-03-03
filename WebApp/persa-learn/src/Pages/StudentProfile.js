@@ -124,6 +124,8 @@ const StudentProfile = () => {
                     assignmentName={a.QuizName}
                     teacherName={`${a.FirstName} ${a.LastName}`}
                     ModuleName={a.ModuleName}
+                    Caption={a.Caption}
+                    dueDate={a.DueDate}
                   />
                 ))}
               </div>

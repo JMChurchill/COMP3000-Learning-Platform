@@ -419,9 +419,17 @@ BEGIN
     IF EXISTS (SELECT * FROM classes
     INNER JOIN ClassDetails ON classes.classdetailsID = classdetails.classDetailsID 
     WHERE ClassDetails.TeacherID = theTeacherID AND classes.classDetailsID = cID) THEN
-    #does not attempt to insert if duplicate
-        INSERT IGNORE INTO QuizClassAssignments(ClassDetailsID, QuizID, DueDate)
-        VALUES (cID,qID,dDate);
+        #check if exists
+        IF EXISTS (SELECT * FROM QuizClassAssignments 
+            WHERE ClassDetailsID = cID AND QuizID = qID) THEN
+            UPDATE QuizClassAssignments
+            SET DueDate = dDate
+            WHERE ClassDetailsID = cID AND QuizID = qID; 
+        ELSE
+        #does not attempt to insert if duplicate
+            INSERT IGNORE INTO QuizClassAssignments(ClassDetailsID, QuizID, DueDate)
+            VALUES (cID,qID,dDate);
+        END IF;
     ELSE
         ROLLBACK;
     END IF;

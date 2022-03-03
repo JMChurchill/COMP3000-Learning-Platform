@@ -8,6 +8,8 @@ const AssignmentItem = ({
   teacherName = "placeholder",
   taskType = "placeholder",
   ModuleName,
+  dueDate,
+  Caption,
 }) => {
   const navigate = useNavigate();
 
@@ -23,10 +25,13 @@ const AssignmentItem = ({
         })
       }
     >
-      <p>{`Class: ${assignmentName}`}</p>
-      <p>Type: {taskType}</p>
+      <p>{`Assignment name: ${assignmentName}`}</p>
+      <p>Type: {Caption}</p>
       <p>Teacher: {teacherName}</p>
       <p>Module: {ModuleName}</p>
+      <p>
+        Due date: {dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}
+      </p>
     </div>
   );
 };

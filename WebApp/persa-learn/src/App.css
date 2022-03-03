@@ -1189,8 +1189,8 @@ form .btn:hover {
 .content-box .container .content .assignment-items .assignment-item {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 15% 20% 20% 45%;
-      grid-template-columns: 15% 20% 20% 45%;
+  -ms-grid-columns: 30% 10% 20% 20% 20%;
+      grid-template-columns: 30% 10% 20% 20% 20%;
   color: #00ff55;
   border: solid 1px red;
   width: 90%;
