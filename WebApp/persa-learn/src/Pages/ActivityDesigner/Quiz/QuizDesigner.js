@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 import CreateQuestionBox from "../../../Components/QuizDesigner/CreateQuestionBox";
 import {
@@ -13,6 +16,7 @@ const QuizDesigner = () => {
   const [questions, setQuestions] = useState([]);
   const [selectedModule, setSelectedModule] = useState(null);
   const [newModule, setNewModule] = useState();
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const [moduleList, setModuleList] = useState([]);
 
@@ -109,6 +113,13 @@ const QuizDesigner = () => {
           <button className="btn" onClick={() => setIsAddModule(true)}>
             New Module
           </button>
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            placeholderText="Due date"
+            dateFormat="dd/MM/yyyy"
+            minDate={new Date()}
+          />
         </div>
         {questions.map((quest, index) => {
           return (
@@ -171,18 +182,6 @@ const QuizDesigner = () => {
           >
             Back
           </button>
-          {/* <h1>Add a new module</h1>
-          <input
-            type="text"
-            placeholder="module name"
-            onChange={(e) => setNewModule(e.target.value)}
-          />
-          <button className="btn" onClick={() => addModule()}>
-            Ok
-          </button>
-          <button className="btn" onClick={() => setIsAddModule(false)}>
-            Back
-          </button> */}
         </div>
       </div>
     </div>

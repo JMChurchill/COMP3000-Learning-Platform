@@ -339,20 +339,58 @@ CALL quiz_answers_by_id(35)
 DELIMITER $$
 CREATE PROCEDURE quiz_all_by_teacher(tEmail varchar(255), tPassword varchar(60))
 BEGIN 
+
+    #get student id
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+
     SELECT QuizID, QuizName, ModuleName FROM quizzes 
-    INNER JOIN teachers ON quizzes.TeacherID = teachers.TeacherID 
-    INNER JOIN modules ON modules.ModuleID = quizzes.ModuleID
-    WHERE teachers.email = tEmail AND teachers.password = tPassword;
+    LEFT JOIN modules ON modules.ModuleID = quizzes.ModuleID
+    WHERE quizzes.TeacherID = theTeacherID;
+
+    #SELECT QuizID, QuizName, ModuleName FROM quizzes 
+    #INNER JOIN teachers ON quizzes.TeacherID = teachers.TeacherID 
+    #INNER JOIN modules ON modules.ModuleID = quizzes.ModuleID
+    #WHERE teachers.email = tEmail AND teachers.password = tPassword;
+END$$
+DELIMITER ;
+
+# get all teachers quizzes by class id - fix
+DELIMITER $$
+CREATE PROCEDURE quiz_all_by_teacher_classID(cID int,tEmail varchar(255), tPassword varchar(60))
+BEGIN 
+
+    #get student id
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+
+    SELECT quizzes.QuizID, QuizName, ModuleName, DueDate FROM quizzes 
+    LEFT JOIN modules ON modules.ModuleID = quizzes.ModuleID
+    LEFT JOIN quizclassassignments ON quizclassassignments.QuizID = quizzes.QuizID
+    WHERE quizzes.TeacherID = theTeacherID;
+    #SELECT QuizID, QuizName, ModuleName FROM quizzes 
+    #LEFT JOIN modules ON modules.ModuleID = quizzes.ModuleID
+    #INNER JOIN quizassignments ON quizassignments.QuizID = quizzes.QuizID
+    #WHERE quizzes.TeacherID = 8 AND quizassignments.classID = 25;
+
+    #old
+    #BEGIN 
+    #SELECT QuizID, QuizName, ModuleName FROM quizzes 
+    #INNER JOIN teachers ON quizzes.TeacherID = teachers.TeacherID 
+    #LEFT JOIN modules ON modules.ModuleID = quizzes.ModuleID
+    #WHERE teachers.email = tEmail AND teachers.password = tPassword;
+    #END
+
 END$$
 DELIMITER ;
 
 # execute
-CALL quiz_all_by_teacher ("teacher", "password")
+CALL quiz_all_by_teacher_classID ("teacher", "password",2)
 
 
-#create assignment
+#create indivisual assignment
 DELIMITER $$
-CREATE PROCEDURE assignment_quiz_create(sID int,qID int,tEmail varchar(255), tPassword varchar(60))
+CREATE PROCEDURE assignment_quiz_create_indivisual(sID int,qID int,tEmail varchar(255), tPassword varchar(60))
 BEGIN 
     DECLARE theTeacherID int;
     SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
@@ -369,7 +407,28 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL assignment_quiz_create(1,1,"email","password")
+CALL assignment_quiz_create_indivisual(1,1,"email","password")
+
+#create class assignment
+DELIMITER $$
+CREATE PROCEDURE assignment_quiz_create_class(cID int,qID int,dDate DATE,tEmail varchar(255), tPassword varchar(60))
+BEGIN 
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+    #check is teachers class
+    IF EXISTS (SELECT * FROM classes
+    INNER JOIN ClassDetails ON classes.classdetailsID = classdetails.classDetailsID 
+    WHERE ClassDetails.TeacherID = theTeacherID AND classes.classDetailsID = cID) THEN
+    #does not attempt to insert if duplicate
+        INSERT IGNORE INTO QuizClassAssignments(ClassDetailsID, QuizID, DueDate)
+        VALUES (cID,qID,dDate);
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL assignment_quiz_create_class(1,1,"date-here","email","password")
 
 
 DELIMITER $$

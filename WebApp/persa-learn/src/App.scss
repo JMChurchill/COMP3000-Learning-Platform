@@ -72,9 +72,13 @@ body {
     .create-quiz-title {
       // align-items: flex-start;
       display: grid;
-      grid-template-columns: 60% 20% 10%;
+      grid-template-columns: 30% 30% 20% 15%;
       padding: 1rem 0;
       gap: 0.5rem;
+
+      > input:first-child {
+        grid-column: span 2;
+      }
       // input {
       //   margin: ;
       //   height: 2rem;
@@ -145,9 +149,14 @@ body {
         .correct-ans {
           display: grid;
           grid-template-columns: 25% 10%;
+          width: 100%;
+
           p {
             margin: 1rem auto;
           }
+        }
+        #options-box {
+          width: 100%;
         }
         .new-option {
           border: 1px solid #4ffedf;
@@ -234,6 +243,7 @@ body {
     }
     // flashcard designer
     .card-designer {
+      width: 100%;
       form {
         width: 100%;
         display: flex;
@@ -254,6 +264,7 @@ body {
           }
 
           input {
+            width: 80%;
             font-size: 1.5rem;
             border-radius: 2rem;
             padding: 0.5rem;
@@ -359,6 +370,7 @@ h2 {
   text-align: center;
   box-shadow: 0 0.125rem 0.5rem -0.25em black;
   border-radius: 1rem;
+  width: 100%;
 }
 
 //flash card decks
@@ -543,7 +555,7 @@ form {
 .wide-container {
   flex-direction: column;
   padding: 1rem 0;
-  div {
+  > div {
     width: 100%;
     padding: 0;
   }
@@ -566,6 +578,7 @@ form {
   .question-box {
     border-radius: 1rem 1rem;
     border-bottom: grey solid 1px;
+    width: 100%;
     h2 {
       padding-left: 2rem;
     }
@@ -638,6 +651,9 @@ form {
 /* progressbar */
 .content-box .container .progressbar {
   padding-top: 0.5rem;
+  > div {
+    width: 100%;
+  }
   .top {
     display: flex;
     flex-direction: row;
@@ -836,6 +852,7 @@ form {
     flex-direction: row;
     gap: 1rem;
     position: relative;
+    width: 100%;
 
     .user-icon {
       display: flex;
@@ -866,6 +883,7 @@ form {
     }
     .name-box {
       position: relative;
+      width: 100%;
       p {
         position: absolute;
         bottom: 0;
@@ -898,6 +916,7 @@ form {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    width: 100%;
     h3 {
       position: relative;
       cursor: pointer;
@@ -933,6 +952,7 @@ form {
     gap: 1rem;
     align-items: center;
     margin-bottom: 1rem;
+    width: 100%;
   }
   .class-items {
     .class-item {
@@ -966,6 +986,7 @@ form {
     display: grid;
     margin-bottom: clamp(2rem, 5%, 5rem);
     position: relative;
+    width: 100%;
     // min-height: 80vh;
     .icon {
       display: flex;
@@ -1003,7 +1024,7 @@ form {
     .quiz-cols {
       display: grid;
       width: 98%;
-      grid-template-columns: 35% 30% 25% 10%;
+      grid-template-columns: 35% 20% 20% 10% 10%;
       margin: auto;
       border: solid 1px red;
     }

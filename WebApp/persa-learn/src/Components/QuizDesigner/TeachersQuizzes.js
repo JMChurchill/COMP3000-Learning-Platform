@@ -14,6 +14,7 @@ const TeachersQuizzes = ({ quizzes = [], assignToClass, deleteQuiz }) => {
           <p>Module</p>
           <p>Number of Questions</p>
           <p>Options</p>
+          <p>Due</p>
         </div>
         {quizzes.map((quiz) => {
           return (
@@ -22,6 +23,7 @@ const TeachersQuizzes = ({ quizzes = [], assignToClass, deleteQuiz }) => {
               id={quiz.QuizID}
               name={quiz.QuizName}
               module={quiz.ModuleName}
+              dueDate={quiz.DueDate}
               assignToClass={assignToClass}
               deleteQuiz={deleteQuiz}
             />

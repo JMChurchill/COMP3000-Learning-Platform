@@ -433,6 +433,7 @@ router
     }
   );
 
+// get all quizzes
 router.route("/quiz/all").get(checkAuth, async (req, res) => {
   try {
     //get these values from check auth (JWT)
@@ -451,6 +452,32 @@ router.route("/quiz/all").get(checkAuth, async (req, res) => {
   } catch (err) {}
 });
 
+// get all quizzes by class
+router
+  .route("/quiz/all/class")
+  .get(
+    [check("classID", "Invalid class ID").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+        const classID = req.query.classID;
+        const query = `CALL quiz_all_by_teacher_classID (${classID},"${email}", "${password}")`;
+        console.log(query);
+        const [quizzes] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        return res.status(200).json({
+          status: "success",
+          quizzes,
+        });
+      } catch (err) {}
+    }
+  );
+
 // create quiz assignment for class
 router
   .route("/assignments/quiz/class")
@@ -458,6 +485,7 @@ router
     [
       check("classID", "Invalid class ID").not().isEmpty(),
       check("quizID", "Invalid quiz ID").not().isEmpty(),
+      check("dueDate", "Invalid Date").isISO8601(),
     ],
     checkAuth,
     async (req, res) => {
@@ -477,24 +505,33 @@ router
         data = {
           classID: req.body.classID,
           quizID: req.body.quizID,
+          dueDate: req.body.dueDate,
         };
 
-        //get students from class
-        let query = `CALL teacher_get_students_by_class ("${data.classID}", "${email}", "${password}")`;
-        const [users] = await pool.query(query).catch((err) => {
+        //assign activity to class
+        let query = `CALL assignment_quiz_create_class (${data.classID},${data.quizID},"${data.dueDate}", "${email}", "${password}")`;
+        console.log(query);
+        await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-        console.log(users);
-        await users.map(async (user) => {
-          // assign students to class
-          let query = `CALL assignment_quiz_create (${user.StudentID},${data.quizID},"${email}","${password}")`;
-          console.log(query);
-          await pool.query(query).catch((err) => {
-            // throw err;
-            return res.status(400).json({ status: "failure", reason: err });
-          });
-        });
+
+        // //get students from class
+        // let query = `CALL teacher_get_students_by_class ("${data.classID}", "${email}", "${password}")`;
+        // const [users] = await pool.query(query).catch((err) => {
+        //   // throw err;
+        //   return res.status(400).json({ status: "failure", reason: err });
+        // });
+        // console.log(users);
+        // await users.map(async (user) => {
+        //   // assign students to class
+        //   let query = `CALL assignment_quiz_create (${user.StudentID},${data.quizID},"${email}","${password}")`;
+        //   console.log(query);
+        //   await pool.query(query).catch((err) => {
+        //     // throw err;
+        //     return res.status(400).json({ status: "failure", reason: err });
+        //   });
+        // });
 
         return res.status(200).json({
           status: "success",
@@ -505,7 +542,7 @@ router
     }
   );
 
-// create quiz assignment
+// create quiz assignment for indivisual student
 router
   .route("/assignments/quiz")
   .post(

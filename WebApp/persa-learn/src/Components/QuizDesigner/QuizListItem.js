@@ -6,6 +6,8 @@ const QuizListItem = ({
   name,
   module = "place holder",
   numQuest = "place holder",
+  dueDate = "",
+
   assignToClass,
   deleteQuiz,
 }) => {
@@ -25,6 +27,8 @@ const QuizListItem = ({
         </div>
         {/* <MdDelete /> */}
       </div>
+      {/* <p>place holder</p> */}
+      <p>{dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}</p>
     </div>
   );
 };

@@ -82,10 +82,14 @@ body {
 .content-box .container .create-quiz-title {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 60% 20% 10%;
-      grid-template-columns: 60% 20% 10%;
+  -ms-grid-columns: 30% 30% 20% 15%;
+      grid-template-columns: 30% 30% 20% 15%;
   padding: 1rem 0;
   gap: 0.5rem;
+}
+
+.content-box .container .create-quiz-title > input:first-child {
+  grid-column: span 2;
 }
 
 .content-box .container .create-quiz-title input {
@@ -164,10 +168,15 @@ body {
   display: grid;
   -ms-grid-columns: 25% 10%;
       grid-template-columns: 25% 10%;
+  width: 100%;
 }
 
 .content-box .container .create-question form .correct-ans p {
   margin: 1rem auto;
+}
+
+.content-box .container .create-question form #options-box {
+  width: 100%;
 }
 
 .content-box .container .create-question form .new-option {
@@ -273,6 +282,10 @@ body {
           transform: rotateY(-180deg);
 }
 
+.content-box .container .card-designer {
+  width: 100%;
+}
+
 .content-box .container .card-designer form {
   width: 100%;
   display: -webkit-box;
@@ -302,6 +315,7 @@ body {
 }
 
 .content-box .container .card-designer form > div input {
+  width: 80%;
   font-size: 1.5rem;
   border-radius: 2rem;
   padding: 0.5rem;
@@ -414,6 +428,7 @@ h2 {
   -webkit-box-shadow: 0 0.125rem 0.5rem -0.25em black;
           box-shadow: 0 0.125rem 0.5rem -0.25em black;
   border-radius: 1rem;
+  width: 100%;
 }
 
 .container .flash-card-decks {
@@ -638,7 +653,7 @@ form .btn:hover {
   padding: 1rem 0;
 }
 
-.wide-container div {
+.wide-container > div {
   width: 100%;
   padding: 0;
 }
@@ -664,6 +679,7 @@ form .btn:hover {
 .content-box .container .quiz-question .question-box {
   border-radius: 1rem 1rem;
   border-bottom: grey solid 1px;
+  width: 100%;
 }
 
 .content-box .container .quiz-question .question-box h2 {
@@ -745,6 +761,10 @@ form .btn:hover {
 /* progressbar */
 .content-box .container .progressbar {
   padding-top: 0.5rem;
+}
+
+.content-box .container .progressbar > div {
+  width: 100%;
 }
 
 .content-box .container .progressbar .top {
@@ -1009,6 +1029,7 @@ form .btn:hover {
           flex-direction: row;
   gap: 1rem;
   position: relative;
+  width: 100%;
 }
 
 .content-box .container .banner .upper .user-icon {
@@ -1055,6 +1076,7 @@ form .btn:hover {
 
 .content-box .container .banner .upper .name-box {
   position: relative;
+  width: 100%;
 }
 
 .content-box .container .banner .upper .name-box p {
@@ -1095,6 +1117,7 @@ form .btn:hover {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  width: 100%;
 }
 
 .content-box .container .content .tabs h3 {
@@ -1145,6 +1168,7 @@ form .btn:hover {
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
 }
 
 .content-box .container .content .class-items .class-item {
@@ -1182,6 +1206,7 @@ form .btn:hover {
   display: grid;
   margin-bottom: clamp(2rem, 5%, 5rem);
   position: relative;
+  width: 100%;
 }
 
 .content-box .container .content .quiz-items .icon {
@@ -1231,8 +1256,8 @@ form .btn:hover {
   display: -ms-grid;
   display: grid;
   width: 98%;
-  -ms-grid-columns: 35% 30% 25% 10%;
-      grid-template-columns: 35% 30% 25% 10%;
+  -ms-grid-columns: 35% 20% 20% 10% 10%;
+      grid-template-columns: 35% 20% 20% 10% 10%;
   margin: auto;
   border: solid 1px red;
 }

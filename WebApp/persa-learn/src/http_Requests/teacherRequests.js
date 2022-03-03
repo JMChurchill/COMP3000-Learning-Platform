@@ -154,6 +154,24 @@ export const viewTeachersQuizzes = () => {
   return data;
 };
 
+export const viewTeachersQuizzesByClass = (credentials) => {
+  console.log("aaa", credentials);
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/teacher/activity/quiz/all/class/?classID=${credentials}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+      //body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
 export const viewTeachersModules = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch("http://localhost:8080/teacher/activity/module/view", {

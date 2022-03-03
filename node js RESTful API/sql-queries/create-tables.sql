@@ -121,13 +121,28 @@ CREATE TABLE Modules (
         ON DELETE CASCADE
     );
 
-#Quiz assignments
+#Quiz indivisual assignments
 CREATE TABLE QuizAssignments (
     StudentID int NOT NULL, 
     QuizID INT NOT NULL, 
+    DueDate DATETIME NOT NULL,
     PRIMARY KEY (StudentID, QuizID),
     FOREIGN KEY (StudentID) 
         REFERENCES Students(StudentID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (QuizID) 
+        REFERENCES Quizzes(QuizID)
+        ON DELETE CASCADE
+    );
+
+#Quiz class assignments
+CREATE TABLE QuizClassAssignments (
+    ClassDetailsID int NOT NULL, 
+    QuizID INT NOT NULL, 
+    DueDate DATETIME NOT NULL,
+    PRIMARY KEY (ClassDetailsID, QuizID),
+    FOREIGN KEY (ClassDetailsID) 
+        REFERENCES Classes(ClassDetailsID)
         ON DELETE CASCADE,
     FOREIGN KEY (QuizID) 
         REFERENCES Quizzes(QuizID)
