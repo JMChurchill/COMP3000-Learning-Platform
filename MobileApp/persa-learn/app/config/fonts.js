@@ -18,4 +18,9 @@ export default {
     color: colors.lightGrey,
     marginHorizontal: 10,
   },
+  h3: {
+    fontSize: 16,
+    color: colors.lightGrey,
+    marginHorizontal: 10,
+  },
 };

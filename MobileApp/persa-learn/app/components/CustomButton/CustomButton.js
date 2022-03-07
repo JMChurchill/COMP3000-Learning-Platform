@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import colors from "../../config/colors";
+import common from "../../config/common";
 
 export default function CustomButton({
   onPress,
@@ -37,13 +38,13 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 5,
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: common.containerBorderRadius,
   },
   container_PRIMARY: {
     backgroundColor: colors.primary,
   },
   container_SECONDARY: {
-    borderColor: "#3b71f3",
+    borderColor: colors.primary,
     borderWidth: 2,
   },
   container_TERTIARY: {},
@@ -55,6 +56,6 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   text_SECONDARY: {
-    color: "#3b71f3",
+    color: colors.primary,
   },
 });

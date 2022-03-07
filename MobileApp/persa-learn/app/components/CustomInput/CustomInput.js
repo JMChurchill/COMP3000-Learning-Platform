@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import React from "react";
 import { Controller } from "react-hook-form";
+import common from "../../config/common";
 
 export default function CustomInput({
   // value,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderColor: "#e8e8e8",
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: common.containerBorderRadius,
 
     paddingVertical: 5,
     paddingHorizontal: 10,
