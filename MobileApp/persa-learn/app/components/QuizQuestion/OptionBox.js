@@ -5,16 +5,33 @@ import colors from "../../config/colors";
 export default function OptionBox({
   optionID = 1,
   optionText = "placeholder",
+  isSelected = false,
 }) {
   const optionOnPress = (id) => {
     console.log(id);
+  };
+
+  const isAnswered = () => {
+    let answer = { answered: false, opt: null };
+    answers.map((ans) => {
+      if (ans.questionID === questionId) {
+        answer.answered = true;
+        answer.opt = ans.ans;
+      }
+    });
   };
   return (
     <TouchableOpacity
       style={[styles.option, styles.shadow]}
       onPress={() => optionOnPress(optionID)}
     >
-      <View style={styles.checkbox}></View>
+      <View
+        style={[
+          styles.checkbox,
+          ,
+          isSelected ? { backgroundColor: colors.selectColor } : "",
+        ]}
+      ></View>
       <Text style={styles.optionText}>{optionText}</Text>
     </TouchableOpacity>
   );
@@ -39,7 +56,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 50,
     aspectRatio: 1,
-    backgroundColor: colors.selectColor,
+    backgroundColor: colors.lightGrey,
+    // backgroundColor: colors.selectColor,
     borderRadius: 25,
   },
   shadow: {

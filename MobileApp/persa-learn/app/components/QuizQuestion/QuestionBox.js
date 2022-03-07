@@ -3,11 +3,12 @@ import React from "react";
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
 import OptionBox from "./OptionBox";
+import common from "../../config/common";
 
 export default function QuestionBox({
   questionName = "placeholder",
   description = "Lorem ipsum dolor sit.",
-  options,
+  options = [],
 }) {
   return (
     <View style={[styles.questionBox, styles.shadow]}>
@@ -15,10 +16,17 @@ export default function QuestionBox({
         <Text style={fonts.h1}>{questionName}</Text>
         <Text style={fonts.h2}>{description}</Text>
       </View>
-
-      <OptionBox />
-      <OptionBox />
-      <OptionBox />
+      {options.map((option) => {
+        return (
+          <OptionBox
+            key={option.id}
+            optionID={option.id}
+            optionText={option.value}
+          />
+        );
+      })}
+      {/* <OptionBox />
+      <OptionBox /> */}
     </View>
   );
 }
@@ -28,7 +36,7 @@ const styles = StyleSheet.create({
     // borderColor: colors.lightGrey,
     // borderWidth: 1,
     margin: 10,
-    borderRadius: 5,
+    borderRadius: common.containerBorderRadius,
     backgroundColor: colors.cardBackground,
     paddingBottom: 10,
   },
@@ -36,7 +44,7 @@ const styles = StyleSheet.create({
     // borderColor: colors.lightGrey,
     // borderWidth: 1,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: common.containerBorderRadius,
     backgroundColor: colors.cardBackground,
     marginBottom: 10,
   },

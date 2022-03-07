@@ -2,11 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import colors from "../config/colors";
 
-export default function ProgressBar({ numAns = 0, numQues = 1 }) {
+export default function ProgressBar({ numerator = 0, denominator = 1 }) {
   let bWidth = 0;
-  if (numAns !== null && numQues !== null && numAns <= numQues) {
+  if (numerator !== null && denominator !== null && numerator <= denominator) {
     // calculate bar width
-    bWidth = (numAns / numQues) * 100;
+    bWidth = (numerator / denominator) * 100;
   }
   return (
     <View style={[styles.progressBar, styles.shadow]}>
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   progressBar: {
     // borderColor: colors.lightGrey,
     // borderWidth: 1,
+    width: "100%",
     backgroundColor: colors.cardBackground,
     height: 20,
     borderRadius: 10,

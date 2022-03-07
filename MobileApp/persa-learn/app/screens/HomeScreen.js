@@ -23,8 +23,12 @@ export default function HomeScreen() {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
+  const { height } = useWindowDimensions();
+  const navigation = useNavigation();
+
   const listItemOnPress = (id) => {
     console.log("pressed ", id);
+    navigation.navigate("Quiz");
   };
 
   const wait = (timeout) => {
@@ -63,8 +67,6 @@ export default function HomeScreen() {
     await setData(retrievedData);
   };
 
-  const { height } = useWindowDimensions();
-  const navigation = useNavigation();
   // { height: height * 0.2 + height * 0.07 }
   return (
     // <ScrollView>
