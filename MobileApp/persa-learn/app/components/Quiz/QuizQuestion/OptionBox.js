@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import colors from "../../config/colors";
+import colors from "../../../config/colors";
 
 export default function OptionBox({
   optionID = 1,

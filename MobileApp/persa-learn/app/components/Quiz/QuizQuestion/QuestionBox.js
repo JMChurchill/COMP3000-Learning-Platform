@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import colors from "../../config/colors";
-import fonts from "../../config/fonts";
+import colors from "../../../config/colors";
+import fonts from "../../../config/fonts";
 import OptionBox from "./OptionBox";
-import common from "../../config/common";
+import common from "../../../config/common";
 
 export default function QuestionBox({
   questionName = "placeholder",
