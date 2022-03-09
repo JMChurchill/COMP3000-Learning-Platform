@@ -17,7 +17,7 @@ const RevisionStackScreen = () => {
   return (
     // <NavigationContainer>
     <RevisionStack.Navigator screenOptions={{ headerShown: false }}>
-      <RevisionStack.Screen name="Revision" component={RevisionScreen} />
+      <RevisionStack.Screen name="RevisionPage" component={RevisionScreen} />
       <RevisionStack.Screen name="FlashCards" component={FlashCardsScreen} />
       <RevisionStack.Screen name="FlashCardPlay" component={FlashCardPlay} />
       <RevisionStack.Screen

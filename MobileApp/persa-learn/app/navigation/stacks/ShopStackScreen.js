@@ -12,7 +12,7 @@ const ShopStackScreen = () => {
   return (
     // <NavigationContainer>
     <ShopStack.Navigator screenOptions={{ headerShown: false }}>
-      <ShopStack.Screen name="Shop" component={ShopScreen} />
+      <ShopStack.Screen name="ShopPage" component={ShopScreen} />
     </ShopStack.Navigator>
 
     // {/* <Text>Navigation</Text> */}
