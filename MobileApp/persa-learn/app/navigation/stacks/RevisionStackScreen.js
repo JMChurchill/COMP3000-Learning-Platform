@@ -6,6 +6,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import ShopScreen from "../../screens/ShopScreen";
 import RevisionScreen from "../../screens/RevisionScreen";
+import NotebookScreen from "../../screens/revision/NotebookScreen";
+import FlashCardsScreen from "../../screens/revision/FlashCard/FlashCardsScreen";
+import FlashCardPlay from "../../screens/revision/FlashCard/FlashCardPlay";
+import FlashCardCreate from "../../screens/revision/FlashCard/FlashCardCreate";
 
 const RevisionStack = createNativeStackNavigator();
 
@@ -14,6 +18,13 @@ const RevisionStackScreen = () => {
     // <NavigationContainer>
     <RevisionStack.Navigator screenOptions={{ headerShown: false }}>
       <RevisionStack.Screen name="Revision" component={RevisionScreen} />
+      <RevisionStack.Screen name="FlashCards" component={FlashCardsScreen} />
+      <RevisionStack.Screen name="FlashCardPlay" component={FlashCardPlay} />
+      <RevisionStack.Screen
+        name="FlashCardCreate"
+        component={FlashCardCreate}
+      />
+      <RevisionStack.Screen name="Notebook" component={NotebookScreen} />
     </RevisionStack.Navigator>
 
     // {/* <Text>Navigation</Text> */}

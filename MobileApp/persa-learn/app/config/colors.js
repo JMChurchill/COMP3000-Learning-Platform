@@ -6,4 +6,6 @@ export default {
   lightGrey: "grey",
   darkGrey: "#424242",
   selectColor: "#00FF55",
+  mainText: "#000",
+  secondaryText: "#fff",
 };

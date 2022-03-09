@@ -9,6 +9,7 @@ import QuizScreen from "../screens/QuizScreen";
 import HomeScreen from "../screens/HomeScreen";
 import HomeStackScreen from "./stacks/HomeStackScreen";
 import TabScreen from "./tabs/TabScreen";
+import ShopScreen from "../screens/ShopScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,9 +17,10 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {/* <Stack.Screen name="Shoop" component={ShopScreen} /> */}
+        <Stack.Screen name="HomeTab" component={TabScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="HomeTab" component={TabScreen} />
         {/* <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Quiz" component={QuizScreen} /> */}
       </Stack.Navigator>
