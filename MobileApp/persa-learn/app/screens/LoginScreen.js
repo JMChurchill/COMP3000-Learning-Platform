@@ -24,7 +24,7 @@ export default function LoginScreen() {
   const { control, handleSubmit, watch } = useForm();
 
   const onSignInPressed = () => {
-    navigation.navigate("Home");
+    navigation.navigate("HomeTab");
   };
 
   const onForgotPasswordPressed = () => {

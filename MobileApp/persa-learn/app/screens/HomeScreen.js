@@ -12,11 +12,12 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
+
 import fonts from "../config/fonts";
+import colors from "../config/colors";
 
 import UserIcon from "../assets/UserIcons/001-man-1.png";
 import Banner from "../assets/Banners/banner-1.jpg";
-import colors from "../config/colors";
 
 export default function HomeScreen() {
   // const [isLoading, setLoading] = useState(false);
