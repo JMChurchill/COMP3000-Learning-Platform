@@ -1,21 +1,34 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import colors from "../../config/colors";
 import common from "../../config/common";
 import fonts from "../../config/fonts";
 
-export default function Item() {
+export default function Item({
+  setSelectedItem,
+  setShowDetails,
+  name = "temp",
+  cost = 0,
+  image = "https://reactnative.dev/img/tiny_logo.png",
+}) {
+  const showItemDetails = () => {
+    setSelectedItem({ name, cost, image });
+    setShowDetails(true);
+  };
   return (
-    <View style={[styles.itemContainer, common.shadow]}>
+    <TouchableOpacity
+      style={[styles.itemContainer, common.shadow]}
+      onPress={() => showItemDetails()}
+    >
       <Image
         style={styles.tinyLogo}
         source={{
-          uri: "https://reactnative.dev/img/tiny_logo.png",
+          uri: image,
         }}
       />
-      <Text style={[fonts.h2, { color: colors.mainText }]}>ItemName</Text>
-      <Text style={fonts.h3}>100 coins</Text>
-    </View>
+      <Text style={[fonts.h2, { color: colors.mainText }]}>{name}</Text>
+      <Text style={fonts.h3}>{cost} coins</Text>
+    </TouchableOpacity>
   );
 }
 

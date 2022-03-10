@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import fonts from "../config/fonts";
@@ -9,39 +9,74 @@ import common from "../config/common";
 
 import UserIcon from "../assets/UserIcons/001-man-1.png";
 import Banner from "../assets/Banners/banner-1.jpg";
+import DetailsOverlay from "../components/Shop/DetailsOverlay";
 
 export default function ShopScreen() {
+  const [selectedItem, setSelectedItem] = useState();
+  const [showDetails, setShowDetails] = useState(false);
   return (
-    <View style={styles.root}>
-      <View style={styles.header}>
-        <View style={styles.userIconContainer}>
-          <Image
-            source={UserIcon}
-            style={styles.userIcon}
-            resizeMode={"contain"}
+    <>
+      <View style={styles.root}>
+        <View style={styles.header}>
+          <View style={styles.userIconContainer}>
+            <Image
+              source={UserIcon}
+              style={styles.userIcon}
+              resizeMode={"contain"}
+            />
+          </View>
+          <View style={styles.nameContainer}>
+            <Text style={[fonts.h1, { color: colors.secondaryText }]}>
+              Name
+            </Text>
+          </View>
+          <View style={styles.coinsContainer}>
+            {/* icon goes here */}
+            <FontAwesome5
+              name="coins"
+              size={fonts.h1.fontSize + 10}
+              color="gold"
+            />
+            <Text style={[fonts.h1, { color: colors.secondaryText }]}>100</Text>
+          </View>
+        </View>
+        <Text style={fonts.title}>Shop</Text>
+        <View style={styles.itemContainer}>
+          <Item
+            setSelectedItem={setSelectedItem}
+            setShowDetails={setShowDetails}
+            name="item1"
+            cost={200}
+          />
+          <Item
+            setSelectedItem={setSelectedItem}
+            setShowDetails={setShowDetails}
+            name="item2"
+            cost={100}
+          />
+          <Item
+            setSelectedItem={setSelectedItem}
+            setShowDetails={setShowDetails}
+            name="item3"
+            cost={50}
+          />
+          <Item
+            setSelectedItem={setSelectedItem}
+            setShowDetails={setShowDetails}
+            name="item4"
+            cost={1000}
           />
         </View>
-        <View style={styles.nameContainer}>
-          <Text style={[fonts.h1, { color: colors.secondaryText }]}>Name</Text>
-        </View>
-        <View style={styles.coinsContainer}>
-          {/* icon goes here */}
-          <FontAwesome5
-            name="coins"
-            size={fonts.h1.fontSize + 10}
-            color="gold"
-          />
-          <Text style={[fonts.h1, { color: colors.secondaryText }]}>100</Text>
-        </View>
       </View>
-      <Text style={fonts.title}>Shop</Text>
-      <View style={styles.itemContainer}>
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-      </View>
-    </View>
+      {showDetails ? (
+        <DetailsOverlay
+          selectedItem={selectedItem}
+          setShowDetails={setShowDetails}
+        />
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 
