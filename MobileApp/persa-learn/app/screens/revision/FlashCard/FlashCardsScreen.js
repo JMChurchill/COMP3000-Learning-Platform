@@ -17,7 +17,7 @@ export default function FlashCardsScreen() {
   const navigation = useNavigation();
 
   const createOnPress = () => {
-    navigation.navigate("FlashCardCreate");
+    navigation.navigate("FlashCardCreateDeck");
   };
   return (
     <View style={styles.root}>

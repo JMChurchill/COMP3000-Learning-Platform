@@ -11,6 +11,9 @@ export default function CustomInput({
   rules = {},
   placeholder,
   secureTextEntry = false,
+  fSize,
+  fBold,
+  large = false,
 }) {
   return (
     // <View style={styles.container}>
@@ -38,7 +41,13 @@ export default function CustomInput({
             ]}
           >
             <TextInput
-              style={styles.input}
+              style={[
+                styles.input,
+                fSize ? { fontSize: fSize } : "",
+                fBold ? { fontWeight: "bold" } : "",
+                large ? styles.large : "",
+              ]}
+              multiline={large}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -70,6 +79,13 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginVertical: 5,
+  },
+  large: {
+    minHeight: 150,
+    textAlign: "left",
+    textAlignVertical: "top",
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   input: {},
 });
