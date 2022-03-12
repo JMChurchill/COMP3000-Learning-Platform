@@ -12,12 +12,16 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+// import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import fonts from "../config/fonts";
 import colors from "../config/colors";
 
 import UserIcon from "../assets/UserIcons/001-man-1.png";
 import Banner from "../assets/Banners/banner-1.jpg";
+
+// const HomeTabs = createMaterialTopTabNavigator();
 
 export default function HomeScreen() {
   // const [isLoading, setLoading] = useState(false);
@@ -60,8 +64,8 @@ export default function HomeScreen() {
   const getData = async () => {
     setRefreshing(true);
     const retrievedData = [
-      { id: 1, title: "assignment1", DueDate: "10/2/22" },
-      { id: 2, title: "assignment2", DueDate: "10/2/22" },
+      { id: 1, title: "assignment1", DueDate: "10/1/22" },
+      { id: 2, title: "assignment2", DueDate: "3/2/22" },
       { id: 3, title: "assignment3", DueDate: "10/2/22" },
     ];
     await wait(1000).then(() => setRefreshing(false));

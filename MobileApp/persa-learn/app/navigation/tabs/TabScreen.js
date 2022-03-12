@@ -8,6 +8,7 @@ import HomeStackScreen from "../stacks/HomeStackScreen";
 import RevisionStackScreen from "../stacks/RevisionStackScreen";
 import ShopStackScreen from "../stacks/ShopStackScreen";
 import colors from "../../config/colors";
+import TabTestScreen from "../../screens/TabTestScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +38,7 @@ const TabScreen = () => {
         headerShown: false,
       })}
     >
+      <Tab.Screen name="Test" component={TabTestScreen} />
       <Tab.Screen name="Shop" component={ShopStackScreen} />
       <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Revision" component={RevisionStackScreen} />

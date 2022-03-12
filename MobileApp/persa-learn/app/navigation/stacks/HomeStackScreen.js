@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import QuizScreen from "../../screens/QuizScreen";
 import HomeScreen from "../../screens/HomeScreen";
+import ClassLeaderboardScreen from "../../screens/ClassLeaderboardScreen";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ const HomeStackScreen = () => {
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="ProfilePage" component={HomeScreen} />
       <HomeStack.Screen name="Quiz" component={QuizScreen} />
+      <HomeStack.Screen name="Leaderboard" component={ClassLeaderboardScreen} />
     </HomeStack.Navigator>
 
     // {/* <Text>Navigation</Text> */}

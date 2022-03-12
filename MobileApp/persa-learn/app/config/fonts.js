@@ -23,4 +23,7 @@ export default {
     color: colors.lightGrey,
     marginHorizontal: 10,
   },
+  large: {
+    fontSize: 18,
+  },
 };
