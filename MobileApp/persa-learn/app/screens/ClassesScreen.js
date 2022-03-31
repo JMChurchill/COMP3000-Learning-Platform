@@ -12,12 +12,13 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
+import common from "../config/common";
+import colors from "../config/colors";
+import ClassesItem from "../components/Classes/ClassesItem";
 
 export default function ClassesScreen() {
   const [classes, setClasses] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-
-  const navigation = useNavigation();
 
   useEffect(async () => {
     await getData();
@@ -51,10 +52,6 @@ export default function ClassesScreen() {
     await setClasses(retrievedData);
   }, []);
 
-  const listItemOnPress = (id) => {
-    console.log("pressed ", id);
-    navigation.navigate("Leaderboard");
-  };
   return (
     <View style={styles.root}>
       <View style={styles.content}>
@@ -69,14 +66,11 @@ export default function ClassesScreen() {
               data={classes}
               keyExtractor={({ id }, index) => id}
               renderItem={({ item, separator }) => (
-                <TouchableOpacity
-                  style={styles.listItem}
-                  onPress={() => listItemOnPress(item.id)}
-                >
-                  <Text style={styles.listItemText}>{item.id}.</Text>
-                  <Text style={styles.listItemText}>{item.class},</Text>
-                  <Text style={styles.listItemText}>{item.teacher}</Text>
-                </TouchableOpacity>
+                <ClassesItem
+                  id={item.id}
+                  name={item.class}
+                  teacher={item.teacher}
+                />
               )}
             />
           </View>
@@ -101,19 +95,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     width: "100%",
-    paddingHorizontal: "5%",
     borderColor: "orange",
     borderWidth: 5,
-  },
-  listItem: {
-    borderColor: "grey",
-    borderBottomWidth: 1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 10,
-    marginVertical: 2,
-  },
-  listItemText: {
-    fontSize: 20,
+    padding: 10,
   },
 });

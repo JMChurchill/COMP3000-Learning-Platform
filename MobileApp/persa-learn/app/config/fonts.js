@@ -24,6 +24,6 @@ export default {
     marginHorizontal: 10,
   },
   large: {
-    fontSize: 18,
+    fontSize: 20,
   },
 };
