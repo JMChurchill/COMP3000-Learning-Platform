@@ -140,6 +140,7 @@ CREATE TABLE QuizClassAssignments (
     ClassDetailsID int NOT NULL, 
     QuizID INT NOT NULL, 
     DueDate DATETIME NOT NULL,
+    Xp int NOT NULL,
     PRIMARY KEY (ClassDetailsID, QuizID),
     FOREIGN KEY (ClassDetailsID) 
         REFERENCES Classes(ClassDetailsID)
@@ -148,6 +149,21 @@ CREATE TABLE QuizClassAssignments (
         REFERENCES Quizzes(QuizID)
         ON DELETE CASCADE
     );
+
+-- Quiz submissions
+CREATE TABLE QuizSubmissions(
+    StudentID int NOT NULL,
+    QuizID int NOT NULL,
+    Score int NOT NULL DEFAULT 0,
+    SubDate DATE NOT NULL DEFAULT (CURRENT_DATE),
+    PRIMARY KEY (StudentID,QuizID),
+    FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (QuizID)
+        REFERENCES QuizClassAssignments(QuizID)
+        ON DELETE CASCADE
+);
 
 -- Quizzes table
 CREATE TABLE Quizzes (
@@ -212,6 +228,24 @@ CREATE TABLE Words (
         ON DELETE CASCADE
     );
 
+CREATE TABLE Items(
+    ItemID int NOT NULL AUTO_INCREMENT,
+    Name varchar(60) NOT NULL,
+    Details text,
+    Image text NOT NULL,
+    Cost int NOT NULL,
+    PRIMARY KEY (ItemID)
+);
 
-
+CREATE TABLE ItemsPurchased(
+    ItemID int NOT NULL,
+    StudentID int NOT NULL,
+    PRIMARY KEY (ItemID, StudentID),
+    FOREIGN KEY (ItemID) 
+        REFERENCES Items(ItemID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE
+);
 
