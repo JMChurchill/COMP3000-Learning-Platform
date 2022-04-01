@@ -264,6 +264,42 @@ router.route("/details").get(checkAuth, async (req, res) => {
   });
 });
 
+//get student xp
+router.route("/details/xp").get(checkAuth, async (req, res) => {
+  const email = req.user.email;
+  const password = req.user.password;
+
+  // const query = "SELECT * FROM teachers";
+  const query = `CALL get_students_xp ("${email}", "${password}")`;
+  // console.log(query);
+  pool.query(query, (error, results) => {
+    if (results === null) {
+      res.status(204).json({ status: "Not found" });
+    } else {
+      // console.log(results[0]);
+      res.status(200).json({ status: "success", data: results[0] });
+    }
+  });
+});
+
+//get student coins
+router.route("/details/coins").get(checkAuth, async (req, res) => {
+  const email = req.user.email;
+  const password = req.user.password;
+
+  // const query = "SELECT * FROM teachers";
+  const query = `CALL get_students_coins ("${email}", "${password}")`;
+  // console.log(query);
+  pool.query(query, (error, results) => {
+    if (results === null) {
+      res.status(204).json({ status: "Not found" });
+    } else {
+      // console.log(results[0]);
+      res.status(200).json({ status: "success", data: results[0] });
+    }
+  });
+});
+
 // router.post(createNewUser);
 
 module.exports = router;

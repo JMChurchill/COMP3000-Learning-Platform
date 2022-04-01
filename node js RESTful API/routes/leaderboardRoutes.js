@@ -11,7 +11,7 @@ const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
 
 router.get("/", async (req, res) => {
-  const query = "SELECT Email,FirstName,LastName FROM students";
+  const query = "SELECT Email,FirstName,LastName,Xp FROM students";
   pool.query(query, (error, results) => {
     if (results === null) {
       res.status(204).json({ status: "Not found" });

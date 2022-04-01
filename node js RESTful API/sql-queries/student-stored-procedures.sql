@@ -67,3 +67,55 @@ END$$
 DELIMITER ;
 
 CALL assignments_by_students ("email@email.com", "password")
+
+
+
+
+# add quiz submission
+DELIMITER $$
+CREATE PROCEDURE quiz_submission_add (qID int, qScore int,qXp int, qCoins int, sEmail varchar(255), sPassword varchar(60))
+BEGIN
+    DECLARE TotalXp int;
+    DECLARE TotalCoins int;
+    #get student id
+    DECLARE theStudentID int;
+    SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
+        IF EXISTS (SELECT * FROM QuizSubmissions WHERE StudentID = theStudentID AND QuizID = qID) THEN
+        ROLLBACK;
+    ELSE
+        #insert submission
+        INSERT INTO QuizSubmissions(StudentID,QuizID,Score)
+        VALUES (theStudentID, qID, qScore);
+    END IF;
+    #get xp
+    SET TotalXp = (SELECT Xp FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
+    #get coins
+    SET TotalCoins = (SELECT Coins FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
+    #add to total
+    UPDATE Students
+    SET Xp = qXp + TotalXp, Coins = TotalCoins + qCoins
+    WHERE StudentID = theStudentID;
+END$$
+DELIMITER ;
+
+CALL quiz_submission_add(1,1,"e@email.com","password")
+
+
+
+#get xp
+DELIMITER $$
+CREATE PROCEDURE get_students_xp (sEmail varchar(255), sPassword varchar(60))
+BEGIN
+    #get student id
+    SELECT Xp FROM students WHERE email = sEmail AND password = sPassword LIMIT 1;
+END$$
+DELIMITER ;
+
+#get coins
+DELIMITER $$
+CREATE PROCEDURE get_students_coins (sEmail varchar(255), sPassword varchar(60))
+BEGIN
+    #get student id
+    SELECT Coins FROM students WHERE email = sEmail AND password = sPassword LIMIT 1;
+END$$
+DELIMITER ;

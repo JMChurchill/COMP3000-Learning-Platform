@@ -395,17 +395,24 @@ router
             errors: errs.array(),
           });
         }
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
         const data = {
           quizID: req.body.quizID,
           ans: req.body.answers,
         };
+        const query1 = `SELECT * FROM QuizClassAssignments WHERE QuizID = ${data.quizID}`;
+        const [quiz] = await pool.query(query1).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
         const query = `CALL quiz_answers_by_id(${data.quizID})`;
-        console.log(query);
         const [correctAnswers] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-        let isCorrect = true;
         const wrongAnswers = [];
         //check answers
         //check if same length
@@ -415,18 +422,36 @@ router
             data.ans.map((answer, i) => {
               if (answer.questionID === corAns.QuestionID) {
                 if (answer.ans != corAns.Answer) {
-                  isCorrect = false;
                   wrongAnswers.push(answer.questionID);
                 }
               }
             });
           });
-        } else {
-          isCorrect = false;
         }
-        return res
-          .status(200)
-          .json({ status: "success", correctAnswers, isCorrect, wrongAnswers });
+        const xp =
+          quiz.Xp *
+          (correctAnswers.length - wrongAnswers.length / correctAnswers.length);
+        console.log(password);
+        const coins =
+          quiz.Coins *
+          (correctAnswers.length - wrongAnswers.length / correctAnswers.length);
+        console.log(coins);
+
+        const query3 = `CALL quiz_submission_add(${data.quizID},${
+          correctAnswers.length - wrongAnswers.length
+        },${xp},${coins},"${email}","${password}")`;
+        console.log(query3);
+        await pool.query(query3).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        return res.status(200).json({
+          status: "success",
+          correctAnswers,
+          wrongAnswers,
+          xp,
+          coins,
+        });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -485,6 +510,7 @@ router
     [
       check("classID", "Invalid class ID").not().isEmpty(),
       check("xp", "Invalid xp").not().isEmpty(),
+      check("coins", "Invalid coins").not().isEmpty(),
       check("quizID", "Invalid quiz ID").not().isEmpty(),
       check("dueDate", "Invalid Date").isISO8601(),
     ],
@@ -508,11 +534,12 @@ router
           quizID: req.body.quizID,
           dueDate: req.body.dueDate,
           xp: req.body.xp,
+          coins: req.body.coins,
         };
         console.log(data);
 
         //assign activity to class
-        let query = `CALL assignment_quiz_create_class (${data.classID},${data.quizID},"${data.dueDate}", ${data.xp}, "${email}", "${password}")`;
+        let query = `CALL assignment_quiz_create_class (${data.classID},${data.quizID},"${data.dueDate}", ${data.xp}, ${data.coins}, "${email}", "${password}")`;
         console.log(query);
         await pool.query(query).catch((err) => {
           // throw err;

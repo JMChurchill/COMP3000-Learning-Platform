@@ -16,6 +16,7 @@ const ClassLeaderboard = () => {
 
   useEffect(async () => {
     const data = await getStudentsInClass(state);
+    console.log(data);
     if (data.status === "success") setStudents(data.data);
   }, []);
 
@@ -53,6 +54,7 @@ const ClassLeaderboard = () => {
                     icon={tempUserIcon}
                     name={`${student.FirstName} ${student.LastName}`}
                     position={pos}
+                    xp={student.Xp}
                   />
                 );
               }
@@ -60,13 +62,14 @@ const ClassLeaderboard = () => {
           </div>
 
           {students.map((student, i) => {
-            if (i > -1) {
+            if (i > 3) {
               return (
                 <LeaderboardStudent
                   key={i}
                   icon={tempUserIcon}
                   name={`${student.FirstName} ${student.LastName}`}
                   position={i}
+                  xp={student.Xp}
                 />
               );
             }

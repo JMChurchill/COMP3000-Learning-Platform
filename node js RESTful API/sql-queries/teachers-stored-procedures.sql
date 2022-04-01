@@ -411,7 +411,7 @@ CALL assignment_quiz_create_indivisual(1,1,"email","password")
 
 #create class assignment
 DELIMITER $$
-CREATE PROCEDURE assignment_quiz_create_class(cID int,qID int,dDate DATE, qXp int,tEmail varchar(255), tPassword varchar(60))
+CREATE PROCEDURE assignment_quiz_create_class(cID int,qID int,dDate DATE, qXp int, qCoins int,tEmail varchar(255), tPassword varchar(60))
 BEGIN 
     DECLARE theTeacherID int;
     SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
@@ -423,12 +423,12 @@ BEGIN
         IF EXISTS (SELECT * FROM QuizClassAssignments 
             WHERE ClassDetailsID = cID AND QuizID = qID) THEN
             UPDATE QuizClassAssignments
-            SET DueDate = dDate, xp = qXp
+            SET DueDate = dDate, xp = qXp, coins = qCoins
             WHERE ClassDetailsID = cID AND QuizID = qID; 
         ELSE
         #does not attempt to insert if duplicate
-            INSERT IGNORE INTO QuizClassAssignments(ClassDetailsID, QuizID, DueDate, xp)
-            VALUES (cID,qID,dDate,qXp);
+            INSERT IGNORE INTO QuizClassAssignments(ClassDetailsID, QuizID, DueDate, Xp,Coins)
+            VALUES (cID,qID,dDate,qXp,qCoins);
         END IF;
     ELSE
         ROLLBACK;

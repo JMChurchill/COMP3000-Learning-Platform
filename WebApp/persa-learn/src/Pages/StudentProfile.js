@@ -17,6 +17,10 @@ import {
 } from "../http_Requests/userRequests";
 import ClassItem from "../Components/ClassItem";
 import AssignmentItem from "../Components/AssignmentItem";
+import {
+  getStudentCoins,
+  getStudentXp,
+} from "../http_Requests/studentRequests";
 // import Achievements from "./Achievements";
 
 const StudentProfile = () => {
@@ -25,10 +29,22 @@ const StudentProfile = () => {
 
   const [usersName, setUsersName] = useState("");
   const [selectedTab, setSelectedTab] = useState(1);
+
+  const [xp, setXp] = useState(0);
+  const [coins, setCoins] = useState(0);
+
   const tabs = ["Classes", "Achievements", "Assignments"];
   useEffect(async () => {
+    //get students xp
+    let data = await getStudentXp();
+    setXp(data.data[0].Xp);
+    //get students coins
+    data = await getStudentCoins();
+    console.log(data.data[0].Coins);
+
+    setCoins(data.data[0].Coins);
     // get students classes
-    let data = await getStudentsClassses();
+    data = await getStudentsClassses();
 
     if (data.hasOwnProperty("data")) {
       setClasses(data.data);
@@ -66,11 +82,16 @@ const StudentProfile = () => {
               <div className="user-icon">
                 <img src={studentIcon} alt="user icon" height="100px" />
                 <div className="xp">
-                  <p>100xp</p>
+                  <p>{xp}xp</p>
                 </div>
               </div>
-              <div className="name-box">
-                <p>{usersName}</p>
+              <div className="detail_box">
+                <div className="box">
+                  <p>{coins} Coins</p>
+                </div>
+                <div className="name-box">
+                  <p>{usersName}</p>
+                </div>
               </div>
             </div>
             <div className="progressbar">

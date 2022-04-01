@@ -161,7 +161,7 @@ CREATE TABLE QuizSubmissions(
         REFERENCES Students(StudentID)
         ON DELETE CASCADE,
     FOREIGN KEY (QuizID)
-        REFERENCES QuizClassAssignments(QuizID)
+        REFERENCES Quizzes(QuizID)
         ON DELETE CASCADE
 );
 

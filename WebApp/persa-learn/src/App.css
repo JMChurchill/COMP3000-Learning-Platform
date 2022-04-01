@@ -55,7 +55,7 @@ body {
 
 .content-box .overlay .message-box {
   background-color: white;
-  padding: 5% 10%;
+  padding: 2% 10%;
   margin: auto;
   position: fixed;
   top: 50%;
@@ -73,6 +73,69 @@ body {
   padding: 0.5rem;
   -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
           box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+}
+
+.content-box .overlay .message-box .level {
+  background-color: gold;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 10rem;
+  aspect-ratio: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.content-box .overlay .message-box .level h2 {
+  color: white;
+}
+
+.content-box .overlay .message-box .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 20%;
+}
+
+.content-box .overlay .message-box .row .earned p {
+  margin: 0.5rem 0;
+}
+
+.content-box .overlay .message-box .row .earned p:first-child {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.content-box .overlay .message-box .progressbar {
+  background-color: white;
+  width: 100%;
+  height: 1.5rem;
+  border-radius: 2rem;
+  padding: 0;
+  -webkit-box-shadow: 0 0.5rem 0.5rem -0.4em black;
+          box-shadow: 0 0.5rem 0.5rem -0.4em black;
+  z-index: 99;
+  border: 1px solid #bbb;
+}
+
+.content-box .overlay .message-box .progressbar .bar-fill {
+  background-color: var(--progressbar-color);
+  width: 50%;
+  height: 100%;
+  border-radius: 2rem;
 }
 
 .content-box .container #update-user-form {
@@ -873,7 +936,7 @@ form .btn:hover {
       -ms-flex-pack: center;
           justify-content: center;
   gap: clamp(1rem, 5vw, 5rem);
-  background-color: #00ff55;
+  padding: 2rem 0;
 }
 
 .content-box .container .leaderboard-box .top-students .top-student {
@@ -888,11 +951,12 @@ form .btn:hover {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: #4ffedf;
   width: 30%;
 }
 
 .content-box .container .leaderboard-box .top-students .top-student p {
+  font-size: 1.8rem;
+  font-weight: bold;
   margin: 0.2rem;
 }
 
@@ -1031,6 +1095,9 @@ form .btn:hover {
   gap: 1rem;
   position: relative;
   width: 100%;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .content-box .container .banner .upper .user-icon {
@@ -1075,14 +1142,39 @@ form .btn:hover {
   color: black;
 }
 
-.content-box .container .banner .upper .name-box {
+.content-box .container .banner .upper .detail_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-bottom: 0;
+}
+
+.content-box .container .banner .upper .detail_box .box {
+  background-color: var(--btn-color);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0 5%;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.content-box .container .banner .upper .detail_box .name-box {
   position: relative;
   width: 100%;
 }
 
-.content-box .container .banner .upper .name-box p {
-  position: absolute;
-  bottom: 0;
+.content-box .container .banner .upper .detail_box .name-box p {
+  margin-top: 0;
   font-weight: bold;
   font-size: 2.5rem;
   margin-bottom: auto;
