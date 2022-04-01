@@ -484,6 +484,7 @@ router
   .post(
     [
       check("classID", "Invalid class ID").not().isEmpty(),
+      check("xp", "Invalid xp").not().isEmpty(),
       check("quizID", "Invalid quiz ID").not().isEmpty(),
       check("dueDate", "Invalid Date").isISO8601(),
     ],
@@ -506,10 +507,12 @@ router
           classID: req.body.classID,
           quizID: req.body.quizID,
           dueDate: req.body.dueDate,
+          xp: req.body.xp,
         };
+        console.log(data);
 
         //assign activity to class
-        let query = `CALL assignment_quiz_create_class (${data.classID},${data.quizID},"${data.dueDate}", "${email}", "${password}")`;
+        let query = `CALL assignment_quiz_create_class (${data.classID},${data.quizID},"${data.dueDate}", ${data.xp}, "${email}", "${password}")`;
         console.log(query);
         await pool.query(query).catch((err) => {
           // throw err;

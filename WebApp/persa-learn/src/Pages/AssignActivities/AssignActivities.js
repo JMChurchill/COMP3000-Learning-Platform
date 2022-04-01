@@ -19,6 +19,7 @@ const AssignActivities = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [dueDate, setDueDate] = useState(null);
   const [quizID, setQuizID] = useState(null);
+  const [xp, setXp] = useState(0);
 
   const [settingDate, setSettingDate] = useState(false);
 
@@ -52,6 +53,7 @@ const AssignActivities = () => {
     // console.log(dueDate.toLocaleString("en-US"));
     // console.log(dueDate.toISOString().slice(0, 19).replace("T", " "));
     const data = await assignQuizToClass({
+      xp,
       classID: selectedClass.classID,
       quizID,
       dueDate: dueDate.toISOString().slice(0, 19).replace("T", " "),
@@ -100,6 +102,7 @@ const AssignActivities = () => {
             dateFormat="dd/MM/yyyy"
             minDate={new Date()}
           />
+          <input placeholder="xp" onChange={(e) => setXp(e.target.value)} />
           <button className="btn" onClick={() => submitAssignToClass()}>
             Ok
           </button>
