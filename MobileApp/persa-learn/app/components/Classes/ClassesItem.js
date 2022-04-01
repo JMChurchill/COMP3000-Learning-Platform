@@ -19,9 +19,13 @@ export default function ClassesItem({ id, name, teacher }) {
       style={[styles.listItem, common.shadow]}
       onPress={() => listItemOnPress(id)}
     >
-      <Text style={fonts.large}>{id}.</Text>
-      <Text style={fonts.large}>{name},</Text>
-      <Text style={fonts.large}>{teacher}</Text>
+      {/* <Text style={fonts.large}>{id}.</Text> */}
+      <View style={styles.col}>
+        <Text style={fonts.large}>{name}</Text>
+      </View>
+      <View style={[styles.col, { paddingLeft: "2%" }]}>
+        <Text style={fonts.large}>{teacher}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -31,8 +35,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.cardBackground,
     marginVertical: 5,
     flexDirection: "row",
-    justifyContent: "space-around",
+    // justifyContent: "space-evenly",
     paddingVertical: 10,
+    paddingHorizontal: "5%",
     borderRadius: common.containerBorderRadius,
+  },
+  col: {
+    width: "40%",
   },
 });

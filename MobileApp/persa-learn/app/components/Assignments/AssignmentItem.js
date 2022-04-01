@@ -6,7 +6,7 @@ import fonts from "../../config/fonts";
 import colors from "../../config/colors";
 import common from "../../config/common";
 
-export default function AssignmentItem({ id, title, dueDate }) {
+export default function AssignmentItem({ id, title, cName, dueDate }) {
   const navigation = useNavigation();
 
   const listItemOnPress = (id) => {
@@ -18,9 +18,21 @@ export default function AssignmentItem({ id, title, dueDate }) {
       style={[styles.listItem, common.shadow]}
       onPress={() => listItemOnPress(id)}
     >
-      <Text style={fonts.large}>{id}.</Text>
-      <Text style={fonts.large}>{title},</Text>
-      <Text style={fonts.large}>{dueDate}</Text>
+      <View style={styles.largeCol}>
+        <Text style={fonts.large} ellipsizeMode="tail" numberOfLines={1}>
+          {title}
+        </Text>
+      </View>
+      <View style={styles.col}>
+        <Text style={fonts.large} ellipsizeMode="tail" numberOfLines={1}>
+          {cName}
+        </Text>
+      </View>
+      <View style={styles.col}>
+        <Text style={fonts.large} ellipsizeMode="tail" numberOfLines={1}>
+          {dueDate}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -32,6 +44,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: 10,
+    paddingHorizontal: "5%",
     borderRadius: common.containerBorderRadius,
+  },
+  largeCol: {
+    width: "40%",
+  },
+  col: {
+    width: "30%",
+    paddingLeft: "2%",
   },
 });

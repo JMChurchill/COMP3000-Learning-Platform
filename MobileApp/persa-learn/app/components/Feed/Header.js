@@ -7,28 +7,29 @@ import {
 } from "react-native";
 import React from "react";
 
-import UserIcon from "../../assets/UserIcons/001-man-1.png";
-import Banner from "../../assets/Banners/banner-1.jpg";
+// import UserIcon from "../../assets/UserIcons/001-man-1.png";
+// import Banner from "../../assets/Banners/banner-1.jpg";
+
 import colors from "../../config/colors";
 import common from "../../config/common";
 
 // import UserIcon from "../assets/UserIcons/001-man-1.png";
 
-export default function Header() {
+export default function Header({ icon, banner, xp }) {
   const { height } = useWindowDimensions();
 
   return (
     <View style={[styles.container]}>
       <View style={[styles.userIconContainer]}>
         <Image
-          source={UserIcon}
+          source={icon}
           style={{ height: height * 0.15 }}
           resizeMode={"contain"}
         />
         <Text style={[styles.xp, common.shadow]}>Lv10</Text>
       </View>
       <Image
-        source={Banner}
+        source={banner}
         style={[styles.banner, { height: height * 0.2 }]}
         resizeMode={"contain"}
       />

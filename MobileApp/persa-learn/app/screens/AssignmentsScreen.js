@@ -5,14 +5,12 @@ import {
   Image,
   FlatList,
   RefreshControl,
-  TouchableOpacity,
-  useWindowDimensions,
 } from "react-native";
 import React, { useState, useCallback, useEffect } from "react";
+
 import fonts from "../config/fonts";
 import common from "../config/common";
 import colors from "../config/colors";
-import { useNavigation } from "@react-navigation/native";
 
 import AssignmentItem from "../components/Assignments/AssignmentItem";
 
@@ -28,15 +26,25 @@ export default function AssignmentsScreen() {
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     const retrievedData = [
-      { id: 1, title: "assignment2", DueDate: "10/2/22" },
-      { id: 2, title: "assignment2", DueDate: "10/2/22" },
-      { id: 3, title: "assignment2", DueDate: "10/2/22" },
-      { id: 4, title: "assignment2", DueDate: "10/2/22" },
-      { id: 5, title: "assignment2", DueDate: "10/2/22" },
-      { id: 6, title: "assignment2", DueDate: "10/2/22" },
-      { id: 7, title: "assignment2", DueDate: "10/2/22" },
-      { id: 8, title: "assignment2", DueDate: "10/2/22" },
-      { id: 9, title: "assignment2", DueDate: "10/2/22" },
+      {
+        id: 1,
+        title: "assignment1",
+        class: "Maths 01",
+        DueDate: "10/1/22",
+      },
+      { id: 2, title: "assignment2", class: "art", DueDate: "10/2/22" },
+      {
+        id: 3,
+        title: "Moments",
+        class: "Physics 03",
+        DueDate: "10/2/22",
+      },
+      {
+        id: 4,
+        title: "Trig",
+        class: "Maths 01",
+        DueDate: "10/2/22",
+      },
     ];
     await wait(1000).then(() => setRefreshing(false));
     await setData(retrievedData);
@@ -49,9 +57,19 @@ export default function AssignmentsScreen() {
   const getData = async () => {
     setRefreshing(true);
     const retrievedData = [
-      { id: 1, title: "assignment1", DueDate: "10/1/22" },
-      { id: 2, title: "assignment2", DueDate: "3/2/22" },
-      { id: 3, title: "assignment3", DueDate: "10/2/22" },
+      {
+        id: 1,
+        title: "assignment1",
+        class: "Maths 01",
+        DueDate: "10/1/22",
+      },
+      { id: 2, title: "assignment2", class: "art", DueDate: "10/2/22" },
+      {
+        id: 3,
+        title: "Moments",
+        class: "Physics 03",
+        DueDate: "10/2/22",
+      },
     ];
     await wait(1000).then(() => setRefreshing(false));
     await setData(retrievedData);
@@ -76,6 +94,7 @@ export default function AssignmentsScreen() {
                 <AssignmentItem
                   id={item.id}
                   title={item.title}
+                  cName={item.class}
                   dueDate={item.DueDate}
                 />
               )}

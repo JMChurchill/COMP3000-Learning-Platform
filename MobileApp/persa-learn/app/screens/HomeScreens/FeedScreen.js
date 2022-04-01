@@ -18,9 +18,21 @@ export default function FeedScreen() {
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     const retrievedData = [
-      { id: 1, title: "assignment1", DueDate: "10/1/22", type: "assignment" },
+      {
+        id: 1,
+        title: "assignment1",
+        class: "Maths 01",
+        DueDate: "10/1/22",
+        type: "assignment",
+      },
       { id: 2, name: "maths", teacher: "Mary", type: "class" },
-      { id: 3, title: "assignment3", DueDate: "10/2/22", type: "assignment" },
+      {
+        id: 3,
+        title: "Moments",
+        class: "Physics 03",
+        DueDate: "10/2/22",
+        type: "assignment",
+      },
       {
         id: 4,
         firstName: "James",
@@ -48,9 +60,21 @@ export default function FeedScreen() {
   const getData = async () => {
     setRefreshing(true);
     const retrievedData = [
-      { id: 1, title: "assignment1", DueDate: "10/1/22", type: "assignment" },
+      {
+        id: 1,
+        title: "assignment1",
+        class: "Maths 01",
+        DueDate: "10/1/22",
+        type: "assignment",
+      },
       { id: 2, name: "maths", teacher: "Mary", type: "class" },
-      { id: 3, title: "assignment3", DueDate: "10/2/22", type: "assignment" },
+      {
+        id: 3,
+        title: "Moments",
+        class: "Physics 03",
+        DueDate: "10/2/22",
+        type: "assignment",
+      },
       {
         id: 4,
         firstName: "James",
@@ -92,6 +116,7 @@ export default function FeedScreen() {
                     <AssignmentItem
                       id={item.id}
                       title={item.title}
+                      cName={item.class}
                       dueDate={item.DueDate}
                     />
                   );
