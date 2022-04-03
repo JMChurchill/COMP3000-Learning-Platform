@@ -26,11 +26,11 @@ const Home = ({ setToken }) => {
               Class leaderboard
             </button>
           </Link>
-          <Link to="/achievements">
+          {/* <Link to="/achievements">
             <button id="joinBtn" className="btn">
               Achievements
             </button>
-          </Link>
+          </Link> */}
           <Link to="/profile_student">
             <button id="joinBtn" className="btn">
               Student Profile

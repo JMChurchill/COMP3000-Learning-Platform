@@ -36,7 +36,8 @@ export const loginUser = async (credentials, isTeacher) => {
   );
 };
 
-export const getUserDetails = (token) => {
+export const getUserDetails = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch("http://localhost:8080/student/details", {
     method: "GET",
     headers: {

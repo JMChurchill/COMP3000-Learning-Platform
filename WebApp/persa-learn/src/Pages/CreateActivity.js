@@ -14,9 +14,9 @@ const CreateActivity = () => {
         <Link to="/designer_flashcard">
           <MakeActivity name="Flashcard Designer" />
         </Link>
-        <Link to="/quiz/all">
+        {/* <Link to="/quiz/all">
           <MakeActivity name="All Quizzes" />
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

@@ -14,20 +14,20 @@ const Quiz = () => {
 
   const [isComplete, setIsComplete] = useState(false);
 
+  // overlay states
   const [earnedXp, setEarnedXp] = useState(0);
   const [earnedCoins, setEarnedCoins] = useState(0);
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
 
+  // data passed from previous page (quiz id)
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  console.log(state);
   useEffect(async () => {
     // get quiz data
     if (state !== null) {
       const data = await getQuiz(state.quizID);
-      // console.log(data);
 
       //set quiz title
       setTitle(data.quizName);
@@ -35,14 +35,10 @@ const Quiz = () => {
       setQuestions(data.questions);
     }
   }, []);
-  // useEffect(() => {
-  //   console.log(answers);
-  // }, [answers]);
 
   const addAnswer = (questionID, answerIdx) => {
     let isFound = false;
     // check if question already answered
-    // const tempAns = answers;
     answers.map((ans) => {
       if (ans.questionID == questionID) {
         ans.ans = answerIdx;
@@ -58,14 +54,17 @@ const Quiz = () => {
     }
   };
   const complete = async () => {
+    // check if all questions answered
     if (answers.length === questions.length) {
+      //check answers and submit
       const data = await checkAnswers({ quizID, answers });
       console.log("data: ", data);
+      //set values for overlay
       setScore(answers.length - data.wrongAnswers.length);
       setEarnedXp(data.xp);
       setEarnedCoins(data.coins);
       setIsComplete(true);
-    } else console.log("answer all the questions");
+    } else alert("answer all the questions");
   };
 
   return (
@@ -113,7 +112,7 @@ const Quiz = () => {
                 <p>coins earned</p>
               </div>
             </div>
-            {/* <p>progress</p> */}
+            {/* TODO: add level progress */}
             <div className="progressbar">
               <div className="bar-fill"></div>
             </div>

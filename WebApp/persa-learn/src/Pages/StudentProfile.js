@@ -35,33 +35,31 @@ const StudentProfile = () => {
 
   const tabs = ["Classes", "Achievements", "Assignments"];
   useEffect(async () => {
-    //get students xp
-    let data = await getStudentXp();
-    setXp(data.data[0].Xp);
-    //get students coins
-    data = await getStudentCoins();
-    console.log(data.data[0].Coins);
-
-    setCoins(data.data[0].Coins);
-    // get students classes
-    data = await getStudentsClassses();
-
-    if (data.hasOwnProperty("data")) {
-      setClasses(data.data);
+    //get page details
+    const [dataXp, dataCoins, dataClasses, dataStudentDetails, dataAssignment] =
+      await Promise.all([
+        getStudentXp(),
+        getStudentCoins(),
+        getStudentsClassses(),
+        getUserDetails(),
+        getStudentsAssignmentQuizzes(),
+      ]);
+    //xp
+    setXp(dataXp.data[0].Xp);
+    //coins
+    setCoins(dataCoins.data[0].Coins);
+    //classes
+    if (dataClasses.hasOwnProperty("data")) {
+      setClasses(dataClasses.data);
     }
-
-    const token = JSON.parse(sessionStorage.getItem("token"));
-    data = await getUserDetails(token);
-    // console.log(data);
-    if (data.hasOwnProperty("data")) {
-      const { FirstName, LastName, Email } = data.data[0];
+    //student details
+    if (dataStudentDetails.hasOwnProperty("data")) {
+      const { FirstName, LastName, Email } = dataStudentDetails.data[0];
       setUsersName(`${FirstName} ${LastName}`);
     }
-
-    data = await getStudentsAssignmentQuizzes();
-    console.log(data);
-    if (data.hasOwnProperty("quizzes")) {
-      setAssignments(data.quizzes);
+    // assignments
+    if (dataAssignment.hasOwnProperty("quizzes")) {
+      setAssignments(dataAssignment.quizzes);
     }
   }, []);
 
@@ -101,6 +99,7 @@ const StudentProfile = () => {
           <div className="content">
             <div className="tabs">
               {tabs.map((tab, i) => {
+                // highlight selected tab
                 let isSelected = false;
                 let j = i + 1;
                 if (j === selectedTab) {

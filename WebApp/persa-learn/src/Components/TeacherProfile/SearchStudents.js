@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   addStudentToClass,
+  allStudents,
   searchStudents,
 } from "../../http_Requests/teacherRequests";
 
 const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(async () => {
+    // get all students from database
+    const data = await allStudents();
+    if (data.status === "success") {
+      setSearchResults(data.students);
+    }
+  }, []);
 
   const addStudent = async (studentID) => {
     let details = { studentID, classID };

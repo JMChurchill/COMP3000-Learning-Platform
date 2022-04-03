@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Class from "../Components/Class";
-import {
-  getTeachersClasses,
-  searchStudents,
-} from "../http_Requests/teacherRequests";
+import { getTeachersClasses } from "../http_Requests/teacherRequests";
 import { useNavigate } from "react-router-dom";
-import SearchStudents from "../Components/TeacherProfile/SearchStudents";
 import ClassDetails from "../Components/TeacherProfile/ClassDetails";
 import AddClass from "../Components/TeacherProfile/AddClass";
 
 const TeacherProfile = () => {
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState();
-  const [addingClass, setAddingClass] = useState(false);
   const [classSuccess, setClassSuccess] = useState(false);
   // current right view
+  const [addingClass, setAddingClass] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isShowStudents, setIsShowStudents] = useState(false);
@@ -32,10 +28,6 @@ const TeacherProfile = () => {
     setIsShowStudents(false);
   };
 
-  // const flipIsUpdating = () => {
-  //   setIsUpdating(!isUpdating);
-  // };
-
   useEffect(async () => {
     let data = await getTeachersClasses();
     if (data.hasOwnProperty("data")) {
@@ -46,18 +38,6 @@ const TeacherProfile = () => {
   const flipAddClass = () => {
     setAddingClass(!addingClass);
   };
-  const navigate = useNavigate();
-
-  // console.log(selectedClass);
-
-  // const selectionChanged = (selectedClass) =>{
-  //   setSelectedClass(selectedClass);
-
-  // }
-
-  // useEffect(async () => {
-  //   console.log(classes);
-  // }, [classes]);
 
   return (
     <div className="content-box">

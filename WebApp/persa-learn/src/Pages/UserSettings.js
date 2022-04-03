@@ -14,13 +14,9 @@ const UserSettings = () => {
   const navigate = useNavigate();
   //get user details from api on load
   useEffect(async () => {
-    const token = JSON.parse(sessionStorage.getItem("token"));
-    // console.log(token);
+    let data = await getUserDetails();
 
-    let data = await getUserDetails(token);
-
-    // console.log(data);
-    if (data.hasOwnProperty("data")) {
+    if (data.status === "success") {
       const { FirstName, LastName, Email } = data.data[0];
       setEmail(Email);
       setFirstName(FirstName);

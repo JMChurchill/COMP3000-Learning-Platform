@@ -35,7 +35,6 @@ const ClassLeaderboard = () => {
       setTopThree(tempArray);
     }
   };
-  //TODO: order by xp
   return (
     <div className="content-box">
       <h1>Class leaderboard</h1>

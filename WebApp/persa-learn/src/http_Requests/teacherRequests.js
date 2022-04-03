@@ -14,6 +14,19 @@ export const getTeachersClasses = () => {
   return data;
 };
 
+export const allStudents = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/teacher/students/all", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
 export const searchStudents = (searchTerm) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch("http://localhost:8080/teacher/search", {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,6 +18,8 @@ const QuizDesigner = () => {
   const [newModule, setNewModule] = useState();
   const [selectedDate, setSelectedDate] = useState(null);
 
+  const [selectedClass, setSelectedClass] = useState("");
+
   const [moduleList, setModuleList] = useState([]);
 
   const [isComplete, setIsComplete] = useState(false);
@@ -26,25 +28,25 @@ const QuizDesigner = () => {
   const [moduleCreated, setModuleCreated] = useState(false);
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   useEffect(async () => {
+    //get data from previous page
+    await setSelectedClass({
+      id: state.classID,
+      name: state.className,
+      yearGroup: state.yearGroup,
+    });
+    //get all modules
     let data = await viewTeachersModules();
     setModuleList(data.modules);
   }, []);
 
-  console.log(selectedModule);
-  //for testing
-  useEffect(() => {
-    console.log(questions);
-  }, [questions]);
-  useEffect(() => {
-    console.log(moduleList);
-  }, [moduleList]);
-
   const addModule = async () => {
     // console.log(newModule);
+    //add module to database
     let data = await createModule({ moduleName: newModule });
-    console.log(data);
+    //get all modules
     let modData = await viewTeachersModules();
     setModuleList(modData.modules);
     setModuleCreated(true);
@@ -71,13 +73,14 @@ const QuizDesigner = () => {
   };
 
   const createQuiz = async () => {
-    // send this to API
-    console.log("Title: ", title);
-    console.log("Questions: ", questions);
-
-    const data = await createTheQuiz({ title, questions, selectedModule });
-    //{status, quizID} = data
-    console.log(data);
+    //add quiz to database
+    const data = await createTheQuiz({
+      title,
+      questions,
+      selectedModule,
+      selectedClass,
+    });
+    //display status
     if (data.status === "success") {
       setIsComplete(true);
     } else {
@@ -142,7 +145,14 @@ const QuizDesigner = () => {
       <div className="overlay" aria-disabled={!isComplete}>
         <div className="message-box">
           <h1>Created {title} Quiz</h1>
-          <button className="btn" onClick={() => navigate("/quiz/all")}>
+          <button
+            className="btn"
+            onClick={() =>
+              navigate("/Assign", {
+                state: selectedClass,
+              })
+            }
+          >
             View all quizzes
           </button>
         </div>

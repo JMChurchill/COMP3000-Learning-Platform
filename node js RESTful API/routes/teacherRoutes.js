@@ -385,6 +385,25 @@ router.route("/classes/remove").delete(checkAuth, async (req, res) => {
   }
 });
 
+// get all students
+router.route("/students/all").get(checkAuth, async (req, res) => {
+  try {
+    //get these values from check auth (JWT)
+    const email = req.user.email;
+    const password = req.user.password;
+    const query = `CALL get_all_students ("${email}", "${password}")`;
+    console.log(query);
+    const [students] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
+    });
+    return res.status(200).json({
+      status: "success",
+      students,
+    });
+  } catch (err) {}
+});
+
 // Search students
 router.route("/search").post(checkAuth, async (req, res) => {
   //get these values from check auth (JWT)

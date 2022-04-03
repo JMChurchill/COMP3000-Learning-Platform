@@ -16,9 +16,9 @@ import FlashCards from "./Pages/Activities/FlashCards";
 import QuizDesigner from "./Pages/ActivityDesigner/Quiz/QuizDesigner";
 // import QuizDesigner from "./Pages/ActivityDesigner/Quiz/QuizDesigner";
 import FlashCard from "./Pages/Activities/FlashCard";
-import UserProfile from "./Pages/UserProfile";
+// import UserProfile from "./Pages/UserProfile";
 import ClassLeaderboard from "./Pages/ClassLeaderboard";
-import Achievements from "./Pages/Achievements";
+// import Achievements from "./Pages/Achievements";
 import FlashcardDesigner from "./Pages/ActivityDesigner/FlashcardDesigner";
 import StudentProfile from "./Pages/StudentProfile";
 import TeacherProfile from "./Pages/TeacherProfile";
@@ -27,7 +27,7 @@ import TeacherProfile from "./Pages/TeacherProfile";
 import Navbar from "./Components/Navbar";
 import UserSettings from "./Pages/UserSettings";
 import EditUserSettings from "./Pages/EditUserSettings";
-import AllQuizzes from "./Pages/ActivityDesigner/Quiz/AllQuizzes/AllQuizzes";
+// import AllQuizzes from "./Pages/ActivityDesigner/Quiz/AllQuizzes/AllQuizzes";
 import AssignActivities from "./Pages/AssignActivities/AssignActivities";
 
 // const setToken = (userToken) => {
@@ -52,38 +52,35 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          {/* shared routes */}
           <Route exact path="/" element={<Home setToken={setToken} />} />
           <Route exact path="/login" element={<Login />} />
-          <Route exact path="/activity" element={<Activities />} />
-          <Route exact path="/create" element={<CreateActivity />} />
-          <Route exact path="/quiz/all" element={<AllQuizzes />} />
-          <Route exact path="/quiz" element={<Quiz />} />
-          <Route exact path="/flash-cards" element={<FlashCards />} />
-          <Route exact path="/designer_quiz" element={<QuizDesigner />} />
-          <Route exact path="/flash-card" element={<FlashCard />} />
-          <Route exact path="/profile" element={<UserProfile />} />
           <Route exact path="/leaderboard" element={<ClassLeaderboard />} />
-          <Route exact path="/achievements" element={<Achievements />} />
+          <Route path="*" element={<Error />} />
+          {/* student routes */}
           <Route exact path="/profile_student" element={<StudentProfile />} />
           <Route exact path="/user_settings" element={<UserSettings />} />
-          <Route exact path="/Assign" element={<AssignActivities />} />
           <Route
             exact
             path="/user_settings/edit"
             element={<EditUserSettings />}
           />
-          <Route exact path="/profile_teacher" element={<TeacherProfile />} />
+          <Route exact path="/quiz" element={<Quiz />} />
+          <Route exact path="/flash-cards" element={<FlashCards />} />
+          <Route exact path="/flash-card" element={<FlashCard />} />
           <Route
             exact
             path="/designer_flashcard"
             element={<FlashcardDesigner />}
           />
-          <Route path="*" element={<Error />} />
-          {/* <Home /> */}
-          {/* </Route> */}
-          {/* <Router path="*" element={<Error />} /> */}
-          {/* <Error /> */}
-          {/* </Router> */}
+          {/* teacher routes */}
+          <Route exact path="/profile_teacher" element={<TeacherProfile />} />
+          <Route exact path="/Assign" element={<AssignActivities />} />
+          <Route exact path="/designer_quiz" element={<QuizDesigner />} />
+
+          {/* temp routes */}
+          <Route exact path="/activity" element={<Activities />} />
+          <Route exact path="/create" element={<CreateActivity />} />
         </Routes>
       </Router>
     </div>

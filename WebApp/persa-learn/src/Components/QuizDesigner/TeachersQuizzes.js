@@ -3,7 +3,12 @@ import { MdAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import QuizListItem from "./QuizListItem";
 
-const TeachersQuizzes = ({ quizzes = [], assignToClass, deleteQuiz }) => {
+const TeachersQuizzes = ({
+  quizzes = [],
+  assignToClass,
+  deleteQuiz,
+  selectedClass,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -29,7 +34,14 @@ const TeachersQuizzes = ({ quizzes = [], assignToClass, deleteQuiz }) => {
             />
           );
         })}
-        <div className="add-quiz" onClick={() => navigate("/designer_quiz")}>
+        <div
+          className="add-quiz"
+          onClick={() =>
+            navigate("/designer_quiz", {
+              state: selectedClass,
+            })
+          }
+        >
           <div className="circle">
             <MdAdd />
           </div>

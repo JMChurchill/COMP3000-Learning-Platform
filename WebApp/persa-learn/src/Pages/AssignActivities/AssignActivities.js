@@ -23,6 +23,7 @@ const AssignActivities = () => {
   const [coins, setCoins] = useState(0);
 
   const [settingDate, setSettingDate] = useState(false);
+  const [isDeleting, setIsDelete] = useState(false);
 
   console.log(state);
   useEffect(async () => {
@@ -31,28 +32,17 @@ const AssignActivities = () => {
       className: state.name,
       yearGroup: state.yearGroup,
     });
-    // const data = await viewTeachersQuizzes();
     const data = await viewTeachersQuizzesByClass(state.id);
     console.log("quizzes: ", data);
     setQuizzes(data.quizzes);
   }, []);
 
   const assignToClass = async (qID) => {
-    // console.log(`assigned ${qID} to class ${selectedClass.classID}`);
     setQuizID(qID);
-    // const data = await assignQuizToClass({
-    //   classID: selectedClass.classID,
-    //   quizID,
-    // });
-    // console.log(data);
-
     setSettingDate(true);
   };
 
   const submitAssignToClass = async () => {
-    // console.log("The due date: ", dueDate);
-    // console.log(dueDate.toLocaleString("en-US"));
-    // console.log(dueDate.toISOString().slice(0, 19).replace("T", " "));
     const data = await assignQuizToClass({
       coins,
       xp,
@@ -71,14 +61,24 @@ const AssignActivities = () => {
   };
 
   const deleteQuiz = async (quizID) => {
+    setQuizID(quizID);
+    // show overlay message
+    setIsDelete(true);
+  };
+  const deleteNow = async () => {
     console.log(`Deleted ${quizID}`);
+    // delete quiz from database
     const res = await deleteTheQuiz({ quizID });
     console.log(res);
-    //TODO: fix
-    // const data = await viewTeachersQuizzes();
+    // display message if unsuccessful
+    if (res.status !== "success") {
+      alert("error occured when deleting");
+    }
+    //get all quizzes
     const data = await viewTeachersQuizzesByClass(state.id);
-
     setQuizzes(data.quizzes);
+    // hide overlay message
+    setIsDelete(false);
   };
   return (
     <div className="content-box">
@@ -90,6 +90,7 @@ const AssignActivities = () => {
               quizzes={quizzes}
               assignToClass={assignToClass}
               deleteQuiz={deleteQuiz}
+              selectedClass={selectedClass}
             />
           </div>
         </div>
@@ -120,6 +121,23 @@ const AssignActivities = () => {
             }}
           >
             Back
+          </button>
+        </div>
+      </div>
+      {/* confirm deletion */}
+      <div className="overlay" aria-disabled={!isDeleting}>
+        <div className="message-box">
+          <h1>Are you sure you want to delete this assignment?</h1>
+          <button className="btn" onClick={() => deleteNow()}>
+            Yes
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              setIsDelete(false);
+            }}
+          >
+            No
           </button>
         </div>
       </div>

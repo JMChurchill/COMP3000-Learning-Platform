@@ -19,10 +19,6 @@ const ClassDetails = ({
   setIsShowStudents,
   isShowStudents,
 }) => {
-  // const [isSearching, setIsSearching] = useState(false);
-  // const [isUpdating, setIsUpdating] = useState(false);
-  // const [isShowStudents, setIsShowStudents] = useState(false);
-
   const [isDeleting, setIsDeleting] = useState(false);
 
   const navigate = useNavigate();
@@ -37,7 +33,6 @@ const ClassDetails = ({
 
   const deleteThisClass = async () => {
     // check if user wants to delete
-
     let data = await deleteClass({ classID });
     console.log(data);
     classChanged();

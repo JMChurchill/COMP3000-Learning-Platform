@@ -5,7 +5,6 @@ import { updateUserDetails } from "../http_Requests/studentRequests";
 const EditUserSettings = () => {
   //get variables passed from user settings
   const { state } = useLocation();
-  //hooks
   //TODO: allow to change profile picture
   const [email, setEmail] = useState(state.email);
   const [firstName, setFirstName] = useState(state.firstName);
@@ -20,18 +19,7 @@ const EditUserSettings = () => {
       firstname: firstName,
       lastname: lastName,
     };
-    console.log(email);
-    console.log(firstName);
-    console.log(lastName);
-    // const token = JSON.parse(sessionStorage.getItem("token"));
-    // let data = await fetch("http://localhost:8080/student/", {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     autherization: token,
-    //   },
-    //   body: JSON.stringify(credentials),
-    // }).then((data) => data.json());
+    // send update request
     let data = await updateUserDetails(credentials);
     if (data.status === "success") {
       setIsSuccess(true);

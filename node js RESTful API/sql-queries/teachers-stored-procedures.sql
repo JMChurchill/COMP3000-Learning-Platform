@@ -117,6 +117,19 @@ DELIMITER ;
 # execute
 CALL delete_class (1, "email2@email.com", "password")
 
+#get all students
+DELIMITER $$
+CREATE PROCEDURE get_all_students (tEmail varchar(255), tPassword varchar(60))
+BEGIN
+    #check if teacher
+    IF EXISTS (SELECT * FROM teachers WHERE email = tEmail AND password = tPassword) THEN
+        SELECT StudentID, Email, FirstName, LastName 
+        FROM Students;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
 
 #search students
 DELIMITER $$
