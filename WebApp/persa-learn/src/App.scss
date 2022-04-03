@@ -787,6 +787,16 @@ form {
       // width: clamp(10% 20% 5%);
       // width: clamp(20%, 30%, 50%);
       width: 30%;
+      .medal {
+        background-color: gold;
+        width: fit-content;
+        align-self: center;
+        padding: 2%;
+        aspect-ratio: 1;
+        border-radius: 100rem;
+        transform: translateY(-50%);
+        color: #fff;
+      }
       p {
         font-size: 1.8rem;
         font-weight: bold;

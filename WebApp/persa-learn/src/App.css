@@ -954,6 +954,22 @@ form .btn:hover {
   width: 30%;
 }
 
+.content-box .container .leaderboard-box .top-students .top-student .medal {
+  background-color: gold;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  padding: 2%;
+  aspect-ratio: 1;
+  border-radius: 100rem;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  color: #fff;
+}
+
 .content-box .container .leaderboard-box .top-students .top-student p {
   font-size: 1.8rem;
   font-weight: bold;

@@ -24,7 +24,18 @@ const TopStudent = ({ name = "TempName", icon, xp = "200", position }) => {
       >
         <img src={icon} alt="user icon" height="100px" />
       </div>
-      <p>{position}</p>
+      <div
+        className="medal"
+        style={
+          position == 2
+            ? { backgroundColor: "silver" }
+            : position == 3
+            ? { backgroundColor: "#A15727" }
+            : {}
+        }
+      >
+        <p>{position}</p>
+      </div>
       <p>{name}</p>
       <p>{xp}xp</p>
     </div>
