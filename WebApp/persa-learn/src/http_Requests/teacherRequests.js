@@ -2,8 +2,8 @@ import { checkTokenCorrect } from "./userRequests";
 
 export const getTeachersClasses = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-
-  const data = fetch("http://localhost:8080/teacher/classes", {
+  // const data = fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/classes/teacher", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -72,7 +72,8 @@ export const removeStudentFromClass = (details) => {
 
 export const createClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/classes", {
+  // const data = fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/classes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -86,7 +87,8 @@ export const createClass = (details) => {
 
 export const updateClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/classes", {
+  // const data = fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/classes", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -100,7 +102,7 @@ export const updateClass = (details) => {
 
 export const deleteClass = (details) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/classes", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

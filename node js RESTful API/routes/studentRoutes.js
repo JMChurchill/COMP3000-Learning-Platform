@@ -15,19 +15,15 @@ router.route("/login").post(async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   };
-  console.log("logging in");
-  const query = "SELECT * FROM students WHERE email = ?";
-  pool.query(query, [req.body.email], async (error, results) => {
-    console.log(results);
-    // console.log(error);
+  const query = `SELECT * FROM students WHERE email = "${data.email}"`;
+  pool.query(query, async (error, results) => {
+    console.log(query);
     if (error) {
       return res.status(500).json({ status: "failure", reason: error.code });
     }
     if (!results[0]) {
-      // console.log("Email");
       res.status(401).json({ status: "Email or Password incorrect" });
     } else {
-      console.log(parseInt(process.env.EXPIRES_IN));
       try {
         if (await bcrypt.compare(req.body.password, results[0].Password)) {
           data.password = results[0].Password;
@@ -60,7 +56,6 @@ router
       check("lastname", "Last name is required").not().isEmpty(),
     ],
     async (req, res) => {
-      console.log(req.body.firstname);
       const errs = validationResult(req);
       if (!errs.isEmpty()) {
         return res.status(400).json({
@@ -70,18 +65,13 @@ router
       //get these values from check auth (JWT)
       const oEmail = req.user.email;
       const oPassword = req.user.password;
-      console.log(oEmail);
-      console.log(oPassword);
       // new values
       const data = {
         email: req.body.email,
         fName: req.body.firstname,
         lName: req.body.lastname,
-        // password: req.body.password,
       };
-      console.log(data);
       const query = `CALL update_student ( "${oEmail}", "${oPassword}", "${data.fName}", "${data.lName}", "${data.email}")`;
-      console.log(query);
       pool.query(query, (error) => {
         if (error) {
           res.status(400).json({ status: "failure", reason: error.code });
@@ -95,7 +85,6 @@ router
     //get these values from check auth (JWT)
     const oEmail = req.user.email;
     const oPassword = req.user.password;
-    // const query = "DELETE FROM users WHERE id = ?";
     const query = `CALL delete_student ( "${oEmail}", "${oPassword}")`;
     pool.query(query, (error) => {
       if (error) {
@@ -136,14 +125,6 @@ router
           password: hashedPassword,
         };
         email = data.email;
-        const token = await JWT.sign(
-          { email, hashedPassword },
-          process.env.SECURE_KEY,
-          {
-            expiresIn: parseInt(process.env.EXPIRES_IN),
-          }
-        );
-        //   const query = "INSERT INTO users (Email,Name,Password) VALUES(?,?,?)";
         const query = `CALL create_student ("${data.fName}", "${data.lName}", "${data.email}", "${data.password}")`;
         pool.query(query, (error) => {
           if (error) {
@@ -152,7 +133,6 @@ router
               .json({ status: "failure", reason: error.code });
           } else {
             return res.status(201).json({ status: "success" });
-            // .json({ status: "success", data: data, token: token });
           }
         });
       } catch (err) {
@@ -180,14 +160,11 @@ router
       const data = {
         classID: req.body.classID,
       };
-      // const query = "SELECT * FROM teachers";
       const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
-      console.log(query);
       pool.query(query, (error, results) => {
         if (results === null) {
           res.status(204).json({ status: "Not found" });
         } else {
-          // console.log(results);
           res.status(200).json({ status: "success", data: results[0] });
         }
       });
@@ -199,14 +176,11 @@ router.route("/details").get(checkAuth, async (req, res) => {
   const email = req.user.email;
   const password = req.user.password;
 
-  // const query = "SELECT * FROM teachers";
   const query = `CALL get_student_details ("${email}", "${password}")`;
-  // console.log(query);
   pool.query(query, (error, results) => {
     if (results === null) {
       res.status(204).json({ status: "Not found" });
     } else {
-      // console.log(results[0]);
       res.status(200).json({ status: "success", data: results[0] });
     }
   });
@@ -217,14 +191,11 @@ router.route("/details/xp").get(checkAuth, async (req, res) => {
   const email = req.user.email;
   const password = req.user.password;
 
-  // const query = "SELECT * FROM teachers";
   const query = `CALL get_students_xp ("${email}", "${password}")`;
-  // console.log(query);
   pool.query(query, (error, results) => {
     if (results === null) {
       res.status(204).json({ status: "Not found" });
     } else {
-      // console.log(results[0]);
       res.status(200).json({ status: "success", data: results[0] });
     }
   });
@@ -235,19 +206,14 @@ router.route("/details/coins").get(checkAuth, async (req, res) => {
   const email = req.user.email;
   const password = req.user.password;
 
-  // const query = "SELECT * FROM teachers";
   const query = `CALL get_students_coins ("${email}", "${password}")`;
-  // console.log(query);
   pool.query(query, (error, results) => {
     if (results === null) {
       res.status(204).json({ status: "Not found" });
     } else {
-      // console.log(results[0]);
       res.status(200).json({ status: "success", data: results[0] });
     }
   });
 });
-
-// router.post(createNewUser);
 
 module.exports = router;
