@@ -10,13 +10,20 @@ const { check, validationResult } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
 
-router.get("/", async (req, res) => {
-  const query = "SELECT Email,FirstName,LastName,Xp FROM students";
+//get the students classes
+router.route("/student").get(checkAuth, async (req, res) => {
+  const email = req.user.email;
+  const password = req.user.password;
+
+  const query = `CALL get_students_classes ("${email}", "${password}")`;
+  console.log(query);
+  // console.log(query);
   pool.query(query, (error, results) => {
     if (results === null) {
       res.status(204).json({ status: "Not found" });
     } else {
-      res.status(200).json(results);
+      // console.log(results[0]);
+      res.status(200).json({ status: "success", data: results[0] });
     }
   });
 });

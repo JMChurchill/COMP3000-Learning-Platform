@@ -430,6 +430,7 @@ router.route("/search").post(checkAuth, async (req, res) => {
   }
 });
 
+//get students by class
 router
   .route("/class")
   .post(

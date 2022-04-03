@@ -54,7 +54,8 @@ export const getUsersAssignments = () => {};
 
 export const getStudentsAssignmentQuizzes = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/student/assignments/quizzes", {
+  // const data = fetch("http://localhost:8080/student/assignments/quizzes", {
+  const data = fetch("http://localhost:8080/assignments/quizzes", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +69,8 @@ export const getStudentsAssignmentQuizzes = () => {
 
 export const getStudentsClassses = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/student/classes", {
+  // const data = fetch("http://localhost:8080/student/classes", {
+  const data = fetch("http://localhost:8080/classes/student", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -99,33 +101,27 @@ export const getStudentsInClass = (classID) => {
 
 export const getQuiz = (quizID) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch(
-    `http://localhost:8080/teacher/activity/quiz/view?quizID=${quizID}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        autherization: token,
-      },
-    }
-  ).then((data) => data.json());
+  const data = fetch(`http://localhost:8080/quiz/view?quizID=${quizID}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
   checkTokenCorrect(data);
   return data;
 };
 
 export const checkAnswers = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch(
-    `http://localhost:8080/teacher/activity/quiz/checkAnswers`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        autherization: token,
-      },
-      body: JSON.stringify(credentials),
-    }
-  ).then((data) => data.json());
+  const data = fetch(`http://localhost:8080/quiz/checkAnswers`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
   checkTokenCorrect(data);
   return data;
 };

@@ -128,7 +128,7 @@ export const getStudentsInClass = (classID) => {
 
 export const createTheQuiz = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/activity/quiz/create", {
+  const data = fetch("http://localhost:8080/quiz/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -142,7 +142,7 @@ export const createTheQuiz = (credentials) => {
 
 export const deleteTheQuiz = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/activity/quiz/delete", {
+  const data = fetch("http://localhost:8080/quiz/delete", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -156,7 +156,7 @@ export const deleteTheQuiz = (credentials) => {
 
 export const viewTeachersQuizzes = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/activity/quiz/all", {
+  const data = fetch("http://localhost:8080/quiz/all", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -171,7 +171,7 @@ export const viewTeachersQuizzesByClass = (credentials) => {
   console.log("aaa", credentials);
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    `http://localhost:8080/teacher/activity/quiz/all/class/?classID=${credentials}`,
+    `http://localhost:8080/quiz/all/class/?classID=${credentials}`,
     {
       method: "GET",
       headers: {
@@ -187,7 +187,7 @@ export const viewTeachersQuizzesByClass = (credentials) => {
 
 export const viewTeachersModules = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/activity/module/view", {
+  const data = fetch("http://localhost:8080/module/view", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -200,7 +200,7 @@ export const viewTeachersModules = () => {
 
 export const createModule = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/teacher/activity/module/create", {
+  const data = fetch("http://localhost:8080/module/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -215,7 +215,8 @@ export const createModule = (credentials) => {
 export const assignQuizToClass = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    "http://localhost:8080/teacher/activity/assignments/quiz/class",
+    // "http://localhost:8080/teacher/activity/assignments/quiz/class",
+    "http://localhost:8080/assignments/quiz/class",
     {
       method: "POST",
       headers: {

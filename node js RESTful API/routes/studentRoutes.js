@@ -48,6 +48,7 @@ router.route("/login").post(async (req, res) => {
   });
 });
 
+//update student , delete student
 router
   .route("/")
   .put(
@@ -192,59 +193,6 @@ router
       });
     }
   );
-
-//get the students classes
-router.route("/classes").get(checkAuth, async (req, res) => {
-  const email = req.user.email;
-  const password = req.user.password;
-  // const data = {
-  //   classID: req.body.classID,
-  // };
-  // const query = "SELECT * FROM teachers";
-  // const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
-  const query = `CALL get_students_classes ("${email}", "${password}")`;
-  console.log(query);
-  // console.log(query);
-  pool.query(query, (error, results) => {
-    if (results === null) {
-      res.status(204).json({ status: "Not found" });
-    } else {
-      // console.log(results[0]);
-      res.status(200).json({ status: "success", data: results[0] });
-    }
-  });
-});
-
-// get students assignments
-//view module
-router.route("/assignments/quizzes").get(checkAuth, async (req, res) => {
-  try {
-    //get these values from check auth (JWT)
-    const email = req.user.email;
-    const password = req.user.password;
-
-    const errs = validationResult(req);
-    if (!errs.isEmpty()) {
-      console.log(errs);
-      return res.status(400).json({
-        errors: errs.array(),
-      });
-    }
-
-    let query = `CALL assignments_by_students("${email}","${password}")`;
-
-    const [quizzes] = await pool.query(query).catch((err) => {
-      // throw err;
-      return res.status(400).json({ status: "failure", reason: err });
-    });
-    return res.status(200).json({
-      status: "success",
-      quizzes,
-    });
-  } catch (err) {
-    return res.status(500).send(err);
-  }
-});
 
 //get students details
 router.route("/details").get(checkAuth, async (req, res) => {

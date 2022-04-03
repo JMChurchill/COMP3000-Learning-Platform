@@ -10,17 +10,189 @@ const { check, validationResult } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
 
-//get assignment list
-router.route("/:id").get(async (req, res) => {
-  const query =
-    "SELECT TaskName, TaskType FROM Assignments WHERE StudentID = ?";
-  pool.query(query, [req.params.id], (error, results) => {
-    if (results === null) {
-      res.status(204).json({ status: "Not found" });
-    } else {
-      res.status(200).json(results);
+// create quiz assignment for class
+router
+  .route("/quiz/class")
+  .post(
+    [
+      check("classID", "Invalid class ID").not().isEmpty(),
+      check("xp", "Invalid xp").not().isEmpty(),
+      check("coins", "Invalid coins").not().isEmpty(),
+      check("quizID", "Invalid quiz ID").not().isEmpty(),
+      check("dueDate", "Invalid Date").isISO8601(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        data = {
+          classID: req.body.classID,
+          quizID: req.body.quizID,
+          dueDate: req.body.dueDate,
+          xp: req.body.xp,
+          coins: req.body.coins,
+        };
+        console.log(data);
+
+        //assign activity to class
+        let query = `CALL assignment_quiz_create_class (${data.classID},${data.quizID},"${data.dueDate}", ${data.xp}, ${data.coins}, "${email}", "${password}")`;
+        console.log(query);
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+
+        // //get students from class
+        // let query = `CALL teacher_get_students_by_class ("${data.classID}", "${email}", "${password}")`;
+        // const [users] = await pool.query(query).catch((err) => {
+        //   // throw err;
+        //   return res.status(400).json({ status: "failure", reason: err });
+        // });
+        // console.log(users);
+        // await users.map(async (user) => {
+        //   // assign students to class
+        //   let query = `CALL assignment_quiz_create (${user.StudentID},${data.quizID},"${email}","${password}")`;
+        //   console.log(query);
+        //   await pool.query(query).catch((err) => {
+        //     // throw err;
+        //     return res.status(400).json({ status: "failure", reason: err });
+        //   });
+        // });
+
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
     }
-  });
+  );
+
+// create quiz assignment for indivisual student
+router
+  .route("/quiz")
+  .post(
+    [
+      check("StudentID", "Invalid student ID").not().isEmpty(),
+      check("QuizID", "Invalid quiz ID").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        data = {
+          studentID: req.body.studentID,
+          quizID: req.body.quizID,
+        };
+
+        let query = `CALL assignment_quiz_create (${data.studentID},${data.quizID},"${email}","${password}")`;
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+// delete quiz assignment
+router
+  .route("/quiz")
+  .delete(
+    [
+      check("StudentID", "Invalid student ID").not().isEmpty(),
+      check("QuizID", "Invalid quiz ID").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        data = {
+          studentID: req.body.studentID,
+          quizID: req.body.quizID,
+        };
+
+        let query = `CALL assignment_quiz_delete (${data.studentID},${data.quizID},"${email}","${password}")`;
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+// get students assignments
+router.route("/quizzes").get(checkAuth, async (req, res) => {
+  try {
+    //get these values from check auth (JWT)
+    const email = req.user.email;
+    const password = req.user.password;
+
+    const errs = validationResult(req);
+    if (!errs.isEmpty()) {
+      console.log(errs);
+      return res.status(400).json({
+        errors: errs.array(),
+      });
+    }
+
+    let query = `CALL assignments_by_students("${email}","${password}")`;
+
+    const [quizzes] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
+    });
+    return res.status(200).json({
+      status: "success",
+      quizzes,
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 });
 
 module.exports = router;
