@@ -13,6 +13,8 @@
   --progressbar-color: blue;
   --selected-color: rgba(177, 186, 187, 0.1);
   --on-text-hover: darkGray;
+  --primary-color: #201d95;
+  --border-radius: 0.2rem;
 }
 
 .App {
@@ -939,84 +941,6 @@ form .btn:hover {
   padding: 2rem 0;
 }
 
-.content-box .container .leaderboard-box .top-students .top-student {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-align: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 30%;
-}
-
-.content-box .container .leaderboard-box .top-students .top-student .medal {
-  background-color: gold;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  padding: 2%;
-  aspect-ratio: 1;
-  border-radius: 100rem;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  color: #fff;
-}
-
-.content-box .container .leaderboard-box .top-students .top-student p {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 0.2rem;
-}
-
-.content-box .container .leaderboard-box .top-students .top-student .img-container {
-  background-color: gold;
-  border-radius: 50%;
-  aspect-ratio: 1;
-  margin: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 50%;
-  aspect-ratio: 1;
-}
-
-.content-box .container .leaderboard-box .top-students .top-student .img-container img {
-  width: 90%;
-  height: 90%;
-  margin: auto;
-}
-
-.content-box .container .leaderboard-box .leaderboard-student {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 2% 10% 50% 10%;
-      grid-template-columns: 2% 10% 50% 10%;
-  gap: clamp(1rem, 5vw, 2rem);
-  padding: 1rem 0;
-  width: 95%;
-  border-bottom: 1px solid #3a3a3a;
-}
-
-.content-box .container .leaderboard-box .leaderboard-student img {
-  width: 5rems;
-  height: 5rem;
-}
-
-.content-box .container .leaderboard-box .leaderboard-student:last-child {
-  margin-bottom: 2rem;
-}
-
 .content-box .container .achievement-box {
   gap: 2rem;
   -webkit-box-orient: horizontal;
@@ -1116,105 +1040,6 @@ form .btn:hover {
           align-items: flex-end;
 }
 
-.content-box .container .banner .upper .user-icon {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-  width: auto;
-  padding-left: 1rem;
-  -webkit-transform: translateY(1.5rem);
-          transform: translateY(1.5rem);
-}
-
-.content-box .container .banner .upper .user-icon img {
-  width: 10rem;
-  height: auto;
-}
-
-.content-box .container .banner .upper .user-icon .xp {
-  background-color: white;
-  border-radius: 2rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  -webkit-transform: translateY(-1.5rem);
-          transform: translateY(-1.5rem);
-}
-
-.content-box .container .banner .upper .user-icon .xp p {
-  margin: 0.25rem 0.5rem;
-  font-weight: bold;
-  color: black;
-}
-
-.content-box .container .banner .upper .detail_box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  margin-bottom: 0;
-}
-
-.content-box .container .banner .upper .detail_box .box {
-  background-color: var(--btn-color);
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 0 5%;
-  font-weight: bold;
-  border-radius: 5px;
-}
-
-.content-box .container .banner .upper .detail_box .name-box {
-  position: relative;
-  width: 100%;
-}
-
-.content-box .container .banner .upper .detail_box .name-box p {
-  margin-top: 0;
-  font-weight: bold;
-  font-size: 2.5rem;
-  margin-bottom: auto;
-  color: white;
-}
-
-.content-box .container .banner .progressbar {
-  background-color: white;
-  width: 100%;
-  height: 1.5rem;
-  border-radius: 2rem;
-  padding: 0;
-  -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black;
-          box-shadow: 0 0.5rem 0.5rem -0.25em black;
-  z-index: 99;
-}
-
-.content-box .container .banner .progressbar .bar-fill {
-  background-color: var(--progressbar-color);
-  width: 50%;
-  height: 100%;
-  border-radius: 2rem;
-}
-
 .content-box .container .content .tabs {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1235,7 +1060,7 @@ form .btn:hover {
 }
 
 .content-box .container .content .tabs h3:hover {
-  color: var(--btn-color);
+  color: var(--primary-color);
 }
 
 .content-box .container .content .tabs h3:hover::before {
@@ -1244,7 +1069,7 @@ form .btn:hover {
 }
 
 .content-box .container .content .tabs h3[aria-selected="true"] {
-  color: var(--btn-color) !important;
+  color: var(--primary-color) !important;
 }
 
 .content-box .container .content .tabs h3::before {
@@ -1255,7 +1080,7 @@ form .btn:hover {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--btn-color);
+  background-color: var(--primary-color);
   -webkit-transform: scaleX(0);
           transform: scaleX(0);
   -webkit-transition: -webkit-transform 0.3s ease;
@@ -1292,21 +1117,6 @@ form .btn:hover {
 }
 
 .content-box .container .content .class-items .class-item p {
-  margin: 1rem;
-}
-
-.content-box .container .content .assignment-items .assignment-item {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 30% 10% 20% 20% 20%;
-      grid-template-columns: 30% 10% 20% 20% 20%;
-  color: #00ff55;
-  border: solid 1px red;
-  width: 90%;
-  cursor: pointer;
-}
-
-.content-box .container .content .assignment-items .assignment-item p {
   margin: 1rem;
 }
 

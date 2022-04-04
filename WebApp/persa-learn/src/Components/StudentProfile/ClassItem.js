@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./ClassItem.module.css";
 
 const ClassItem = ({ id, name, firstname, lastname, yearGroup }) => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const ClassItem = ({ id, name, firstname, lastname, yearGroup }) => {
     <div
       key={id}
       id={id}
-      className="class-item"
+      className={styles.class_item}
       onClick={() =>
         navigate("/leaderboard", {
           state: {
@@ -24,6 +25,22 @@ const ClassItem = ({ id, name, firstname, lastname, yearGroup }) => {
       <p>{`Teacher: ${firstname} ${lastname}`}</p>
       <p>Year: {yearGroup}</p>
     </div>
+    // <div
+    //   key={id}
+    //   id={id}
+    //   className="class-item"
+    //   onClick={() =>
+    //     navigate("/leaderboard", {
+    //       state: {
+    //         classID: id,
+    //       },
+    //     })
+    //   }
+    // >
+    //   <p>{name}</p>
+    //   <p>{`Teacher: ${firstname} ${lastname}`}</p>
+    //   <p>Year: {yearGroup}</p>
+    // </div>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import studentIcon from "../assets/UserIcons/001-man-1.png";
+import CustomButton from "../Components/CustomButton";
 
 // import getUserDetails from "../"
 import { getUserDetails } from "../http_Requests/userRequests";
@@ -49,8 +50,9 @@ const UserSettings = () => {
           <p>First: {firstName}</p>
           <p>Last: {lastName}</p>
 
-          <button
-            className="btn"
+          <CustomButton
+            type={1}
+            text={"Update details"}
             onClick={() =>
               navigate("/user_settings/edit", {
                 state: {
@@ -60,12 +62,12 @@ const UserSettings = () => {
                 },
               })
             }
-          >
-            Update details
-          </button>
-          <button className="btn" onClick={deleteAccount}>
-            delete my account
-          </button>
+          />
+          <CustomButton
+            type={2}
+            text={"Delete my account"}
+            onClick={deleteAccount}
+          />
         </div>
       </div>
     </div>

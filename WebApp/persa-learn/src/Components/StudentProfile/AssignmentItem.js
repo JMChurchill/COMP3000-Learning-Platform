@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./AssignmentItem.module.css";
 
 const AssignmentItem = ({
   id,
@@ -16,7 +17,7 @@ const AssignmentItem = ({
   return (
     <div
       key={id}
-      className="assignment-item"
+      className={styles.assignment_item}
       onClick={() =>
         navigate("/quiz", {
           state: {
@@ -33,6 +34,25 @@ const AssignmentItem = ({
         Due date: {dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}
       </p>
     </div>
+    // <div
+    //   key={id}
+    //   className="assignment-item"
+    //   onClick={() =>
+    //     navigate("/quiz", {
+    //       state: {
+    //         quizID: id,
+    //       },
+    //     })
+    //   }
+    // >
+    //   <p>{`Assignment name: ${assignmentName}`}</p>
+    //   <p>Type: {Caption}</p>
+    //   <p>Teacher: {teacherName}</p>
+    //   <p>Module: {ModuleName}</p>
+    //   <p>
+    //     Due date: {dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}
+    //   </p>
+    // </div>
   );
 };
 

@@ -9,19 +9,23 @@ import {
 
 import { FaCog } from "react-icons/fa";
 
-import studentIcon from "../assets/UserIcons/001-man-1.png";
+import ClassItem from "../Components/StudentProfile/ClassItem";
+import AssignmentItem from "../Components/StudentProfile/AssignmentItem";
+
 import {
   getStudentsAssignmentQuizzes,
   getStudentsClassses,
   getUserDetails,
 } from "../http_Requests/userRequests";
-import ClassItem from "../Components/ClassItem";
-import AssignmentItem from "../Components/AssignmentItem";
 import {
   getStudentCoins,
   getStudentXp,
 } from "../http_Requests/studentRequests";
-// import Achievements from "./Achievements";
+
+import studentIcon from "../assets/UserIcons/001-man-1.png";
+import UserIcon from "../Components/StudentProfile/UserIcon";
+import Progressbar from "../Components/StudentProfile/Progressbar";
+import DetailsBox from "../Components/StudentProfile/DetailsBox";
 
 const StudentProfile = () => {
   const [classes, setClasses] = useState([]);
@@ -77,24 +81,24 @@ const StudentProfile = () => {
               </div>
             </div>
             <div className="upper">
-              <div className="user-icon">
+              {/* <div className="user-icon">
                 <img src={studentIcon} alt="user icon" height="100px" />
                 <div className="xp">
                   <p>{xp}xp</p>
                 </div>
-              </div>
-              <div className="detail_box">
+              </div> */}
+              <UserIcon xp={xp} studentIcon={studentIcon} />
+              <DetailsBox username={usersName} coins={coins} />
+              {/* <div className="detail_box">
                 <div className="box">
                   <p>{coins} Coins</p>
                 </div>
                 <div className="name-box">
                   <p>{usersName}</p>
                 </div>
-              </div>
+              </div> */}
             </div>
-            <div className="progressbar">
-              <div className="bar-fill"></div>
-            </div>
+            <Progressbar />
           </div>
           <div className="content">
             <div className="tabs">

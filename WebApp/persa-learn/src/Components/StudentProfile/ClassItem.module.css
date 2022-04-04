@@ -1,0 +1,11 @@
+.class_item {
+  display: grid;
+  grid-template-columns: 15% 20% 10% 55%;
+  color: #00ff55;
+  border: solid 1px red;
+  width: 90%;
+  cursor: pointer;
+}
+.class_item p {
+  margin: 1rem;
+}

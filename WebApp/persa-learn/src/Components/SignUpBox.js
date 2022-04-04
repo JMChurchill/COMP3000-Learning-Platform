@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import CustomButton from "./CustomButton";
+import CustomInput from "./CustomInput";
 
 const SignUpBox = ({ setSignUp, isTeacher }) => {
   const [email, setEmail] = useState();
@@ -35,80 +37,66 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
   };
 
   const signUp = async (e) => {
-    e.preventDefault();
-    try {
-      let data;
-      if (!isTeacher) {
-        data = await signUpUser({
-          email,
-          password,
-          firstname,
-          lastname,
-        });
-      } else {
-        data = await signUpUser({
-          email,
-          password,
-          firstname,
-          lastname,
-          phonenumber,
-        });
-      }
-      //   console.log(error);
-      //   console.log(data);
+    // e.preventDefault();
+    if (
+      email != null &&
+      (password != null) & (firstname != null) & (lastname != null)
+    ) {
+      try {
+        let data;
+        if (!isTeacher) {
+          data = await signUpUser({
+            email,
+            password,
+            firstname,
+            lastname,
+          });
+        } else {
+          data = await signUpUser({
+            email,
+            password,
+            firstname,
+            lastname,
+            phonenumber,
+          });
+        }
+        //   console.log(error);
+        //   console.log(data);
 
-      if (data !== null && data.status === "success") {
-        setSignUp(false);
-      } else {
-        console.log(httpResponseCode);
-        console.log("Could not create user");
+        if (data !== null && data.status === "success") {
+          setSignUp(false);
+          alert("Account created successfully");
+        } else {
+          console.log(httpResponseCode);
+          alert("Could not create user");
+        }
+      } catch (e) {
+        console.log("error occured: ", e);
       }
-    } catch (e) {
-      console.log("error occured: ", e);
+    } else {
+      alert("Fill out all values");
     }
   };
   return (
     <div className="right-box">
       <h1>Sign up</h1>
-      <form action="" onSubmit={signUp}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label htmlFor="firstname">First name</label>
-        <input
-          type="firstname"
-          name="firstname"
-          onChange={(e) => setFirstname(e.target.value)}
-        />
-        <label htmlFor="lastname">Last name</label>
-        <input
-          type="lastname"
-          name="lastname"
-          onChange={(e) => setLastname(e.target.value)}
-        />
-        {isTeacher ? (
-          <>
-            <label htmlFor="phonenumber">Phone number</label>
-            <input
-              type="phonenumber"
-              name="phonenumber"
-              onChange={(e) => setPhonenumber(e.target.value)}
-            />
-          </>
-        ) : (
-          <></>
-        )}
-        <input type="submit" className="btn" value="Sign up" />
-      </form>
+      <label htmlFor="email">Email</label>
+      <CustomInput name={email} setValue={setEmail} />
+      <label htmlFor="email">Password</label>
+      <CustomInput password={true} name={password} setValue={setPassword} />
+      <label htmlFor="email">First name</label>
+      <CustomInput name={firstname} setValue={setFirstname} />
+      <label htmlFor="email">Last name</label>
+      <CustomInput name={lastname} setValue={setLastname} />
+      {isTeacher ? (
+        <>
+          <label htmlFor="phonenumber">Phone number</label>
+          <CustomInput name={phonenumber} setValue={setPhonenumber} />
+        </>
+      ) : (
+        <></>
+      )}
+      <CustomButton type={1} text={"Sign up"} onClick={() => signUp()} />
     </div>
   );
 };

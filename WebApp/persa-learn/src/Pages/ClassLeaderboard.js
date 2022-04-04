@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useLocation } from "react-router-dom";
 
-import LeaderboardStudent from "../Components/LeaderboardStudent";
+import LeaderboardStudent from "../Components/LeaderBoard/LeaderboardStudent";
 
 import tempUserIcon from "../assets/UserIcons/001-man-1.png";
 import { getStudentsInClass } from "../http_Requests/userRequests";

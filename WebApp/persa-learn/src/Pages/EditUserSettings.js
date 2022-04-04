@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import CustomButton from "../Components/CustomButton";
+import CustomInput from "../Components/CustomInput";
 import { updateUserDetails } from "../http_Requests/studentRequests";
 
 const EditUserSettings = () => {
@@ -13,7 +15,7 @@ const EditUserSettings = () => {
   //   const [password, setPassword] = useState();//TODO: make change password
 
   const updateUser = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const credentials = {
       email: email,
       firstname: firstName,
@@ -32,13 +34,13 @@ const EditUserSettings = () => {
     <div className="content-box">
       <div className="container wide-container center-container">
         <h1>User settings</h1>
-        <div className="container wide-container center-container">
+        <div className="container ">
           {isSuccess ? (
             <h2 className="success-message">Successfully changed</h2>
           ) : (
             ""
           )}
-          <form action="" onSubmit={updateUser} id="update-user-form">
+          {/* <form action="" onSubmit={updateUser} id="update-user-form">
             <label htmlFor="email">Email</label>
             <input
               type="text"
@@ -61,7 +63,24 @@ const EditUserSettings = () => {
               onChange={(e) => setLastName(e.target.value)}
             />
             <input type="submit" className="btn" />
-          </form>
+          </form> */}
+          {/* <div id="update-user-form"> */}
+          <label htmlFor="email">Email</label>
+          <CustomInput value={email} name={"email"} setValue={setEmail} />
+          <label htmlFor="firstname">First name</label>
+          <CustomInput
+            value={firstName}
+            name={"firstname"}
+            setValue={setFirstName}
+          />
+          <label htmlFor="lastname">Last name</label>
+          <CustomInput
+            value={lastName}
+            name={"lastname"}
+            setValue={setLastName}
+          />
+          <CustomButton text={"Update user"} onClick={updateUser} />
+          {/* </div> */}
         </div>
       </div>
     </div>

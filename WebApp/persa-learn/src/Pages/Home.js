@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import hero from "../assets/undraw_education_f8ru.svg";
+import CustomButton from "../Components/CustomButton";
+import CustomInput from "../Components/CustomInput";
 // import userIcon from "../assets/tempLogo.svg";
 
 // components
@@ -41,6 +43,10 @@ const Home = ({ setToken }) => {
               Teacher Profile
             </button>
           </Link>
+          <CustomButton type={1} text={"Primary"} />
+          <CustomButton type={2} text={"Secondary"} />
+          <CustomButton type={3} text={"Special"} />
+          <CustomInput />
         </div>
         {/* <div className="right-box"> */}
         <LoginBox setToken={setToken} />

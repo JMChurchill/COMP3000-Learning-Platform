@@ -1,0 +1,15 @@
+.leaderboard_student {
+  display: grid;
+  grid-template-columns: 2% 10% 50% 10%;
+  gap: clamp(1rem, 5vw, 2rem);
+  padding: 1rem 0;
+  width: 95%;
+  border-bottom: 1px solid rgb(58, 58, 58);
+}
+.leaderboard_student img {
+  width: 5rem;
+  height: 5rem;
+}
+.leaderboard_student img:last-child {
+  margin-bottom: 2rem;
+}

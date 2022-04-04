@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./LeaderboardStudent.module.css";
 
 const LeaderboardStudent = ({
   name = "TempName",
@@ -7,7 +8,7 @@ const LeaderboardStudent = ({
   position,
 }) => {
   return (
-    <div className="leaderboard-student">
+    <div className={styles.leaderboard_student}>
       <p>{position}</p>
       {/* <div className="img-container"> */}
       <img src={icon} alt="user icon" height="75px" />

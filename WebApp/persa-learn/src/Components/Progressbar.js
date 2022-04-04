@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "./Progressbar.module.css";
 
 const Progressbar = ({ progress = 0, numQuestions }) => {
   const [widthPer, setWidthPer] = useState();
@@ -20,8 +21,10 @@ const Progressbar = ({ progress = 0, numQuestions }) => {
           <button className="walk-through-btn btn">Walk through</button>
         </div>
       </div>
-      <div className="bar">
-        <div className="barFill" style={{ width: widthPer }}></div>
+      {/* <div className="bar"> */}
+      <div className={styles.progressbar}>
+        <div className={styles.barFill} style={{ width: widthPer }}></div>
+        {/* <div className="barFill" style={{ width: widthPer }}></div> */}
       </div>
       {/* <p>50%</p> */}
     </div>

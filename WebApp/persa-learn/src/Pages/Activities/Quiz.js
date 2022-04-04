@@ -5,6 +5,7 @@ import Progressbar from "../../Components/Progressbar";
 // import tempQuizData from "../../assets/tempQuizData.json";
 import { checkAnswers, getQuiz } from "../../http_Requests/userRequests";
 import { useLocation, useNavigate } from "react-router-dom";
+import Overlay from "../../Components/Quiz/Overlay";
 
 const Quiz = () => {
   const [quizID, setQuizID] = useState();
@@ -93,38 +94,13 @@ const Quiz = () => {
         Complete
       </button>
       {isComplete ? (
-        <div className="overlay">
-          <div className="message-box">
-            <h1>Completed</h1>
-            <h2>
-              {score}/{answers.length}
-            </h2>
-            <div className="level">
-              <h2>Lv{level}</h2>
-            </div>
-            <div className="row">
-              <div className="earned">
-                <p>+{earnedXp}</p>
-                <p>xp earned</p>
-              </div>
-              <div className="earned">
-                <p>+{earnedCoins}</p>
-                <p>coins earned</p>
-              </div>
-            </div>
-            {/* TODO: add level progress */}
-            <div className="progressbar">
-              <div className="bar-fill"></div>
-            </div>
-            <button
-              className="btn"
-              onClick={() => navigate("/profile_student", {})}
-            >
-              Done
-            </button>
-            <button className="btn">Go To Shop</button>
-          </div>
-        </div>
+        <Overlay
+          score={score}
+          answers={answers}
+          level={level}
+          earnedXp={earnedXp}
+          earnedCoins={earnedCoins}
+        />
       ) : (
         <></>
       )}
