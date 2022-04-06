@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  padding: 1rem;
+  position: relative;
+  margin-bottom: 3rem;
+}
+.details_box {
+  /* display: none; */
+  border: 1px red solid;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  background-color: white;
+  border-radius: var(--border-radius);
+  /* padding: 2rem; */
+  width: 60%;
+  overflow-y: scroll;
+  transition: all 200ms;
+}
+.control_bar {
+  background-color: red;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.content {
+  /* background-color: orange; */
+  width: 100%;
+
+  /* min-height: 10rem; */
+  /* height: auto; */
+}

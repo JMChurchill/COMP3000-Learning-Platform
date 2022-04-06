@@ -1,7 +1,9 @@
 import React from "react";
 import { MdAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import styles from "./TeachersQuizzes.module.css";
 import QuizListItem from "./QuizListItem";
+import CustomButton from "../CustomButton";
 
 const TeachersQuizzes = ({
   quizzes = [],
@@ -13,8 +15,10 @@ const TeachersQuizzes = ({
 
   return (
     <>
-      <div className="quiz-items">
-        <div className="quiz-cols quiz-col-names">
+      {/* <div className="quiz-items"> */}
+      <div className={styles.quiz_items}>
+        {/* <div className="quiz-cols quiz-col-names"> */}
+        <div className={styles.quiz_cols}>
           <p>Quiz names</p>
           <p>Module</p>
           <p>Number of Questions</p>
@@ -34,7 +38,7 @@ const TeachersQuizzes = ({
             />
           );
         })}
-        <div
+        {/* <div
           className="add-quiz"
           onClick={() =>
             navigate("/designer_quiz", {
@@ -46,7 +50,16 @@ const TeachersQuizzes = ({
             <MdAdd />
           </div>
           <p>Create Quiz</p>
-        </div>
+        </div> */}
+        <CustomButton
+          text={"Create Quiz"}
+          type={3}
+          onClick={() =>
+            navigate("/designer_quiz", {
+              state: selectedClass,
+            })
+          }
+        />
       </div>
     </>
   );

@@ -1,0 +1,36 @@
+.container {
+  width: 100% !important;
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+.task_box {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 70vh;
+  position: relative;
+  width: 100%;
+}
+.task_box p {
+  padding-right: 2.5rem;
+}
+.task_box h2 {
+  padding-left: 2.5rem;
+}
+.col_names {
+  /* border: 1px solid orange; */
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  background-color: #f8f9fd;
+}
+
+.bottom_bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(2rem);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0.125rem 0.5rem -0.25em black;
+  background-color: white;
+}

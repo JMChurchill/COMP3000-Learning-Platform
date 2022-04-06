@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import {
   getStudentsInClass,
   removeStudentFromClass,
-} from "../../http_Requests/teacherRequests";
+} from "../../../http_Requests/teacherRequests";
+import CustomButton from "../../CustomButton";
+import styles from "./ListStudents.module.css";
 
 const ListStudents = ({ classID, flipIsShowStudents }) => {
   const [students, setStudents] = useState([]);
@@ -24,37 +26,44 @@ const ListStudents = ({ classID, flipIsShowStudents }) => {
     }
   };
   return (
-    <div className="right-box vFill user-search">
-      <div className="search-box">
-        <button className="btn" onClick={() => flipIsShowStudents()}>
+    // <div className="right-box vFill user-search">
+    <>
+      <div className={styles.search_box}>
+        {/* <button className="btn" onClick={() => flipIsShowStudents()}>
           Back to details
-        </button>
-        {/* <p>Search</p>
-        <input type="text" onChange={(e) => setSearchTerm(e.target.value)} />
-        <button className="btn" onClick={() => searchForStudents()}>
-          Search
         </button> */}
+        <CustomButton
+          text={"X"}
+          fill={true}
+          onClick={() => flipIsShowStudents()}
+        />
       </div>
-      <div className="column-names  in-class">
+      <div className={styles.column_names}>
         <p>First name</p>
         <p>Last name</p>
       </div>
-      <div className="search-results">
+      <div className={styles.students}>
         {students.map((student, i) => (
-          <div className="result in-class" key={i}>
+          <div className={styles.student} key={i}>
             {/* <p>{student.Email}</p> */}
             <p>{student.FirstName}</p>
             <p>{student.LastName}</p>
-            <button
+            <div></div>
+            {/* <button
               className="btn"
               onClick={() => removeStudent(student.StudentID)}
             >
               Remove
-            </button>
+            </button> */}
+            <CustomButton
+              text={"Remove"}
+              onClick={() => removeStudent(student.StudentID)}
+            />
           </div>
         ))}
       </div>
-    </div>
+    </>
+    // </div>
   );
 };
 

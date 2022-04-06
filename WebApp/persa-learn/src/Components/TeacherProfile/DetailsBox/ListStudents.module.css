@@ -1,0 +1,24 @@
+.search_box {
+  display: grid;
+  grid-template-columns: 10% 8% 60% 10%;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
+    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+.column_names {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 20% 20% 20%;
+  background-color: lightgray;
+}
+.students {
+  width: 100%;
+}
+.student {
+  display: grid;
+  grid-template-columns: 20% 20% 30% 15%;
+  margin-bottom: 0.23rem;
+  border-bottom: #bbb 1px solid;
+}

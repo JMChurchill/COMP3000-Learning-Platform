@@ -1,0 +1,27 @@
+.new_option {
+  /* border: 1px solid #4ffedf;
+  background-color: blue; */
+  width: auto;
+  margin: 0.25rem 2rem;
+  display: grid;
+  grid-template-columns: 25% 5%;
+  gap: 2rem;
+}
+input {
+  width: 100%;
+  margin: 0.5rem;
+}
+.check_box {
+  background-color: #bbb;
+  width: 50%;
+  margin: auto;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+.check_box[aria-selected="true"] {
+  background-color: var(--success-color);
+}
+.check_box:hover {
+  background-color: var(--success-color);
+}

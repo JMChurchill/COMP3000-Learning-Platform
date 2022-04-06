@@ -11,10 +11,15 @@
   --text-over-image-color: white;
   --success-color: #00ff55;
   --progressbar-color: blue;
-  --selected-color: rgba(177, 186, 187, 0.1);
+  --selected-color: #e9e9ec;
   --on-text-hover: darkGray;
   --primary-color: #201d95;
   --border-radius: 0.2rem;
+  --box-shadow-offset-x: 0;
+  --box-shadow-offset-y: 0.125rem;
+  --box-shadow-blur: 0.5rem;
+  --box-shadow-spread: -0.25rem;
+  --box-shadow-color: black;
 }
 
 .App {
@@ -173,117 +178,6 @@ body {
   width: 100%;
 }
 
-.content-box .container .create-question {
-  border: solid 1px red;
-  margin: 1rem 0;
-}
-
-.content-box .container .create-question p {
-  color: #00ff55;
-}
-
-.content-box .container .create-question form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  border: solid 1px green;
-  font-size: 1.5rem;
-  width: 100%;
-}
-
-.content-box .container .create-question form input {
-  border-radius: 2rem;
-  font-size: 1.5rem;
-  padding: 0.25rem;
-}
-
-.content-box .container .create-question form .question-box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  border-radius: 1rem 1rem;
-  border-bottom: grey solid 1px;
-  width: 100%;
-  padding-top: 1.5rem;
-}
-
-.content-box .container .create-question form .question-box input {
-  width: 40%;
-  border-radius: 2rem;
-  font-size: 1.5rem;
-  margin: 0.75rem 2rem;
-  padding: 0.5rem;
-}
-
-.content-box .container .create-question form .question-box input:first-child {
-  color: red;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.content-box .container .create-question form .correct-ans {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 25% 10%;
-      grid-template-columns: 25% 10%;
-  width: 100%;
-}
-
-.content-box .container .create-question form .correct-ans p {
-  margin: 1rem auto;
-}
-
-.content-box .container .create-question form #options-box {
-  width: 100%;
-}
-
-.content-box .container .create-question form .new-option {
-  border: 1px solid #4ffedf;
-  background-color: blueviolet;
-  width: auto;
-  margin: 0.25rem 2rem;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 25% 5%;
-      grid-template-columns: 25% 5%;
-  gap: 2rem;
-}
-
-.content-box .container .create-question form .new-option input {
-  width: 100%;
-  margin: 0.5rem;
-}
-
-.content-box .container .create-question form .new-option .check-box {
-  background-color: #bbb;
-  width: 50%;
-  margin: auto;
-  border-radius: 50%;
-  aspect-ratio: 1;
-  cursor: pointer;
-}
-
-.content-box .container .create-question form .new-option .check-box[aria-selected="true"] {
-  background-color: var(--success-color);
-}
-
-.content-box .container .create-question form .new-option .check-box:hover {
-  background-color: var(--success-color);
-}
-
-.content-box .container .create-question form .btn {
-  width: 25%;
-  margin: 0.5rem 2rem;
-}
-
 .content-box .container .flash-card {
   position: relative;
   width: 150vh;
@@ -390,6 +284,7 @@ body {
 h1 {
   color: var(--title-color);
   margin: 1rem 0;
+  font-size: 2rem;
 }
 
 h2 {
@@ -880,50 +775,6 @@ form .btn:hover {
   background-color: var(--success-color);
   width: 50%;
   border-radius: 2rem;
-}
-
-.content-box .container .task-box {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 70vh;
-  position: relative;
-}
-
-.content-box .container .task-box p {
-  padding-right: 2.5rem;
-}
-
-.content-box .container .task-box h2 {
-  padding-left: 2.5rem;
-}
-
-.content-box .container .task-box > div {
-  width: 100%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 30% 30% 30%;
-      grid-template-columns: 30% 30% 30%;
-  border-bottom: 1px solid #3a3a3a;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.content-box .container .task-box > div[aria-selected="true"] {
-  background-color: var(--selected-color);
-}
-
-.content-box .container .task-box .bottom-bar {
-  position: -webkit-sticky;
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  width: 110%;
-  -webkit-transform: translateY(2rem);
-          transform: translateY(2rem);
-  border-radius: 1rem;
-  -webkit-box-shadow: 0 0.125rem 0.5rem -0.25em black;
-          box-shadow: 0 0.125rem 0.5rem -0.25em black;
-  background-color: white;
 }
 
 .content-box .container .leaderboard-box .top-students {

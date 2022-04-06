@@ -1,6 +1,7 @@
 import React from "react";
+import styles from "./ClassItem.module.css";
 
-const Class = ({
+const ClassItem = ({
   id,
   name = "no name",
   yearGroup = 10,
@@ -10,7 +11,8 @@ const Class = ({
 }) => {
   return (
     <div
-      className="Task"
+      // className="task"
+      className={styles.task}
       aria-selected={classSelected}
       onClick={() => setSelectedClass({ id, name, yearGroup })}
     >
@@ -21,4 +23,4 @@ const Class = ({
   );
 };
 
-export default Class;
+export default ClassItem;

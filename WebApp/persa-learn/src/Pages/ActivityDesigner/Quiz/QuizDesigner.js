@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
+import styles from "./QuizDesigner.module.css";
 
 import CreateQuestionBox from "../../../Components/QuizDesigner/CreateQuestionBox";
+import Overlay from "../../../Components/QuizDesigner/OverlayError";
+import OverlayAddModule from "../../../Components/QuizDesigner/OverlayAddModule";
 import {
   createModule,
   createTheQuiz,
   viewTeachersModules,
 } from "../../../http_Requests/teacherRequests";
+import OverlayComplete from "../../../Components/QuizDesigner/OverlayComplete";
+import CustomButton from "../../../Components/CustomButton";
 
 const QuizDesigner = () => {
   const [title, setTitle] = useState();
   const [questions, setQuestions] = useState([]);
   const [selectedModule, setSelectedModule] = useState(null);
   const [newModule, setNewModule] = useState();
-  const [selectedDate, setSelectedDate] = useState(null);
+  // const [selectedDate, setSelectedDate] = useState(null);
 
   const [selectedClass, setSelectedClass] = useState("");
 
@@ -45,15 +49,19 @@ const QuizDesigner = () => {
   const addModule = async () => {
     // console.log(newModule);
     //add module to database
-    let data = await createModule({ moduleName: newModule });
-    //get all modules
-    let modData = await viewTeachersModules();
-    setModuleList(modData.modules);
-    setModuleCreated(true);
+    if (newModule != null) {
+      let data = await createModule({ moduleName: newModule });
+      //get all modules
+      let modData = await viewTeachersModules();
+      setModuleList(modData.modules);
+      setModuleCreated(true);
+    } else {
+      alert("please enter a module");
+    }
   };
 
-  const addQuestion = (e) => {
-    e.preventDefault();
+  const addQuestion = () => {
+    // e.preventDefault();
     //create empty question
     const question = {
       id: questions.length,
@@ -91,8 +99,8 @@ const QuizDesigner = () => {
   return (
     <div className="content-box">
       <h1>Quiz designer</h1>
-      <div className="container wide-container">
-        <div className="create-quiz-title">
+      <div className={styles.container}>
+        <div className={styles.create_quiz_title}>
           <input
             type="text"
             placeholder="QuizTitle"
@@ -101,7 +109,7 @@ const QuizDesigner = () => {
           <select
             id="module"
             name="moduleList"
-            className="selector"
+            className={styles.selector}
             onChange={(e) => {
               setSelectedModule(e.target.value);
             }}
@@ -113,15 +121,13 @@ const QuizDesigner = () => {
             ))}
             <option value={null}>No Module</option>
           </select>
-          <button className="btn" onClick={() => setIsAddModule(true)}>
+          {/* <button className="btn" onClick={() => setIsAddModule(true)}>
             New Module
-          </button>
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            placeholderText="Due date"
-            dateFormat="dd/MM/yyyy"
-            minDate={new Date()}
+          </button> */}
+          <CustomButton
+            text={"New Module"}
+            onClick={() => setIsAddModule(true)}
+            fill={true}
           />
         </div>
         {questions.map((quest, index) => {
@@ -134,38 +140,49 @@ const QuizDesigner = () => {
             />
           );
         })}
-        {/* <CreateQuestionBox /> */}
-        <button className="add-question btn" onClick={addQuestion}>
-          +
-        </button>
-        <button className="btn" onClick={createQuiz}>
-          Finish
-        </button>
+        <CustomButton text={"+"} type={2} onClick={addQuestion} />
+        <CustomButton text={"Finished"} onClick={createQuiz} />
       </div>
-      <div className="overlay" aria-disabled={!isComplete}>
-        <div className="message-box">
-          <h1>Created {title} Quiz</h1>
-          <button
-            className="btn"
-            onClick={() =>
-              navigate("/Assign", {
-                state: selectedClass,
-              })
-            }
-          >
-            View all quizzes
-          </button>
-        </div>
-      </div>
-      <div className="overlay" aria-disabled={!isError}>
+      {isComplete ? (
+        <OverlayComplete title={title} selectedClass={selectedClass} />
+      ) : (
+        <></>
+      )}
+      {/* <OverlayComplete title={title} selectedClass={selectedClass} /> */}
+      {isError ? (
+        <Overlay
+          setIsError={setIsError}
+          close={() => {
+            setIsError(false);
+            console.log(isError);
+          }}
+        />
+      ) : (
+        <></>
+      )}
+      {/* <div className="overlay" aria-disabled={!isError}>
         <div className="message-box">
           <h1>An error occured quiz not created</h1>
           <button className="btn" onClick={() => setIsError(false)}>
             Ok
           </button>
         </div>
-      </div>
-      <div className="overlay" aria-disabled={!isAddModule}>
+      </div> */}
+      {isAddModule ? (
+        <OverlayAddModule
+          onChange={(e) => {
+            setNewModule(e.target.value);
+          }}
+          addModule={addModule}
+          isAddModule={isAddModule}
+          moduleCreated={moduleCreated}
+          setIsAddModule={setIsAddModule}
+          setModuleCreated={setModuleCreated}
+        />
+      ) : (
+        <></>
+      )}
+      {/* <div className="overlay" aria-disabled={!isAddModule}>
         <div className="message-box">
           {moduleCreated ? (
             <h1>Module created successfully</h1>
@@ -193,7 +210,7 @@ const QuizDesigner = () => {
             Back
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
