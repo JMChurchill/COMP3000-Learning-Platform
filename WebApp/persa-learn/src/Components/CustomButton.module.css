@@ -30,6 +30,22 @@
   scale: 1.05;
 }
 
+.icon {
+  background-color: white;
+  font-size: 2rem;
+  padding: 0;
+  border-radius: var(--border-radius);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  color: black;
+  border: 2px solid black;
+}
+.icon:hover {
+  scale: 1.1;
+}
+
 .special {
   background-color: var(--selected-color);
   margin: 1rem;
@@ -61,7 +77,7 @@
   font-size: 2.5rem;
   font-weight: bold;
 }
-p {
+.special p {
   margin: 0;
   padding: 0;
   white-space: nowrap;

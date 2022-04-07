@@ -1,6 +1,6 @@
 .search_box {
   display: grid;
-  grid-template-columns: 10% 8% 60% 10%;
+  grid-template-columns: 10% 8% 40% 10%;
   align-items: center;
   gap: 2rem;
   width: 100%;

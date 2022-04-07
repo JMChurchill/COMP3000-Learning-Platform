@@ -10,9 +10,16 @@ const Overlay = ({ score, answers, level, earnedXp, earnedCoins }) => {
     <div className={styles.overlay}>
       <div className={styles.message_box}>
         <h1>Completed</h1>
-        <h2>
+        {answers != null ? (
+          <h2>
+            {score}/{answers.length}
+          </h2>
+        ) : (
+          <></>
+        )}
+        {/* <h2>
           {score}/{answers.length}
-        </h2>
+        </h2> */}
         <div className={styles.level}>
           <h2>Lv{level}</h2>
         </div>

@@ -9,6 +9,12 @@ import ClassList from "../Components/TeacherProfile/ClassList/ClassList";
 import styles from "./TeacherProfile.module.css";
 import CustomButton from "../Components/CustomButton";
 
+// import { FaExpandAlt } from "react-icons/fa";
+import {
+  AiOutlineExpandAlt,
+  AiOutlineShrink,
+  AiOutlineClose,
+} from "react-icons/ai";
 const TeacherProfile = () => {
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState();
@@ -60,18 +66,20 @@ const TeacherProfile = () => {
         {addingClass || selectedClass ? (
           <div
             className={styles.details_box}
-            style={isExpanded ? { width: "100%" } : {}}
+            style={isExpanded ? { width: "100%", height: "100%", top: 0 } : {}}
           >
             <div className={styles.control_bar}>
               <CustomButton
-                text={"close"}
+                text={<AiOutlineClose />}
+                type={4}
                 onClick={() => {
                   setAddingClass(false);
                   setSelectedClass(false);
                 }}
               />
               <CustomButton
-                text={isExpanded ? "shrink" : "expand"}
+                text={isExpanded ? <AiOutlineShrink /> : <AiOutlineExpandAlt />}
+                type={4}
                 onClick={() => {
                   setIsExpanded(!isExpanded);
                 }}

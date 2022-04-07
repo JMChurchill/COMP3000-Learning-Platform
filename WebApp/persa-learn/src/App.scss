@@ -62,14 +62,14 @@ body {
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      input {
-        width: 80%;
-        margin: 0 10%;
-        border-radius: 2rem;
-        font-size: 2rem;
-        padding: 0.5rem;
-        box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-      }
+      // input {
+      //   width: 80%;
+      //   margin: 0 10%;
+      //   border-radius: 2rem;
+      //   font-size: 2rem;
+      //   padding: 0.5rem;
+      //   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+      // }
       .level {
         background-color: gold;
         width: fit-content;
@@ -130,24 +130,24 @@ body {
       padding: 1rem 0;
       gap: 0.5rem;
 
-      > input:first-child {
-        grid-column: span 2;
-      }
+      // > input:first-child {
+      //   grid-column: span 2;
+      // }
       // input {
       //   margin: ;
       //   height: 2rem;
       // }
-      input {
-        // border-radius: 2rem;
-        // font-size: 1.5rem;
-        // padding: 0.25rem;
-        width: 90%;
-        border-radius: 2rem;
-        font-size: 2rem;
-        margin: 0.75rem 1rem 0.75rem 2rem;
-        padding: 0.5rem;
-        box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-      }
+      // input {
+      //   // border-radius: 2rem;
+      //   // font-size: 1.5rem;
+      //   // padding: 0.25rem;
+      //   width: 90%;
+      //   border-radius: 2rem;
+      //   font-size: 2rem;
+      //   margin: 0.75rem 1rem 0.75rem 2rem;
+      //   padding: 0.5rem;
+      //   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+      // }
 
       .selector {
         font-size: 2rem;
@@ -248,53 +248,53 @@ body {
     //   }
     // }
     // flash card
-    .flash-card {
-      position: relative;
-      width: 150vh;
-      height: 60vh;
-      margin: 1rem;
-      padding: 0;
-      transform-style: preserve-3d;
-      p {
-        font-weight: bold;
-        font-size: 2.5rem;
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      &.flipped {
-        .front {
-          transform: rotateY(180deg);
-        }
-        .back {
-          transform: rotateY(0deg);
-        }
-      }
-      .front,
-      .back {
-        background-color: yellow;
-        box-sizing: border-box;
-        height: 100%;
-        width: 100%;
-        display: block;
-        position: absolute;
-        text-align: center;
-        box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.4);
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
-        transition: -webkit-transform ease 500ms;
-        transition: transform ease 500ms;
-      }
-      .front {
-        z-index: 2;
-        transform: rotateY(0deg);
-      }
-      .back {
-        transform: rotateY(-180deg);
-      }
-    }
+    // .flash-card {
+    //   position: relative;
+    //   width: 150vh;
+    //   height: 60vh;
+    //   margin: 1rem;
+    //   padding: 0;
+    //   transform-style: preserve-3d;
+    //   p {
+    //     font-weight: bold;
+    //     font-size: 2.5rem;
+    //     margin: 0;
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 50%;
+    //     transform: translate(-50%, -50%);
+    //   }
+    //   &.flipped {
+    //     .front {
+    //       transform: rotateY(180deg);
+    //     }
+    //     .back {
+    //       transform: rotateY(0deg);
+    //     }
+    //   }
+    //   .front,
+    //   .back {
+    //     background-color: yellow;
+    //     box-sizing: border-box;
+    //     height: 100%;
+    //     width: 100%;
+    //     display: block;
+    //     position: absolute;
+    //     text-align: center;
+    //     box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.4);
+    //     backface-visibility: hidden;
+    //     transform-style: preserve-3d;
+    //     transition: -webkit-transform ease 500ms;
+    //     transition: transform ease 500ms;
+    //   }
+    //   .front {
+    //     z-index: 2;
+    //     transform: rotateY(0deg);
+    //   }
+    //   .back {
+    //     transform: rotateY(-180deg);
+    //   }
+    // }
     // flashcard designer
     .card-designer {
       width: 100%;
@@ -317,12 +317,12 @@ body {
             border-right: 1.5px solid var(--text-color);
           }
 
-          input {
-            width: 80%;
-            font-size: 1.5rem;
-            border-radius: 2rem;
-            padding: 0.5rem;
-          }
+          // input {
+          //   width: 80%;
+          //   font-size: 1.5rem;
+          //   border-radius: 2rem;
+          //   padding: 0.5rem;
+          // }
         }
       }
     }
@@ -568,15 +568,15 @@ form {
   align-items: center;
   width: 50%;
   font-size: 2rem;
-  input {
-    width: 100%;
-    border-radius: 2rem;
-    font-size: 2rem;
-    padding: 0.5rem 1rem;
-    margin: 1rem 0;
-    border: 0.01px solid lightgray;
-    box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-  }
+  // input {
+  //   width: 100%;
+  //   border-radius: 2rem;
+  //   font-size: 2rem;
+  //   padding: 0.5rem 1rem;
+  //   margin: 1rem 0;
+  //   border: 0.01px solid lightgray;
+  //   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+  // }
   .btn {
     box-shadow: 0 0.5rem 0.5rem -0.25em black;
     border: none;
@@ -1215,11 +1215,11 @@ form {
       p {
         font-size: 1.5rem;
       }
-      input {
-        border-radius: 1rem;
-        margin: 1rem 0;
-        font-size: 1.5rem;
-      }
+      // input {
+      //   border-radius: 1rem;
+      //   margin: 1rem 0;
+      //   font-size: 1.5rem;
+      // }
     }
     .column-names {
       display: grid;

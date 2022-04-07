@@ -1,4 +1,5 @@
 import React from "react";
+import CustomButton from "../../CustomButton";
 import ClassItem from "./ClassItem";
 import styles from "./ClassList.module.css";
 
@@ -43,14 +44,21 @@ const ClassList = ({
       </div>
       {/* <div className="bottom-bar"> */}
       <div className={styles.bottom_bar}>
-        <button
+        {/* <button
           className="btn"
           onClick={() => {
             flipAddClass();
           }}
         >
           Add class
-        </button>
+        </button> */}
+        <CustomButton
+          text={"Add Class"}
+          type={3}
+          onClick={() => {
+            flipAddClass();
+          }}
+        />
       </div>
     </div>
   );

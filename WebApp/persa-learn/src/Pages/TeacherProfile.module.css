@@ -1,26 +1,31 @@
 .container {
   display: flex;
-  padding: 1rem;
+  padding: 0;
   position: relative;
   margin-bottom: 3rem;
 }
 .details_box {
   /* display: none; */
-  border: 1px red solid;
+  /* border: 1px red solid; */
   position: absolute;
   right: 0;
   height: 100%;
   background-color: white;
   border-radius: var(--border-radius);
   /* padding: 2rem; */
-  width: 60%;
+  width: 50%;
+  height: 96%;
+  top: 2%;
   overflow-y: scroll;
   transition: all 200ms;
+  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
+    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 .control_bar {
-  background-color: red;
   display: flex;
   flex-direction: row-reverse;
+  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
+    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 .content {
   /* background-color: orange; */

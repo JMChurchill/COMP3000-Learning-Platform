@@ -29,6 +29,7 @@ import UserSettings from "./Pages/UserSettings";
 import EditUserSettings from "./Pages/EditUserSettings";
 // import AllQuizzes from "./Pages/ActivityDesigner/Quiz/AllQuizzes/AllQuizzes";
 import AssignActivities from "./Pages/AssignActivities/AssignActivities";
+import EditCardsInDeck from "./Pages/Activities/FlashCards/EditCardsInDeck";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -68,6 +69,7 @@ function App() {
           <Route exact path="/quiz" element={<Quiz />} />
           <Route exact path="/flash-cards" element={<FlashCards />} />
           <Route exact path="/flash-card" element={<FlashCard />} />
+          <Route exact path="/flash-card/edit" element={<EditCardsInDeck />} />
           <Route
             exact
             path="/designer_flashcard"

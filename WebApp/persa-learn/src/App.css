@@ -72,16 +72,6 @@ body {
   text-align: center;
 }
 
-.content-box .overlay .message-box input {
-  width: 80%;
-  margin: 0 10%;
-  border-radius: 2rem;
-  font-size: 2rem;
-  padding: 0.5rem;
-  -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-          box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-}
-
 .content-box .overlay .message-box .level {
   background-color: gold;
   width: -webkit-fit-content;
@@ -159,87 +149,9 @@ body {
   gap: 0.5rem;
 }
 
-.content-box .container .create-quiz-title > input:first-child {
-  grid-column: span 2;
-}
-
-.content-box .container .create-quiz-title input {
-  width: 90%;
-  border-radius: 2rem;
-  font-size: 2rem;
-  margin: 0.75rem 1rem 0.75rem 2rem;
-  padding: 0.5rem;
-  -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-          box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-}
-
 .content-box .container .create-quiz-title .selector {
   font-size: 2rem;
   width: 100%;
-}
-
-.content-box .container .flash-card {
-  position: relative;
-  width: 150vh;
-  height: 60vh;
-  margin: 1rem;
-  padding: 0;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-}
-
-.content-box .container .flash-card p {
-  font-weight: bold;
-  font-size: 2.5rem;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-.content-box .container .flash-card.flipped .front {
-  -webkit-transform: rotateY(180deg);
-          transform: rotateY(180deg);
-}
-
-.content-box .container .flash-card.flipped .back {
-  -webkit-transform: rotateY(0deg);
-          transform: rotateY(0deg);
-}
-
-.content-box .container .flash-card .front,
-.content-box .container .flash-card .back {
-  background-color: yellow;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  display: block;
-  position: absolute;
-  text-align: center;
-  -webkit-box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.4);
-          box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.4);
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  transition: -webkit-transform ease 500ms;
-  -webkit-transition: -webkit-transform ease 500ms;
-  transition: transform ease 500ms;
-  transition: transform ease 500ms, -webkit-transform ease 500ms;
-}
-
-.content-box .container .flash-card .front {
-  z-index: 2;
-  -webkit-transform: rotateY(0deg);
-          transform: rotateY(0deg);
-}
-
-.content-box .container .flash-card .back {
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
 }
 
 .content-box .container .card-designer {
@@ -272,13 +184,6 @@ body {
 .content-box .container .card-designer form > div:first-child {
   border-left: 0px;
   border-right: 1.5px solid var(--text-color);
-}
-
-.content-box .container .card-designer form > div input {
-  width: 80%;
-  font-size: 1.5rem;
-  border-radius: 2rem;
-  padding: 0.5rem;
 }
 
 h1 {
@@ -554,17 +459,6 @@ form {
           align-items: center;
   width: 50%;
   font-size: 2rem;
-}
-
-form input {
-  width: 100%;
-  border-radius: 2rem;
-  font-size: 2rem;
-  padding: 0.5rem 1rem;
-  margin: 1rem 0;
-  border: 0.01px solid lightgray;
-  -webkit-box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-          box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
 }
 
 form .btn {
@@ -1150,12 +1044,6 @@ form .btn:hover {
 }
 
 .content-box .container .user-search .search-box p {
-  font-size: 1.5rem;
-}
-
-.content-box .container .user-search .search-box input {
-  border-radius: 1rem;
-  margin: 1rem 0;
   font-size: 1.5rem;
 }
 
