@@ -11,6 +11,7 @@ const assignmentsRouter = require("./routes/assignmentsRoutes");
 const classesRouter = require("./routes/classRoutes");
 const moduleRouter = require("./routes/moduleRoutes");
 const quizRouter = require("./routes/ActivityRoutes/quizRoutes");
+const flashcardRouter = require("./routes/ActivityRoutes/flashcardRoutes");
 
 const cors = require("cors");
 
@@ -36,6 +37,7 @@ app.use("/assignments", assignmentsRouter);
 app.use("/classes", classesRouter);
 app.use("/module", moduleRouter);
 app.use("/quiz", quizRouter);
+app.use("/deck", flashcardRouter);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
