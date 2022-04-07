@@ -37,7 +37,7 @@ app.use("/assignments", assignmentsRouter);
 app.use("/classes", classesRouter);
 app.use("/module", moduleRouter);
 app.use("/quiz", quizRouter);
-app.use("/deck", flashcardRouter);
+app.use("/decks", flashcardRouter);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

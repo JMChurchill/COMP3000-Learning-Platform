@@ -57,7 +57,7 @@ router
         const password = req.user.password;
 
         const data = {
-          name: req.body.name,
+          name: req.body.Name,
         };
         const query = `CALL deck_create ("${data.name}", "${email}", "${password}")`;
         const results = await pool.query(query).catch((err) => {
@@ -134,6 +134,7 @@ router
           deckID: req.body.DeckID,
         };
         const query = `CALL deck_update ("${data.deckID}","${data.name}", "${email}", "${password}")`;
+        console.log(query);
         const results = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
@@ -156,7 +157,7 @@ router
 
 // view flash cards from deck
 router
-  .route("/flashcards/view")
+  .route("/flashcards")
   .get(
     [check("DeckID", "Invalid DeckID").not().isEmpty()],
     checkAuth,
@@ -173,10 +174,14 @@ router
         const email = req.user.email;
         const password = req.user.password;
 
+        console.log(req.query.DeckID);
         const data = {
-          deckID: req.body.DeckID,
+          deckID: req.query.DeckID,
+          //   req.params.id
         };
-        const query = `CALL flashcards_get_all_by_deck ("${data.deckID}","${email}", "${password}")`;
+        console.log(data);
+        const query = `CALL flashcard_get_all_by_deck ("${data.deckID}","${email}", "${password}")`;
+        console.log(query);
         const [flashCards] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
@@ -193,7 +198,7 @@ router
 
 //add flash card to deck
 router
-  .route("/add")
+  .route("/flashcards")
   .post(
     [
       check("Question", "Invalid Question").not().isEmpty(),
