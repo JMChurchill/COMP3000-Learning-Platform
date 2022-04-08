@@ -93,6 +93,19 @@ DELIMITER ;
 
 CALL flashcard_get_all_by_deck (1,"email@email.com", "password")
 
+# get number of cards
+DELIMITER $$
+CREATE PROCEDURE Deck_num_flashcards (ID int, sEmail varchar(255), sPassword varchar(60))
+BEGIN
+    #count cards
+    SELECT COUNT(DeckID) AS NumberOfCards FROM FlashCards WHERE DeckID = ID;
+END$$
+DELIMITER ;
+
+CALL Deck_num_flashcards (2,"email@email.com", "password")
+
+
+
 #add flashcard to deck
 DELIMITER $$
 CREATE PROCEDURE flashcard_add (ID int, nQuestion text, nAnswer text, sEmail varchar(255), sPassword varchar(60))
