@@ -3,8 +3,16 @@ import styles from "./UserIcon.module.css";
 
 const UserIcon = ({ xp, studentIcon }) => {
   return (
-    <div className={styles.user_icon}>
-      <img src={studentIcon} alt="user icon" height="100px" />
+    <div
+      className={styles.user_icon}
+      style={{
+        backgroundImage: `url(${studentIcon})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "contain",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* <img src={studentIcon} alt="user icon" height="100px" /> */}
       <div className={styles.xp}>
         <p>{xp}xp</p>
       </div>

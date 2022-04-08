@@ -1,23 +1,29 @@
 .user_icon {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   text-align: center;
-  width: auto;
-  padding-left: 1rem;
-  transform: translateY(1.5rem);
+  /* width: auto; */
+  /* margin-bottom: 4rem; */
+  /* height: 60%; */
+  width: 15%;
+  /* padding-left: 1rem; */
+  transform: translateY(-1.5rem);
+  /* background-color: white; */
+  border-radius: 200rem;
+  aspect-ratio: 1;
 }
-img {
+/* img {
   width: 10rem;
   height: auto;
-}
+} */
 
 .xp {
   background-color: white;
   border-radius: 2rem;
   width: fit-content;
-  transform: translateY(-1.5rem);
+  transform: translateY(1.5rem);
 }
 p {
   margin: 0.25rem 0.5rem;

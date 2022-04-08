@@ -34,32 +34,39 @@ const StudentProfile = () => {
   const [usersName, setUsersName] = useState("");
   const [selectedTab, setSelectedTab] = useState(1);
 
+  const [profilePicture, setProfilePicture] = useState();
+  const [banner, setBanner] = useState(0);
   const [xp, setXp] = useState(0);
   const [coins, setCoins] = useState(0);
 
   const tabs = ["Classes", "Achievements", "Assignments"];
   useEffect(async () => {
     //get page details
-    const [dataXp, dataCoins, dataClasses, dataStudentDetails, dataAssignment] =
-      await Promise.all([
-        getStudentXp(),
-        getStudentCoins(),
-        getStudentsClassses(),
-        getUserDetails(),
-        getStudentsAssignmentQuizzes(),
-      ]);
+    const [dataClasses, dataStudentDetails, dataAssignment] = await Promise.all(
+      [getStudentsClassses(), getUserDetails(), getStudentsAssignmentQuizzes()]
+    );
+    // dataXp,
+    //   dataCoins,
+    // getStudentXp(),
+    //   getStudentCoins(),
+    console.log(dataStudentDetails);
     //xp
-    setXp(dataXp.data[0].Xp);
+    // setXp(dataXp.data[0].Xp);
     //coins
-    setCoins(dataCoins.data[0].Coins);
+    // setCoins(dataCoins.data[0].Coins);
     //classes
     if (dataClasses.hasOwnProperty("data")) {
       setClasses(dataClasses.data);
     }
     //student details
     if (dataStudentDetails.hasOwnProperty("data")) {
-      const { FirstName, LastName, Email } = dataStudentDetails.data[0];
+      const { FirstName, LastName, Email, Coins, Xp, ProfilePicture, Banner } =
+        dataStudentDetails.data[0];
       setUsersName(`${FirstName} ${LastName}`);
+      setXp(Xp);
+      setCoins(Coins);
+      setBanner(Banner);
+      setProfilePicture(ProfilePicture);
     }
     // assignments
     if (dataAssignment.hasOwnProperty("quizzes")) {
@@ -72,7 +79,7 @@ const StudentProfile = () => {
       <div className="container wide-container center-container">
         <h1>Student profile</h1>
         <div className="container wide-container center-container">
-          <div className="banner">
+          <div className="banner" style={{ background: `url(${banner})` }}>
             <div className="top">
               <div className="settings-btn">
                 <Link to="/user_settings" style={{ textDecoration: "none" }}>
@@ -87,7 +94,8 @@ const StudentProfile = () => {
                   <p>{xp}xp</p>
                 </div>
               </div> */}
-              <UserIcon xp={xp} studentIcon={studentIcon} />
+              {/* <UserIcon xp={xp} studentIcon={studentIcon} /> */}
+              <UserIcon xp={xp} studentIcon={profilePicture} />
               <DetailsBox username={usersName} coins={coins} />
               {/* <div className="detail_box">
                 <div className="box">
