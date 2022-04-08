@@ -102,20 +102,4 @@ CALL quiz_submission_add(1,1,"e@email.com","password")
 
 
 
-#get xp
-DELIMITER $$
-CREATE PROCEDURE get_students_xp (sEmail varchar(255), sPassword varchar(60))
-BEGIN
-    #get student id
-    SELECT Xp FROM students WHERE email = sEmail AND password = sPassword LIMIT 1;
-END$$
-DELIMITER ;
 
-#get coins
-DELIMITER $$
-CREATE PROCEDURE get_students_coins (sEmail varchar(255), sPassword varchar(60))
-BEGIN
-    #get student id
-    SELECT Coins FROM students WHERE email = sEmail AND password = sPassword LIMIT 1;
-END$$
-DELIMITER ;
