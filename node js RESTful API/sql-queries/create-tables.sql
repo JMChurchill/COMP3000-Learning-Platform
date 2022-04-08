@@ -9,6 +9,10 @@ CREATE TABLE Students (
     FirstName varchar(60) NOT NULL, 
     LastName varchar(60) NOT NULL,
     Password varchar(60) NOT NULL, 
+    Xp int NOT NULL DEFAULT 0,
+    Coins int NOT NULL DEFAULT 0,
+    ProfilePicture varchar(255) NOT NULL DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
+    Banner varchar(255) NOT NULL DEFAULT 'https://cdn.pixabay.com/photo/2021/09/12/07/58/banner-6617553__340.jpg',
     PRIMARY KEY (StudentID)
     );
 
