@@ -1,0 +1,33 @@
+.card {
+  display: grid;
+  grid-template-columns: 40% 40% 10%;
+  gap: 2.5%;
+
+  /* background-color: aqua; */
+  /* margin: 0.5rem 0; */
+  padding: 1rem 0;
+  width: 90%;
+  text-align: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
+    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+
+.front,
+.back {
+  border: 1px solid black;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
+    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+.error,
+.success {
+  font-size: 1.2rem;
+}
+.error {
+  color: red;
+}
+.success {
+  color: green;
+}

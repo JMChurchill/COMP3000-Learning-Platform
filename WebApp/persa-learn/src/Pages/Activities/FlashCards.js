@@ -29,12 +29,16 @@ const FlashCards = () => {
       }
     } else alert("Enter a deck name");
   };
-
-  useEffect(async () => {
+  const getDecks = async () => {
     const data = await getFlashCardDecks();
-    console.log(data);
+    // console.log(data);
     setDecks(data.decks);
+    console.log("got decks");
+  };
+  useEffect(async () => {
+    await getDecks();
   }, [isAdded]);
+
   return (
     <div className="content-box">
       <h1>Flash cards</h1>
@@ -65,23 +69,6 @@ const FlashCards = () => {
                 <p>{deck.Name}</p>
               </div>
             ))}
-            {/* <Link to="/flash-card">
-              <div className={styles.deck}>
-                <p>Deck title</p>
-              </div>
-            </Link>
-            <div className={styles.deck}>
-              <p>Deck title</p>
-            </div>
-            <div className={styles.deck}>
-              <p>Deck title</p>
-            </div>
-            <div className={styles.deck}>
-              <p>Deck title</p>
-            </div>
-            <div className={styles.deck}>
-              <p>Deck title</p>
-            </div> */}
           </div>
         )}
         <CustomButton
@@ -103,6 +90,7 @@ const FlashCards = () => {
         <OverlayDetails
           selectedDeck={selectedDeck}
           close={() => setIsDeckSelected(false)}
+          getDecks={getDecks}
         />
       ) : (
         <></>

@@ -53,6 +53,37 @@ export const updateFlashCardDecks = (credentials) => {
   return data;
 };
 
+export const deleteFlashCardDecks = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/decks/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const getNumFlashCard = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/decks/num?DeckID=${credentials.DeckID}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+      // body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
 export const getFlashCards = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
@@ -74,6 +105,34 @@ export const createFlashCard = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch("http://localhost:8080/decks/flashcards", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const updateFlashCard = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/decks/flashcards", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const deleteFlashCard = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/decks/flashcards", {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       autherization: token,

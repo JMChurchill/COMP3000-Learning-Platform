@@ -3,40 +3,51 @@ import CustomButton from "../../Components/CustomButton";
 import CustomInput from "../../Components/CustomInput";
 import { useNavigate } from "react-router-dom";
 
-import { updateFlashCardDecks } from "../../http_Requests/StudentRequests/FlashCardRequests";
+import {
+  deleteFlashCardDecks,
+  getNumFlashCard,
+  updateFlashCardDecks,
+} from "../../http_Requests/StudentRequests/FlashCardRequests";
 import styles from "./OverlayDetails.module.css";
+import OverlayConfirm from "../../Components/OverlayConfirm";
 
-const OverlayDetails = ({
-  selectedDeck,
-  name = "placeholder",
-  numberCards = 0,
-  close,
-}) => {
+const OverlayDetails = ({ selectedDeck, close, getDecks }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [numberCards, setNumberCards] = useState(0);
   const [newName, setNewName] = useState(selectedDeck.Name);
   const [status, setStatus] = useState({ error: false, message: "" });
   const navigate = useNavigate();
 
   useEffect(async () => {
     // get number of cards
+    const data = await getNumFlashCard({ DeckID: selectedDeck.DeckID });
+    if (data.status === "success") {
+      setNumberCards(data.numCards.NumberOfCards);
+    } else console.log("Couldn't get number of cards");
   }, []);
-  const edit = async () => {
-    console.log(newName);
+  const editDeck = async () => {
     if (newName != null && newName != "") {
-      setStatus({ error: false, message: "Name Updated" });
       const data = await updateFlashCardDecks({
         DeckID: selectedDeck.DeckID,
         Name: newName,
       });
-      console.log(data);
       if (data.status === "success") {
+        setStatus({ error: false, message: "Name Updated" });
+        getDecks();
       }
     } else setStatus({ error: true, message: "Please enter a name" });
   };
-  const play = () => {};
+  const deleteDeck = async () => {
+    const data = await deleteFlashCardDecks({ DeckID: selectedDeck.DeckID });
+    if (data.status === "success") {
+      //refresh page
+      getDecks();
+      close();
+    } else alert("an error occured when deleting the deck");
+  };
   return (
     <div className={styles.overlay}>
-      {/* <div className="message-box"> */}
       <div className={styles.message_box}>
         {isEditing ? (
           <>
@@ -47,7 +58,7 @@ const OverlayDetails = ({
               <p className={styles.success_message}>{status.message}</p>
             )}
             <CustomInput fill={true} setValue={setNewName} value={newName} />
-            <CustomButton text={"Edit Deck"} onClick={() => edit()} />
+            <CustomButton text={"Edit Deck"} onClick={() => editDeck()} />
             <CustomButton
               text={"Back"}
               type={2}
@@ -56,7 +67,6 @@ const OverlayDetails = ({
           </>
         ) : (
           <>
-            {" "}
             <h1>{selectedDeck.Name} Deck</h1>
             <p>Number cards: {numberCards}</p>
             <CustomButton
@@ -90,10 +100,23 @@ const OverlayDetails = ({
                 })
               }
             />
+            <CustomButton
+              text={"Delete Deck"}
+              onClick={() => setIsDeleting(true)}
+            />
             <CustomButton text={"Back"} onClick={close} type={2} />
           </>
         )}
       </div>
+      {isDeleting ? (
+        <OverlayConfirm
+          message={`Are you sure you want to delete: ${selectedDeck.Name}`}
+          yes={() => deleteDeck()}
+          no={() => setIsDeleting(false)}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -18,22 +18,5 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
-}
-.card {
-  display: grid;
-  grid-template-columns: 40% 40% 10%;
-  gap: 2.5%;
-
-  background-color: aqua;
-  width: 80%;
-  text-align: center;
-  justify-content: center;
-}
-
-.front,
-.back {
-  border: 1px solid black;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
-    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+  padding: 1rem 0;
 }
