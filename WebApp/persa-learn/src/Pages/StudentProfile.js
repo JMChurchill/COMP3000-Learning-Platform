@@ -17,10 +17,6 @@ import {
   getStudentsClassses,
   getUserDetails,
 } from "../http_Requests/userRequests";
-import {
-  getStudentCoins,
-  getStudentXp,
-} from "../http_Requests/studentRequests";
 
 import studentIcon from "../assets/UserIcons/001-man-1.png";
 import UserIcon from "../Components/StudentProfile/UserIcon";

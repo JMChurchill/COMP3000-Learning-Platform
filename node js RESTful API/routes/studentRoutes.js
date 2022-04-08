@@ -186,34 +186,34 @@ router.route("/details").get(checkAuth, async (req, res) => {
   });
 });
 
-//get student xp
-router.route("/details/xp").get(checkAuth, async (req, res) => {
-  const email = req.user.email;
-  const password = req.user.password;
+// //get student xp
+// router.route("/details/xp").get(checkAuth, async (req, res) => {
+//   const email = req.user.email;
+//   const password = req.user.password;
 
-  const query = `CALL get_students_xp ("${email}", "${password}")`;
-  pool.query(query, (error, results) => {
-    if (results === null) {
-      res.status(204).json({ status: "Not found" });
-    } else {
-      res.status(200).json({ status: "success", data: results[0] });
-    }
-  });
-});
+//   const query = `CALL get_students_xp ("${email}", "${password}")`;
+//   pool.query(query, (error, results) => {
+//     if (results === null) {
+//       res.status(204).json({ status: "Not found" });
+//     } else {
+//       res.status(200).json({ status: "success", data: results[0] });
+//     }
+//   });
+// });
 
-//get student coins
-router.route("/details/coins").get(checkAuth, async (req, res) => {
-  const email = req.user.email;
-  const password = req.user.password;
+// //get student coins
+// router.route("/details/coins").get(checkAuth, async (req, res) => {
+//   const email = req.user.email;
+//   const password = req.user.password;
 
-  const query = `CALL get_students_coins ("${email}", "${password}")`;
-  pool.query(query, (error, results) => {
-    if (results === null) {
-      res.status(204).json({ status: "Not found" });
-    } else {
-      res.status(200).json({ status: "success", data: results[0] });
-    }
-  });
-});
+//   const query = `CALL get_students_coins ("${email}", "${password}")`;
+//   pool.query(query, (error, results) => {
+//     if (results === null) {
+//       res.status(204).json({ status: "Not found" });
+//     } else {
+//       res.status(200).json({ status: "success", data: results[0] });
+//     }
+//   });
+// });
 
 module.exports = router;

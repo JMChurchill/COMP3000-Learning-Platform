@@ -11,7 +11,6 @@ CALL create_student ("firstname", "lastname", "email2@email.com", "password")
 
  
  
- 
  # update student
 DELIMITER $$
 CREATE PROCEDURE update_student (oEmail varchar(255),oPassword varchar(60),nfName varchar(60),nlName varchar(60), nEmail varchar(255))
@@ -55,7 +54,7 @@ BEGIN
     /* DECLARE theStudentID int; */
     /* SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1); */
     IF EXISTS (SELECT * FROM students WHERE email = sEmail AND password = sPassword) THEN
-        SELECT FirstName, LastName, Email FROM students WHERE email = sEmail AND password = sPassword;
+        SELECT FirstName, LastName, Email, Xp, Coins, ProfilePicture, Banner FROM students WHERE email = sEmail AND password = sPassword;
     ELSE
     ROLLBACK;
     END IF;
