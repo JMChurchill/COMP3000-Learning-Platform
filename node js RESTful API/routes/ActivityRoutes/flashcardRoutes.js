@@ -113,8 +113,10 @@ router
 router
   .route("/update")
   .put(
-    [check("Name", "Invalid Name").not().isEmpty()],
-    [check("DeckID", "Invalid DeckID").not().isEmpty()],
+    [
+      check("Name", "Invalid Name").not().isEmpty(),
+      check("DeckID", "Invalid DeckID").not().isEmpty(),
+    ],
     checkAuth,
     async (req, res) => {
       try {
@@ -196,6 +198,46 @@ router
     }
   );
 
+//get number of flashcards in deck
+router
+  .route("/num")
+  .get(
+    [check("DeckID", "Invalid DeckID").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      try {
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const data = {
+          deckID: req.query.DeckID,
+        };
+
+        const query = `CALL deck_num_flashcards ("${data.deckID}","${email}", "${password}")`;
+        const [[numCards]] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log(numCards[0]);
+        console.log(numCards);
+        return res.status(200).json({
+          status: "success",
+          numCards,
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
 //add flash card to deck
 router
   .route("/flashcards")
@@ -240,8 +282,8 @@ router
   );
 //update flash card
 router
-  .route("/add")
-  .post(
+  .route("/flashcards")
+  .put(
     [
       check("Question", "Invalid Question").not().isEmpty(),
       check("Answer", "Invalid answer").not().isEmpty(),
@@ -282,7 +324,7 @@ router
   );
 //   delete flash card
 router
-  .route("/delete")
+  .route("/flashcards")
   .delete(
     [check("FlashCardID", "Invalid Flash card id").not().isEmpty()],
     checkAuth,
