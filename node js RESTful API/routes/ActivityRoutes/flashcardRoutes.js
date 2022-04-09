@@ -227,7 +227,6 @@ router
           return res.status(400).json({ status: "failure", reason: err });
         });
         // console.log(numCards[0]);
-        console.log(numCards);
         return res.status(200).json({
           status: "success",
           numCards,

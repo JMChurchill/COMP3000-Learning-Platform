@@ -29,6 +29,43 @@ DELIMITER ;
 CALL update_student ( "email2@email.com", "password", "changedFirst", "changedLast", "email2@email.com", "password")
 CALL update_student ( "email2@email.com", "$2b$10$.a6c8qVWQm8oZ77bJDVQnupa8oI3Mrhg4K8yZSfKjEfeZtpbEByoG", "changedfirst3", "changedlast", "email2@email.com")
 
+
+ # update profile picture
+DELIMITER $$
+CREATE PROCEDURE update_profile_picture (nProfilePicture varchar(255),sEmail varchar(255),sPassword varchar(60))
+BEGIN
+    DECLARE theStudentID int;
+    SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
+    IF EXISTS (SELECT * FROM students WHERE email = sEmail AND password = sPassword) THEN
+        UPDATE students SET ProfilePicture = nProfilePicture  WHERE studentID = theStudentID AND password = sPassword LIMIT 1;
+    ELSE
+    ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+# execute
+CALL update_profile_picture ( "email2@email.com", "password", "changedFirst", "changedLast", "email2@email.com", "password")
+
+ # update banner
+DELIMITER $$
+CREATE PROCEDURE update_banner (nBanner varchar(255),sEmail varchar(255),sPassword varchar(60))
+BEGIN
+    DECLARE theStudentID int;
+    SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
+    IF EXISTS (SELECT * FROM students WHERE email = sEmail AND password = sPassword) THEN
+        UPDATE students SET Banner = nBanner  WHERE studentID = theStudentID AND password = sPassword LIMIT 1;
+    ELSE
+    ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+# execute
+CALL update_banner ( "email2@email.com", "password", "changedFirst", "changedLast", "email2@email.com", "password")
+
+
+
 # delete student
 DELIMITER $$
 CREATE PROCEDURE delete_student (sEmail varchar(255),sPassword varchar(60))
@@ -83,7 +120,7 @@ DELIMITER ;
 CALL get_students_by_class ("1", "email@email.com", "password")
 
 
-#get xp
+/* #get xp
 DELIMITER $$
 CREATE PROCEDURE get_students_xp (sEmail varchar(255), sPassword varchar(60))
 BEGIN
@@ -99,7 +136,7 @@ BEGIN
     #get student id
     SELECT Coins FROM students WHERE email = sEmail AND password = sPassword LIMIT 1;
 END$$
-DELIMITER ;
+DELIMITER ; */
 
 
 

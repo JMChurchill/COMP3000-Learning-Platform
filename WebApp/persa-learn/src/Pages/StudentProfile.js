@@ -78,7 +78,10 @@ const StudentProfile = () => {
           <div className="banner" style={{ background: `url(${banner})` }}>
             <div className="top">
               <div className="settings-btn">
-                <Link to="/user_settings" style={{ textDecoration: "none" }}>
+                <Link
+                  to="/user_settings"
+                  style={{ textDecoration: "none", zIndex: "999" }}
+                >
                   <FaCog />
                 </Link>
               </div>

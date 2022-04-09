@@ -98,6 +98,74 @@ router
     });
   });
 
+//update profile picture
+router
+  .route("/profilePic")
+  .put(
+    checkAuth,
+    [
+      check("ProfilePicture", "Profile picture url is required")
+        .not()
+        .isEmpty(),
+    ],
+    async (req, res) => {
+      const errs = validationResult(req);
+      if (!errs.isEmpty()) {
+        return res.status(400).json({
+          errors: errs.array(),
+        });
+      }
+      //get these values from check auth (JWT)
+      const email = req.user.email;
+      const password = req.user.password;
+      // new values
+      const data = {
+        profilePicture: req.body.ProfilePicture,
+      };
+      const query = `CALL update_profile_picture ("${data.profilePicture}", "${email}", "${password}")`;
+      pool.query(query, (error) => {
+        if (error) {
+          res.status(400).json({ status: "failure", reason: error.code });
+        } else {
+          res.status(200).json({ status: "success", data: data });
+        }
+      });
+    }
+  );
+
+//update banner
+router
+  .route("/banner")
+  .put(
+    checkAuth,
+    [check("Banner", "Banner url is required").not().isEmpty()],
+    async (req, res) => {
+      const errs = validationResult(req);
+      if (!errs.isEmpty()) {
+        return res.status(400).json({
+          errors: errs.array(),
+        });
+      }
+      //get these values from check auth (JWT)
+      const email = req.user.email;
+      const password = req.user.password;
+      // new values
+      const data = {
+        banner: req.body.Banner,
+      };
+      const query = `CALL update_banner ("${data.banner}", "${email}", "${password}")`;
+      console.log(query);
+
+      pool.query(query, (error) => {
+        if (error) {
+          res.status(400).json({ status: "failure", reason: error.code });
+        } else {
+          res.status(200).json({ status: "success", data: data });
+        }
+      });
+    }
+  );
+
 //create student
 router
   .route("/create")
