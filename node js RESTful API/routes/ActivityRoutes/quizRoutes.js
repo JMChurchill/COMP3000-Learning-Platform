@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 const { check, validationResult, oneOf } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../../middleware/checkAuth");
+const { levelUp, requiredXp } = require("../../LevelSystem/Level");
 
 //create quiz
 router
@@ -269,18 +270,25 @@ router
             });
           });
         }
-        const xp =
-          quiz.Xp *
-          (correctAnswers.length - wrongAnswers.length / correctAnswers.length);
+        const score = correctAnswers.length - wrongAnswers.length;
+        const xp = quiz.Xp * (score / correctAnswers.length);
         console.log(password);
-        const coins =
-          quiz.Coins *
-          (correctAnswers.length - wrongAnswers.length / correctAnswers.length);
+        const coins = quiz.Coins * (score / correctAnswers.length);
         console.log(coins);
 
-        const query3 = `CALL quiz_submission_add(${data.quizID},${
-          correctAnswers.length - wrongAnswers.length
-        },${xp},${coins},"${email}","${password}")`;
+        //get current xp and level from database
+        const queryDetails = `CALL get_student_details ("${email}", "${password}")`;
+        const [details] = await pool.query(queryDetails).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        console.log("Student details: ", details[0]);
+        //calculate the level
+        const levelSystem = levelUp(details[0].Level, details[0].Xp, xp);
+        console.log("levelss", levelSystem);
+        const remainingXp = requiredXp(levelSystem.level);
+
+        const query3 = `CALL quiz_submission_add(${data.quizID},${score},${levelSystem.xp},${levelSystem.level},${coins},"${email}","${password}")`;
         console.log(query3);
         await pool.query(query3).catch((err) => {
           // throw err;
@@ -292,6 +300,9 @@ router
           wrongAnswers,
           xp,
           coins,
+          totalXp: levelSystem.xp,
+          level: levelSystem.level,
+          remainingXp,
         });
       } catch (err) {
         return res.status(500).send(err);

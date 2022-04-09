@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
+const { requiredXp } = require("../LevelSystem/Level");
 
 router.route("/login").post(async (req, res) => {
   data = {
@@ -249,6 +250,8 @@ router.route("/details").get(checkAuth, async (req, res) => {
     if (results === null) {
       res.status(204).json({ status: "Not found" });
     } else {
+      //get required xp for next level
+      results[0][0].RequiredXp = requiredXp(results[0][0].Level);
       res.status(200).json({ status: "success", data: results[0] });
     }
   });

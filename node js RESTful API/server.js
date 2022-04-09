@@ -14,6 +14,7 @@ const quizRouter = require("./routes/ActivityRoutes/quizRoutes");
 const flashcardRouter = require("./routes/ActivityRoutes/flashcardRoutes");
 
 const cors = require("cors");
+const { levelUp } = require("./LevelSystem/Level");
 
 const app = express();
 
@@ -47,3 +48,5 @@ app.listen(port, () => {
 app.get("/", async (req, res) => {
   res.json({ status: "Ready" });
 });
+
+// console.log(levelUp(1, 100071, 0));
