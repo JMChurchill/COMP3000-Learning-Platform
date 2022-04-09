@@ -45,6 +45,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
+            <Link aria-current="true" to="/shop">
+              Shop
+            </Link>
+          </li>
+          <li>
             <Link aria-current="false" to="/activity">
               Activities
             </Link>
