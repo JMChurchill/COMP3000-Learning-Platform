@@ -1,9 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../CustomButton";
+import LevelProgressbar from "./LevelProgressbar";
 import styles from "./Overlay.module.css";
 
-const Overlay = ({ score, answers, level, earnedXp, earnedCoins }) => {
+const Overlay = ({
+  score,
+  answers,
+  level,
+  earnedXp,
+  earnedCoins,
+  totalXp,
+  remainingXp,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -34,9 +43,11 @@ const Overlay = ({ score, answers, level, earnedXp, earnedCoins }) => {
           </div>
         </div>
         {/* TODO: add level progress */}
-        <div className={styles.progressbar}>
-          <div className={styles.bar_fill}></div>
-        </div>
+        <LevelProgressbar
+          earnedXp={earnedXp}
+          totalXp={totalXp}
+          remainingXp={remainingXp}
+        />
         <CustomButton
           type={1}
           text={"Done"}

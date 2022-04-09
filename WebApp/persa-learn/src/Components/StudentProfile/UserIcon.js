@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./UserIcon.module.css";
 
-const UserIcon = ({ xp, studentIcon }) => {
+const UserIcon = ({ level, studentIcon }) => {
   return (
     <div
       className={styles.user_icon}
@@ -14,7 +14,7 @@ const UserIcon = ({ xp, studentIcon }) => {
     >
       {/* <img src={studentIcon} alt="user icon" height="100px" /> */}
       <div className={styles.xp}>
-        <p>{xp}xp</p>
+        <p>Lv{level}</p>
       </div>
     </div>
   );

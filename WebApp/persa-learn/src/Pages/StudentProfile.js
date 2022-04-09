@@ -22,6 +22,7 @@ import studentIcon from "../assets/UserIcons/001-man-1.png";
 import UserIcon from "../Components/StudentProfile/UserIcon";
 import Progressbar from "../Components/StudentProfile/Progressbar";
 import DetailsBox from "../Components/StudentProfile/DetailsBox";
+import XpBox from "../Components/StudentProfile/XpBox";
 
 const StudentProfile = () => {
   const [classes, setClasses] = useState([]);
@@ -33,6 +34,8 @@ const StudentProfile = () => {
   const [profilePicture, setProfilePicture] = useState();
   const [banner, setBanner] = useState(0);
   const [xp, setXp] = useState(0);
+  const [requiredXp, setRequiredXp] = useState(0);
+  const [level, setLevel] = useState(0);
   const [coins, setCoins] = useState(0);
 
   const tabs = ["Classes", "Achievements", "Assignments"];
@@ -56,10 +59,21 @@ const StudentProfile = () => {
     }
     //student details
     if (dataStudentDetails.hasOwnProperty("data")) {
-      const { FirstName, LastName, Email, Coins, Xp, ProfilePicture, Banner } =
-        dataStudentDetails.data[0];
+      const {
+        FirstName,
+        LastName,
+        Email,
+        Coins,
+        Xp,
+        RequiredXp,
+        Level,
+        ProfilePicture,
+        Banner,
+      } = dataStudentDetails.data[0];
       setUsersName(`${FirstName} ${LastName}`);
       setXp(Xp);
+      setRequiredXp(RequiredXp);
+      setLevel(Level);
       setCoins(Coins);
       setBanner(Banner);
       setProfilePicture(ProfilePicture);
@@ -94,8 +108,9 @@ const StudentProfile = () => {
                 </div>
               </div> */}
               {/* <UserIcon xp={xp} studentIcon={studentIcon} /> */}
-              <UserIcon xp={xp} studentIcon={profilePicture} />
+              <UserIcon level={level} studentIcon={profilePicture} />
               <DetailsBox username={usersName} coins={coins} />
+              <XpBox xp={xp} requiredXp={requiredXp} />
               {/* <div className="detail_box">
                 <div className="box">
                   <p>{coins} Coins</p>
@@ -105,7 +120,7 @@ const StudentProfile = () => {
                 </div>
               </div> */}
             </div>
-            <Progressbar />
+            <Progressbar xp={xp} requiredXp={requiredXp} />
           </div>
           <div className="content">
             <div className="tabs">

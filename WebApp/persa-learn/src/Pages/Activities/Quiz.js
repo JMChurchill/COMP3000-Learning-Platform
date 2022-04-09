@@ -20,6 +20,8 @@ const Quiz = () => {
   const [earnedCoins, setEarnedCoins] = useState(0);
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
+  const [remainingXp, setRemaining] = useState(0);
+  const [totalXp, setTotalXp] = useState(0);
 
   // data passed from previous page (quiz id)
   const { state } = useLocation();
@@ -64,6 +66,9 @@ const Quiz = () => {
       setScore(answers.length - data.wrongAnswers.length);
       setEarnedXp(data.xp);
       setEarnedCoins(data.coins);
+      setLevel(data.level);
+      setTotalXp(data.totalXp);
+      setRemaining(data.remainingXp);
       setIsComplete(true);
     } else alert("answer all the questions");
   };
@@ -100,6 +105,8 @@ const Quiz = () => {
           level={level}
           earnedXp={earnedXp}
           earnedCoins={earnedCoins}
+          totalXp={totalXp}
+          remainingXp={remainingXp}
         />
       ) : (
         <></>

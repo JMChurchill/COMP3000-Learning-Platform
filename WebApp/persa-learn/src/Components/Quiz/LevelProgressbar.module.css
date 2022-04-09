@@ -1,0 +1,35 @@
+.container {
+  margin: 3rem 1rem;
+  background-color: red;
+  line-height: normal;
+}
+.required {
+  background-color: aqua;
+  text-align: right;
+}
+.progressbar {
+  background-color: white;
+  width: 100%;
+  height: 1.5rem;
+  border-radius: 2rem;
+  padding: 0;
+  box-shadow: 0 0.5rem 0.5rem -0.4em black;
+  z-index: 99;
+  border: 1px solid #bbb;
+  transition: all 1000ms;
+}
+.bar_fill2 {
+  background-color: grey;
+  width: 0%;
+  height: 100%;
+  border-radius: 2rem;
+  z-index: 999;
+}
+.bar_fill {
+  transform: translate(0, -100%);
+  background-color: var(--progressbar-color);
+  width: 0%;
+  height: 100%;
+  border-radius: 2rem;
+  z-index: 0;
+}
