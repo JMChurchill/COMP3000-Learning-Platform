@@ -65,6 +65,25 @@ DELIMITER ;
 CALL update_banner ( "email2@email.com", "password", "changedFirst", "changedLast", "email2@email.com", "password")
 
 
+ # update xp and level
+DELIMITER $$
+CREATE PROCEDURE update_xp_level (nXp int, nLevel int, sEmail varchar(255),sPassword varchar(60))
+BEGIN
+    DECLARE theStudentID int;
+    SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
+    IF EXISTS (SELECT * FROM students WHERE email = sEmail AND password = sPassword) THEN
+        UPDATE students SET Xp = nXp, Level = nLevel WHERE studentID = theStudentID AND password = sPassword LIMIT 1;
+    ELSE
+    ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+# execute
+CALL update_banner ( "email2@email.com", "password", "changedFirst", "changedLast", "email2@email.com", "password")
+
+
+
 
 # delete student
 DELIMITER $$
@@ -91,7 +110,7 @@ BEGIN
     /* DECLARE theStudentID int; */
     /* SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1); */
     IF EXISTS (SELECT * FROM students WHERE email = sEmail AND password = sPassword) THEN
-        SELECT FirstName, LastName, Email, Xp, Coins, ProfilePicture, Banner FROM students WHERE email = sEmail AND password = sPassword;
+        SELECT FirstName, LastName, Email, Xp, Level, Coins, ProfilePicture, Banner FROM students WHERE email = sEmail AND password = sPassword;
     ELSE
     ROLLBACK;
     END IF;
