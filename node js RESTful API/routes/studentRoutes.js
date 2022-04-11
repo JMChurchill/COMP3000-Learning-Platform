@@ -6,9 +6,9 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../config/db");
 const bcrypt = require("bcrypt");
-const { check, validationResult } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
+const { check, validationResult } = require("express-validator");
 const { requiredXp } = require("../LevelSystem/Level");
 
 router.route("/login").post(async (req, res) => {
@@ -16,6 +16,7 @@ router.route("/login").post(async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   };
+  // get all students from database with corresponding email
   const query = `SELECT * FROM students WHERE email = "${data.email}"`;
   pool.query(query, async (error, results) => {
     console.log(query);
@@ -23,14 +24,18 @@ router.route("/login").post(async (req, res) => {
       return res.status(500).json({ status: "failure", reason: error.code });
     }
     if (!results[0]) {
+      // no students with that email
       res.status(401).json({ status: "Email or Password incorrect" });
     } else {
       try {
+        // compare input password with password on database
         if (await bcrypt.compare(req.body.password, results[0].Password)) {
           data.password = results[0].Password;
+          // create jwt of email and password with a predefined expiry time
           const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
             expiresIn: parseInt(process.env.EXPIRES_IN),
           });
+          // return token
           res.status(200).json({
             message: "Successfull login",
             token: token,
@@ -49,7 +54,7 @@ router.route("/login").post(async (req, res) => {
 router
   .route("/")
   .put(
-    checkAuth,
+    checkAuth, // <-- jwt middleware
     [
       check("email", "Invalid email").isEmail(),
       // check("password", "Password < 6").isLength({ min: 6 }),
@@ -63,7 +68,7 @@ router
           errors: errs.array(),
         });
       }
-      //get these values from check auth (JWT)
+      //get these values from checkAuth (JWT)
       const oEmail = req.user.email;
       const oPassword = req.user.password;
       // new values
