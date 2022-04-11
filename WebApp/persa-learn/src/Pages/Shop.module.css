@@ -28,12 +28,11 @@
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 
-.item {
+/* .item {
   border: 1px solid red;
   background-color: white;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   text-align: center;
   padding: 1rem;
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
@@ -41,7 +40,6 @@
 }
 .image {
   background-color: blue;
-  /* height: 10rem; */
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -49,11 +47,16 @@
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 
-  /* justify-content: center; */
 }
 
 .image p {
   background-color: black;
   color: white;
   padding: 0.5rem;
+} */
+
+@media (max-width: 35em) {
+  .items_container {
+    gap: min(2rem, 5%), min(2rem, 1%);
+  }
 }
