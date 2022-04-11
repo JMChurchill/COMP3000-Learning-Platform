@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { loginUser } from "../http_Requests/userRequests";
+import { loginUser } from "../../http_Requests/userRequests";
 
-import userIcon from "../assets/tempUserIcon.svg";
-import CustomButton from "./CustomButton";
-import CustomInput from "./CustomInput";
+import userIcon from "../../assets/tempUserIcon.svg";
+import CustomButton from "../CustomButton";
+import CustomInput from "../CustomInput";
 
-const LoginBox = ({ setToken, isTeacher }) => {
+import styles from "./LoginBox.module.css";
+
+const LoginBox = ({ setToken, isTeacher, signUp }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isError, setIsError] = useState(false);
@@ -68,38 +70,29 @@ const LoginBox = ({ setToken, isTeacher }) => {
   };
 
   return (
-    <div className="right-box">
-      <img src={userIcon} alt="User icon" />
+    // <div className="right-box">
+    <>
+      {/* <img src={userIcon} alt="User icon" /> */}
       <h1>Login</h1>
-      {isError ? <p className="error-message">{reason}</p> : ""}
-      {/* <p>An error occured</p> */}
-      {/* <form action="" onSubmit={login}> */}
-      {/* <input
-        type="text"
-        name="email"
-        onChange={(e) => setEmail(e.target.value)}
-      /> */}
-      {/* <input
-        type="password"
-        name="password"
-        onChange={(e) => setPassword(e.target.value)}
-      /> */}
-      {/* <input type="submit" className="btn" value="login" /> */}
-      {/* </form> */}
-      <label htmlFor="email">Email</label>
+      {isError ? <p className={styles.error_message}>{reason}</p> : ""}
+
+      <label htmlFor="email" className={styles.title}>
+        Email
+      </label>
       <CustomInput name={email} setValue={setEmail} />
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password" className={styles.title}>
+        Password
+      </label>
       <CustomInput password={true} name={password} setValue={setPassword} />
-      {/* <button className="btn" onClick={logout}>
-        Temp logout btn
-      </button> */}
       <CustomButton type={1} text={"Login"} onClick={() => login()} />
-      <CustomButton
+      {/* <CustomButton
         type={2}
         text={"temp logout btn"}
         onClick={() => logout()}
-      />
-    </div>
+      /> */}
+      <CustomButton type={2} text={"Sign Up"} onClick={signUp} />
+    </>
+    // </div>
   );
 };
 

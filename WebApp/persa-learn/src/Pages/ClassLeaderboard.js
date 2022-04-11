@@ -8,6 +8,7 @@ import tempUserIcon from "../assets/UserIcons/001-man-1.png";
 import { getStudentsInClass } from "../http_Requests/userRequests";
 import TopStudent from "../Components/LeaderBoard/TopStudent";
 
+import styles from "./ClassLeaderboard.module.css";
 const ClassLeaderboard = () => {
   const { state } = useLocation();
   const [students, setStudents] = useState([]);
@@ -38,28 +39,30 @@ const ClassLeaderboard = () => {
   return (
     <div className="content-box">
       <h1>Class leaderboard</h1>
-      <div className="container wide-container center-container">
-        <div className="leaderboard-box">
-          <div className="top-students">
-            {topThree.map((student, i) => {
-              let pos = i + 1;
-              //adjust position for order of array (to display fist place in center)
-              if (pos == 1) pos = 2;
-              else if (pos == 2) pos = 1;
-              if (i < 3) {
-                return (
-                  <TopStudent
-                    key={i}
-                    icon={tempUserIcon}
-                    name={`${student.FirstName} ${student.LastName}`}
-                    position={pos}
-                    xp={student.Xp}
-                  />
-                );
-              }
-            })}
-          </div>
-
+      {/* <div className="container wide-container center-container"> */}
+      {/* <div className="leaderboard-box"> */}
+      <div className={styles.container}>
+        {/* <div className="top-students"> */}
+        <div className={styles.top_students_container}>
+          {topThree.map((student, i) => {
+            let pos = i + 1;
+            //adjust position for order of array (to display fist place in center)
+            if (pos == 1) pos = 2;
+            else if (pos == 2) pos = 1;
+            if (i < 3) {
+              return (
+                <TopStudent
+                  key={i}
+                  icon={tempUserIcon}
+                  name={`${student.FirstName} ${student.LastName}`}
+                  position={pos}
+                  xp={student.Xp}
+                />
+              );
+            }
+          })}
+        </div>
+        <div className={styles.students_container}>
           {students.map((student, i) => {
             if (i > 3) {
               return (
@@ -76,6 +79,7 @@ const ClassLeaderboard = () => {
         </div>
       </div>
     </div>
+    // </div>
   );
 };
 

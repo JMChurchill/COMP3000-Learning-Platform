@@ -1,6 +1,7 @@
 .container {
   position: absolute;
   right: 0;
+  bottom: 0;
   margin: 0.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: var(--border-radius);
@@ -9,4 +10,10 @@
 }
 .container p {
   color: white;
+}
+
+@media (max-width: 35em) {
+  .container p {
+    font-size: 1.5rem;
+  }
 }

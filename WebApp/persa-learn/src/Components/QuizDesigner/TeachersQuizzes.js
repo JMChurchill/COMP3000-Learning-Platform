@@ -1,9 +1,10 @@
 import React from "react";
 import { MdAdd } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import styles from "./TeachersQuizzes.module.css";
 import QuizListItem from "./QuizListItem";
 import CustomButton from "../CustomButton";
+
+import styles from "./TeachersQuizzes.module.css";
 
 const TeachersQuizzes = ({
   quizzes = [],
@@ -20,8 +21,8 @@ const TeachersQuizzes = ({
         {/* <div className="quiz-cols quiz-col-names"> */}
         <div className={styles.quiz_cols}>
           <p>Quiz names</p>
-          <p>Module</p>
-          <p>Number of Questions</p>
+          <p className={styles.module}>Module</p>
+          <p className={styles.num_quest}>No. of Questions</p>
           <p>Options</p>
           <p>Due</p>
         </div>

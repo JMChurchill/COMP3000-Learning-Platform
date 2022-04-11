@@ -1,0 +1,35 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+.overlay[aria-disabled="true"] {
+  display: none;
+}
+.message_box {
+  background-color: white;
+  padding: 2% 10%;
+  margin: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.primary {
+  border-color: var(--nav-text-color);
+  font-size: 1.5rem;
+  width: 50%;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1rem;
+  transition: all 200ms;
+  box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
+  margin: 0.5rem 10%;
+}
+.primary:hover {
+  border-color: var(--primary-color);
+}

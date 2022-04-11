@@ -26,3 +26,16 @@
   margin-bottom: auto;
   color: white;
 }
+@media (max-width: 35em) {
+  .detail_box {
+    height: 100%;
+    justify-content: flex-start;
+    /* position: absolute; */
+  }
+  .detail_box .box p {
+    font-size: 1.5rem;
+  }
+  .detail_box .name_box p {
+    font-size: 1.5rem;
+  }
+}

@@ -7,7 +7,7 @@ import CustomInput from "../Components/CustomInput";
 // import userIcon from "../assets/tempLogo.svg";
 
 // components
-import LoginBox from "../Components/LoginBox";
+import LoginBox from "../Components/Login/LoginBox";
 
 const Home = ({ setToken }) => {
   return (
@@ -48,9 +48,9 @@ const Home = ({ setToken }) => {
           <CustomButton type={3} text={"Special"} />
           <CustomInput />
         </div>
-        {/* <div className="right-box"> */}
-        <LoginBox setToken={setToken} />
-        {/* </div> */}
+        <div className="right-box">
+          <LoginBox setToken={setToken} />
+        </div>
       </div>
     </div>
   );

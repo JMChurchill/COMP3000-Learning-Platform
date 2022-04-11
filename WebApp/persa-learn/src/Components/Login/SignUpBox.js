@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import CustomButton from "./CustomButton";
-import CustomInput from "./CustomInput";
+import CustomButton from "../CustomButton";
+import CustomInput from "../CustomInput";
+
+import styles from "./SignUpBox.module.css";
 
 const SignUpBox = ({ setSignUp, isTeacher }) => {
   const [email, setEmail] = useState();
@@ -78,26 +80,38 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
     }
   };
   return (
-    <div className="right-box">
+    // <div className="right-box">
+    <>
       <h1>Sign up</h1>
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email" className={styles.title}>
+        Email
+      </label>
       <CustomInput name={email} setValue={setEmail} />
-      <label htmlFor="email">Password</label>
+      <label htmlFor="password" className={styles.title}>
+        Password
+      </label>
       <CustomInput password={true} name={password} setValue={setPassword} />
-      <label htmlFor="email">First name</label>
+      <label htmlFor="firstname" className={styles.title}>
+        First name
+      </label>
       <CustomInput name={firstname} setValue={setFirstname} />
-      <label htmlFor="email">Last name</label>
+      <label htmlFor="lastname" className={styles.title}>
+        Last name
+      </label>
       <CustomInput name={lastname} setValue={setLastname} />
       {isTeacher ? (
         <>
-          <label htmlFor="phonenumber">Phone number</label>
+          <label htmlFor="phonenumber" className={styles.title}>
+            Phone number
+          </label>
           <CustomInput name={phonenumber} setValue={setPhonenumber} />
         </>
       ) : (
         <></>
       )}
       <CustomButton type={1} text={"Sign up"} onClick={() => signUp()} />
-    </div>
+      <CustomButton type={2} text={"Login"} onClick={() => setSignUp(false)} />
+    </>
   );
 };
 

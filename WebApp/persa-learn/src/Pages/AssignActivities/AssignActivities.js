@@ -8,9 +8,11 @@ import {
   viewTeachersQuizzesByClass,
 } from "../../http_Requests/teacherRequests";
 
-import DatePicker from "react-datepicker";
+import styles from "./AssignActivities.module.css";
 
 import "react-datepicker/dist/react-datepicker.css";
+import AssignmentOverlay from "../../Components/TeacherProfile/AssignActivities/AssignmentOverlay";
+import DeleteOverlay from "../../Components/TeacherProfile/AssignActivities/DeleteOverlay";
 
 const AssignActivities = () => {
   const { state } = useLocation();
@@ -82,65 +84,37 @@ const AssignActivities = () => {
   };
   return (
     <div className="content-box">
-      <div className="container wide-container center-container">
-        <h1>Assign quizzes to class {selectedClass.className}</h1>
-        <div className="container wide-container center-container">
-          <div className="content">
-            <TeachersQuizzes
-              quizzes={quizzes}
-              assignToClass={assignToClass}
-              deleteQuiz={deleteQuiz}
-              selectedClass={selectedClass}
-            />
-          </div>
-        </div>
+      {/* <div className="container wide-container center-container"> */}
+      <h1>Assign quizzes to class {selectedClass.className}</h1>
+      {/* <div className="container wide-container center-container"> */}
+      {/* <div className="content"> */}
+      <div className={styles.container}>
+        <TeachersQuizzes
+          quizzes={quizzes}
+          assignToClass={assignToClass}
+          deleteQuiz={deleteQuiz}
+          selectedClass={selectedClass}
+        />
       </div>
-      <div className="overlay" aria-disabled={!settingDate}>
-        <div className="message-box">
-          <h1>Assign module</h1>
-          <DatePicker
-            selected={dueDate}
-            onChange={(date) => setDueDate(date)}
-            placeholderText="Due date"
-            dateFormat="dd/MM/yyyy"
-            minDate={new Date()}
-          />
-          <input placeholder="xp" onChange={(e) => setXp(e.target.value)} />
-          <input
-            placeholder="coins"
-            onChange={(e) => setCoins(e.target.value)}
-          />
-          <button className="btn" onClick={() => submitAssignToClass()}>
-            Ok
-          </button>
-
-          <button
-            className="btn"
-            onClick={() => {
-              setSettingDate(false);
-            }}
-          >
-            Back
-          </button>
-        </div>
-      </div>
-      {/* confirm deletion */}
-      <div className="overlay" aria-disabled={!isDeleting}>
-        <div className="message-box">
-          <h1>Are you sure you want to delete this assignment?</h1>
-          <button className="btn" onClick={() => deleteNow()}>
-            Yes
-          </button>
-          <button
-            className="btn"
-            onClick={() => {
-              setIsDelete(false);
-            }}
-          >
-            No
-          </button>
-        </div>
-      </div>
+      {/* </div> */}
+      {/* </div> */}
+      {settingDate ? (
+        <AssignmentOverlay
+          dueDate={dueDate}
+          setDueDate={setDueDate}
+          setXp={setXp}
+          setCoins={setCoins}
+          submitAssignToClass={submitAssignToClass}
+          setSettingDate={setSettingDate}
+        />
+      ) : (
+        <></>
+      )}
+      {isDeleting ? (
+        <DeleteOverlay setIsDelete={setIsDelete} deleteNow={deleteNow} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

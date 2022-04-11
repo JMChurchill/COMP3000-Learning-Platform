@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styles from "./Navbar.module.css";
+
+import { MdMenu } from "react-icons/md";
 
 import logo from "../assets/tempLogo.svg";
 
@@ -20,24 +23,29 @@ const Navbar = () => {
     // setToken("");
   };
   return (
-    <header className="primary-header flex">
+    // <header className="primary-header flex">
+    <header className={styles.primary_header}>
       <div>
-        <img src={logo} alt="logo" className="logo" />
+        {/* <img src={logo} alt="logo" className="logo" /> */}
+        <img src={logo} alt="logo" className={styles.logo} />
       </div>
       <button
-        className="mobile-nav-toggle"
+        // className="mobile-nav-toggle"
+        className={styles.mobile_nav_toggle}
         aria-controls="primary-navigation"
         aria-expanded={navVisibility}
         // aria-expanded="true"
         onClick={navToggle}
       >
         {/* <span className="sr-only">Menu</span> */}
+        <MdMenu />
       </button>
       <nav>
         <ul
           id="primary-navigation"
           data-visable={navVisibility}
-          className="primary-navigation flex"
+          // className="primary-navigation flex"
+          className={styles.primary_navigation}
         >
           <li>
             <Link aria-current="true" to="/">
@@ -45,7 +53,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link aria-current="true" to="/shop">
+            <Link aria-current="false" to="/shop">
               Shop
             </Link>
           </li>

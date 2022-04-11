@@ -7,10 +7,9 @@ import {
   Link,
 } from "react-router-dom";
 
-import { FaCog } from "react-icons/fa";
-
 import ClassItem from "../Components/StudentProfile/ClassItem";
 import AssignmentItem from "../Components/StudentProfile/AssignmentItem";
+import Banner from "../Components/StudentProfile/Banner";
 
 import {
   getStudentsAssignmentQuizzes,
@@ -18,11 +17,7 @@ import {
   getUserDetails,
 } from "../http_Requests/userRequests";
 
-import studentIcon from "../assets/UserIcons/001-man-1.png";
-import UserIcon from "../Components/StudentProfile/UserIcon";
-import Progressbar from "../Components/StudentProfile/Progressbar";
-import DetailsBox from "../Components/StudentProfile/DetailsBox";
-import XpBox from "../Components/StudentProfile/XpBox";
+import styles from "./StudentProfile.module.css";
 
 const StudentProfile = () => {
   const [classes, setClasses] = useState([]);
@@ -44,16 +39,8 @@ const StudentProfile = () => {
     const [dataClasses, dataStudentDetails, dataAssignment] = await Promise.all(
       [getStudentsClassses(), getUserDetails(), getStudentsAssignmentQuizzes()]
     );
-    // dataXp,
-    //   dataCoins,
-    // getStudentXp(),
-    //   getStudentCoins(),
     console.log(dataStudentDetails);
-    //xp
-    // setXp(dataXp.data[0].Xp);
-    //coins
-    // setCoins(dataCoins.data[0].Coins);
-    //classes
+
     if (dataClasses.hasOwnProperty("data")) {
       setClasses(dataClasses.data);
     }
@@ -86,102 +73,82 @@ const StudentProfile = () => {
 
   return (
     <div className="content-box">
-      <div className="container wide-container center-container">
-        <h1>Student profile</h1>
-        <div className="container wide-container center-container">
-          <div className="banner" style={{ background: `url(${banner})` }}>
-            <div className="top">
-              <div className="settings-btn">
-                <Link
-                  to="/user_settings"
-                  style={{ textDecoration: "none", zIndex: "999" }}
+      {/* <div className="container wide-container center-container"> */}
+      <h1>Student profile</h1>
+      {/* <div className="container wide-container center-container"> */}
+      <div className={styles.container}>
+        <Banner
+          banner={banner}
+          level={level}
+          profilePicture={profilePicture}
+          usersName={usersName}
+          coins={coins}
+          xp={xp}
+          requiredXp={requiredXp}
+        />
+        {/* <div className="content"> */}
+        <div className={styles.content}>
+          <div className={styles.tabs}>
+            {tabs.map((tab, i) => {
+              // highlight selected tab
+              let isSelected = false;
+              let j = i + 1;
+              if (j === selectedTab) {
+                isSelected = true;
+              }
+              return (
+                <h3
+                  key={j}
+                  aria-selected={isSelected}
+                  onClick={() => setSelectedTab(j)}
                 >
-                  <FaCog />
-                </Link>
-              </div>
-            </div>
-            <div className="upper">
-              {/* <div className="user-icon">
-                <img src={studentIcon} alt="user icon" height="100px" />
-                <div className="xp">
-                  <p>{xp}xp</p>
-                </div>
-              </div> */}
-              {/* <UserIcon xp={xp} studentIcon={studentIcon} /> */}
-              <UserIcon level={level} studentIcon={profilePicture} />
-              <DetailsBox username={usersName} coins={coins} />
-              <XpBox xp={xp} requiredXp={requiredXp} />
-              {/* <div className="detail_box">
-                <div className="box">
-                  <p>{coins} Coins</p>
-                </div>
-                <div className="name-box">
-                  <p>{usersName}</p>
-                </div>
-              </div> */}
-            </div>
-            <Progressbar xp={xp} requiredXp={requiredXp} />
+                  {tab}
+                </h3>
+              );
+            })}
           </div>
-          <div className="content">
-            <div className="tabs">
-              {tabs.map((tab, i) => {
-                // highlight selected tab
-                let isSelected = false;
-                let j = i + 1;
-                if (j === selectedTab) {
-                  isSelected = true;
-                }
-                return (
-                  <h3
-                    key={j}
-                    aria-selected={isSelected}
-                    onClick={() => setSelectedTab(j)}
-                  >
-                    {tab}
-                  </h3>
-                );
-              })}
+          {selectedTab == 1 ? (
+            // <div className="class-items list-items">
+            <div className={styles.list_items}>
+              {classes.map((c) => (
+                <ClassItem
+                  key={c.ClassDetailsID}
+                  id={c.ClassDetailsID}
+                  name={c.Name}
+                  firstname={c.FirstName}
+                  lastname={c.LastName}
+                  yearGroup={c.YearGroup}
+                />
+              ))}
             </div>
-            {selectedTab == 1 ? (
-              <div className="class-items list-items">
-                {classes.map((c) => (
-                  <ClassItem
-                    key={c.ClassDetailsID}
-                    id={c.ClassDetailsID}
-                    name={c.Name}
-                    firstname={c.FirstName}
-                    lastname={c.LastName}
-                    yearGroup={c.YearGroup}
-                  />
-                ))}
-              </div>
-            ) : (
-              <></>
-            )}
+          ) : (
+            <></>
+          )}
 
-            {selectedTab == 2 ? <></> : <></>}
+          {selectedTab == 2 ? <></> : <></>}
 
-            {selectedTab == 3 ? (
-              <div className="assignment-items list-items">
-                {assignments.map((a) => (
-                  <AssignmentItem
-                    key={a.QuizID}
-                    id={a.QuizID}
-                    assignmentName={a.QuizName}
-                    teacherName={`${a.FirstName} ${a.LastName}`}
-                    ModuleName={a.ModuleName}
-                    Caption={a.Caption}
-                    dueDate={a.DueDate}
-                  />
-                ))}
-              </div>
-            ) : (
-              <></>
-            )}
-          </div>
+          {selectedTab == 3 ? (
+            // <div className="assignment-items list-items">
+            <div className={styles.list_items}>
+              {assignments.map((a) => (
+                <AssignmentItem
+                  key={a.QuizID}
+                  id={a.QuizID}
+                  assignmentName={a.QuizName}
+                  teacherName={`${a.FirstName} ${a.LastName}`}
+                  ModuleName={a.ModuleName}
+                  Caption={a.Caption}
+                  dueDate={a.DueDate}
+                />
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
+    // </div>
   );
 };
 

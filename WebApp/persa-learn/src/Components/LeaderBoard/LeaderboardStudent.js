@@ -11,9 +11,13 @@ const LeaderboardStudent = ({
     <div className={styles.leaderboard_student}>
       <p>{position}</p>
       {/* <div className="img-container"> */}
-      <img src={icon} alt="user icon" height="75px" />
+      <div
+        style={{ backgroundImage: `url(${icon})`, backgroundSize: "cover" }}
+        className={styles.image}
+      ></div>
+      {/* <img src={icon} alt="user icon" height="75px" /> */}
       {/* </div> */}
-      <h2>{name}</h2>
+      <p>{name}</p>
       <p>{xp}xp</p>
     </div>
   );

@@ -6,18 +6,19 @@
   width: 30%;
 }
 .medal {
+  display: flex;
+  align-items: center;
   background-color: gold;
   width: fit-content;
   align-self: center;
-  padding: 2%;
+  padding: 0.5rem;
   aspect-ratio: 1;
   border-radius: 100rem;
   transform: translateY(-50%);
   color: #fff;
 }
-p {
-  font-size: 1.8rem;
-  font-weight: bold;
+.top_student p {
+  font-size: 1.5rem;
   margin: 0.2rem;
 }
 .img_container {
@@ -27,10 +28,10 @@ p {
   margin: auto;
   display: flex;
   justify-content: center;
-  width: 50%;
+  width: max(70%, 8rem);
   aspect-ratio: 1;
 }
-img {
+.img_container img {
   width: 90%;
   height: 90%;
   margin: auto;

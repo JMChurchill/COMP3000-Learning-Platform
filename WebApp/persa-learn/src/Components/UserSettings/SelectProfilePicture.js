@@ -57,7 +57,13 @@ const SelectProfilePicture = ({ close, getDetails }) => {
             />
           ))}
         </div>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
           <CustomButton text={"Confirm"} onClick={updatePicture} />
           <CustomButton text={"Back"} type={2} onClick={close} />
         </div>

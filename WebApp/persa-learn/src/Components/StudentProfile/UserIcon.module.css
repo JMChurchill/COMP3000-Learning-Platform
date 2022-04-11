@@ -4,10 +4,12 @@
   justify-content: end;
   align-items: center;
   text-align: center;
+  margin: 0.5rem 1rem;
   /* width: auto; */
   /* margin-bottom: 4rem; */
   /* height: 60%; */
-  width: 10%;
+  /* width: 10%; */
+  width: 10rem;
   /* padding-left: 1rem; */
   transform: translateY(-1.5rem);
   /* background-color: white; */
@@ -25,8 +27,18 @@
   width: fit-content;
   transform: translateY(1.5rem);
 }
-p {
+.xp p {
   margin: 0.25rem 0.5rem;
   font-weight: bold;
   color: black;
+}
+@media (max-width: 35em) {
+  .user_icon {
+    width: 35%;
+    /* transform: translateY(0.5rem); */
+    z-index: 100;
+  }
+  .xp p {
+    font-size: 1.4rem;
+  }
 }

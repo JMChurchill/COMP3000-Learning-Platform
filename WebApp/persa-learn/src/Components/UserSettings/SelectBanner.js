@@ -44,7 +44,7 @@ const SelectBanner = ({ close, getDetails }) => {
         <BannerSelect />
         <BannerSelect /> */}
         </div>
-        <div>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <CustomButton text={"Confirm"} onClick={updatePicture} />
           <CustomButton text={"Back"} type={2} onClick={close} />
         </div>

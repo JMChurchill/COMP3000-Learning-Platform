@@ -17,8 +17,8 @@ const QuizListItem = ({
     // <div className="quiz-list-items quiz-cols">
     <div className={styles.quiz_cols}>
       <p>{name}</p>
-      <p>{module}</p>
-      <p>{numQuest}</p>
+      <p className={styles.module}>{module}</p>
+      <p className={styles.num_quest}>{numQuest}</p>
       <div className={styles.icon}>
         <ToolTip
           Icon={MdAdd}
