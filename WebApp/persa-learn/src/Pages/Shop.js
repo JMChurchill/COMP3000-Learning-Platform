@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OverlayItemDetails from "../Components/Shop/OverlayItemDetails";
 import ShopItem from "../Components/Shop/ShopItem";
+import { getUnpurchasedItems } from "../http_Requests/StudentRequests/ItemRequests";
 import styles from "./Shop.module.css";
 
 const Shop = () => {
@@ -25,19 +26,74 @@ const Shop = () => {
     "https://cdn-icons-png.flaticon.com/512/194/194916.png",
     "https://cdn-icons-png.flaticon.com/512/194/194915.png",
   ];
+  const [allItems, setAllItems] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [tabs, setTabs] = useState([
+    "All",
+    "Profile Pictures",
+    "Banners",
+    "Themes",
+  ]);
 
   const itemSelected = (item) => {
     setSelectedItem(item);
     setIsSelected(true);
   };
+  const getItems = async () => {
+    const data = await getUnpurchasedItems();
+    // console.log(data.data);
+    setAllItems(data.data);
+  };
+  useEffect(async () => {
+    await getItems();
+  }, []);
   return (
     <div className="content-box">
       {/* <div className="container wide-container center-container"> */}
       <h1>Shop</h1>
       <div className={styles.container}>
+        <div className={styles.tabs}>
+          {tabs.map((tab, i) => {
+            // highlight selected tab
+            let isSelected = false;
+            if (i === selectedTab) {
+              isSelected = true;
+            }
+            return (
+              <h3
+                key={i}
+                aria-selected={isSelected}
+                onClick={() => setSelectedTab(i)}
+              >
+                {tab}
+              </h3>
+            );
+          })}
+        </div>
+
         <div className={styles.items_container}>
+          {allItems.length == 0 ? (
+            <p>
+              Looks like where out of stock... <br />
+              Come back another time
+            </p>
+          ) : (
+            allItems.map((item) => {
+              return (
+                <ShopItem
+                  itemID={item.ItemID}
+                  type={item.Type}
+                  name={item.Name}
+                  image={item.Image}
+                  details={item.Details}
+                  cost={item.Cost}
+                  itemSelected={itemSelected}
+                />
+              );
+            })
+          )}
           {/* <div className={styles.item}>
             <p>Type</p>
             <div className={styles.image}>
@@ -45,7 +101,7 @@ const Shop = () => {
             </div>
             <p>Item</p>
           </div> */}
-          <ShopItem
+          {/* <ShopItem
             type={"Profile picture"}
             name={"alien"}
             image={images[9]}
@@ -86,19 +142,19 @@ const Shop = () => {
             primary={"Pink"}
             secondary={"white"}
             itemSelected={itemSelected}
-          />
+          /> */}
         </div>
       </div>
       {isSelected ? (
         <OverlayItemDetails
           selectedItem={selectedItem}
+          getItems={getItems}
           close={() => setIsSelected(false)}
         />
       ) : (
         <></>
       )}
     </div>
-    // </div>
   );
 };
 

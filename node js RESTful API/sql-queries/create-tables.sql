@@ -239,7 +239,11 @@ CREATE TABLE Items(
     Details text,
     Image text NOT NULL,
     Cost int NOT NULL,
-    PRIMARY KEY (ItemID)
+    TypeID int NOT NULL,
+    PRIMARY KEY (ItemID),
+    FOREIGN KEY (TypeID)
+        REFERENCES ItemsType(TypeID)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE ItemsPurchased(
@@ -254,3 +258,8 @@ CREATE TABLE ItemsPurchased(
         ON DELETE CASCADE
 );
 
+CREATE TABLE ItemsType(
+    TypeID int NOT NULL AUTO_INCREMENT,
+    Name varchar(60) NOT NULL,
+    PRIMARY KEY (TypeID)
+);

@@ -2,10 +2,12 @@ import React from "react";
 import styles from "./ShopItem.module.css";
 
 const ShopItem = ({
+  itemID,
   type,
   image,
   name,
-  coins = 0,
+  details,
+  cost = 0,
   primary = "black",
   secondary = "white",
   itemSelected,
@@ -13,7 +15,7 @@ const ShopItem = ({
   return (
     <div
       className={styles.item}
-      onClick={() => itemSelected({ type, image, name, coins })}
+      onClick={() => itemSelected({ itemID, type, image, details, name, cost })}
     >
       <p>{type}</p>
       <div
@@ -41,7 +43,7 @@ const ShopItem = ({
         <p>Select</p>
       </div>
       <p>{name}</p>
-      <p>{coins} coins</p>
+      <p>{cost} coins</p>
     </div>
   );
 };

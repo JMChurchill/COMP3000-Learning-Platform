@@ -1,7 +1,7 @@
 import React from "react";
 import CustomButton from "./CustomButton";
 import styles from "./OverlayConfirm.module.css";
-const OverlayConfirm = ({ message, yes, no }) => {
+const OverlayConfirm = ({ message, yes, no, type = 1 }) => {
   return (
     <div className={styles.overlay}>
       {/* <div className="message-box"> */}
@@ -13,8 +13,8 @@ const OverlayConfirm = ({ message, yes, no }) => {
         <button className="btn" onClick={no}>
           no
         </button> */}
-        <CustomButton text={"Yes"} onClick={yes} />
-        <CustomButton text={"No"} onClick={no} type={2} />
+        <CustomButton text={type == 1 ? "Yes" : "Ok"} onClick={yes} />
+        {type == 1 ? <CustomButton text={"No"} onClick={no} type={2} /> : <></>}
       </div>
     </div>
   );

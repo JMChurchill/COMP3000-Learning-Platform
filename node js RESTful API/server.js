@@ -12,6 +12,8 @@ const classesRouter = require("./routes/classRoutes");
 const moduleRouter = require("./routes/moduleRoutes");
 const quizRouter = require("./routes/ActivityRoutes/quizRoutes");
 const flashcardRouter = require("./routes/ActivityRoutes/flashcardRoutes");
+const itemRouter = require("./routes/ItemRoutes");
+const itemPurchasedRouter = require("./routes/ItemPurchasedRoutes");
 
 const cors = require("cors");
 const { levelUp } = require("./LevelSystem/Level");
@@ -39,6 +41,8 @@ app.use("/classes", classesRouter);
 app.use("/module", moduleRouter);
 app.use("/quiz", quizRouter);
 app.use("/decks", flashcardRouter);
+app.use("/items", itemRouter);
+app.use("/itemsPurchased", itemPurchasedRouter);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
