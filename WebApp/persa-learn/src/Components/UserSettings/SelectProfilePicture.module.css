@@ -18,6 +18,7 @@
   margin: 100rem 5%;
   height: 70%;
   border-radius: var(--border-radius);
+  text-align: center;
   /* width: 100%; */
 }
 .all_picture_container {
@@ -34,4 +35,11 @@
   border-radius: var(--border-radius);
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+
+@media (max-width: 35em) {
+  .all_picture_container {
+    /* gap: min(2rem, 5%), min(2rem, 1%); */
+    justify-content: center;
+  }
 }
