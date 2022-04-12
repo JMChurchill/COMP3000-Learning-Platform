@@ -17,6 +17,6 @@
 }
 @media (max-width: 35em) {
   .assignment_item {
-    grid-template-columns: 30% 10% 20% 20% 20%;
+    grid-template-columns: 33% 33% 33%;
   }
 }

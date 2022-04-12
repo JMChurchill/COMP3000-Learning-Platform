@@ -11,3 +11,10 @@
 .primary:hover {
   border-color: var(--primary-color);
 }
+
+@media (max-width: 35em) {
+  .primary {
+    margin: 1rem !important;
+    width: 90% !important;
+  }
+}

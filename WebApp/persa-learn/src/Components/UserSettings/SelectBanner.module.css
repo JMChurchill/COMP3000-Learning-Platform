@@ -39,3 +39,15 @@
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
+.button_container {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 35em) {
+  .button_container {
+    /* gap: min(2rem, 5%), min(2rem, 1%); */
+    flex-direction: column;
+    /* justify-content: center; */
+  }
+}

@@ -33,7 +33,7 @@ const StudentProfile = () => {
   const [level, setLevel] = useState(0);
   const [coins, setCoins] = useState(0);
 
-  const tabs = ["Classes", "Achievements", "Assignments"];
+  const tabs = ["Classes", "Feed", "Assignments"];
   useEffect(async () => {
     //get page details
     const [dataClasses, dataStudentDetails, dataAssignment] = await Promise.all(
@@ -129,19 +129,29 @@ const StudentProfile = () => {
 
           {selectedTab == 3 ? (
             // <div className="assignment-items list-items">
-            <div className={styles.list_items}>
-              {assignments.map((a) => (
-                <AssignmentItem
-                  key={a.QuizID}
-                  id={a.QuizID}
-                  assignmentName={a.QuizName}
-                  teacherName={`${a.FirstName} ${a.LastName}`}
-                  ModuleName={a.ModuleName}
-                  Caption={a.Caption}
-                  dueDate={a.DueDate}
-                />
-              ))}
-            </div>
+            <>
+              <div className={styles.column_names}>
+                {/* //TODO: Style */}
+                <p>Name</p>
+                <p>Type</p>
+                <p>Teacher</p>
+                <p>Module</p>
+                <p>Due Date</p>
+              </div>
+              <div className={styles.list_items}>
+                {assignments.map((a) => (
+                  <AssignmentItem
+                    key={a.QuizID}
+                    id={a.QuizID}
+                    assignmentName={a.QuizName}
+                    teacherName={`${a.FirstName} ${a.LastName}`}
+                    ModuleName={a.ModuleName}
+                    Caption={a.Caption}
+                    dueDate={a.DueDate}
+                  />
+                ))}
+              </div>
+            </>
           ) : (
             <></>
           )}

@@ -26,13 +26,11 @@ const AssignmentItem = ({
         })
       }
     >
-      <p>{`Assignment name: ${assignmentName}`}</p>
-      <p>Type: {Caption}</p>
-      <p>Teacher: {teacherName}</p>
-      <p>Module: {ModuleName}</p>
-      <p>
-        Due date: {dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}
-      </p>
+      <p>{assignmentName}</p>
+      <p>{Caption}</p>
+      <p>{teacherName}</p>
+      <p className={styles.module}>Module: {ModuleName}</p>
+      <p>{dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}</p>
     </div>
     // <div
     //   key={id}

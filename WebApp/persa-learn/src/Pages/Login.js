@@ -18,14 +18,15 @@ const Login = ({ setToken }) => {
     <div className="content-box">
       <h1>Login</h1>
       {/* <div className="container center-container"> */}
-      <div className="container">
+      {/* <div className="container"> */}
+      <div className={styles.container}>
         {/* <div className="left-box"> */}
-        <div className={styles.left_box}>
+        {/* <div className={styles.left_box}>
           <h1>Not a member?</h1>
           <button className="btn" onClick={() => setSignUp(!signUp)}>
             Sign up
           </button>
-        </div>
+        </div> */}
         <div className={styles.right_box}>
           <img src={userIcon} alt="User icon" />
           <ToggleSwitch

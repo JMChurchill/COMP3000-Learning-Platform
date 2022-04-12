@@ -1,9 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
 .left_box,
 .right_box {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 45%;
+  width: max(30rem, 45%);
+  /* max-width: 100%; */
   padding: 2rem;
   background-color: var(--front-bg-color);
   border-radius: var(--border-radius);
@@ -24,3 +30,9 @@
     border-radius: var(--border-radius);
 
 } */
+@media (max-width: 35em) {
+  .left_box,
+  .right_box {
+    width: 90%;
+  }
+}
