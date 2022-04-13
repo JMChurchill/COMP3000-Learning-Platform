@@ -94,7 +94,6 @@
     font-weight: bold;
     color: white;
     position: relative;
-    /* padding-left: 0.5rem; */
     transition: all 300ms ease;
   }
   .primary_navigation a:hover {

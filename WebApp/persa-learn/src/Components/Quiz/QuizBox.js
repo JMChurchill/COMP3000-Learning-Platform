@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styles from "./QuizBox.module.css";
 
 const QuizBox = ({
   questionId,
@@ -30,12 +31,15 @@ const QuizBox = ({
     return answer;
   };
   return (
-    <div className="quiz-question">
-      <div className="question-box">
+    // <div className="quiz-question">
+    <div className={styles.container}>
+      {/* <div className="question-box"> */}
+      <div className={styles.question_container}>
         <h2>{question}</h2>
         <p>{details}</p>
       </div>
-      <ol type="a" className="quiz-answers">
+      {/* <ol type="a" className="quiz-answers"> */}
+      <ol type="a" className={styles.answer_container}>
         {options.map((ans, i) => {
           let selected = false;
           //check if question is answered
@@ -47,8 +51,15 @@ const QuizBox = ({
             selected = isAns.opt == i;
           }
           return (
-            <li key={i} id={i} onClick={logToCon}>
-              <div className="check-box" aria-selected={selected}></div>
+            // <li key={i} id={i} onClick={logToCon}>
+            <li
+              className={styles.option_container}
+              key={i}
+              id={i}
+              onClick={logToCon}
+            >
+              {/* <div className="check-box" aria-selected={selected}></div> */}
+              <div className={styles.check_box} aria-selected={selected}></div>
               <div>{ans}</div>
             </li>
           );

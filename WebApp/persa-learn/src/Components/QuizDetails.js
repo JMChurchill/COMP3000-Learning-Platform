@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Progressbar.module.css";
+import styles from "./QuizDetails.module.css";
 
 const Progressbar = ({ progress = 0, numQuestions }) => {
   const [widthPer, setWidthPer] = useState();
@@ -10,16 +10,18 @@ const Progressbar = ({ progress = 0, numQuestions }) => {
   }, [progress]);
 
   return (
-    <div className="progressbar">
-      <div className="top">
+    // <div className="progressbar">
+    <div className={styles.container}>
+      {/* <div className="top"> */}
+      <div className={styles.top}>
         <h2>
           Progress: {progress}/{numQuestions}
         </h2>
-        <div className="help-box">
+        {/* <div className="help-box">
           <p>Need help?</p>
           <button className="go-lesson-btn btn">Go to lesson</button>
           <button className="walk-through-btn btn">Walk through</button>
-        </div>
+        </div> */}
       </div>
       {/* <div className="bar"> */}
       <div className={styles.progressbar}>

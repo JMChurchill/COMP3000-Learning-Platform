@@ -15,6 +15,7 @@
   --selected-color: #e9e9ec;
   --on-text-hover: darkGray;
   --primary-color: #201d95;
+  --border-color: lightGrey;
   --border-radius: 0.2rem;
   // --box-shadow: (0 0.125rem 5rem -0.25rem black);
   // outer shadow
@@ -368,65 +369,63 @@ form {
   flex-wrap: wrap;
 }
 
-.content-box .container .quiz-question {
-  padding-top: 0;
-  margin: 1rem 0;
-  .question-box {
-    border-radius: 1rem 1rem;
-    border-bottom: grey solid 1px;
-    width: 100%;
-    h2 {
-      padding-left: 2rem;
-    }
-    p {
-      /* color: red; */
-      /* margin: auto 0; */
-      padding-left: 2rem;
-    }
-  }
-  .quiz-answers {
-    /* color: #4ffedf; */
-    width: 60%;
-    align-self: center;
-    justify-self: center;
-    border: solid 1px green;
-    font-size: 2rem;
-    li {
-      position: relative;
-      display: grid;
-      grid-template-columns: 5% 80%;
-      gap: 2rem;
+// .content-box .container .quiz-question {
+//   padding-top: 0;
+//   margin: 1rem 0;
+//   .question-box {
+//     border-radius: 1rem 1rem;
+//     border-bottom: grey solid 1px;
+//     width: 100%;
+//     h2 {
+//       padding-left: 2rem;
+//     }
+//     p {
+//       padding-left: 2rem;
+//     }
+//   }
+//   .quiz-answers {
+//     /* color: #4ffedf; */
+//     width: 60%;
+//     align-self: center;
+//     justify-self: center;
+//     border: solid 1px green;
+//     font-size: 2rem;
+//     li {
+//       position: relative;
+//       display: grid;
+//       grid-template-columns: 5% 80%;
+//       gap: 2rem;
 
-      border: 1px solid red;
-      width: auto;
-      border-radius: 1.8rem;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
+//       border: 1px solid red;
+//       width: auto;
+//       border-radius: 1.8rem;
+//       padding: 0.5rem;
+//       margin: 0.5rem 0;
 
-      cursor: pointer;
+//       cursor: pointer;
 
-      .check-box {
-        background-color: #bbb;
-        width: 100%;
-        margin: auto;
-        border-radius: 50%;
-        aspect-ratio: 1;
-        cursor: pointer;
-        &[aria-selected="true"] {
-          background-color: var(--success-color);
-        }
-        &:hover {
-          background-color: var(--success-color);
-        }
-      }
-      &:hover {
-        .check-box {
-          background-color: var(--success-color);
-        }
-      }
-    }
-  }
-}
+//       .check-box {
+//         background-color: #bbb;
+//         width: 100%;
+//         margin: auto;
+//         border-radius: 50%;
+//         aspect-ratio: 1;
+//         cursor: pointer;
+//         &[aria-selected="true"] {
+//           background-color: var(--success-color);
+//         }
+//         &:hover {
+//           background-color: var(--success-color);
+//         }
+//       }
+//       &:hover {
+//         .check-box {
+//           background-color: var(--success-color);
+//         }
+//       }
+//     }
+//   }
+// }
 
 /* activity box */
 .container .activity-box {

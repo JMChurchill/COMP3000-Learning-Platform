@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import QuizBox from "../Components/QuizBox";
+// import QuizBox from "../Components/QuizBox";
 import Activity from "../Components/Activity";
 
 const Activities = () => {

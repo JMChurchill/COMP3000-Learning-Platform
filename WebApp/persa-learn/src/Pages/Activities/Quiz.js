@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import QuizBox from "../../Components/QuizBox";
-import Progressbar from "../../Components/Progressbar";
+import QuizBox from "../../Components/Quiz/QuizBox";
+import Progressbar from "../../Components/QuizDetails";
 // import tempQuizData from "../../assets/tempQuizData.json";
 import { checkAnswers, getQuiz } from "../../http_Requests/userRequests";
 import { useLocation, useNavigate } from "react-router-dom";
 import Overlay from "../../Components/Quiz/Overlay";
+import styles from "./Quiz.module.css";
+import CustomButton from "../../Components/CustomButton";
 
 const Quiz = () => {
   const [quizID, setQuizID] = useState();
@@ -76,7 +78,8 @@ const Quiz = () => {
   return (
     <div className="content-box">
       <h1>{title}</h1>
-      <div className="container wide-container center-container">
+      {/* <div className="container wide-container center-container"> */}
+      <div className={styles.container}>
         <Progressbar
           progress={answers.length}
           numQuestions={questions.length}
@@ -95,9 +98,8 @@ const Quiz = () => {
           );
         })}
       </div>
-      <button className="btn" onClick={() => complete()}>
-        Complete
-      </button>
+
+      <CustomButton text={"Complete"} onClick={() => complete()} />
       {isComplete ? (
         <Overlay
           score={score}
