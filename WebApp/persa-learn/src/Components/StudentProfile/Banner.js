@@ -24,7 +24,15 @@ const Banner = ({
   requiredXp,
 }) => {
   return (
-    <div className={styles.banner} style={{ background: `url(${banner})` }}>
+    <div
+      className={styles.banner}
+      style={{
+        background: `url(${banner})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className={styles.top}>
         <div className={styles.settings_btn}>
           <Link
