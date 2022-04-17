@@ -8,7 +8,7 @@
   z-index: 10;
 }
 .overlay .message_box {
-  background-color: white;
+  background-color: var(--background-color);
   padding: 1rem 4%;
   width: max(25%, 20rem);
   min-width: fit-content;
@@ -30,6 +30,8 @@
   width: 80%;
   aspect-ratio: 1;
   border: 1px solid red;
+  box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
+    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 @media (max-width: 35em) {
   .overlay .message_box {

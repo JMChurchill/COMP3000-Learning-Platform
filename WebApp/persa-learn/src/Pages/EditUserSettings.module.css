@@ -1,5 +1,5 @@
 .container {
-  background-color: white;
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,6 +9,7 @@
 }
 .success_message {
   color: green;
+  background-color: var(--items-container);
   font-size: 1.8rem;
 }
 .title {

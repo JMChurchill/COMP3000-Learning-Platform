@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 15% 20% 10% 55%;
   width: 95%;
-  background-color: var(--card-bg);
+  background-color: var(--background-color);
   cursor: pointer;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)

@@ -27,7 +27,7 @@ const Banner = ({
     <div
       className={styles.banner}
       style={{
-        background: `url(${banner})`,
+        backgroundImage: `url(${banner})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton";
+import CustomInput from "../CustomInput";
 import styles from "./CreateQuestionBox.module.css";
 
 // component
@@ -26,10 +27,12 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
   };
 
   const updateThisQuestion = async () => {
+    console.log("updating all values");
     thisQuestion.name = questionName;
     thisQuestion.details = questionDetails;
     thisQuestion.options = options;
     thisQuestion.correct = correctAns;
+    console.log(thisQuestion);
 
     updateQuestion(thisQuestion);
   };
@@ -47,19 +50,29 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
       {/* <form action=""> */}
       {/* <div className="question-box"> */}
       <div className={styles.question_box}>
-        <input
+        {/* <input
           placeholder="Enter Question"
           onChange={(e) => {
             setQuestionName(e.target.value);
             updateThisQuestion();
           }}
+        /> */}
+        <CustomInput
+          placeholder={"Question"}
+          setValue={setQuestionName}
+          updateAllValues={updateThisQuestion}
         />
-        <input
+        {/* <input
           placeholder="More details"
           onChange={(e) => {
             setQuestionDetails(e.target.value);
             updateThisQuestion();
           }}
+        /> */}
+        <CustomInput
+          placeholder={"Details"}
+          setValue={setQuestionDetails}
+          updateAllValues={updateThisQuestion}
         />
       </div>
       {/* <div className="correct-ans"> */}

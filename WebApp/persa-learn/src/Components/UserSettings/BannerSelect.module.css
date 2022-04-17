@@ -1,11 +1,11 @@
 .picture_container {
-  background-color: white;
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   width: MIN(45rem, 90%);
   /* max-width: 90% !important; */
-  border: 2px solid white;
+  border: 2px solid var(--background-color);
   /* padding: 1rem; */
   padding: MIN(1rem, 1%);
   /* padding: 1%; */

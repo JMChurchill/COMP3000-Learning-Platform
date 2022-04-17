@@ -11,7 +11,7 @@
   width: max(30rem, 45%);
   /* max-width: 100%; */
   padding: 2rem;
-  background-color: var(--front-bg-color);
+  background-color: var(--background-color);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);

@@ -11,7 +11,7 @@
   display: none;
 }
 .overlay .message_box {
-  background-color: white;
+  background-color: var(--background-color);
   padding: 2% 10%;
   margin: auto;
   position: fixed;
@@ -19,12 +19,14 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  align-items: center;
+  justify-content: center;
 }
-.overlay .message_box input {
+/* .overlay .message_box input {
   width: 80%;
   margin: 0 10%;
   border-radius: 2rem;
   font-size: 2rem;
   padding: 0.5rem;
   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-}
+} */

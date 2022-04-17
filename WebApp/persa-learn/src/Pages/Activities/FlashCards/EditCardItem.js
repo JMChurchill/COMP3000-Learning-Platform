@@ -42,7 +42,7 @@ const EditCardItem = ({ q, a, id, deleteCard }) => {
   return (
     <div className={styles.card} key={id}>
       <div className={styles.front}>
-        <p>Question</p>
+        <h3>Question</h3>
         {isEditing ? (
           <>
             {status.error ? (
@@ -68,7 +68,7 @@ const EditCardItem = ({ q, a, id, deleteCard }) => {
         )}
       </div>
       <div className={styles.back}>
-        <p>Answer</p>
+        <h3>Answer</h3>
         {isEditing ? (
           <>
             {status.error ? (

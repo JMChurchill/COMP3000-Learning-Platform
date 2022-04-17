@@ -3,7 +3,8 @@
   grid-template-columns: 2% 5rem 50% 10%;
   /* gap: clamp(1rem, 5vh, 2rem); */
   gap: 1rem;
-  background-color: var(--card-bg);
+  background-color: var(--background-color);
+
   padding: 1rem 1rem;
   align-items: center;
   /* margin: 01rem; */

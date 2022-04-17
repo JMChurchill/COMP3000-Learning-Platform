@@ -1,9 +1,10 @@
 .tooltip {
   position: relative;
+  color: var(--text-color);
   cursor: pointer;
 }
 .tooltip:hover {
-  color: var(--on-text-hover);
+  color: var(--primary-color);
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;

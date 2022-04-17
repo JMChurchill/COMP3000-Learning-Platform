@@ -5,7 +5,7 @@
   position: relative;
   width: 95%;
   padding: 0.5rem 0;
-  background-color: var(--item-container-bg);
+  background-color: var(--items-container);
   border-radius: var(--border-radius);
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
@@ -13,13 +13,14 @@
 .quiz_cols {
   display: grid;
   grid-template-columns: 30% 18% 15% 20% 15%;
+  align-items: center;
   margin: auto;
   width: 95%;
-  padding: 0 0.5rem;
+  padding: 0.5rem;
   background-color: var(--selected-color);
   font-size: 1.5rem;
   font-weight: bold;
-  background-color: var(--card-bg);
+  background-color: var(--background-color);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);

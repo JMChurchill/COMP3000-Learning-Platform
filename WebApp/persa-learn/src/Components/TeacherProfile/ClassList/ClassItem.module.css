@@ -6,6 +6,7 @@
   font-weight: bold;
   cursor: pointer;
   align-items: center;
+  background-color: var(--background-color);
 }
 .task[aria-selected="true"] {
   background-color: var(--selected-color);

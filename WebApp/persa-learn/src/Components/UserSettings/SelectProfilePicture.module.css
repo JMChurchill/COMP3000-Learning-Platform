@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: var(--background-color);
   padding: 1rem 7%;
   margin: 100rem 5%;
   height: 70%;
@@ -31,7 +31,7 @@
   padding: 2rem 1rem;
   /* overflow: scroll; */
   overflow-y: scroll;
-  background-color: #f2f2f2;
+  background-color: var(--items-container);
   border-radius: var(--border-radius);
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);

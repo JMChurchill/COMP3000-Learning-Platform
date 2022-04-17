@@ -14,7 +14,7 @@ const ClassList = ({
     <div
       //   className="left-box"
       className={styles.container}
-      style={{ position: "relative", borderRadius: "0.2rem" }}
+      // style={{ position: "relative", borderRadius: "0.2rem" }}
     >
       {/* <div className="class-list task-box"> */}
       <div className={styles.task_box}>

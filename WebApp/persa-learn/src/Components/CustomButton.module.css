@@ -1,37 +1,41 @@
 .primary {
   background-color: var(--primary-color);
   border: 2px solid var(--primary-color);
-  color: white;
+  color: var(--btn-text-color);
   min-width: 12rem;
   margin: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.2rem;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
+  font-size: 1rem;
   transition: all 200ms;
 }
 .primary:hover {
-  background-color: white;
+  background-color: var(--background-color);
   color: var(--primary-color);
-  scale: 1.05;
+  transform: scale(1.05);
 }
 
 .secondary {
-  background-color: white;
+  background-color: var(--background-color);
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
   min-width: 12rem;
   margin: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.2rem;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
+  font-size: 1rem;
+
   transition: all 200ms;
 }
 .secondary:hover {
-  scale: 1.05;
+  /* scale: 1.05; */
+  transform: scale(1.05);
 }
 
 .icon {
-  background-color: white;
+  background-color: var(--background-color);
   font-size: 2rem;
   padding: 0;
   border-radius: var(--border-radius);
@@ -39,11 +43,12 @@
   display: flex;
   align-items: center;
   margin: 0.5rem;
-  color: black;
-  border: 2px solid black;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
 }
 .icon:hover {
-  scale: 1.1;
+  /* scale: 1.1; */
+  transform: scale(1.1);
 }
 
 .special {

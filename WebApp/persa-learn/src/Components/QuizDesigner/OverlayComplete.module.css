@@ -11,7 +11,7 @@
     } */
 }
 .overlay .message_box {
-  background-color: white;
+  background-color: var(--background-color);
   padding: 2% 10%;
   margin: auto;
   position: fixed;

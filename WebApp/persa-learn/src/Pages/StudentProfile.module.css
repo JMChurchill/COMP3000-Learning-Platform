@@ -4,7 +4,7 @@
   /* padding: 1rem 0; */
   justify-content: center;
   /* gap: 2rem; */
-  background-color: var(--front-bg-color);
+  background-color: var(--background-color);
   border-radius: var(--border-radius);
   margin: 1rem 0;
   /* box-sizing: content-box; */
@@ -14,7 +14,7 @@
   position: relative;
   width: 100%;
   padding: 0;
-  background-color: var(--front-bg-color);
+  background-color: var(--background-color);
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
@@ -82,7 +82,9 @@
   align-items: center;
   margin-bottom: 1rem;
   width: 94%;
-  background-color: var(--item-container-bg);
+  /* background-color: var(--item-container-bg); */
+  background-color: var(--items-container);
+
   margin: 0 5% 2rem 5%;
   padding: 1rem 0;
   border-radius: var(--border-radius);

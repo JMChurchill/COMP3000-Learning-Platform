@@ -11,7 +11,7 @@
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 .logo {
-  margin: 2rem;
+  margin: 1rem;
 }
 .mobile_nav_toggle {
   display: none;
@@ -37,8 +37,8 @@
 /* @media (min-width: 35em) { */
 @media (min-width: 50em) {
   .primary_header .primary_navigation {
-    --gap: 3em;
-    padding-block: 2rem;
+    --gap: 2em;
+    padding-block: 1rem;
     padding-inline: clamp(3rem, 10vw, 10rem);
     background: HSL(0 0% 0% /0);
   }
@@ -49,14 +49,14 @@
   .primary_header .mobile_nav_toggle {
     display: block;
     position: absolute;
-    padding: 0;
+    padding: 0.5rem;
     margin: 0;
     z-index: 9999;
     background-color: transparent;
     color: black;
     border: 0;
-    top: 2rem;
-    right: 2rem;
+    top: 0rem;
+    right: 0rem;
     transition: all 350ms;
     font-size: 3rem;
     cursor: pointer;
