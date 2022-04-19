@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getPurchasedBanners } from "../../http_Requests/StudentRequests/ItemRequests";
 import { updateBanner } from "../../http_Requests/StudentRequests/StudentRequests";
 import CustomButton from "../CustomButton";
 import BannerSelect from "./BannerSelect";
-import styles from "./SelectBanner.module.css";
+import styles from "./BannerSelector.module.css";
 
-const SelectBanner = ({ close, getDetails }) => {
+const BannerSelector = ({ close, getDetails }) => {
   const images = [
     "https://cdn.pixabay.com/photo/2021/09/12/07/58/banner-6617553__340.jpg",
     "https://cdn.pixabay.com/photo/2017/03/31/16/11/banner-2191712_960_720.jpg",
@@ -13,16 +14,20 @@ const SelectBanner = ({ close, getDetails }) => {
     "https://images.wallpaperscraft.com/image/single/stars_space_galaxy_117958_2560x1024.jpg",
   ];
   const [selectedBanner, setSelectedBanner] = useState();
-  const [bannerImages, setBannerImages] = useState(images);
-  const bannerSelected = (image) => {
-    setSelectedBanner(image);
-    setBannerImages(images);
+  const [banners, setBanners] = useState([]);
+
+  const getBanners = async () => {
+    const data = await getPurchasedBanners();
+    if (data.status === "success") {
+      setBanners(data.data);
+    }
   };
+  useEffect(async () => {
+    await getBanners();
+  }, []);
   const updatePicture = async () => {
     if (selectedBanner != null) {
-      console.log("Banner changed to: ", selectedBanner);
       const data = await updateBanner({ Banner: selectedBanner });
-      console.log(data);
       await getDetails();
       close();
     } else alert("Select a banner");
@@ -32,17 +37,14 @@ const SelectBanner = ({ close, getDetails }) => {
       <div className={styles.container}>
         <h2>Select a banner</h2>
         <div className={styles.all_picture_container}>
-          {bannerImages.map((image, i) => (
+          {banners.map((banner, i) => (
             <BannerSelect
-              image={image}
-              bannerSelected={bannerSelected}
-              selected={selectedBanner === image ? true : false}
+              image={banner.Image}
+              bannerSelected={setSelectedBanner}
+              selected={selectedBanner === banner.Image ? true : false}
               key={i}
             />
           ))}
-          {/* <BannerSelect />
-        <BannerSelect />
-        <BannerSelect /> */}
         </div>
         <div className={styles.button_container}>
           <CustomButton text={"Confirm"} onClick={updatePicture} />
@@ -53,4 +55,4 @@ const SelectBanner = ({ close, getDetails }) => {
   );
 };
 
-export default SelectBanner;
+export default BannerSelector;

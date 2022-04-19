@@ -62,7 +62,7 @@ BEGIN
     SET numCoins = (SELECT Coins FROM Students WHERE StudentID = theStudentID LIMIT 1);
     SET itemCost = (SELECT Cost FROM ProfilePictures WHERE ProfilePictureID = pID LIMIT 1);
     SET sLevel = (SELECT Level FROM Students WHERE StudentID = theStudentID LIMIT 1);
-    SET itemLevel = (SELECT RequiredLevel FROM Banners WHERE BannerID = pID LIMIT 1);
+    SET itemLevel = (SELECT RequiredLevel FROM ProfilePictures WHERE ProfilePictureID = pID LIMIT 1);
 
     # check if can afford
     IF (numCoins >= itemCost AND sLevel >= itemLevel) then 

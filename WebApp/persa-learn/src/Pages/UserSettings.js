@@ -8,8 +8,10 @@ import { MdEdit } from "react-icons/md";
 
 // import getUserDetails from "../"
 import { getUserDetails } from "../http_Requests/userRequests";
-import SelectProfilePicture from "../Components/UserSettings/SelectProfilePicture";
-import SelectBanner from "../Components/UserSettings/SelectBanner";
+import ProfilePictureSelector from "../Components/UserSettings/ProfilePictureSelector";
+import BannerSelector from "../Components/UserSettings/BannerSelector";
+import ThemeCurrent from "../Components/UserSettings/ThemeCurrent";
+import ThemeSelector from "../Components/UserSettings/ThemeSelector";
 
 const UserSettings = () => {
   const [email, setEmail] = useState();
@@ -20,6 +22,7 @@ const UserSettings = () => {
 
   const [isSelectProfilePic, setIsSelectProfilePic] = useState(false);
   const [isSelectBanner, setIsSelectBanner] = useState(false);
+  const [isSelectTheme, setIsSelectTheme] = useState(false);
 
   const navigate = useNavigate();
 
@@ -93,11 +96,16 @@ const UserSettings = () => {
             onClick={() => setIsSelectBanner(true)}
           />
         </div>
+        <h2>Theme</h2>
+        <ThemeCurrent />
+        <CustomButton
+          text={"Change theme"}
+          onClick={() => setIsSelectTheme(true)}
+        />
         <h2>My details</h2>
         <p>Email:{email}</p>
         <p>First: {firstName}</p>
         <p>Last: {lastName}</p>
-
         <CustomButton
           type={1}
           text={"Update details"}
@@ -118,7 +126,7 @@ const UserSettings = () => {
         />
       </div>
       {isSelectProfilePic ? (
-        <SelectProfilePicture
+        <ProfilePictureSelector
           close={() => setIsSelectProfilePic(false)}
           getDetails={getDetails}
         />
@@ -126,16 +134,22 @@ const UserSettings = () => {
         <></>
       )}
       {isSelectBanner ? (
-        <SelectBanner
+        <BannerSelector
           close={() => setIsSelectBanner(false)}
           getDetails={getDetails}
         />
       ) : (
         <></>
       )}
+      {isSelectTheme ? (
+        <ThemeSelector
+          // getDetails={getDetails}
+          close={() => setIsSelectTheme(false)}
+        />
+      ) : (
+        <></>
+      )}
     </div>
-    // //{" "}
-    //</div>
   );
 };
 

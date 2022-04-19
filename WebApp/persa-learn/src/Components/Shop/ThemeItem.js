@@ -1,7 +1,6 @@
 import React from "react";
-import styles from "./ShopItem.module.css";
-
-const ShopItem = ({
+import styles from "./ThemeItem.module.css";
+const ThemeItem = ({
   itemID,
   type,
   image,
@@ -10,7 +9,8 @@ const ShopItem = ({
   cost = 0,
   requiredLevel,
   primary = "black",
-  secondary = "white",
+  background = "white",
+  isDark = false,
   itemSelected,
   isPurchased,
 }) => {
@@ -25,6 +25,9 @@ const ShopItem = ({
           details,
           name,
           cost,
+          primary,
+          background,
+          isDark,
           isPurchased,
           requiredLevel,
         })
@@ -41,20 +44,28 @@ const ShopItem = ({
           backgroundPosition: "center",
         }}
       >
-        {type === "Theme" ? (
+        <div
+          className={styles.outer_color}
+          style={{ backgroundColor: primary }}
+        >
           <div
-            className={styles.outer_color}
-            style={{ backgroundColor: secondary }}
+            className={styles.inner_color}
+            style={{ backgroundColor: background }}
           >
-            <div
-              className={styles.inner_color}
-              style={{ backgroundColor: primary }}
-            ></div>
+            <p
+              className={styles.sample_text}
+              style={
+                isDark == "true" || isDark == true
+                  ? { color: "white" }
+                  : { color: "black" }
+              }
+            >
+              abc
+            </p>
           </div>
-        ) : (
-          <></>
-        )}
-        <p>Select</p>
+        </div>
+
+        <p className={styles.hover}>Select</p>
       </div>
       <p>{name}</p>
       <p>{cost} coins</p>
@@ -63,4 +74,4 @@ const ShopItem = ({
   );
 };
 
-export default ShopItem;
+export default ThemeItem;

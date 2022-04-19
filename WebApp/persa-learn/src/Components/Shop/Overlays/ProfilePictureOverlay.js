@@ -1,26 +1,29 @@
 import React, { useState } from "react";
-import { purchaseItem } from "../../http_Requests/StudentRequests/ItemPurchaseRequests";
-import CustomButton from "../CustomButton";
-import OverlayConfirm from "../OverlayConfirm";
+import { purchaseProfilePic } from "../../../http_Requests/StudentRequests/ItemRequests";
+import CustomButton from "../../CustomButton";
+import OverlayConfirm from "../../OverlayConfirm";
+import styles from "./ProfilePictureOverlay.module.css";
 
-import styles from "./OverlayItemDetails.module.css";
-
-const OverlayItemDetails = ({ getItems, selectedItem, close }) => {
+const ProfilePictureOverlay = ({ selectedItem, getItems, close }) => {
   const [isPoor, setIsPoor] = useState();
+
+  // console.log(selectedItem);
+
   const buyItem = async () => {
     // attempt to buy item
-    const data = await purchaseItem({ ItemID: selectedItem.itemID });
-    // console.log(data.results[0][0].Error);
+    const data = await purchaseProfilePic({
+      ProfilePictureID: selectedItem.itemID,
+    });
+    console.log(data);
     //not successful
-
-    //not enough money
-    if (data.results[0][0].Error == 400) {
-      // console.log("Youre too poor");
-      setIsPoor(true);
-    }
-    if (data.status === "success" && data.results[0][0].Error != 400) {
-      //error
-
+    console.log(Array.isArray(data.results));
+    if (Array.isArray(data.results)) {
+      //not enough money
+      if (data.results[0][0].hasOwnProperty("Error")) {
+        // console.log("Youre too poor");
+        setIsPoor(true);
+      }
+    } else if (data.status === "success") {
       // successful
       getItems();
       close();
@@ -29,7 +32,7 @@ const OverlayItemDetails = ({ getItems, selectedItem, close }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.message_box}>
-        <h2>{selectedItem.type}</h2>
+        <h2>Profile Picture</h2>
         <div
           className={styles.image}
           style={{
@@ -44,7 +47,13 @@ const OverlayItemDetails = ({ getItems, selectedItem, close }) => {
         <p>{selectedItem.name}</p>
         <p>{selectedItem.details}</p>
         <p>{selectedItem.cost} Coins</p>
-        <CustomButton text={"Buy"} onClick={buyItem} />
+        <p>lvl {selectedItem.requiredLevel}</p>
+
+        {selectedItem.isPurchased ? (
+          <h3>Already Purchased</h3>
+        ) : (
+          <CustomButton text={"Buy"} onClick={buyItem} />
+        )}
         <CustomButton text={"Back"} type={2} onClick={close} />
       </div>
       {isPoor ? (
@@ -60,4 +69,4 @@ const OverlayItemDetails = ({ getItems, selectedItem, close }) => {
   );
 };
 
-export default OverlayItemDetails;
+export default ProfilePictureOverlay;

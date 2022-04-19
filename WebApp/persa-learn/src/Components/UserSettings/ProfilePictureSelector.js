@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { purchasedProfilePictues } from "../../http_Requests/StudentRequests/ItemPurchaseRequests";
+import { getPurchasedProfilePictures } from "../../http_Requests/StudentRequests/ItemRequests";
 import { updateProfilePicture } from "../../http_Requests/StudentRequests/StudentRequests";
 import CustomButton from "../CustomButton";
 import IconSelect from "./IconSelect";
-import styles from "./SelectProfilePicture.module.css";
+import styles from "./ProfilePictureSelector.module.css";
 
 //icons from: https://www.flaticon.com/authors/roundicons/circle-flat
-const SelectProfilePicture = ({ close, getDetails }) => {
+const ProfilePictureSelector = ({ close, getDetails }) => {
   const images = [
     "https://www.kindpng.com/picc/m/33-338711_circle-user-icon-blue-hd-png-download.png",
     "https://cdn-icons-png.flaticon.com/512/219/219969.png",
@@ -29,11 +29,10 @@ const SelectProfilePicture = ({ close, getDetails }) => {
     "https://cdn-icons-png.flaticon.com/512/194/194915.png",
   ];
   const [selectedIcon, setSelectedIcon] = useState();
-  const [profileImages, setProfileImages] = useState(images);
   const [profilePictures, setProfilePictures] = useState([]);
 
   const getProfilePictures = async () => {
-    const data = await purchasedProfilePictues();
+    const data = await getPurchasedProfilePictures();
     console.log(data);
     if (data.status === "success") {
       setProfilePictures(data.data);
@@ -46,7 +45,6 @@ const SelectProfilePicture = ({ close, getDetails }) => {
 
   const iconSelected = (image) => {
     setSelectedIcon(image);
-    setProfileImages(images);
   };
   const updatePicture = async () => {
     if (selectedIcon != null) {
@@ -73,14 +71,6 @@ const SelectProfilePicture = ({ close, getDetails }) => {
               />
             );
           })}
-          {/* {profileImages.map((image, i) => (
-            <IconSelect
-              image={image}
-              iconSelected={iconSelected}
-              selected={selectedIcon === image ? true : false}
-              key={i}
-            />
-          ))} */}
         </div>
         <div
           style={{
@@ -98,4 +88,4 @@ const SelectProfilePicture = ({ close, getDetails }) => {
   );
 };
 
-export default SelectProfilePicture;
+export default ProfilePictureSelector;

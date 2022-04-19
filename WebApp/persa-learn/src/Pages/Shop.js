@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import OverlayItemDetails from "../Components/Shop/OverlayItemDetails";
+import BannerOverlay from "../Components/Shop/Overlays/BannerOverlay";
+import ProfilePictureOverlay from "../Components/Shop/Overlays/ProfilePictureOverlay";
+import ThemeOverlay from "../Components/Shop/Overlays/ThemeOverlay";
 import ShopItem from "../Components/Shop/ShopItem";
-import { getUnpurchasedItems } from "../http_Requests/StudentRequests/ItemRequests";
+import ThemeItem from "../Components/Shop/ThemeItem";
+import {
+  getAllBanners,
+  getAllProfilePics,
+  getAllThemes,
+  getUnpurchasedItems,
+} from "../http_Requests/StudentRequests/ItemRequests";
 import styles from "./Shop.module.css";
 
 const Shop = () => {
@@ -26,9 +34,15 @@ const Shop = () => {
     "https://cdn-icons-png.flaticon.com/512/194/194916.png",
     "https://cdn-icons-png.flaticon.com/512/194/194915.png",
   ];
-  const [allItems, setAllItems] = useState([]);
-  const [isSelected, setIsSelected] = useState(false);
+  const [allBanners, setAllBanners] = useState([]);
+  const [allThemes, setAllThemes] = useState([]);
+  const [allProfilePics, setAllProfilePics] = useState([]);
+
   const [selectedItem, setSelectedItem] = useState();
+  const [isProfilePicSelected, setIsProfilePicSelected] = useState(false);
+  const [isBannerSelected, setIsBannerSelected] = useState(false);
+  const [isThemeSelected, setIsThemeSelected] = useState(false);
+
   const [selectedTab, setSelectedTab] = useState(0);
   const [tabs, setTabs] = useState([
     "All",
@@ -37,14 +51,30 @@ const Shop = () => {
     "Themes",
   ]);
 
+  const profilePicSelected = (item) => {
+    setSelectedItem(item);
+    setIsProfilePicSelected(true);
+  };
+  const bannerSelected = (item) => {
+    setSelectedItem(item);
+    setIsBannerSelected(true);
+  };
+  const themeSelected = (item) => {
+    setSelectedItem(item);
+    setIsThemeSelected(true);
+  };
   const itemSelected = (item) => {
     setSelectedItem(item);
-    setIsSelected(true);
+    // setIsSelected(true);
   };
   const getItems = async () => {
-    const data = await getUnpurchasedItems();
-    // console.log(data.data);
-    setAllItems(data.data);
+    let data = await getAllBanners();
+    setAllBanners(data.data);
+    data = await getAllThemes();
+    console.log(data.data);
+    setAllThemes(data.data);
+    data = await getAllProfilePics();
+    setAllProfilePics(data.data);
   };
   useEffect(async () => {
     await getItems();
@@ -74,82 +104,84 @@ const Shop = () => {
         </div>
 
         <div className={styles.items_container}>
-          {allItems.length == 0 ? (
+          {allProfilePics.length + allBanners.length + allThemes.length == 0 ? (
             <p>
               Looks like where out of stock... <br />
               Come back another time
             </p>
           ) : (
-            allItems.map((item) => {
-              return (
-                <ShopItem
-                  itemID={item.ItemID}
-                  type={item.Type}
-                  name={item.Name}
-                  image={item.Image}
-                  details={item.Details}
-                  cost={item.Cost}
-                  itemSelected={itemSelected}
-                />
-              );
-            })
+            allProfilePics.map((item) => (
+              <ShopItem
+                key={item.ProfilePictureID}
+                itemID={item.ProfilePictureID}
+                type={"Profile Picture"}
+                name={item.Name}
+                image={item.Image}
+                details={item.Details}
+                cost={item.Cost}
+                requiredLevel={item.RequiredLevel}
+                itemSelected={profilePicSelected}
+                isPurchased={item.Caption == "Purchased"}
+              />
+            ))
           )}
-          {/* <div className={styles.item}>
-            <p>Type</p>
-            <div className={styles.image}>
-              <p>image</p>
-            </div>
-            <p>Item</p>
-          </div> */}
-          {/* <ShopItem
-            type={"Profile picture"}
-            name={"alien"}
-            image={images[9]}
-            itemSelected={itemSelected}
-          />
-          <ShopItem
-            type={"Profile picture"}
-            name={"Doctor"}
-            image={images[17]}
-            itemSelected={itemSelected}
-          />
-          <ShopItem
-            type={"Profile picture"}
-            name={"Police"}
-            image={images[6]}
-            itemSelected={itemSelected}
-          />
-          <ShopItem
-            type={"Banner"}
-            name={"Red/Black"}
-            itemSelected={itemSelected}
-          />
-          <ShopItem
-            type={"Theme"}
-            name={"Black/Blue"}
-            primary={"black"}
-            secondary={"#201d95"}
-            itemSelected={itemSelected}
-          />
-          <ShopItem
-            type={"Banner"}
-            name={"Space"}
-            itemSelected={itemSelected}
-          />
-          <ShopItem
-            type={"Theme"}
-            name={"Pink/White"}
-            primary={"Pink"}
-            secondary={"white"}
-            itemSelected={itemSelected}
-          /> */}
+          {allBanners.map((item) => (
+            <ShopItem
+              key={item.BannerID}
+              itemID={item.BannerID}
+              type={"Banner"}
+              name={item.Name}
+              image={item.Image}
+              details={item.Details}
+              cost={item.Cost}
+              requiredLevel={item.RequiredLevel}
+              itemSelected={bannerSelected}
+              isPurchased={item.Caption == "Purchased"}
+            />
+          ))}
+          {allThemes.map((item) => (
+            <ThemeItem
+              key={item.ThemeID}
+              itemID={item.ThemeID}
+              type={"Theme"}
+              name={item.Name}
+              image={item.Image}
+              details={item.Details}
+              cost={item.Cost}
+              requiredLevel={item.RequiredLevel}
+              primary={item.PrimaryColor}
+              background={item.BackgroundColor}
+              isDark={item.IsDark}
+              itemSelected={themeSelected}
+              isPurchased={item.Caption == "Purchased"}
+            />
+          ))}
         </div>
       </div>
-      {isSelected ? (
-        <OverlayItemDetails
-          selectedItem={selectedItem}
+
+      {isProfilePicSelected ? (
+        <ProfilePictureOverlay
           getItems={getItems}
-          close={() => setIsSelected(false)}
+          selectedItem={selectedItem}
+          close={() => setIsProfilePicSelected(false)}
+        />
+      ) : (
+        <></>
+      )}
+      {isBannerSelected ? (
+        <BannerOverlay
+          selectedItem={selectedItem}
+          close={() => setIsBannerSelected(false)}
+          getItems={getItems}
+        />
+      ) : (
+        <></>
+      )}
+      {isThemeSelected ? (
+        <ThemeOverlay
+          close={() => setIsThemeSelected(false)}
+          getItems={getItems}
+          selectedItem={selectedItem}
         />
       ) : (
         <></>

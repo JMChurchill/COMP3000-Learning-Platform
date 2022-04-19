@@ -92,7 +92,8 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 0 3%;
-  height: MIN(100vh);
+  min-height: (100vh);
+  padding-bottom: 2rem;
 }
 
 .content-box .container #update-user-form {

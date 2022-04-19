@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 //import functions
@@ -44,6 +44,51 @@ function App() {
   // const url = window.location.href;
   // console.log(url.split("/").pop());
   // console.log(Route.props.location.pathname);
+
+  useEffect(() => {
+    //get theme from local storage
+    let theme = JSON.parse(localStorage.getItem("theme"));
+
+    //set themes
+    if (theme) {
+      try {
+        // setTheme(theme);
+        setTheme(
+          theme.id,
+          theme.backgroundColor,
+          theme.primaryColor,
+          theme.btnTextColor,
+          theme.isDark
+        );
+      } catch (err) {}
+    }
+  });
+
+  const setTheme = (
+    id,
+    backgroundColor = "white",
+    primaryColor = "#201d95",
+    btnTextColor = "white",
+    isDark = false
+  ) => {
+    document.documentElement.style.setProperty(
+      "--background-color",
+      backgroundColor
+    );
+    document.documentElement.style.setProperty("--primary-color", primaryColor);
+    document.documentElement.style.setProperty(
+      "--btn-text-color",
+      btnTextColor
+    );
+    document.documentElement.style.setProperty(
+      "--text-color",
+      isDark ? "#c9d1d9" : "black"
+    );
+    document.documentElement.style.setProperty(
+      "--items-container",
+      isDark ? "rgba(255, 255, 255, 0.1)" : "rgb(0, 0, 0, 0.05)"
+    );
+  };
 
   if (!token) {
     return <Login setToken={setToken} />;
