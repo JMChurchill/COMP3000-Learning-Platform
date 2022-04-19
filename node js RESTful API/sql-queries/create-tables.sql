@@ -232,12 +232,12 @@ CREATE TABLE Words (
         REFERENCES WordLinks(WordLinkID)
         ON DELETE CASCADE
     );
-
+/* 
 CREATE TABLE Items(
     ItemID int NOT NULL AUTO_INCREMENT,
     Name varchar(60) NOT NULL,
     Details text,
-    Image text NOT NULL,
+    Image varchar(255) NOT NULL,
     Cost int NOT NULL,
     TypeID int NOT NULL,
     PRIMARY KEY (ItemID),
@@ -256,10 +256,79 @@ CREATE TABLE ItemsPurchased(
     FOREIGN KEY (StudentID)
         REFERENCES Students(StudentID)
         ON DELETE CASCADE
-);
+); */
 
-CREATE TABLE ItemsType(
+/* CREATE TABLE ItemsType(
     TypeID int NOT NULL AUTO_INCREMENT,
     Name varchar(60) NOT NULL,
     PRIMARY KEY (TypeID)
+); */
+
+CREATE TABLE Themes(
+    ThemeID int NOT NULL AUTO_INCREMENT,
+    Name varchar(60) NOT NULL,
+    Details text,
+    PrimaryColor varchar(15) NOT NULL,
+    BackgroundColor varchar(15) NOT NULL,
+    BtnTextColor varchar(15) NOT NULL,
+    IsDark varchar(15) NOT NULL,
+    Cost int NOT NULL DEFAULT 0,
+    RequiredLevel int NOT NULL DEFAULT 1,
+    PRIMARY KEY (ThemeID)
+);
+
+CREATE TABLE ThemesPurchased(
+    ThemeID int NOT NULL,
+    StudentID int NOT NULL,
+    PRIMARY KEY (ThemeID, StudentID),
+    FOREIGN KEY (ThemeID) 
+        REFERENCES Themes(ThemeID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE ProfilePictures(
+    ProfilePictureID int NOT NULL AUTO_INCREMENT,
+    Name varchar(60) NOT NULL,
+    Details text,
+    Image varchar(255) NOT NULL,
+    Cost int NOT NULL DEFAULT 0,
+    RequiredLevel int NOT NULL DEFAULT 1,
+    PRIMARY KEY (ProfilePictureID)
+);
+
+CREATE TABLE ProfilePicturesPurchased(
+    ProfilePictureID int NOT NULL,
+    StudentID int NOT NULL,
+    PRIMARY KEY (ProfilePictureID, StudentID),
+    FOREIGN KEY (ProfilePictureID) 
+        REFERENCES ProfilePictures(ProfilePictureID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE Banners(
+    BannerID int NOT NULL AUTO_INCREMENT,
+    Name varchar(60) NOT NULL,
+    Details text,
+    Image varchar(255) NOT NULL,
+    Cost int NOT NULL DEFAULT 0,
+    RequiredLevel int NOT NULL DEFAULT 1,
+    PRIMARY KEY (BannerID)
+);
+
+CREATE TABLE BannersPurchased(
+    BannerID int NOT NULL,
+    StudentID int NOT NULL,
+    PRIMARY KEY (BannerID, StudentID),
+    FOREIGN KEY (BannerID) 
+        REFERENCES Banners(BannerID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE
 );
