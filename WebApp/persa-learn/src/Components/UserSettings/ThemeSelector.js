@@ -4,7 +4,7 @@ import CustomButton from "../CustomButton";
 import ThemeSelect from "./ThemeSelect";
 import styles from "./ThemeSelector.module.css";
 
-const ThemeSelector = ({ close, getDetails }) => {
+const ThemeSelector = ({ close }) => {
   const [selectedTheme, setSelectedTheme] = useState({});
   const [themes, setThemes] = useState([]);
 
@@ -43,8 +43,6 @@ const ThemeSelector = ({ close, getDetails }) => {
       "--box-shadow-color",
       isDark ? "black" : "black"
     );
-
-    // --box-shadow-color
   };
 
   const resetTheme = () => {
@@ -61,7 +59,6 @@ const ThemeSelector = ({ close, getDetails }) => {
   };
 
   useEffect(async () => {
-    //TODO: query database
     const data = await getPurchasedThemes();
     console.log(data);
 
