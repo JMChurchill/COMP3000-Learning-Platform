@@ -332,3 +332,13 @@ CREATE TABLE BannersPurchased(
         REFERENCES Students(StudentID)
         ON DELETE CASCADE
 );
+
+# Admins table
+CREATE TABLE Admins (
+    AdminID int NOT NULL AUTO_INCREMENT, 
+    Email varchar(255) UNIQUE NOT NULL, 
+    Password varchar(60) NOT NULL, 
+    FirstName varchar(60) NOT NULL, 
+    LastName varchar(60) NOT NULL,
+    PRIMARY KEY (AdminID)
+    );
