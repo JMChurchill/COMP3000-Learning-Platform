@@ -37,6 +37,9 @@
 .deck:hover {
   scale: 1.1;
 }
+.deck p {
+  color: black;
+}
 
 .new_deck_container {
   display: flex;

@@ -9,6 +9,7 @@
   /* font-size: 1.5rem; */
   font-size: 1rem;
   transition: all 200ms;
+  cursor: pointer;
 }
 .primary:hover {
   background-color: var(--background-color);
@@ -26,7 +27,7 @@
   border-radius: 0.2rem;
   /* font-size: 1.5rem; */
   font-size: 1rem;
-
+  cursor: pointer;
   transition: all 200ms;
 }
 .secondary:hover {
@@ -45,6 +46,7 @@
   margin: 0.5rem;
   color: var(--text-color);
   border: 2px solid var(--text-color);
+  cursor: pointer;
 }
 .icon:hover {
   /* scale: 1.1; */
