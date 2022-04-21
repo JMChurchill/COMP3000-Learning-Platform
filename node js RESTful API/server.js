@@ -7,6 +7,7 @@ const express = require("express");
 
 const studentRouter = require("./routes/studentRoutes");
 const teacherRouter = require("./routes/teacherRoutes");
+const adminRouter = require("./routes/adminRoutes");
 const assignmentsRouter = require("./routes/assignmentsRoutes");
 const classesRouter = require("./routes/classRoutes");
 const moduleRouter = require("./routes/moduleRoutes");
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV != "production") {
 //redirect requests to endpoint starting with /posts to postRoutes.js
 app.use("/student", studentRouter);
 app.use("/teacher", teacherRouter);
+app.use("/admin", adminRouter);
 app.use("/assignments", assignmentsRouter);
 app.use("/classes", classesRouter);
 app.use("/module", moduleRouter);
