@@ -12,9 +12,11 @@ export const checkTokenCorrect = (status) => {
   });
 };
 
-export const loginUser = async (credentials, isTeacher) => {
+export const loginUser = async (credentials, isTeacher, isAdmin) => {
   let url;
-  if (isTeacher) {
+  if (isAdmin) {
+    url = "http://localhost:8080/admin/login";
+  } else if (isTeacher) {
     url = "http://localhost:8080/teacher/login";
   } else {
     url = "http://localhost:8080/student/login";

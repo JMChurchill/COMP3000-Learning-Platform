@@ -8,21 +8,14 @@ import CustomInput from "../CustomInput";
 
 import styles from "./LoginBox.module.css";
 
-const LoginBox = ({ setToken, isTeacher, signUp }) => {
+const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isError, setIsError] = useState(false);
   const [reason, setReason] = useState("");
   // const [httpResponseCode, setHttpResponseCode] = useState();
 
-  const logout = () => {
-    sessionStorage.clear();
-    window.location.reload();
-    // setToken("");
-  };
-
   const login = async () => {
-    // e.preventDefault();
     try {
       if (email != null && password != null) {
         const data = await loginUser(
@@ -30,23 +23,19 @@ const LoginBox = ({ setToken, isTeacher, signUp }) => {
             email,
             password,
           },
-          isTeacher
+          isTeacher,
+          isAdmin
         );
-        // console.log(error);
         console.log("data: ", data);
-        // console.log(response.status);
-        // console.log(data);
         if (data !== null && data !== undefined) {
           const token = data.token;
           console.log(token);
           if (!token) {
             setIsError(true);
             if (data.reason === "ENOTFOUND" || data.reason === "ECONNREFUSED") {
-              // console.log("could not connect to db");
               setReason("could not connect to db");
               return;
             }
-            // console.log("Email or Password incorrect");
             setReason("Email or Password incorrect");
             return;
           }
@@ -58,7 +47,6 @@ const LoginBox = ({ setToken, isTeacher, signUp }) => {
           setIsError(false);
           setToken(token);
         } else {
-          // console.log(httpResponseCode);
           console.log("No data returned");
         }
       } else {
@@ -70,10 +58,9 @@ const LoginBox = ({ setToken, isTeacher, signUp }) => {
   };
 
   return (
-    // <div className="right-box">
     <>
-      {/* <img src={userIcon} alt="User icon" /> */}
-      <h1>Login</h1>
+      {!isAdmin ? <h1>Login</h1> : <h1>Admin Login</h1>}
+
       {isError ? <p className={styles.error_message}>{reason}</p> : ""}
 
       <label htmlFor="email" className={styles.title}>
@@ -85,14 +72,13 @@ const LoginBox = ({ setToken, isTeacher, signUp }) => {
       </label>
       <CustomInput password={true} name={password} setValue={setPassword} />
       <CustomButton type={1} text={"Login"} onClick={() => login()} />
-      {/* <CustomButton
-        type={2}
-        text={"temp logout btn"}
-        onClick={() => logout()}
-      /> */}
-      <CustomButton type={2} text={"Sign Up"} onClick={signUp} />
+
+      {isAdmin ? (
+        <></>
+      ) : (
+        <CustomButton type={2} text={"Sign Up"} onClick={signUp} />
+      )}
     </>
-    // </div>
   );
 };
 

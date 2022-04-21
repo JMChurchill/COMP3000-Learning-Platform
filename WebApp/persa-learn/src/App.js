@@ -92,6 +92,12 @@ function App() {
 
   if (!token) {
     return <Login setToken={setToken} />;
+    // return (
+    //   <Router>
+    //     <Route path="*" element={<Login setToken={setToken} />} />
+    //     <Route exact path="/login/admin" element={<LoginAdmin />} />
+    //   </Router>
+    // );
   }
 
   return (
@@ -126,6 +132,8 @@ function App() {
           <Route exact path="/profile_teacher" element={<TeacherProfile />} />
           <Route exact path="/Assign" element={<AssignActivities />} />
           <Route exact path="/designer_quiz" element={<QuizDesigner />} />
+
+          {/* Admin routes */}
 
           {/* temp routes */}
           <Route exact path="/activity" element={<Activities />} />
