@@ -31,6 +31,10 @@ import EditUserSettings from "./Pages/EditUserSettings";
 import AssignActivities from "./Pages/AssignActivities/AssignActivities";
 import EditCardsInDeck from "./Pages/Activities/FlashCards/EditCardsInDeck";
 import Shop from "./Pages/Shop";
+import AdminProfile from "./Pages/AdminProfile";
+import ThemesAll from "./Pages/Admin/ThemesAll";
+import ThemesAdd from "./Pages/Admin/ThemesAdd";
+import ThemesEdit from "./Pages/Admin/ThemesEdit";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -134,6 +138,10 @@ function App() {
           <Route exact path="/designer_quiz" element={<QuizDesigner />} />
 
           {/* Admin routes */}
+          <Route exact path="/profile_admin" element={<AdminProfile />} />
+          <Route exact path="/themes" element={<ThemesAll />} />
+          <Route exact path="/themes/add" element={<ThemesAdd />} />
+          <Route exact path="/themes/edit" element={<ThemesEdit />} />
 
           {/* temp routes */}
           <Route exact path="/activity" element={<Activities />} />

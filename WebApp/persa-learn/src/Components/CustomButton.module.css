@@ -54,7 +54,7 @@
 }
 
 .special {
-  background-color: var(--selected-color);
+  background-color: var(--background-color);
   margin: 1rem;
   width: fit-content;
   min-width: 12rem;

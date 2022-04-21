@@ -92,7 +92,7 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 0 3%;
-  min-height: (100vh);
+  min-height: 100vh;
   padding-bottom: 2rem;
 }
 

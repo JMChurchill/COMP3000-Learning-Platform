@@ -2,12 +2,22 @@ import React from "react";
 import styles from "./CustomButton.module.css";
 
 import { MdAdd } from "react-icons/md";
-const CustomButton = ({ text, type = 1, onClick, fill = false }) => {
+const CustomButton = ({
+  text,
+  type = 1,
+  onClick,
+  fill = false,
+  floating = false,
+}) => {
   if (type === 3) {
     return (
       <div
         className={styles.special}
-        style={{ justifySelf: "end" }}
+        style={
+          floating
+            ? { position: "absolute", right: 0, bottom: 0 }
+            : { justifySelf: "end" }
+        }
         onClick={() => onClick()}
       >
         <div className={styles.circle}>

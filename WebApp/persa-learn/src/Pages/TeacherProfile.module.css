@@ -1,8 +1,13 @@
 .container {
   display: flex;
-  padding: 0;
+  flex-direction: column;
+  padding: 2rem;
   position: relative;
   margin-bottom: 3rem;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
+    var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 .details_box {
   /* display: none; */

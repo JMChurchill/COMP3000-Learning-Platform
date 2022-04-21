@@ -27,14 +27,14 @@
   flex-direction: column;
   gap: 1rem; */
 }
-input {
+/* input {
   width: 80%;
   margin: 0 10%;
   border-radius: 2rem;
   font-size: 2rem;
   padding: 0.5rem;
   box-shadow: 0 0.5rem 0.5rem -0.25em black inset;
-}
+} */
 .level {
   background-color: gold;
   width: fit-content;

@@ -26,6 +26,34 @@ DELIMITER ;
 CALL Themes_get_all('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
 
 
+# get themes details
+DELIMITER $$
+CREATE PROCEDURE Themes_details (tID int)
+BEGIN
+    SELECT * FROM Themes WHERE ThemeID=tID LIMIT 1;
+END$$
+DELIMITER ;
+
+CALL Themes_details('first@admin.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+# get all themes admin
+DELIMITER $$
+CREATE PROCEDURE Themes_get_all_admin (aEmail varchar(255), aPassword varchar(60))
+BEGIN
+    #get all themes
+    IF EXISTS (SELECT * FROM admins WHERE email = aEmail AND password = aPassword) THEN
+        SELECT * FROM Themes;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Themes_get_all_admin('first@admin.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+
 # get all pruchased themes
 DELIMITER $$
 CREATE PROCEDURE Themes_purchased (sEmail varchar(255), sPassword varchar(60))
@@ -84,3 +112,56 @@ END$$
 DELIMITER ;
 
 CALL Themes_purchased_add(1,'email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+
+# get admin delete theme
+DELIMITER $$
+CREATE PROCEDURE Themes_delete (aEmail varchar(255), aPassword varchar(60), tID int)
+BEGIN
+    #check if admin
+    IF EXISTS (SELECT * FROM admins WHERE email = aEmail AND password = aPassword) THEN
+        DELETE FROM Themes WHERE ThemeID = tID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Themes_delete('first@admin.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K',1)
+
+
+
+# admin add new theme
+DELIMITER $$
+CREATE PROCEDURE Themes_add (aEmail varchar(255), aPassword varchar(60), tName varchar(60), tDetails text, tPrColor varchar(15), tBgColor varchar(15), tBnTextColor varchar(15), tIsDark varchar(15), tCost int, tReqLev int)
+BEGIN
+    #check if admin
+    IF EXISTS (SELECT * FROM admins WHERE email = aEmail AND password = aPassword) THEN
+        INSERT INTO themes (Name, Details, PrimaryColor, BackgroundColor, BtnTextColor, IsDark, Cost, RequiredLevel)
+        VALUES (tName, tDetails, tPrColor, tBgColor, tBnTextColor, tIsDark, tCost, tReqLev);
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Themes_add('first@admin.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K',1)
+
+
+# admin edit theme
+DELIMITER $$
+CREATE PROCEDURE Themes_edit (aEmail varchar(255), aPassword varchar(60), tID int, tName varchar(60), tDetails text, tPrColor varchar(15), tBgColor varchar(15), tBnTextColor varchar(15), tIsDark varchar(15), tCost int, tReqLev int)
+BEGIN
+    #check if admin
+    IF EXISTS (SELECT * FROM admins WHERE email = aEmail AND password = aPassword) THEN
+        Update themes 
+        SET Name = tName, Details = tDetails, PrimaryColor = tPrColor, BackgroundColor = tBgColor, BtnTextColor = tBnTextColor, IsDark = tIsDark, Cost = tCost, RequiredLevel = tReqLev
+        WHERE ThemeID = tID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Themes_edit('first@admin.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K',1)

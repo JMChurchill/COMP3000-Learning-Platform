@@ -11,6 +11,9 @@ const Navbar = () => {
   const [isTeacher, setIsTeacher] = useState(
     sessionStorage.getItem("teacher") === "true"
   );
+  const [isAdmin, setIsAdmin] = useState(
+    sessionStorage.getItem("admin") === "true"
+  );
 
   const navToggle = () => {
     setNavVisibility(!navVisibility);
@@ -68,7 +71,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            {!isTeacher ? (
+            {isAdmin ? (
+              <Link aria-current="false" to="/profile_admin">
+                Admin
+              </Link>
+            ) : !isTeacher ? (
               <Link aria-current="false" to="/profile_student">
                 Profile
               </Link>
@@ -77,6 +84,15 @@ const Navbar = () => {
                 Teacher
               </Link>
             )}
+            {/* {!isTeacher ? (
+              <Link aria-current="false" to="/profile_student">
+                Profile
+              </Link>
+            ) : (
+              <Link aria-current="false" to="/profile_teacher">
+                Teacher
+              </Link>
+            )} */}
           </li>
           <li>
             <a onClick={() => logout()}>Logout</a>

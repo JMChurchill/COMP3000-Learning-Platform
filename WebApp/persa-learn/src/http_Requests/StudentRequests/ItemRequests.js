@@ -38,6 +38,19 @@ export const getAllThemes = () => {
   return data;
 };
 
+export const getAllThemesAdmin = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/theme/admin", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
 export const getAllProfilePics = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch("http://localhost:8080/profilePicture", {
@@ -128,6 +141,64 @@ export const getPurchasedThemes = () => {
       autherization: token,
     },
   }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const deleteThemeAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/theme/admin", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const addThemeAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/theme/admin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const editThemeAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/theme/admin", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const getThemeDetails = (themeID) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/theme/details?ThemeID="${themeID}"`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }
+  ).then((data) => data.json());
   checkTokenCorrect(data);
   return data;
 };

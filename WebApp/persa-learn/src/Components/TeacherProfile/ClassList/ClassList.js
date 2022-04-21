@@ -17,12 +17,12 @@ const ClassList = ({
       // style={{ position: "relative", borderRadius: "0.2rem" }}
     >
       {/* <div className="class-list task-box"> */}
+      <div className={styles.col_names}>
+        <p>Class Name</p>
+        <p>Year Group</p>
+        <p>Overdue</p>
+      </div>
       <div className={styles.task_box}>
-        <div className={styles.col_names}>
-          <p>Class Name</p>
-          <p>Year Group</p>
-          <p>Overdue</p>
-        </div>
         {classes.map((c, i) => {
           let classSelected = false;
           if (selectedClass) {

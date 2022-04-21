@@ -39,10 +39,15 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
             setReason("Email or Password incorrect");
             return;
           }
-          if (isTeacher) {
+          if (isAdmin) {
+            sessionStorage.setItem("admin", true);
+            sessionStorage.setItem("teacher", false);
+          } else if (isTeacher) {
             sessionStorage.setItem("teacher", true);
+            sessionStorage.setItem("admin", false);
           } else {
             sessionStorage.setItem("teacher", false);
+            sessionStorage.setItem("admin", false);
           }
           setIsError(false);
           setToken(token);

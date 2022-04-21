@@ -57,6 +57,9 @@ const TeacherProfile = () => {
       <h1>Teacher Profile (Classes)</h1>
       {/* <div className="container"> */}
       <div className={styles.container}>
+        <h2>Welcome back Teachers name here </h2>
+        <CustomButton text={"My details"} />
+        <h2>Classes</h2>
         <ClassList
           classes={classes}
           flipAddClass={flipAddClass}

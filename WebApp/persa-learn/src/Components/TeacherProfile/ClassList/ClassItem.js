@@ -16,7 +16,7 @@ const ClassItem = ({
       aria-selected={classSelected}
       onClick={() => setSelectedClass({ id, name, yearGroup })}
     >
-      <h2>{name}</h2>
+      <p>{name}</p>
       <p>Year Group: {yearGroup}</p>
       <p>Overdue: {overdue}</p>
     </div>
