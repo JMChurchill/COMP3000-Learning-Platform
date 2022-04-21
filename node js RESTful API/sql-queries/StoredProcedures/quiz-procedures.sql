@@ -1,4 +1,3 @@
-
 # Create quiz
 DELIMITER $$
 CREATE PROCEDURE quiz_create(QuizTitle text, mID int, tEmail varchar(255), tPassword varchar(60))

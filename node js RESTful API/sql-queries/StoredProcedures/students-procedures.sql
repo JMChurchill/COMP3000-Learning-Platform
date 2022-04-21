@@ -159,6 +159,36 @@ DELIMITER ; */
 
 
 
+#get all students
+DELIMITER $$
+CREATE PROCEDURE get_all_students (tEmail varchar(255), tPassword varchar(60))
+BEGIN
+    #check if teacher
+    IF EXISTS (SELECT * FROM teachers WHERE email = tEmail AND password = tPassword) THEN
+        SELECT StudentID, Email, FirstName, LastName 
+        FROM Students;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
 
+#search students
+DELIMITER $$
+CREATE PROCEDURE search_students (tEmail varchar(255), tPassword varchar(60), sTerm TEXT)
+BEGIN
+    IF EXISTS (SELECT * FROM teachers WHERE email = tEmail AND password = tPassword) THEN
+        SELECT StudentID, Email, FirstName, LastName 
+        FROM Students 
+        WHERE Email LIKE CONCAT('%', sTerm , '%') 
+        OR FirstName LIKE CONCAT('%', sTerm , '%') 
+        OR LastName LIKE CONCAT('%', sTerm , '%');
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL search_students ("email2@email.com", "password", "e")
 
 
