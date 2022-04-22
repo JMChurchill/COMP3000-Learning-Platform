@@ -82,3 +82,86 @@ END$$
 DELIMITER ;
 
 CALL Banners_purchased_add(1,'email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+# get all banners admin
+DELIMITER $$
+CREATE PROCEDURE Banners_get_all_admin (aEmail varchar(255), aPassword varchar(60))
+BEGIN
+    #get student id
+    IF EXISTS (SELECT AdminID FROM admins WHERE email = aEmail AND password = aPassword LIMIT 1) THEN
+        # get all banners
+        SELECT * FROM banners;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Banners_get_all_admin('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+
+# delete banner admin
+DELIMITER $$
+CREATE PROCEDURE Banners_delete (aEmail varchar(255), aPassword varchar(60),bID)
+BEGIN
+    #get student id
+    IF EXISTS (SELECT AdminID FROM admins WHERE email = aEmail AND password = aPassword LIMIT 1) THEN
+        # get all banners
+        DELETE FROM banners WHERE bannerID = bID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Banners_delete('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+
+# get banner details
+DELIMITER $$
+CREATE PROCEDURE Banners_get_details (bID int)
+BEGIN
+    # get banner
+    SELECT * FROM banners WHERE BannerID = bID LIMIT 1;
+END$$
+DELIMITER ;
+
+CALL Banners_get_details(1)
+
+
+# edit banner admin
+DELIMITER $$
+CREATE PROCEDURE Banners_edit (aEmail varchar(255), aPassword varchar(60),bID int, nName varchar(60), nDetails text, nImage text, nCost int, nReqLev int)
+BEGIN
+    #get student id
+    IF EXISTS (SELECT AdminID FROM admins WHERE email = aEmail AND password = aPassword LIMIT 1) THEN
+        # edit banner
+        Update banners SET Name = nName, Details = nDetails, Image = nImage, Cost = nCost, RequiredLevel = nReqLev WHERE BannerID = bID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Banners_edit('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+
+# add banner admin
+DELIMITER $$
+CREATE PROCEDURE Banners_add (aEmail varchar(255), aPassword varchar(60), bName varchar(60), bDetails text, bImage text, bCost int, bReqLev int)
+BEGIN
+    #get student id
+    IF EXISTS (SELECT AdminID FROM admins WHERE email = aEmail AND password = aPassword LIMIT 1) THEN
+        # add banner
+        INSERT INTO banners (Name, Details, Image, Cost, RequiredLevel) VALUES (bName, bDetails, bImage, bCost, bReqLev);
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL Banners_add('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')

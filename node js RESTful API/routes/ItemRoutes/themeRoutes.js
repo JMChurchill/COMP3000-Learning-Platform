@@ -261,7 +261,7 @@ router.route("/admin").post(
   }
 );
 
-// admin add theme
+// admin edit theme
 router
   .route("/admin")
   .put(

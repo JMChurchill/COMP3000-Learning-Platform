@@ -52,7 +52,7 @@ const ThemesAll = () => {
       <div className={styles.container}>
         <h2>Themes</h2>
         <div className={styles.themes_container}>
-          <Theme
+          {/* <Theme
             id={1}
             name={"Original"}
             primaryColor="blue"
@@ -61,7 +61,7 @@ const ThemesAll = () => {
             cost={100}
             requiredLevel={2}
             selectTheme={selectTheme}
-          />
+          /> */}
           {allThemes.map((theme) => (
             <Theme
               key={theme.ThemeID}

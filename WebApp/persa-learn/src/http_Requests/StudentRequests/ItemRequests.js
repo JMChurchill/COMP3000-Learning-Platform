@@ -202,3 +202,146 @@ export const getThemeDetails = (themeID) => {
   checkTokenCorrect(data);
   return data;
 };
+
+export const getAllBannersAdmin = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/banner/admin", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const getBannersDetails = (ThemeID) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/banner/details?ThemeID="${ThemeID}"`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }
+  ).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const deleteBannerAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/banner/admin", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const editBannerAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/banner/admin", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const addBannerAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/banner/admin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const getAllProfilePicturesAdmin = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/profilePicture/admin", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const deleteProfilePictureAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/profilePicture/admin", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const editProfilePictureAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/profilePicture/admin", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const addProfilePictureAdmin = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/profilePicture/admin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const getProfilePictureDetails = (ProfilePicID) => {
+  console.log(ProfilePicID);
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/profilePicture/details?ProfilePicID="${ProfilePicID}"`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }
+  ).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};

@@ -83,3 +83,83 @@ END$$
 DELIMITER ;
 
 CALL ProfilePic_purchased_add(1,'email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+
+# get all profile pictures admin
+DELIMITER $$
+CREATE PROCEDURE ProfilePic_get_all_admin (aEmail varchar(255), aPassword varchar(60))
+BEGIN
+    #get all profile pictures
+    IF EXISTS (SELECT * FROM admins WHERE email = aEmail AND password = aPassword) THEN
+        SELECT * FROM ProfilePictures;
+    ELSE
+        ROLLBACK;
+    END IF;
+    END$$
+DELIMITER ;
+
+CALL ProfilePic_get_all_admin('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+# get admin delete profile pic
+DELIMITER $$
+CREATE PROCEDURE ProfilePic_delete (aEmail varchar(255), aPassword varchar(60), pID int)
+BEGIN
+    #check if admin
+    IF EXISTS (SELECT * FROM admins WHERE email = aEmail AND password = aPassword) THEN
+        DELETE FROM ProfilePictures WHERE ProfilePictureID = pID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL ProfilePic_delete('first@admin.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K',1)
+
+
+# edit profile pic admin
+DELIMITER $$
+CREATE PROCEDURE ProfilePic_edit (aEmail varchar(255), aPassword varchar(60),pID int, nName varchar(60), nDetails text, nImage text, nCost int, nReqLev int)
+BEGIN
+    #get student id
+    IF EXISTS (SELECT AdminID FROM admins WHERE email = aEmail AND password = aPassword LIMIT 1) THEN
+        # edit profile pic
+        Update ProfilePictures SET Name = nName, Details = nDetails, Image = nImage, Cost = nCost, RequiredLevel = nReqLev WHERE ProfilePictureID = pID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL ProfilePic_edit('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+# add profile pic admin
+DELIMITER $$
+CREATE PROCEDURE ProfilePic_add (aEmail varchar(255), aPassword varchar(60), nName varchar(60), nDetails text, nImage text, nCost int, nReqLev int)
+BEGIN
+    #get student id
+    IF EXISTS (SELECT AdminID FROM admins WHERE email = aEmail AND password = aPassword LIMIT 1) THEN
+        # add profile pic
+        INSERT INTO ProfilePictures (Name, Details, Image, Cost, RequiredLevel) VALUES (nName, nDetails, nImage, nCost, nReqLev);
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL ProfilePic_add('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7NVW8AKSEf7dPt7j5XfGZI5QISJ5K')
+
+
+# get profile pic details
+DELIMITER $$
+CREATE PROCEDURE ProfilePic_get_details (pID int)
+BEGIN
+    # get profile pic
+    SELECT * FROM ProfilePictures WHERE ProfilePictureID = pID LIMIT 1;
+END$$
+DELIMITER ;
+
+CALL ProfilePic_get_details(1)
+

@@ -27,10 +27,13 @@ const AdminProfile = () => {
         <h2>Item Actions</h2>
         <CustomButton
           text={"Banners"}
-          onClick={() => navigate("/themes", {})}
+          onClick={() => navigate("/banners", {})}
         />
-        <CustomButton text={"Profile Pictures"} />
-        <CustomButton text={"Themes"} />
+        <CustomButton
+          text={"Profile Pictures"}
+          onClick={() => navigate("/profilePictures", {})}
+        />
+        <CustomButton text={"Themes"} onClick={() => navigate("/themes", {})} />
       </div>
     </div>
   );

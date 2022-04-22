@@ -35,6 +35,8 @@ import AdminProfile from "./Pages/AdminProfile";
 import ThemesAll from "./Pages/Admin/ThemesAll";
 import ThemesAdd from "./Pages/Admin/ThemesAdd";
 import ThemesEdit from "./Pages/Admin/ThemesEdit";
+import BannersAll from "./Pages/Admin/BannersAll";
+import ProfilePicturesAll from "./Pages/Admin/ProfilePicturesAll";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -142,6 +144,12 @@ function App() {
           <Route exact path="/themes" element={<ThemesAll />} />
           <Route exact path="/themes/add" element={<ThemesAdd />} />
           <Route exact path="/themes/edit" element={<ThemesEdit />} />
+          <Route exact path="/banners" element={<BannersAll />} />
+          <Route
+            exact
+            path="/profilePictures"
+            element={<ProfilePicturesAll />}
+          />
 
           {/* temp routes */}
           <Route exact path="/activity" element={<Activities />} />
