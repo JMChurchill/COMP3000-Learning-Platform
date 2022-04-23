@@ -1,5 +1,62 @@
 import { checkTokenCorrect } from "./userRequests";
 
+export const getTeachersDetails = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  // const data = fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/teacher", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const editTeachers = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  // const data = fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/teacher/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const editPasswordTeachers = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/teacher/update/password", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
+export const deleteTeacher = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  // const data = fetch("http://localhost:8080/teacher/classes", {
+  const data = fetch("http://localhost:8080/teacher/update", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
+
 export const getTeachersClasses = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   // const data = fetch("http://localhost:8080/teacher/classes", {

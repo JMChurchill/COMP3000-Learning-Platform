@@ -247,21 +247,87 @@ router
 
 //get students details
 router.route("/details").get(checkAuth, async (req, res) => {
-  const email = req.user.email;
-  const password = req.user.password;
+  try {
+    const email = req.user.email;
+    const password = req.user.password;
 
-  const query = `CALL get_student_details ("${email}", "${password}")`;
-  pool.query(query, (error, results) => {
+    const query = `CALL get_student_details ("${email}", "${password}")`;
+    const [[results]] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
+    });
+    console.log(results);
+
     if (results === null) {
       res.status(204).json({ status: "Not found" });
     } else {
       //get required xp for next level
-      results[0][0].RequiredXp = requiredXp(results[0][0].Level);
-      res.status(200).json({ status: "success", data: results[0] });
+      results.RequiredXp = requiredXp(results.Level);
+      res.status(200).json({ status: "success", data: results });
     }
-  });
+  } catch (err) {
+    res.status(500).json({ status: "Not found", err });
+  }
 });
 
+router
+  .route("/update/password")
+  .put(
+    [
+      check("oPassword", "Password < 6").isLength({ min: 6 }),
+      check("nPassword", "Password < 6").isLength({ min: 6 }),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        //get these values from check auth (JWT)
+        const sEmail = req.user.email;
+        const tPassword = req.user.password;
+
+        const hashedPassword = await bcrypt.hash(req.body.nPassword, 10);
+        const data = {
+          oldPassword: req.body.oPassword,
+          newPassword: hashedPassword,
+        };
+
+        // get all students from database with corresponding email
+        let query = `SELECT * FROM students WHERE email = "${sEmail}"`;
+
+        const [result] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+
+        try {
+          // compare input password with password on database
+          if (await bcrypt.compare(data.oldPassword, result.Password)) {
+            data.oldPassword = result.Password;
+          } else {
+            res.status(401).json({ status: " Password incorrect" });
+          }
+        } catch {
+          res.status(404).json({ status: "error occured" });
+        }
+
+        query = `CALL student_edit_password ("${sEmail}","${data.oldPassword}", "${data.newPassword}")`;
+        pool.query(query, (error) => {
+          if (error) {
+            res.status(400).json({ status: "failure", reason: error.code });
+          } else {
+            res.status(200).json({ status: "success" });
+          }
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
 // //get student xp
 // router.route("/details/xp").get(checkAuth, async (req, res) => {
 //   const email = req.user.email;

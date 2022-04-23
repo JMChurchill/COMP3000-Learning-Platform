@@ -10,6 +10,36 @@ const { check, validationResult } = require("express-validator");
 const JWT = require("jsonwebtoken");
 const checkAuth = require("../middleware/checkAuth");
 
+router.route("/").get(checkAuth, async (req, res) => {
+  //get these values from check auth (JWT)
+  const email = req.user.email;
+  const password = req.user.password;
+
+  const query = `CALL details_teacher("${email}", "${password}")`;
+  console.log(query);
+  const [[details]] = await pool.query(query).catch((err) => {
+    // throw err;
+    return res.status(400).json({ status: "failure", reason: err });
+  });
+  // console.log(results);
+  return res.status(200).json({
+    status: "success",
+    details,
+  });
+  // pool.query(query, (results, error) => {
+  //   if (error) {
+  //     res.status(400).json({ status: "failure", reason: error.code });
+  //   } else {
+  //     res.status(200).json({
+  //       status: "success",
+  //       data: results,
+  //     });
+  //   }
+  // }
+
+  // );
+});
+
 router.route("/login").post(async (req, res) => {
   data = {
     email: req.body.email,
@@ -48,7 +78,6 @@ router
   .put(
     [
       check("email", "Invalid email").isEmail(),
-      check("password", "Password < 6").isLength({ min: 6 }),
       check("firstname", "First name is required").not().isEmpty(),
       check("lastname", "Last name is required").not().isEmpty(),
       check("phonenumber", "Phone number is required").not().isEmpty(),
@@ -78,6 +107,7 @@ router
       });
     }
   )
+
   .delete(checkAuth, async (req, res) => {
     //get these values from check auth (JWT)
     const email = req.user.email;
@@ -96,8 +126,67 @@ router
     });
   });
 
+router
+  .route("/update/password")
+  .put(
+    [
+      check("oPassword", "Password < 6").isLength({ min: 6 }),
+      check("nPassword", "Password < 6").isLength({ min: 6 }),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        //get these values from check auth (JWT)
+        const tEmail = req.user.email;
+        const tPassword = req.user.password;
+
+        const hashedPassword = await bcrypt.hash(req.body.nPassword, 10);
+        const data = {
+          oldPassword: req.body.oPassword,
+          newPassword: hashedPassword,
+        };
+
+        // get all students from database with corresponding email
+        let query = `SELECT * FROM teachers WHERE email = "${tEmail}"`;
+
+        const [result] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+
+        try {
+          // compare input password with password on database
+          if (await bcrypt.compare(data.oldPassword, result.Password)) {
+            data.oldPassword = result.Password;
+          } else {
+            res.status(401).json({ status: " Password incorrect" });
+          }
+        } catch {
+          res.status(404).json({ status: "error occured" });
+        }
+
+        query = `CALL teacher_edit_password ("${tEmail}","${data.oldPassword}", "${data.newPassword}")`;
+        pool.query(query, (error) => {
+          if (error) {
+            res.status(400).json({ status: "failure", reason: error.code });
+          } else {
+            res.status(200).json({ status: "success" });
+          }
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
 //get all teachers - for testing
-router.get("/", async (req, res) => {
+router.get("/all", async (req, res) => {
   const query = "SELECT * FROM teachers";
   pool.query(query, (error, results) => {
     if (results === null) {

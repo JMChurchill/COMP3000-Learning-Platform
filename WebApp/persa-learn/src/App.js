@@ -21,7 +21,7 @@ import ClassLeaderboard from "./Pages/ClassLeaderboard";
 // import Achievements from "./Pages/Achievements";
 import FlashcardDesigner from "./Pages/ActivityDesigner/FlashcardDesigner";
 import StudentProfile from "./Pages/StudentProfile";
-import TeacherProfile from "./Pages/TeacherProfile";
+import TeacherProfile from "./Pages/Teacher/TeacherProfile";
 
 //components
 import Navbar from "./Components/Navbar";
@@ -37,6 +37,8 @@ import ThemesAdd from "./Pages/Admin/ThemesAdd";
 import ThemesEdit from "./Pages/Admin/ThemesEdit";
 import BannersAll from "./Pages/Admin/BannersAll";
 import ProfilePicturesAll from "./Pages/Admin/ProfilePicturesAll";
+import TeacherDetails from "./Pages/Teacher/TeacherDetails";
+import TeacherEdit from "./Pages/Teacher/TeacherEdit";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -136,6 +138,8 @@ function App() {
           <Route exact path="/shop" element={<Shop />} />
           {/* teacher routes */}
           <Route exact path="/profile_teacher" element={<TeacherProfile />} />
+          <Route exact path="/details_teacher" element={<TeacherDetails />} />
+          <Route exact path="/edit_teacher" element={<TeacherEdit />} />
           <Route exact path="/Assign" element={<AssignActivities />} />
           <Route exact path="/designer_quiz" element={<QuizDesigner />} />
 

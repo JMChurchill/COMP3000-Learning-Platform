@@ -39,3 +39,32 @@ export const updateBanner = (credentials) => {
   checkTokenCorrect(data);
   return data;
 };
+
+export const deleteStudent = () => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  let data = fetch("http://localhost:8080/student/", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+
+  return data;
+};
+
+export const editPasswordStudent = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  let data = fetch("http://localhost:8080/student/update/password", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+
+  return data;
+};

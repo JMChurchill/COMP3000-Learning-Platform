@@ -192,3 +192,20 @@ DELIMITER ;
 CALL search_students ("email2@email.com", "password", "e")
 
 
+# edit password student
+DELIMITER $$
+CREATE PROCEDURE student_edit_password (aEmail varchar(255), aPassword varchar(60), nPassword varchar(60) )
+BEGIN
+    #get student id
+    DECLARE theStudentID int;
+    SET theStudentID = (SELECT StudentID FROM Students WHERE email = aEmail AND password = aPassword LIMIT 1);
+    IF EXISTS (SELECT * FROM Students WHERE email = aEmail AND password = aPassword) THEN
+        #edit password
+        Update Students SET Password = nPassword WHERE StudentID = theStudentID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL student_edit_password ('admin2@email.com','password','password2')

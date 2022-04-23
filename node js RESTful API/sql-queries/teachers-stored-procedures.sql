@@ -61,6 +61,23 @@ DELIMITER ;
 CALL details_teacher ("email2@email.com", "password")
 
 
+# edit password teacher
+DELIMITER $$
+CREATE PROCEDURE teacher_edit_password (aEmail varchar(255), aPassword varchar(60), nPassword varchar(60) )
+BEGIN
+    #get student id
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = aEmail AND password = aPassword LIMIT 1);
+    IF EXISTS (SELECT * FROM Teachers WHERE email = aEmail AND password = aPassword) THEN
+        #edit password
+        Update Teachers SET Password = nPassword WHERE TeacherID = theTeacherID;
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL teacher_edit_password ('admin2@email.com','password','password2')
 
 
 

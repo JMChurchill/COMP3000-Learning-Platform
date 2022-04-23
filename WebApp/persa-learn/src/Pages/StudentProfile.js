@@ -56,7 +56,7 @@ const StudentProfile = () => {
         Level,
         ProfilePicture,
         Banner,
-      } = dataStudentDetails.data[0];
+      } = dataStudentDetails.data;
       setUsersName(`${FirstName} ${LastName}`);
       setXp(Xp);
       setRequiredXp(RequiredXp);

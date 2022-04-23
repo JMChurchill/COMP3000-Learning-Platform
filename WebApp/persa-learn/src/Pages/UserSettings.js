@@ -12,6 +12,9 @@ import ProfilePictureSelector from "../Components/UserSettings/ProfilePictureSel
 import BannerSelector from "../Components/UserSettings/BannerSelector";
 import ThemeCurrent from "../Components/UserSettings/ThemeCurrent";
 import ThemeSelector from "../Components/UserSettings/ThemeSelector";
+import OverlayConfirm from "../Components/OverlayConfirm";
+import { deleteStudent } from "../http_Requests/StudentRequests/StudentRequests";
+import OverlayChangePassword from "../Components/UserSettings/OverlayChangePassword";
 
 const UserSettings = () => {
   const [email, setEmail] = useState();
@@ -21,6 +24,8 @@ const UserSettings = () => {
   const [banner, setBanner] = useState();
 
   const [isSelectProfilePic, setIsSelectProfilePic] = useState(false);
+  const [isChangePassword, setIsChangePassword] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [isSelectBanner, setIsSelectBanner] = useState(false);
   const [isSelectTheme, setIsSelectTheme] = useState(false);
 
@@ -30,8 +35,7 @@ const UserSettings = () => {
     const data = await getUserDetails();
 
     if (data.status === "success") {
-      const { FirstName, LastName, Email, ProfilePicture, Banner } =
-        data.data[0];
+      const { FirstName, LastName, Email, ProfilePicture, Banner } = data.data;
       setEmail(Email);
       setFirstName(FirstName);
       setLastName(LastName);
@@ -44,18 +48,15 @@ const UserSettings = () => {
   useEffect(async () => {
     await getDetails();
   }, []);
-  const deleteAccount = () => {
+  const deleteAccount = async () => {
     //TODO: Make delete user
-    if (
-      window.confirm(
-        "Are you sure you want to save this thing into the database?"
-      )
-    ) {
-      // Save it!
-      console.log("Thing was saved to the database.");
-    } else {
-      // Do nothing!
-      console.log("Thing was not saved to the database.");
+    const data = await deleteStudent();
+    console.log(data);
+    // // data;
+    if (data.status === "success") {
+      navigate("/", {});
+      sessionStorage.clear();
+      window.location.reload();
     }
   };
   return (
@@ -103,9 +104,12 @@ const UserSettings = () => {
           onClick={() => setIsSelectTheme(true)}
         />
         <h2>My details</h2>
-        <p>Email:{email}</p>
-        <p>First: {firstName}</p>
-        <p>Last: {lastName}</p>
+        <h3>Email</h3>
+        <p>{email}</p>
+        <h3>Firstname</h3>
+        <p>{firstName}</p>
+        <h3>Lastname</h3>
+        <p>{lastName}</p>
         <CustomButton
           type={1}
           text={"Update details"}
@@ -120,9 +124,13 @@ const UserSettings = () => {
           }
         />
         <CustomButton
+          text={"Change password"}
+          onClick={() => setIsChangePassword(true)}
+        />
+        <CustomButton
           type={2}
           text={"Delete my account"}
-          onClick={deleteAccount}
+          onClick={() => setIsDeleting(true)}
         />
       </div>
       {isSelectProfilePic ? (
@@ -146,6 +154,20 @@ const UserSettings = () => {
           // getDetails={getDetails}
           close={() => setIsSelectTheme(false)}
         />
+      ) : (
+        <></>
+      )}
+      {isDeleting ? (
+        <OverlayConfirm
+          message={`Are you sure you'd like to delete this account (${email})?`}
+          yes={deleteAccount}
+          no={() => setIsDeleting(false)}
+        />
+      ) : (
+        <></>
+      )}
+      {isChangePassword ? (
+        <OverlayChangePassword close={() => setIsChangePassword(false)} />
       ) : (
         <></>
       )}
