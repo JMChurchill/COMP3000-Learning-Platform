@@ -34,10 +34,13 @@ const Quiz = () => {
     if (state !== null) {
       const data = await getQuiz(state.quizID);
 
-      //set quiz title
-      setTitle(data.quizName);
-      setQuizID(data.quizID);
-      setQuestions(data.questions);
+      console.log(data);
+      if (data.status === "success") {
+        //set quiz title
+        setTitle(data.quiz.quizName);
+        setQuizID(data.quiz.quizID);
+        setQuestions(data.quiz.questions);
+      }
     }
   }, []);
 
@@ -59,6 +62,7 @@ const Quiz = () => {
     }
   };
   const complete = async () => {
+    console.log("answers", answers);
     // check if all questions answered
     if (answers.length === questions.length) {
       //check answers and submit
@@ -87,8 +91,8 @@ const Quiz = () => {
         {questions.map((question) => {
           return (
             <QuizBox
-              key={question.id}
-              questionId={question.id}
+              key={question.QuestionID}
+              questionId={question.QuestionID}
               question={question.name}
               details={question.details}
               options={question.options}

@@ -10,6 +10,7 @@ const QuizBox = ({
   addAnswer,
 }) => {
   const logToCon = async (e) => {
+    console.log(questionId);
     // console.log(e, { props: { id: Number(e.currentTarget.id) } });
     console.log(e.currentTarget.id);
     addAnswer(questionId, e.currentTarget.id);
@@ -60,7 +61,7 @@ const QuizBox = ({
             >
               {/* <div className="check-box" aria-selected={selected}></div> */}
               <div className={styles.check_box} aria-selected={selected}></div>
-              <div>{ans}</div>
+              <div>{ans.TheOption}</div>
             </li>
           );
         })}

@@ -259,6 +259,7 @@ router
           return res.status(400).json({ status: "failure", reason: err });
         });
         const wrongAnswers = [];
+        console.log(correctAnswers);
         //check answers
         //check if same length
         if (data.ans.length === correctAnswers.length) {
@@ -275,9 +276,9 @@ router
         }
         const score = correctAnswers.length - wrongAnswers.length;
         const xp = quiz.Xp * (score / correctAnswers.length);
-        console.log(password);
+        // console.log(password);
         const coins = quiz.Coins * (score / correctAnswers.length);
-        console.log(coins);
+        // console.log(coins);
 
         //get current xp and level from database
         const queryDetails = `CALL get_student_details ("${email}", "${password}")`;
@@ -288,7 +289,7 @@ router
         console.log("Student details: ", details[0]);
         //calculate the level
         const levelSystem = levelUp(details[0].Level, details[0].Xp, xp);
-        console.log("levelss", levelSystem);
+        // console.log("levelss", levelSystem);
         const remainingXp = requiredXp(levelSystem.level);
 
         const query3 = `CALL quiz_submission_add(${data.quizID},${score},${levelSystem.xp},${levelSystem.level},${coins},"${email}","${password}")`;
