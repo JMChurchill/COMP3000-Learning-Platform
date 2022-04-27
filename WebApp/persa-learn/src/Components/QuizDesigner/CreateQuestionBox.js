@@ -8,16 +8,26 @@ import styles from "./CreateQuestionBox.module.css";
 import NewOption from "./NewOption";
 
 const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
-  const [questionName, setQuestionName] = useState("");
-  const [questionDetails, setQuestionDetails] = useState("");
+  const [name, setName] = useState(thisQuestion.Question);
+  const [questionDetails, setQuestionDetails] = useState(
+    thisQuestion.Details ? thisQuestion.Details : ""
+  );
 
-  const [options, setOptions] = useState([]);
-  const [correctAns, setCorrectAns] = useState(0);
+  const [options, setOptions] = useState(
+    thisQuestion.options ? thisQuestion.options : []
+  );
+  const [correctAns, setCorrectAns] = useState(thisQuestion.Answer);
   // const [option, setOption] = useState({ value: "", isTrue: false });
   useEffect(() => {
+    // setName(thisQuestion.name);
     updateThisQuestion();
     setOptions([...options]); //to trigger component update
   }, [correctAns]);
+
+  useEffect(() => {
+    // setName(thisQuestion.name);
+    updateThisQuestion();
+  }, [name, questionDetails, options, correctAns]);
 
   const addOption = () => {
     // e.preventDefault();
@@ -28,10 +38,11 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
 
   const updateThisQuestion = async () => {
     console.log("updating all values");
-    thisQuestion.name = questionName;
-    thisQuestion.details = questionDetails;
+    console.log(thisQuestion);
+    thisQuestion.Question = name;
+    thisQuestion.Details = questionDetails;
     thisQuestion.options = options;
-    thisQuestion.correct = correctAns;
+    thisQuestion.Answer = correctAns;
     console.log(thisQuestion);
 
     updateQuestion(thisQuestion);
@@ -47,30 +58,17 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
   return (
     // <div className="create-question">
     <div className={styles.create_question}>
-      {/* <form action=""> */}
-      {/* <div className="question-box"> */}
       <div className={styles.question_box}>
-        {/* <input
-          placeholder="Enter Question"
-          onChange={(e) => {
-            setQuestionName(e.target.value);
-            updateThisQuestion();
-          }}
-        /> */}
         <CustomInput
           placeholder={"Question"}
-          setValue={setQuestionName}
+          value={name}
+          setValue={setName}
           updateAllValues={updateThisQuestion}
         />
-        {/* <input
-          placeholder="More details"
-          onChange={(e) => {
-            setQuestionDetails(e.target.value);
-            updateThisQuestion();
-          }}
-        /> */}
+
         <CustomInput
           placeholder={"Details"}
+          value={questionDetails}
           setValue={setQuestionDetails}
           updateAllValues={updateThisQuestion}
         />
@@ -83,13 +81,14 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
       <div className={styles.options_box}>
         {options.map((option, index) => {
           let correctAnsw = false;
-          if (thisQuestion.correct == index) {
+          if (thisQuestion.Answer == index) {
             correctAnsw = true;
           }
           return (
             <NewOption
               key={index}
               opID={index}
+              value={option.TheOption}
               updateOption={updateOption}
               correctAns={correctAnsw}
               updateCorrectAns={updateCorrectAns}

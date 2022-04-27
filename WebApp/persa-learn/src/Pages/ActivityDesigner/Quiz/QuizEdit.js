@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import styles from "./QuizDesigner.module.css";
-
-import CreateQuestionBox from "../../../Components/QuizDesigner/CreateQuestionBox";
-import Overlay from "../../../Components/QuizDesigner/OverlayError";
-import OverlayAddModule from "../../../Components/QuizDesigner/OverlayAddModule";
-import {
-  createModule,
-  createTheQuiz,
-  viewTeachersModules,
-} from "../../../http_Requests/teacherRequests";
-import OverlayComplete from "../../../Components/QuizDesigner/OverlayComplete";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import CustomButton from "../../../Components/CustomButton";
 import CustomInput from "../../../Components/CustomInput";
+import CreateQuestionBox from "../../../Components/QuizDesigner/CreateQuestionBox";
+import { updateTheQuiz } from "../../../http_Requests/QuizRequests";
+import { viewTeachersModules } from "../../../http_Requests/teacherRequests";
+import { getQuiz } from "../../../http_Requests/userRequests";
+import styles from "./QuizEdit.module.css";
 
-const QuizDesigner = () => {
+const QuizEdit = () => {
   const [title, setTitle] = useState();
   const [questions, setQuestions] = useState([]);
   const [selectedModule, setSelectedModule] = useState(null);
   const [newModule, setNewModule] = useState();
   // const [selectedDate, setSelectedDate] = useState(null);
 
-  const [selectedClass, setSelectedClass] = useState("");
+  //   const [selectedClass, setSelectedClass] = useState("");
 
   const [moduleList, setModuleList] = useState([]);
 
@@ -30,74 +24,56 @@ const QuizDesigner = () => {
   const [isAddModule, setIsAddModule] = useState(false);
   const [moduleCreated, setModuleCreated] = useState(false);
 
-  const navigate = useNavigate();
   const { state } = useLocation();
+  console.log(state);
 
   const getModules = async () => {
     let data = await viewTeachersModules();
     setModuleList(data.modules);
   };
 
-  useEffect(async () => {
-    //get data from previous page
-    await setSelectedClass({
-      id: state.classID,
-      name: state.className,
-      yearGroup: state.yearGroup,
-    });
-    //get all modules
-    await getModules();
-  }, []);
-
-  // const addModule = async () => {
-  //   // console.log(newModule);
-  //   //add module to database
-  //   if (newModule != null) {
-  //     let data = await createModule({ moduleName: newModule });
-  //     //get all modules
-  //     let modData = await viewTeachersModules();
-  //     setModuleList(modData.modules);
-  //     setModuleCreated(true);
-  //   } else {
-  //     alert("please enter a module");
-  //   }
-  // };
-
-  const addQuestion = () => {
-    // e.preventDefault();
-    //create empty question
-    const question = {
-      id: questions.length,
-      name: "",
-      details: "",
-      correct: 0,
-      options: [],
-    };
-    //add question to question array
-    setQuestions([...questions, question]);
-  };
   const updateQuestion = (qID, updatedQuestion) => {
     // copy old data
     let newData = [...questions];
     // update value based on question ID
     newData[qID] = updatedQuestion;
   };
-
-  const createQuiz = async () => {
+  const addQuestion = () => {
+    // e.preventDefault();
+    //create empty question
+    const question = {
+      id: questions.length,
+      Question: "",
+      Details: "",
+      Answer: 0,
+      options: [],
+    };
+    //add question to question array
+    setQuestions([...questions, question]);
+  };
+  const updateQuiz = async () => {
     console.log({
+      quizID: state.quizID,
       title,
       questions,
       selectedModule,
-      selectedClass,
+      //   selectedClass,
     });
-    //add quiz to database
-    const data = await createTheQuiz({
+    const data = await updateTheQuiz({
+      quizID: state.quizID,
       title,
       questions,
       selectedModule,
-      selectedClass,
     });
-    //display status
+    console.log(data);
+    // //add quiz to database
+    // const data = await createTheQuiz({
+    //   title,
+    //   questions,
+    //   selectedModule,
+    //   selectedClass,
+    // });
+    // //display status
     // if (data.status === "success") {
     //   setIsComplete(true);
     // } else {
@@ -105,12 +81,24 @@ const QuizDesigner = () => {
     // }
   };
 
+  const getTheQuiz = async () => {
+    //get existing questions
+    const data = await getQuiz(state.quizID);
+    console.log(data);
+    setTitle(data.quiz.quizName);
+    setQuestions(data.quiz.questions);
+  };
+  useEffect(async () => {
+    await getModules();
+    await getTheQuiz();
+  }, []);
   return (
     <div className="content-box">
-      <h1>Quiz designer</h1>
+      <h1>Quiz Edit</h1>
       <div className={styles.container}>
         <div className={styles.create_quiz_title}>
           <CustomInput
+            value={title}
             placeholder={"Quiz Title"}
             setValue={setTitle}
             fill={true}
@@ -137,25 +125,26 @@ const QuizDesigner = () => {
           />
         </div>
         {questions.map((quest, index) => {
+          console.log(quest);
           return (
             <CreateQuestionBox
               key={quest.id}
               qID={quest.id}
-              thisQuestion={questions[quest.id]}
+              thisQuestion={quest}
               updateQuestion={updateQuestion}
             />
           );
         })}
         <CustomButton text={"+"} type={2} onClick={addQuestion} />
-        <CustomButton text={"Finished"} onClick={createQuiz} />
+        <CustomButton text={"Finished"} onClick={updateQuiz} />
       </div>
-      {isComplete ? (
+      {/* {isComplete ? (
         <OverlayComplete title={title} selectedClass={selectedClass} />
       ) : (
         <></>
-      )}
+      )} */}
       {/* <OverlayComplete title={title} selectedClass={selectedClass} /> */}
-      {isError ? (
+      {/* {isError ? (
         <Overlay
           setIsError={setIsError}
           close={() => {
@@ -165,9 +154,9 @@ const QuizDesigner = () => {
         />
       ) : (
         <></>
-      )}
+      )} */}
 
-      {isAddModule ? (
+      {/* {isAddModule ? (
         <OverlayAddModule
           isAddModule={isAddModule}
           moduleCreated={moduleCreated}
@@ -177,40 +166,9 @@ const QuizDesigner = () => {
         />
       ) : (
         <></>
-      )}
+      )} */}
     </div>
   );
 };
 
-{
-  /* <div className="overlay" aria-disabled={!isAddModule}>
-  <div className="message-box">
-    {moduleCreated ? (
-      <h1>Module created successfully</h1>
-    ) : (
-      <>
-        {" "}
-        <h1>Add a new module</h1>
-        <input
-          type="text"
-          placeholder="module name"
-          onChange={(e) => setNewModule(e.target.value)}
-        />
-        <button className="btn" onClick={() => addModule()}>
-          Ok
-        </button>
-      </>
-    )}
-    <button
-      className="btn"
-      onClick={() => {
-        setIsAddModule(false);
-        setModuleCreated(false);
-      }}
-    >
-      Back
-    </button>
-  </div>
-</div> */
-}
-export default QuizDesigner;
+export default QuizEdit;

@@ -29,16 +29,14 @@ CALL assignment_quiz_create_class(1,1,"date-here",100,"email","password")
 
 
 DELIMITER $$
-CREATE PROCEDURE assignment_quiz_delete(sID int,qID int,tEmail varchar(255), tPassword varchar(60))
+CREATE PROCEDURE assignment_quiz_delete(qID int, cID int,tEmail varchar(255), tPassword varchar(60))
 BEGIN 
     DECLARE theTeacherID int;
     SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
-    #check student in teachers class
-    IF EXISTS (SELECT * FROM classes 
-    INNER JOIN classdetails ON classes.ClassDetailsID = classdetails.ClassDetailsID
-    WHERE StudentID = sID AND TeacherID = theTeacherID) THEN
-        DELETE FROM quizassignments
-        WHERE StudentID = sID AND QuizID = qID;
+    #check is teachers class
+    IF EXISTS (SELECT * FROM QuizClassAssignments INNER JOIN ClassDetails ON classdetails.classDetailsID = QuizClassAssignments.classDetailsID WHERE QuizClassAssignments.ClassDetailsID = cID AND classdetails.TeacherID = theTeacherID) THEN
+        DELETE FROM QuizClassAssignments
+        WHERE ClassDetailsID = cID AND QuizID = qID;
     ELSE
         ROLLBACK;
     END IF;

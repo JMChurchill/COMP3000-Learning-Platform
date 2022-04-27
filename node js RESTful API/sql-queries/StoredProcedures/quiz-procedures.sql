@@ -13,7 +13,21 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL quiz_create ("test", "email","password")
+# Update quiz
+DELIMITER $$
+CREATE PROCEDURE quiz_update(qID int,QuizTitle text, mID int, tEmail varchar(255), tPassword varchar(60))
+BEGIN 
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+    #START TRANSACTION
+        UPDATE quizzes 
+        SET QuizName = QuizTitle, ModuleID = mID, TeacherID = theTeacherID 
+        WHERE QuizID = qID;
+    #COMMIT
+END$$
+DELIMITER ;
+
+CALL quiz_update ("test", "email","password")
 
 
 # add question to quiz
@@ -22,7 +36,7 @@ CREATE PROCEDURE quiz_add_question(theQuizID int, nQuestion text, nDetails text,
 BEGIN 
     #START TRANSACTION
         INSERT INTO quizquestions(QuizID, Question, Details,Answer)
-        VALUES (theQuizID, nQuestion, nDetails, Answer);
+        VALUES (theQuizID, nQuestion, nDetails, ans);
         # get the new quizzes id
         SELECT LAST_INSERT_ID();
     #COMMIT
@@ -32,7 +46,18 @@ DELIMITER ;
 # execute
 CALL quiz_add_question (4,"1+1", "", 0)
 
+# add question to quiz
+DELIMITER $$
+CREATE PROCEDURE quiz_delete_questions(qID int)
+BEGIN 
+    #START TRANSACTION
+        DELETE FROM quizquestions WHERE QuizID = qID;
+    #COMMIT
+END$$
+DELIMITER ;
 
+# execute
+CALL quiz_delete_questions (4,"1+1", "", 0)
 
 # add option to quiz question
 DELIMITER $$

@@ -124,11 +124,11 @@ router
 
 // delete quiz assignment
 router
-  .route("/quiz")
+  .route("/quiz/class")
   .delete(
     [
-      check("StudentID", "Invalid student ID").not().isEmpty(),
-      check("QuizID", "Invalid quiz ID").not().isEmpty(),
+      check("classID", "Invalid class ID").not().isEmpty(),
+      check("quizID", "Invalid quiz ID").not().isEmpty(),
     ],
     checkAuth,
     async (req, res) => {
@@ -144,20 +144,23 @@ router
             errors: errs.array(),
           });
         }
+        console.log("testing testing");
 
         data = {
-          studentID: req.body.studentID,
+          classID: req.body.classID,
           quizID: req.body.quizID,
         };
 
-        let query = `CALL assignment_quiz_delete (${data.studentID},${data.quizID},"${email}","${password}")`;
-        await pool.query(query).catch((err) => {
+        let query = `CALL assignment_quiz_delete (${data.quizID},${data.classID},"${email}","${password}")`;
+        console.log(query);
+        const result = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
         // console.log(results);
         return res.status(200).json({
           status: "success",
+          result,
         });
       } catch (err) {
         return res.status(500).send(err);

@@ -62,6 +62,7 @@ router
 
             // insert questions
             data.questions.map((question) => {
+              console.log("correct answre is", question.correct);
               const query = `CALL quiz_add_question (${quizID},"${question.name}","${question.details}", ${question.correct})`;
               console.log("the query: ", query);
 
@@ -104,86 +105,88 @@ router
     }
   );
 
-// view quiz
-router
-  .route("/view")
-  .get(
-    [check("quizID", "Enter a quiz id").not().isEmpty()],
-    checkAuth,
-    async (req, res) => {
-      try {
-        let quiz = { quizID: null, quizName: "", questions: [] };
+// // view quiz
+// router
+//   .route("/view")
+//   .get(
+//     [check("quizID", "Enter a quiz id").not().isEmpty()],
+//     checkAuth,
+//     async (req, res) => {
+//       try {
+//         let quiz = { quizID: null, quizName: "", questions: [] };
 
-        const errs = validationResult(req);
-        if (!errs.isEmpty()) {
-          console.log(errs);
-          return res.status(400).json({
-            errors: errs.array(),
-          });
-        }
-        const quizID = req.query.quizID;
-        let query = `CALL quiz_view ("${quizID}")`;
+//         const errs = validationResult(req);
+//         if (!errs.isEmpty()) {
+//           console.log(errs);
+//           return res.status(400).json({
+//             errors: errs.array(),
+//           });
+//         }
+//         const quizID = req.query.quizID;
+//         let query = `CALL quiz_view ("${quizID}")`;
+//         // get quiz details
+//         const [quized] = await pool.query(query).catch((err) => {
+//           // throw err;
+//           return res.status(400).json({ status: "failure", reason: err });
+//         });
+//         quiz.quizID = quized[0].QuizID;
+//         quiz.quizName = quized[0].QuizName;
 
-        const [quized] = await pool.query(query).catch((err) => {
-          // throw err;
-          return res.status(400).json({ status: "failure", reason: err });
-        });
-        quiz.quizID = quized[0].QuizID;
-        quiz.quizName = quized[0].QuizName;
+//         // get all questions from the quiz
+//         query = `CALL quiz_question_view (${quizID})`;
+//         const [questionsed] = await pool.query(query).catch((err) => {
+//           // throw err;
+//           return res.status(400).json({ status: "failure", reason: err });
+//         });
+//         console.log("all questions", questionsed);
+//         // console.log(questionsed);
+//         questionsed.map((quest) => {
+//           let tempQuestion = {
+//             id: "",
+//             name: "",
+//             details: "",
+//             correct: "",
+//             options: [],
+//           };
+//           tempQuestion.id = quest.QuestionID;
+//           tempQuestion.name = quest.Question;
+//           if (quest.details !== null && quest.details !== undefined)
+//             tempQuestion.details = quest.details;
+//           tempQuestion.correct = quest.Answer;
 
-        query = `CALL quiz_question_view (${quizID})`;
-        const [questionsed] = await pool.query(query).catch((err) => {
-          // throw err;
-          return res.status(400).json({ status: "failure", reason: err });
-        });
-        // console.log(questionsed);
-        questionsed.map((quest) => {
-          let tempQuestion = {
-            id: "",
-            name: "",
-            details: "",
-            correct: "",
-            options: [],
-          };
-          tempQuestion.id = quest.QuestionID;
-          tempQuestion.name = quest.Question;
-          if (quest.details !== null && quest.details !== undefined)
-            tempQuestion.details = quest.details;
-          tempQuestion.correct = quest.Answer;
+//           // console.log(tempQuestion);
+//           quiz.questions.push(tempQuestion);
+//         });
 
-          // console.log(tempQuestion);
-          quiz.questions.push(tempQuestion);
-        });
-
-        numQuests = quiz.questions.length;
-        await quiz.questions.map(async (quest, i) => {
-          query = `CALL quiz_question_option_view (${quizID},${quest.id})`;
-          const [optionsed] = await pool.query(query).catch((err) => {
-            // throw err;
-            return res.status(400).json({ status: "failure", reason: err });
-          });
-          // console.log(optionsed);
-          await quiz.questions.forEach((q) => {
-            if (q.id === optionsed[0].QuestionID) {
-              optionsed.map((op) => {
-                q.options.push(op.TheOption);
-                // console.log("new ops", q.options);
-              });
-            }
-          });
-          // console.log(numQuests);
-          // console.log(i);
-          if (i === numQuests - 1) {
-            // console.log("ops: ", quiz.questions);
-            console.log(quiz);
-            res.status(201).json(quiz);
-          }
-        });
-      } catch (err) {
-        return res.status(500).send(err);
-      }
-    }
-  );
+//         numQuests = quiz.questions.length;
+//         await quiz.questions.map(async (quest, i) => {
+//           query = `CALL quiz_question_option_view (${quizID},${quest.id})`;
+//           const [optionsed] = await pool.query(query).catch((err) => {
+//             // throw err;
+//             return res.status(400).json({ status: "failure", reason: err });
+//           });
+//           // console.log(optionsed);
+//           await quiz.questions.forEach((q) => {
+//             if (q.id === optionsed[0].QuestionID) {
+//               optionsed.map((op) => {
+//                 q.options.push(op.TheOption);
+//                 // console.log("new ops", q.options);
+//               });
+//             }
+//           });
+//           // console.log(numQuests);
+//           // console.log(i);
+//           if (i === numQuests - 1) {
+//             // console.log("ops: ", quiz.questions);
+//             console.log(quiz);
+//             res.status(201).json(quiz);
+//           }
+//         });
+//       } catch (err) {
+//         return res.status(500).send(err);
+//       }
+//     }
+//   );
 
 // delete quiz
 router
@@ -355,4 +358,165 @@ router
     }
   );
 
+//test
+router
+  .route("/view")
+  .get(
+    [check("quizID", "Enter a quiz id").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      try {
+        let quiz = { quizID: null, quizName: "", questions: [] };
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        const quizID = req.query.quizID;
+        let query = `CALL quiz_view ("${quizID}")`;
+        // get quiz details
+        const [quized] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        quiz.quizID = quized[0].QuizID;
+        quiz.quizName = quized[0].QuizName;
+
+        // get all questions from the quiz
+        query = `CALL quiz_question_view (${quizID})`;
+        const [questionsed] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        // console.log("all questions", questionsed);
+        quiz.questions = questionsed;
+
+        // numQuests = quiz.questions.length;
+        await quiz.questions.forEach(async (quest, i, array) => {
+          query = `CALL quiz_question_option_view (${quizID},${quest.QuestionID})`;
+          // console.log("getting option:", query);
+          const [optionsed] = await pool.query(query).catch((err) => {
+            // throw err;
+            return res.status(400).json({ status: "failure", reason: err });
+          });
+          quiz.questions[i].options = optionsed;
+          // console.log(array);
+          if (i === array.length - 1) {
+            console.log(array);
+            res.status(201).json({ status: "success", quiz });
+          }
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+//update quiz
+router
+  .route("/update")
+  .put(
+    [
+      check("quizID", "Invalid quiz id").not().isEmpty(),
+      check("title", "Invalid title").not().isEmpty(),
+      check("questions", "Quiz has no questions").isArray({ min: 1 }),
+      oneOf([
+        check("selectedModule", "Incorrect module id").isInt(),
+        check("selectedModule", "Incorrect module id").isEmpty(),
+      ]),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        let quizID;
+        let opID;
+        //validate inputs
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+        const data = {
+          quizID: req.body.quizID,
+          title: req.body.title,
+          questions: req.body.questions,
+          moduleID: req.body.selectedModule,
+        };
+        //delete old questions
+        const deleteQuery = `CALL quiz_delete_questions(${data.quizID})`;
+        console.log(deleteQuery);
+        const results = await pool.query(deleteQuery).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        console.log(results);
+
+        // console.log(data.title);
+        // console.log(data);
+        // console.log(data.questions[0].options);
+
+        const query = `CALL quiz_update (${data.quizID},"${data.title}",${data.moduleID}, "${email}", "${password}")`;
+        pool.query(query, (error, results) => {
+          if (error) {
+            return res
+              .status(400)
+              .json({ status: "failure", reason: error.code });
+          } else {
+            // insert questions
+            data.questions.map((question) => {
+              const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", ${question.Answer})`;
+              console.log("the query: ", query);
+
+              pool.query(query, (error, results) => {
+                if (error) {
+                  return res
+                    .status(400)
+                    .json({ status: "failure", reason: error.code });
+                } else {
+                  // get the question just inserted id
+                  opID = results[0][0]["LAST_INSERT_ID()"];
+                  console.log(opID);
+                  // insert options
+                  question.options.map((option) => {
+                    let query;
+                    if (option.hasOwnProperty("TheOption")) {
+                      query = `CALL quiz_add_question_option (${opID},"${option.TheOption}")`;
+                    } else {
+                      query = `CALL quiz_add_question_option (${opID},"${option}")`;
+                    }
+                    console.log("the query: ", query);
+                    pool.query(query, (error, results) => {
+                      if (error) {
+                        return res.status(400).json({
+                          status: "failure",
+                          reason: error.code,
+                        });
+                      } else {
+                      }
+                    });
+                  });
+                }
+              });
+            });
+          }
+          return res.status(201).json({
+            status: "success",
+            quizID,
+            // data: results[0],
+          });
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
 module.exports = router;

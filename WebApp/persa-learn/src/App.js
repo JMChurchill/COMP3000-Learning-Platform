@@ -39,6 +39,7 @@ import BannersAll from "./Pages/Admin/BannersAll";
 import ProfilePicturesAll from "./Pages/Admin/ProfilePicturesAll";
 import TeacherDetails from "./Pages/Teacher/TeacherDetails";
 import TeacherEdit from "./Pages/Teacher/TeacherEdit";
+import QuizEdit from "./Pages/ActivityDesigner/Quiz/QuizEdit";
 
 // const setToken = (userToken) => {
 //   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -142,6 +143,7 @@ function App() {
           <Route exact path="/edit_teacher" element={<TeacherEdit />} />
           <Route exact path="/Assign" element={<AssignActivities />} />
           <Route exact path="/designer_quiz" element={<QuizDesigner />} />
+          <Route exact path="/designer_quiz/edit" element={<QuizEdit />} />
 
           {/* Admin routes */}
           <Route exact path="/profile_admin" element={<AdminProfile />} />

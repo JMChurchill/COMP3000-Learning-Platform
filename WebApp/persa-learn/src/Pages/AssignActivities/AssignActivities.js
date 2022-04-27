@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import TeachersQuizzes from "../../Components/QuizDesigner/TeachersQuizzes";
 import {
-  assignQuizToClass,
   deleteTheQuiz,
   viewTeachersQuizzes,
   viewTeachersQuizzesByClass,
 } from "../../http_Requests/teacherRequests";
+
+import {
+  assignQuizToClass,
+  unassignQuizFromClass,
+} from "../../http_Requests/AssignmentRequests";
 
 import styles from "./AssignActivities.module.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 import AssignmentOverlay from "../../Components/TeacherProfile/AssignActivities/AssignmentOverlay";
 import DeleteOverlay from "../../Components/TeacherProfile/AssignActivities/DeleteOverlay";
+import OverlayConfirm from "../../Components/OverlayConfirm";
 
 const AssignActivities = () => {
   const { state } = useLocation();
@@ -26,6 +31,7 @@ const AssignActivities = () => {
 
   const [settingDate, setSettingDate] = useState(false);
   const [isDeleting, setIsDelete] = useState(false);
+  const [isUnassigning, setIsUnassigning] = useState(false);
 
   console.log(state);
   useEffect(async () => {
@@ -34,14 +40,23 @@ const AssignActivities = () => {
       className: state.name,
       yearGroup: state.yearGroup,
     });
+    await getAssignments();
+  }, []);
+
+  const getAssignments = async () => {
     const data = await viewTeachersQuizzesByClass(state.id);
     console.log("quizzes: ", data);
     setQuizzes(data.quizzes);
-  }, []);
+  };
 
   const assignToClass = async (qID) => {
     setQuizID(qID);
     setSettingDate(true);
+  };
+
+  const unassignFromClass = async (qID) => {
+    setIsUnassigning(true);
+    setQuizID(qID);
   };
 
   const submitAssignToClass = async () => {
@@ -56,10 +71,22 @@ const AssignActivities = () => {
     if (data.status === "failure")
       alert("an error occured when attempting to assign");
     else {
-      const data = await viewTeachersQuizzesByClass(state.id);
-      setQuizzes(data.quizzes);
+      await getAssignments();
     }
     setSettingDate(false);
+  };
+  const submitUnassignFromClass = async () => {
+    const data = await unassignQuizFromClass({
+      classID: selectedClass.classID,
+      quizID,
+    });
+    console.log(data);
+    if (data.status === "failure")
+      alert("an error occured when attempting to unassign");
+    else {
+      await getAssignments();
+    }
+    setIsUnassigning(false);
   };
 
   const deleteQuiz = async (quizID) => {
@@ -75,10 +102,10 @@ const AssignActivities = () => {
     // display message if unsuccessful
     if (res.status !== "success") {
       alert("error occured when deleting");
+    } else {
+      //get all quizzes
+      await getAssignments();
     }
-    //get all quizzes
-    const data = await viewTeachersQuizzesByClass(state.id);
-    setQuizzes(data.quizzes);
     // hide overlay message
     setIsDelete(false);
   };
@@ -92,6 +119,7 @@ const AssignActivities = () => {
         <TeachersQuizzes
           quizzes={quizzes}
           assignToClass={assignToClass}
+          unassignFromClass={unassignFromClass}
           deleteQuiz={deleteQuiz}
           selectedClass={selectedClass}
         />
@@ -112,6 +140,15 @@ const AssignActivities = () => {
       )}
       {isDeleting ? (
         <DeleteOverlay setIsDelete={setIsDelete} deleteNow={deleteNow} />
+      ) : (
+        <></>
+      )}
+      {isUnassigning ? (
+        <OverlayConfirm
+          message={"Are you sure you want to cancel this assignment?"}
+          yes={submitUnassignFromClass}
+          no={setIsUnassigning}
+        />
       ) : (
         <></>
       )}

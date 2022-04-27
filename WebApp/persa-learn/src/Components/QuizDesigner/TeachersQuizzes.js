@@ -9,6 +9,7 @@ import styles from "./TeachersQuizzes.module.css";
 const TeachersQuizzes = ({
   quizzes = [],
   assignToClass,
+  unassignFromClass,
   deleteQuiz,
   selectedClass,
 }) => {
@@ -35,6 +36,7 @@ const TeachersQuizzes = ({
               module={quiz.ModuleName}
               dueDate={quiz.DueDate}
               assignToClass={assignToClass}
+              unassignFromClass={unassignFromClass}
               deleteQuiz={deleteQuiz}
             />
           );

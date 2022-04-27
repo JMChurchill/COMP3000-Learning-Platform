@@ -1,7 +1,8 @@
 import React from "react";
-import { MdAdd, MdDelete } from "react-icons/md";
+import { MdAdd, MdDelete, MdModeEdit, MdClose } from "react-icons/md";
 import styles from "./QuizListItem.module.css";
 import ToolTip from "../../Components/ToolTip";
+import { useNavigate } from "react-router-dom";
 
 const QuizListItem = ({
   id,
@@ -11,11 +12,21 @@ const QuizListItem = ({
   dueDate = "",
 
   assignToClass,
+  unassignFromClass,
   deleteQuiz,
 }) => {
+  const navigate = useNavigate();
+
   return (
     // <div className="quiz-list-items quiz-cols">
-    <div className={styles.quiz_cols}>
+    <div
+      className={styles.quiz_cols}
+      onClick={() =>
+        navigate("/designer_quiz/edit", {
+          state: { quizID: id },
+        })
+      }
+    >
       <p>{name}</p>
       <p className={styles.module}>{module}</p>
       <p className={styles.num_quest}>{numQuest}</p>
@@ -25,6 +36,22 @@ const QuizListItem = ({
           action={assignToClass}
           id={id}
           text={"Assign to class"}
+        />
+        <ToolTip
+          Icon={MdModeEdit}
+          action={() =>
+            navigate("/designer_quiz/edit", {
+              state: { quizID: id },
+            })
+          }
+          id={id}
+          text={"Edit Quiz"}
+        />
+        <ToolTip
+          Icon={MdClose}
+          action={unassignFromClass}
+          id={id}
+          text={"Cancel assignment"}
         />
         <ToolTip
           Icon={MdDelete}

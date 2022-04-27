@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import CustomInput from "../CustomInput";
 import styles from "./NewOption.module.css";
-const NewOption = ({ opID, updateOption, correctAns, updateCorrectAns }) => {
-  const [option, setOption] = useState("");
+const NewOption = ({
+  opID,
+  updateOption,
+  correctAns,
+  updateCorrectAns,
+  value,
+}) => {
+  const [option, setOption] = useState(value);
 
   return (
     // <div className="new-option">
@@ -16,6 +22,7 @@ const NewOption = ({ opID, updateOption, correctAns, updateCorrectAns }) => {
       /> */}
       <CustomInput
         placeholder={"Option"}
+        value={option}
         setValue={setOption}
         updateAllValues={updateOption}
         OptionID={opID}
