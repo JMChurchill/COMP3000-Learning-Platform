@@ -9,12 +9,10 @@ import { updateUserDetails } from "../http_Requests/studentRequests";
 const EditUserSettings = () => {
   //get variables passed from user settings
   const { state } = useLocation();
-  //TODO: allow to change profile picture
   const [email, setEmail] = useState(state.email);
   const [firstName, setFirstName] = useState(state.firstName);
   const [lastName, setLastName] = useState(state.lastName);
   const [isSuccess, setIsSuccess] = useState(false);
-  //   const [password, setPassword] = useState();//TODO: make change password
 
   const updateUser = async (e) => {
     // e.preventDefault();

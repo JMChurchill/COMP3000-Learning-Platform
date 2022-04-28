@@ -355,3 +355,12 @@ CREATE TABLE QuizRatings (
         REFERENCES Quizzes(QuizID)
         ON DELETE CASCADE
     );
+
+# signups 
+CREATE TABLE StudentSignups (
+    StudentID int NOT NULL, 
+    SignUpDate DATE NOT NULL, 
+    PRIMARY KEY (StudentID,SignUpDate),
+    FOREIGN KEY (StudentID) 
+        REFERENCES Students(StudentID)
+    );

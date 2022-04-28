@@ -17,6 +17,7 @@ const themesRouter = require("./routes/ItemRoutes/themeRoutes");
 const profilePsRouter = require("./routes/ItemRoutes/profilePictureRoutes");
 const bannersRouter = require("./routes/ItemRoutes/bannerRoutes");
 const ratingRouter = require("./routes/ActivityRoutes/ratingRoutes");
+const adminStatRouter = require("./routes/adminStatRoutes");
 
 const cors = require("cors");
 const { levelUp } = require("./LevelSystem/Level");
@@ -49,6 +50,7 @@ app.use("/profilePicture", profilePsRouter);
 app.use("/theme", themesRouter);
 app.use("/banner", bannersRouter);
 app.use("/rating", ratingRouter);
+app.use("/stats", adminStatRouter);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
