@@ -145,10 +145,11 @@ CREATE TABLE QuizClassAssignments (
     ClassDetailsID int NOT NULL, 
     QuizID INT NOT NULL, 
     DueDate DATETIME NOT NULL,
-    Xp int NOT NULL,
+    Xp int NOT NULL DEFAULT(0),
+    Coins int NOT NULL DEFAULT(0),
     PRIMARY KEY (ClassDetailsID, QuizID),
     FOREIGN KEY (ClassDetailsID) 
-        REFERENCES Classes(ClassDetailsID)
+        REFERENCES ClassDetails(ClassDetailsID)
         ON DELETE CASCADE,
     FOREIGN KEY (QuizID) 
         REFERENCES Quizzes(QuizID)

@@ -19,14 +19,7 @@ const QuizListItem = ({
 
   return (
     // <div className="quiz-list-items quiz-cols">
-    <div
-      className={styles.quiz_cols}
-      onClick={() =>
-        navigate("/designer_quiz/edit", {
-          state: { quizID: id },
-        })
-      }
-    >
+    <div className={styles.quiz_cols}>
       <p>{name}</p>
       <p className={styles.module}>{module}</p>
       <p className={styles.num_quest}>{numQuest}</p>

@@ -219,7 +219,7 @@ router
     }
   );
 
-//get students details
+//get admin details
 router.route("/details").get(checkAuth, async (req, res) => {
   const email = req.user.email;
   const password = req.user.password;

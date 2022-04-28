@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteClass } from "../../../http_Requests/teacherRequests";
 import CustomButton from "../../CustomButton";
@@ -8,6 +8,7 @@ import SearchStudents from "./SearchStudents";
 import UpdateClass from "../UpdateClass";
 import styles from "./ClassDetails.module.css";
 import Progressbar from "./Progressbar";
+import { getAssignmentProgress } from "../../../http_Requests/AssignmentRequests";
 
 const ClassDetails = ({
   name = "Name",
@@ -24,6 +25,8 @@ const ClassDetails = ({
   isShowStudents,
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [overalComplete, setOveralComplete] = useState(0);
+  const [overalIncomplete, setOveralIncomplete] = useState(0);
 
   const navigate = useNavigate();
 
@@ -43,6 +46,14 @@ const ClassDetails = ({
     setIsDeleting(false);
     setSelectedClass();
   };
+  useEffect(async () => {
+    const data = await getAssignmentProgress({ cID: classID, qID: 45 });
+    console.log(data.data);
+    if (data.status === "success") {
+      setOveralComplete(data.data[0].Number);
+      setOveralIncomplete(data.data[1].Number);
+    }
+  }, []);
   if (isSearching)
     return (
       <SearchStudents
@@ -77,7 +88,7 @@ const ClassDetails = ({
         <p>Number of students:</p>
         <p>Nearest due date: </p>
         <p>Class Progress:</p>
-        <Progressbar complete={10} incomplete={5} />
+        <Progressbar complete={overalComplete} incomplete={overalIncomplete} />
         {/* <div className="progressbar">
           <div className="bar-fill-left">
             <p>23</p>

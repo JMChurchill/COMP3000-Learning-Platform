@@ -51,9 +51,6 @@ export const getUserDetails = () => {
   return data;
 };
 
-//TODO: this
-export const getUsersAssignments = () => {};
-
 export const getStudentsAssignmentQuizzes = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   // const data = fetch("http://localhost:8080/student/assignments/quizzes", {

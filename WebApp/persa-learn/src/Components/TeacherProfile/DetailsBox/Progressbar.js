@@ -10,7 +10,6 @@ const Progressbar = ({ complete = 0, incomplete = 0 }) => {
       return 0;
     return (incomplete / (complete + incomplete)) * 100;
   };
-  console.log(calcPerIncomplete());
   return (
     <>
       <div className={styles.progressbar}>
