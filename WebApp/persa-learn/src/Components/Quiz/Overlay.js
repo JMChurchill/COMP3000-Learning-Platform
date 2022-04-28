@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../CustomButton";
 import LevelProgressbar from "./LevelProgressbar";
 import styles from "./Overlay.module.css";
+import Rating from "./Rating";
 
 const Overlay = ({
+  quizID,
   score,
   answers,
   level,
@@ -14,6 +16,8 @@ const Overlay = ({
   remainingXp,
 }) => {
   const navigate = useNavigate();
+
+  const [isRating, setIsRating] = useState(false);
 
   return (
     <div className={styles.overlay}>
@@ -42,7 +46,6 @@ const Overlay = ({
             <p>coins earned</p>
           </div>
         </div>
-        {/* TODO: add level progress */}
         <LevelProgressbar
           earnedXp={earnedXp}
           totalXp={totalXp}
@@ -51,13 +54,14 @@ const Overlay = ({
         <CustomButton
           type={1}
           text={"Done"}
-          onClick={() => navigate("/profile_student", {})}
+          onClick={() => setIsRating(true)}
         />
         <CustomButton
           type={2}
           text={"Go To Shop"}
-          onClick={() => console.log("going to shop")}
+          onClick={() => navigate("/shop", {})}
         />
+        {isRating ? <Rating quizID={quizID} /> : <></>}
       </div>
     </div>
   );

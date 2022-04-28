@@ -1,0 +1,7 @@
+.star_container {
+  font-size: 2rem;
+  color: gray;
+}
+.star_container > svg {
+  cursor: pointer;
+}

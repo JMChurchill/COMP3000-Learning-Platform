@@ -39,14 +39,15 @@
   background-color: gold;
   width: fit-content;
   margin: 2rem auto;
-  padding: 1rem;
-  border-radius: 10rem;
+  padding: 2rem;
+  border-radius: 100%;
   aspect-ratio: 1;
   display: flex;
   align-items: center;
 }
 .level h2 {
   color: white;
+  margin: 0;
 }
 .row {
   display: flex;

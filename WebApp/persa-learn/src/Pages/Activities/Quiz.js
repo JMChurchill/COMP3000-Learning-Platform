@@ -106,6 +106,7 @@ const Quiz = () => {
       <CustomButton text={"Complete"} onClick={() => complete()} />
       {isComplete ? (
         <Overlay
+          quizID={quizID}
           score={score}
           answers={answers}
           level={level}

@@ -342,3 +342,16 @@ CREATE TABLE Admins (
     LastName varchar(60) NOT NULL,
     PRIMARY KEY (AdminID)
     );
+# Quiz Ratings
+CREATE TABLE QuizRatings (
+    `StudentID` int NOT NULL, 
+    `QuizID` int NOT NULL, 
+    `Rating` int NOT NULL,
+    PRIMARY KEY (StudentID,QuizID),
+    FOREIGN KEY (StudentID) 
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (QuizID)
+        REFERENCES Quizzes(QuizID)
+        ON DELETE CASCADE
+    );

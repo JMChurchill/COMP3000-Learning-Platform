@@ -1,10 +1,8 @@
 .container {
   margin: 3rem 1rem;
-  background-color: red;
   line-height: normal;
 }
 .required {
-  background-color: aqua;
   text-align: right;
 }
 .progressbar {
