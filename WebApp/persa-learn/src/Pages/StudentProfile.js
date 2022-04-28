@@ -128,10 +128,8 @@ const StudentProfile = () => {
           {selectedTab == 2 ? <></> : <></>}
 
           {selectedTab == 3 ? (
-            // <div className="assignment-items list-items">
             <>
               <div className={styles.column_names}>
-                {/* //TODO: Style */}
                 <p>Name</p>
                 <p>Type</p>
                 <p>Teacher</p>
@@ -158,7 +156,6 @@ const StudentProfile = () => {
         </div>
       </div>
     </div>
-    // </div>
   );
 };
 

@@ -184,7 +184,7 @@ router.route("/quizzes").get(checkAuth, async (req, res) => {
     }
 
     let query = `CALL assignments_by_students("${email}","${password}")`;
-
+    console.log(query);
     const [quizzes] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });

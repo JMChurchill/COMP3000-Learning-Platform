@@ -34,7 +34,7 @@ BEGIN
         ON quizzes.ModuleID = modules.ModuleID 
         INNER JOIN teachers 
         ON quizzes.TeacherID = teachers.TeacherID 
-        WHERE quizassignments.studentID = theStudentID
+        WHERE quizassignments.studentID = theStudentID AND quizassignments.QuizID NOT IN (SELECT QuizID FROM QuizSubmissions WHERE StudentID = theStudentID)
         UNION ALL
         SELECT 'Class' Caption, quizclassassignments.QuizID, QuizName, teachers.FirstName, teachers.LastName, ModuleName, DueDate
         FROM quizclassassignments 
@@ -48,7 +48,8 @@ BEGIN
         ON quizclassassignments.ClassDetailsID = classes.ClassDetailsID
         INNER JOIN Students
         ON classes.StudentID = students.StudentID
-        WHERE students.studentID = theStudentID
+        WHERE students.studentID = theStudentID AND quizclassassignments.QuizID NOT IN (SELECT QuizID FROM QuizSubmissions WHERE StudentID = theStudentID)
+
     ) subquery
     ORDER BY DueDate, FIELD(Caption, 'Indivisual', 'Class');
 
