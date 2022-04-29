@@ -64,12 +64,15 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
         }
         //   console.log(error);
         //   console.log(data);
-
+        // console.log(data.reason:);
         if (data !== null && data.status === "success") {
           setSignUp(false);
           alert("Account created successfully");
+        } else if (data.status == "failure") {
+          if (data.reason === "ER_DUP_ENTRY") {
+            alert("This user already exists");
+          }
         } else {
-          console.log(httpResponseCode);
           alert("Could not create user");
         }
       } catch (e) {

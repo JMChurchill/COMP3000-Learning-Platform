@@ -175,10 +175,18 @@ BEGIN
     DECLARE theTeacherID int;
     SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
 
-    SELECT quizzes.QuizID, QuizName, ModuleName, DueDate FROM quizzes 
-    LEFT JOIN modules ON modules.ModuleID = quizzes.ModuleID
-    LEFT JOIN quizclassassignments ON quizclassassignments.QuizID = quizzes.QuizID
-    WHERE quizzes.TeacherID = theTeacherID;
+    SELECT * FROM 
+    (
+        SELECT 'assigned' Caption, QuizName, ModuleName,quizzes.QuizID,DueDate FROM quizzes 
+        LEFT JOIN modules ON modules.ModuleID = quizzes.ModuleID
+        LEFT JOIN quizclassassignments ON quizclassassignments.QuizID = quizzes.QuizID
+        WHERE quizzes.TeacherID = theTeacherID AND ClassDetailsID = cID
+        UNION
+        SELECT 'unassigned' Caption, QuizName, ModuleName,quizzes.QuizID,Null as DueDate FROM quizzes 
+        LEFT JOIN modules ON modules.ModuleID = quizzes.ModuleID
+        WHERE QuizID NOT IN (SELECT QuizID FROM quizclassassignments WHERE classdetailsid = cID) AND quizzes.TeacherID = theTeacherID
+    ) subquery
+    ORDER BY QuizName asc, FIELD(Caption, 'assigned', 'unassigned');
 
 END$$
 DELIMITER ;

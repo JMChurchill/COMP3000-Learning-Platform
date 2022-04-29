@@ -221,6 +221,7 @@ router.route("/progress").get(checkAuth, async (req, res) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
+    console.log(progress);
     return res.status(200).json({
       status: "success",
       data: progress,

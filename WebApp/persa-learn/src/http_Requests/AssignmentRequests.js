@@ -35,7 +35,7 @@ export const unassignQuizFromClass = (credentials) => {
 export const getAssignmentProgress = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    `http://localhost:8080/assignments/progress?questionID=${credentials.qID}&classID=${credentials.cID}`,
+    `http://localhost:8080/assignments/progress?classID=${credentials.cID}`,
     {
       method: "GET",
       headers: {

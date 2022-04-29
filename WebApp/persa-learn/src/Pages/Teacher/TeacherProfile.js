@@ -46,10 +46,13 @@ const TeacherProfile = () => {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     classChanged();
-    await getDetails();
   }, [selectedClass]);
+
+  useEffect(async () => {
+    await getDetails();
+  }, []);
 
   const classChanged = () => {
     setClassSuccess(!classSuccess);

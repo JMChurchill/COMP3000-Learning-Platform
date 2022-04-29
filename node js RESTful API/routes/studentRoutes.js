@@ -200,6 +200,7 @@ router
         };
         email = data.email;
         const query = `CALL create_student ("${data.fName}", "${data.lName}", "${data.email}", "${data.password}")`;
+        console.log(query);
         pool.query(query, (error) => {
           if (error) {
             return res
