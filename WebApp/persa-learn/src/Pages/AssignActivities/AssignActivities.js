@@ -122,6 +122,8 @@ const AssignActivities = () => {
           unassignFromClass={unassignFromClass}
           deleteQuiz={deleteQuiz}
           selectedClass={selectedClass}
+          classID={selectedClass.classID}
+          className={selectedClass.className}
         />
       </div>
       {/* </div> */}

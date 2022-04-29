@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { AiFillStar } from "react-icons/ai";
 import styles from "./Rate.module.css";
-const Rate = ({ rating = 0, onRating }) => {
+const Rate = ({ rating = 0, onRating, isLocked = false }) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   const stars = useMemo(() => {
@@ -11,12 +11,12 @@ const Rate = ({ rating = 0, onRating }) => {
       .map((_, i) => (
         <AiFillStar
           key={i + 1}
-          onClick={() => onRating(i + 1)}
+          onClick={() => (!isLocked ? onRating(i + 1) : {})}
           style={
             hoverRating >= i + 1 || rating >= i + 1 ? { color: "yellow" } : {}
           }
-          onMouseEnter={() => setHoverRating(i + 1)}
-          onMouseLeave={() => setHoverRating(0)}
+          onMouseEnter={() => (!isLocked ? setHoverRating(i + 1) : {})}
+          onMouseLeave={() => (!isLocked ? setHoverRating(0) : {})}
         />
       ));
   });

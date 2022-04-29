@@ -222,4 +222,37 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+
+
+
+# get quiz submission
+DELIMITER $$
+CREATE PROCEDURE quiz_submission_get_by_assignment (qID int,cID int, tEmail varchar(255), tPassword varchar(60))
+BEGIN
+    #get student id
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+    IF EXISTS (SELECT * FROM ClassDetails WHERE TeacherID = theTeacherID AND ClassDetailsID = cID) THEN
+        SELECT * FROM
+        (
+            SELECT 'Completed' Caption, students.studentID,email,firstname,lastname, score, subDate, rating FROM QuizSubmissions 
+            INNER JOIN quizclassassignments ON quizclassassignments.quizID = quizsubmissions.QuizID 
+            INNER JOIN students ON students.StudentID = quizsubmissions.StudentID
+            INNER JOIN quizratings ON students.StudentID = quizratings.StudentID AND quizratings.QuizID= quizclassassignments.QuizID
+            WHERE quizclassassignments.ClassDetailsID = cID AND QuizSubmissions.QuizID = qID 
+            AND students.StudentID IN (SELECT StudentID FROM Classes WHERE ClassDetailsID = cID)
+            UNION
+            SELECT 'Incompleted' Caption, students.studentID,email,firstname,lastname, Null as score, Null as subDate, Null as rating FROM classes
+            INNER JOIN students ON students.StudentID = classes.StudentID
+            WHERE students.StudentID NOT IN (SELECT StudentID FROM QuizSubmissions WHERE QuizID = qID) AND classes.ClassDetailsID = cID 
+        )subquery
+        ORDER BY Caption asc, FIELD(Caption, 'Completed', 'Incompleted');
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+
 CALL quiz_submission_add(1,1,"e@email.com","password")

@@ -12,6 +12,8 @@ const TeachersQuizzes = ({
   unassignFromClass,
   deleteQuiz,
   selectedClass,
+  classID,
+  className,
 }) => {
   const navigate = useNavigate();
 
@@ -38,6 +40,8 @@ const TeachersQuizzes = ({
               assignToClass={assignToClass}
               unassignFromClass={unassignFromClass}
               deleteQuiz={deleteQuiz}
+              classID={classID}
+              className={className}
             />
           );
         })}

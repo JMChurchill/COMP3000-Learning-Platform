@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 30% 18% 15% 20% 15%;
   width: 95%;
-  padding: 0 0.5rem;
+  padding: 0.25rem 0.5rem;
   margin: auto;
   align-items: center;
   background-color: var(--background-color);

@@ -231,4 +231,34 @@ router.route("/progress").get(checkAuth, async (req, res) => {
   }
 });
 
+// get all quiz submissions
+router
+  .route("/submissions")
+  .get(
+    [
+      check("classID", "Invalid class ID").not().isEmpty(),
+      check("quizID", "Invalid quiz ID").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+        const classID = req.query.classID;
+        const quizID = req.query.quizID;
+        const query = `CALL quiz_submission_get_by_assignment (${quizID},${classID},"${email}", "${password}")`;
+        console.log(query);
+        const [submissions] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
+        });
+        return res.status(200).json({
+          status: "success",
+          data: submissions,
+        });
+      } catch (err) {}
+    }
+  );
+
 module.exports = router;

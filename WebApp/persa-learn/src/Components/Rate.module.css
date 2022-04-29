@@ -1,4 +1,5 @@
 .star_container {
+  display: flex;
   font-size: 2rem;
   color: gray;
 }

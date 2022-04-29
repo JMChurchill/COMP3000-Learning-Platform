@@ -1,5 +1,13 @@
 import React from "react";
-import { MdAdd, MdDelete, MdModeEdit, MdClose } from "react-icons/md";
+import {
+  MdQueryStats,
+  MdAdd,
+  MdDelete,
+  MdModeEdit,
+  MdClose,
+} from "react-icons/md";
+import { IoStatsChart } from "react-icons/io5";
+
 import styles from "./QuizListItem.module.css";
 import ToolTip from "../../Components/ToolTip";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +22,8 @@ const QuizListItem = ({
   assignToClass,
   unassignFromClass,
   deleteQuiz,
+  classID,
+  className,
 }) => {
   const navigate = useNavigate();
 
@@ -24,6 +34,16 @@ const QuizListItem = ({
       <p className={styles.module}>{module}</p>
       <p className={styles.num_quest}>{numQuest}</p>
       <div className={styles.icon}>
+        <ToolTip
+          Icon={IoStatsChart}
+          action={() =>
+            navigate("/Assign/submissions", {
+              state: { quizID: id, classID, className },
+            })
+          }
+          id={id}
+          text={"View Class Submissions"}
+        />
         <ToolTip
           Icon={MdAdd}
           action={assignToClass}

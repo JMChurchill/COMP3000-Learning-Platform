@@ -47,3 +47,19 @@ export const getAssignmentProgress = (credentials) => {
   checkTokenCorrect(data);
   return data;
 };
+
+export const getQuizSubmissions = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch(
+    `http://localhost:8080/assignments/submissions?classID=${credentials.cID}&quizID=${credentials.qID}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }
+  ).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};
