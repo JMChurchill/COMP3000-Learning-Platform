@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import common from "../config/common";
 import colors from "../config/colors";
 import ClassesItem from "../components/Classes/ClassesItem";
+import { getClassesByStudent } from "../httpRequests/classRequests";
 
 export default function ClassesScreen() {
   const [classes, setClasses] = useState([]);
@@ -29,27 +30,35 @@ export default function ClassesScreen() {
 
   const getData = async () => {
     setRefreshing(true);
-    const retrievedData = [
-      { id: 1, class: "maths", teacher: "Mary" },
-      { id: 2, class: "science", teacher: "John" },
-      { id: 3, class: "english", teacher: "Phil" },
-    ];
-    await wait(1000).then(() => setRefreshing(false));
-    await setClasses(retrievedData);
+    const data = await getClassesByStudent();
+    console.log(data);
+    if (data.status === "success") {
+      alert("suc");
+      setClasses(data.data);
+    }
+    setRefreshing(false);
+    // const retrievedData = [
+    //   { id: 1, class: "maths", teacher: "Mary" },
+    //   { id: 2, class: "science", teacher: "John" },
+    //   { id: 3, class: "english", teacher: "Phil" },
+    // ];
+    // await wait(1000).then(() => setRefreshing(false));
+    // await setClasses(retrievedData);
   };
 
   const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    const retrievedData = [
-      { id: 1, class: "maths", teacher: "Mary" },
-      { id: 2, class: "science", teacher: "John" },
-      { id: 3, class: "english", teacher: "Phil" },
-      { id: 4, class: "art", teacher: "Mary2" },
-      { id: 5, class: "DT", teacher: "John2" },
-      { id: 6, class: "Geography", teacher: "Phil2" },
-    ];
-    await wait(1000).then(() => setRefreshing(false));
-    await setClasses(retrievedData);
+    await getData();
+    // setRefreshing(true);
+    // const retrievedData = [
+    //   { id: 1, class: "maths", teacher: "Mary" },
+    //   { id: 2, class: "science", teacher: "John" },
+    //   { id: 3, class: "english", teacher: "Phil" },
+    //   { id: 4, class: "art", teacher: "Mary2" },
+    //   { id: 5, class: "DT", teacher: "John2" },
+    //   { id: 6, class: "Geography", teacher: "Phil2" },
+    // ];
+    // await wait(1000).then(() => setRefreshing(false));
+    // await setClasses(retrievedData);
   }, []);
 
   return (
@@ -67,9 +76,9 @@ export default function ClassesScreen() {
               keyExtractor={({ id }, index) => id}
               renderItem={({ item, separator }) => (
                 <ClassesItem
-                  id={item.id}
-                  name={item.class}
-                  teacher={item.teacher}
+                  id={item.ClassDetailsID}
+                  name={item.Name}
+                  teacher={`${item.FirstName} ${item.LastName}`}
                 />
               )}
             />
@@ -95,8 +104,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     width: "100%",
-    borderColor: "orange",
-    borderWidth: 5,
     padding: 10,
   },
 });

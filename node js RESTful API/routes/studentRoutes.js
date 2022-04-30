@@ -187,6 +187,7 @@ router
         //validate inputs
         const errs = validationResult(req);
         if (!errs.isEmpty()) {
+          console.log(errs);
           return res.status(400).json({
             errors: errs.array(),
           });
@@ -310,18 +311,21 @@ router
           if (await bcrypt.compare(data.oldPassword, result.Password)) {
             data.oldPassword = result.Password;
           } else {
-            res.status(401).json({ status: " Password incorrect" });
+            return res.status(401).json({ status: "Password incorrect" });
           }
         } catch {
-          res.status(404).json({ status: "error occured" });
+          return res.status(404).json({ status: "error occured" });
         }
 
         query = `CALL student_edit_password ("${sEmail}","${data.oldPassword}", "${data.newPassword}")`;
         pool.query(query, (error) => {
           if (error) {
-            res.status(400).json({ status: "failure", reason: error.code });
+            return res
+              .status(400)
+              .json({ status: "failure", reason: error.code });
           } else {
-            res.status(200).json({ status: "success" });
+            console.log(req.body.nPassword);
+            return res.status(200).json({ status: "success" });
           }
         });
       } catch (err) {

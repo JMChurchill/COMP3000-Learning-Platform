@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import fonts from "../config/fonts";
 import colors from "../config/colors";
 import common from "../config/common";
@@ -8,26 +8,74 @@ import userIcon from "../assets/UserIcons/001-man-1.png";
 import LeaderboardItem from "../components/Leaderboard/LeaderboardItem";
 import TopPositionSmall from "../components/Leaderboard/TopPositionSmall";
 import TopPositionLarge from "../components/Leaderboard/TopPositionLarge";
+import { getStudentsByClass } from "../httpRequests/classRequests";
 
-export default function ClassLeaderboardScreen() {
+export default function ClassLeaderboardScreen({ route, navigation }) {
+  const { classID } = route.params;
+  const [students, setStudents] = useState([]);
+  const [topThree, setTopThree] = useState([]);
+
+  const getTopThree = () => {
+    if (students.length > 0) {
+      // get first 3 values from array
+      const tempArray = students.slice(0, 3);
+      // switch order to be displayed later
+      const tempVal = tempArray[0];
+      tempArray[0] = tempArray[1];
+      tempArray[1] = tempVal;
+      setTopThree(tempArray);
+    }
+  };
+
+  useEffect(async () => {
+    const data = await getStudentsByClass({ classID });
+    console.log(data);
+    if (data.status === "success") {
+      // alert("suce");
+      setStudents(data.data);
+    }
+  }, []);
+
+  useEffect(async () => {
+    getTopThree();
+  }, [students]);
+
   return (
     <ScrollView>
       <View style={styles.root}>
         <Text style={fonts.title}>ClassName's Leaderboard</Text>
         <View style={styles.topStudents}>
-          <TopPositionSmall position={2} image={userIcon} />
+          {/* <TopPositionSmall position={2} image={userIcon} />
           <TopPositionLarge position={1} image={userIcon} />
-          <TopPositionSmall position={3} image={userIcon} />
+          <TopPositionSmall position={3} image={userIcon} /> */}
+          {topThree.map((student, i) => {
+            let pos = i + 1;
+            //adjust position for order of array (to display fist place in center)
+            if (pos == 1)
+              return (
+                <TopPositionSmall position={2} image={student.ProfilePicture} />
+              );
+            else if (pos == 2)
+              return (
+                <TopPositionLarge position={1} image={student.ProfilePicture} />
+              );
+            else
+              return (
+                <TopPositionSmall position={3} image={student.ProfilePicture} />
+              );
+          })}
         </View>
         <View style={styles.classList}>
-          <LeaderboardItem position={4} name="Bob" xp={2500} />
-          <LeaderboardItem position={5} name="John" xp={2000} />
-          <LeaderboardItem position={6} name="Mary" xp={1200} />
-          <LeaderboardItem position={7} name="Anne" xp={900} />
-          <LeaderboardItem position={8} name="Bob" xp={800} />
-          <LeaderboardItem position={9} name="John" xp={700} />
-          <LeaderboardItem position={10} name="Mary" xp={400} />
-          <LeaderboardItem position={11} name="Anne" xp={100} />
+          {students.map((student, i) => (
+            <LeaderboardItem
+              key={i}
+              position={i}
+              name={student.FirstName}
+              level={student.Level}
+              xp={student.Xp}
+              userIcon={student.ProfilePicture}
+            />
+          ))}
         </View>
       </View>
     </ScrollView>
@@ -40,7 +88,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   topStudents: {
-    borderWidth: 1,
     width: "100%",
     // aspectRatio: 4 / 1,
     flexDirection: "row",
@@ -50,7 +97,6 @@ const styles = StyleSheet.create({
     // backgroundColor: "gold",
   },
   topStudent: {
-    borderWidth: 5,
     borderRadius: 100,
     width: "25%",
     aspectRatio: 1,
@@ -58,7 +104,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   first: {
-    borderWidth: 5,
     borderColor: "gold",
     borderRadius: 100,
     width: "35%",
@@ -91,7 +136,6 @@ const styles = StyleSheet.create({
     color: colors.secondaryText,
   },
   classList: {
-    borderWidth: 1,
     borderColor: "red",
     width: "100%",
     justifyContent: "center",

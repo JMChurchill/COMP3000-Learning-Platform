@@ -15,9 +15,6 @@ export default function RevisionScreen() {
       <Text style={fonts.h1}>Select a revision method</Text>
       <View style={styles.itemContainer}>
         <Item name="Flash card" image={flashCardIm} screenName="FlashCards" />
-        <Item name="Notebook" image={noteBookIm} screenName="Notebook" />
-        <Item />
-        <Item />
       </View>
     </View>
   );
@@ -29,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   itemContainer: {
-    borderWidth: 1,
+    // borderWidth: 1,
     width: "100%",
     flexDirection: "row",
     padding: 10,

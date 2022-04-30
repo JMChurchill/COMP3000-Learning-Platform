@@ -6,7 +6,13 @@ import fonts from "../../config/fonts";
 export default function TopPositionLarge({ position, image }) {
   return (
     <View style={[styles.topStudent, { backgroundColor: "gold" }]}>
-      <Image source={image} style={styles.userIcon} resizeMode={"contain"} />
+      <Image
+        source={{
+          uri: image,
+        }}
+        style={styles.userIcon}
+        resizeMode={"contain"}
+      />
       <View style={styles.topPosition}>
         <View style={[styles.topPositionBox, { backgroundColor: "gold" }]}>
           <Text style={[fonts.large, styles.topPositionText]}>{position}</Text>
@@ -28,6 +34,7 @@ const styles = StyleSheet.create({
   },
   userIcon: {
     height: "100%",
+    width: "100%",
     position: "absolute",
   },
   topPosition: {

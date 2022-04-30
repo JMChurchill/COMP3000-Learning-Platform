@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import CustomInput from "../components/CustomInput/CustomInput";
 import CustomButton from "../components/CustomButton/CustomButton";
+import { registerRequest } from "../httpRequests/loginRequests";
 
 // import {CustomInput} from ''
 
@@ -21,9 +22,25 @@ export default function SignUpScreen(props) {
 
   const pwd = watch("password");
 
-  const onRegisterPressed = (data) => {
-    console.warn("Registered");
-    navigation.navigate("Login");
+  const onRegisterPressed = async (credentials) => {
+    try {
+      const data = await registerRequest(credentials);
+      console.log(data);
+      if (data.status === "success") {
+        alert("Account created");
+        navigation.navigate("Login");
+      } else if (data.status === "failure") {
+        if (data.reason === "ER_DUP_ENTRY") {
+          alert("This account already exists");
+        }
+      } else {
+        alert("Failed to create user");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    // console.warn("Registered");
+    // navigation.navigate("Login");
   };
 
   const onTermsOfUsePressed = () => {

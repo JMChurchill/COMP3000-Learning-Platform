@@ -13,41 +13,15 @@ import common from "../config/common";
 import colors from "../config/colors";
 
 import AssignmentItem from "../components/Assignments/AssignmentItem";
+import { getAssignmentsByStudent } from "../httpRequests/assignmentRequests";
 
 export default function AssignmentsScreen() {
   // const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const wait = (timeout) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
-  };
-
   const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    const retrievedData = [
-      {
-        id: 1,
-        title: "assignment1",
-        class: "Maths 01",
-        DueDate: "10/1/22",
-      },
-      { id: 2, title: "assignment2", class: "art", DueDate: "10/2/22" },
-      {
-        id: 3,
-        title: "Moments",
-        class: "Physics 03",
-        DueDate: "10/2/22",
-      },
-      {
-        id: 4,
-        title: "Trig",
-        class: "Maths 01",
-        DueDate: "10/2/22",
-      },
-    ];
-    await wait(1000).then(() => setRefreshing(false));
-    await setData(retrievedData);
+    await getData();
   }, []);
 
   useEffect(async () => {
@@ -56,23 +30,13 @@ export default function AssignmentsScreen() {
 
   const getData = async () => {
     setRefreshing(true);
-    const retrievedData = [
-      {
-        id: 1,
-        title: "assignment1",
-        class: "Maths 01",
-        DueDate: "10/1/22",
-      },
-      { id: 2, title: "assignment2", class: "art", DueDate: "10/2/22" },
-      {
-        id: 3,
-        title: "Moments",
-        class: "Physics 03",
-        DueDate: "10/2/22",
-      },
-    ];
-    await wait(1000).then(() => setRefreshing(false));
-    await setData(retrievedData);
+    let data = await getAssignmentsByStudent();
+    // console.log(data);
+    if (data.status === "success") {
+      console.log(data.quizzes);
+      await setData(data.quizzes);
+      setRefreshing(false);
+    }
   };
 
   // { height: height * 0.2 + height * 0.07 }
@@ -90,14 +54,18 @@ export default function AssignmentsScreen() {
               }
               data={data}
               keyExtractor={({ id }, index) => id}
-              renderItem={({ item, separator }) => (
-                <AssignmentItem
-                  id={item.id}
-                  title={item.title}
-                  cName={item.class}
-                  dueDate={item.DueDate}
-                />
-              )}
+              renderItem={({ item, separator }) => {
+                console.log(item);
+                return (
+                  <AssignmentItem
+                    key={item.QuizID}
+                    id={item.QuizID}
+                    title={item.QuizName}
+                    cName={item.ModuleName}
+                    dueDate={item.DueDate}
+                  />
+                );
+              }}
             />
           </View>
         )}
@@ -114,7 +82,6 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    borderColor: "red",
     borderWidth: 1,
     // backgroundColor: "orange",
     // justifyContent: "center",
@@ -125,8 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     // paddingHorizontal: "5%",
-    borderColor: "orange",
-    borderWidth: 5,
     padding: 10,
   },
 });

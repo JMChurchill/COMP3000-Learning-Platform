@@ -30,7 +30,7 @@ export default function AssignmentItem({ id, title, cName, dueDate }) {
       </View>
       <View style={styles.col}>
         <Text style={fonts.large} ellipsizeMode="tail" numberOfLines={1}>
-          {dueDate}
+          {dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}
         </Text>
       </View>
     </TouchableOpacity>

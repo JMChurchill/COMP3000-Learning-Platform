@@ -6,9 +6,15 @@ import fonts from "../../config/fonts";
 import colors from "../../config/colors";
 
 // import userIcon from "../../";
-import userIcon from "../../assets/UserIcons/001-man-1.png";
+// import userIcon from "../../assets/UserIcons/001-man-1.png";
 
-export default function LeaderboardItem({ position, name, xp, image }) {
+export default function LeaderboardItem({
+  position,
+  name,
+  xp,
+  level,
+  userIcon,
+}) {
   return (
     <View style={styles.studentContainer}>
       <View style={[styles.studentPostionContainer, common.shadow]}>
@@ -18,11 +24,15 @@ export default function LeaderboardItem({ position, name, xp, image }) {
       </View>
       <View style={[styles.studentDetailsContainer, common.shadow]}>
         <Image
-          source={userIcon}
+          source={{
+            uri: userIcon,
+          }}
+          // source={userIcon}
           style={styles.userIcon}
           resizeMode={"contain"}
         />
         <Text style={[fonts.h1, { marginVertical: 10 }]}>{name}</Text>
+        <Text style={[fonts.h1, { marginVertical: 10 }]}>Lv{level}</Text>
         <Text style={[fonts.h1, { marginVertical: 10 }]}>{xp}xp</Text>
       </View>
     </View>
