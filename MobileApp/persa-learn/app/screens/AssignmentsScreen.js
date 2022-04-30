@@ -14,11 +14,13 @@ import colors from "../config/colors";
 
 import AssignmentItem from "../components/Assignments/AssignmentItem";
 import { getAssignmentsByStudent } from "../httpRequests/assignmentRequests";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function AssignmentsScreen() {
   // const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const isFocused = useIsFocused();
 
   const onRefresh = useCallback(async () => {
     await getData();
@@ -26,7 +28,7 @@ export default function AssignmentsScreen() {
 
   useEffect(async () => {
     await getData();
-  }, []);
+  }, [isFocused]);
 
   const getData = async () => {
     setRefreshing(true);

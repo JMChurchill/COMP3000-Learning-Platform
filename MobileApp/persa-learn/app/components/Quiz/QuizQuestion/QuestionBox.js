@@ -9,24 +9,44 @@ export default function QuestionBox({
   questionName = "placeholder",
   description = "Lorem ipsum dolor sit.",
   options = [],
+  addAnswer,
+  questionId,
+  answers,
 }) {
+  const logToCon = async (e) => {
+    addAnswer(questionId, e);
+  };
+  const isAnswered = (i) => {
+    let answered = false;
+    answers.map((ans) => {
+      if (questionId === ans.questionID) {
+        if (ans.ans === i) {
+          answered = true;
+        }
+      }
+    });
+    return answered;
+  };
   return (
     <View style={[styles.questionBox, styles.shadow]}>
       <View style={[styles.questBoxTop, styles.shadow]}>
         <Text style={fonts.h1}>{questionName}</Text>
         <Text style={fonts.h2}>{description}</Text>
       </View>
-      {options.map((option) => {
+      {options.map((option, i) => {
+        let isAns = isAnswered(i);
+
         return (
           <OptionBox
-            key={option.id}
-            optionID={option.id}
-            optionText={option.value}
+            key={i}
+            questionID={option.QuestionID}
+            optionID={i}
+            optionText={option.TheOption}
+            logToCon={logToCon}
+            isSelected={isAns}
           />
         );
       })}
-      {/* <OptionBox />
-      <OptionBox /> */}
     </View>
   );
 }

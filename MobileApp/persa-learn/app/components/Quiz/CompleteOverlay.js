@@ -16,30 +16,32 @@ export default function CompleteOverlay({ results, setIsComplete }) {
       <View style={styles.overlayWindow}>
         <Text style={fonts.title}>Completed</Text>
         <Text style={fonts.h1}>
-          {results.correct}/{results.totalQuestions}
+          {results.score}/{results.total}
         </Text>
         <View style={[styles.levelContainer, common.shadowStrong]}>
-          <Text style={[fonts.title, styles.level]}>Lv8</Text>
+          <Text style={[fonts.title, styles.level]}>Lv{results.level}</Text>
         </View>
         <View style={styles.gainedContainer}>
           <View style={styles.xpCoinsContainer}>
             <Text style={[fonts.h1, { color: "black", fontWeight: "bold" }]}>
-              +100
+              +{results.earnedXp}
             </Text>
             <Text style={[fonts.h3]}>xp earned</Text>
           </View>
           <View style={styles.xpCoinsContainer}>
             <Text style={[fonts.h1, { color: "black", fontWeight: "bold" }]}>
-              +100
+              +{results.coins}
             </Text>
             <Text style={[fonts.h3]}>Coins earned</Text>
           </View>
         </View>
         <ProgressBar
-          numerator={results.correct}
-          denominator={results.totalQuestions}
+          numerator={results.totalXp}
+          denominator={results.remainingXp}
         />
-        <Text style={{ marginVertical: 10 }}>200/1000XP</Text>
+        <Text style={{ marginVertical: 10 }}>
+          {results.totalXp}/{results.remainingXp}xp
+        </Text>
         <CustomButton
           // style={{ marginHorizontal: 10 }}
           text="Go back"

@@ -10,8 +10,8 @@ export default function AssignmentItem({ id, title, cName, dueDate }) {
   const navigation = useNavigation();
 
   const listItemOnPress = (id) => {
-    console.log("pressed ", id);
-    navigation.navigate("Quiz");
+    // console.log("pressed ", id);
+    navigation.navigate("Quiz", { quizID: id });
   };
   return (
     <TouchableOpacity

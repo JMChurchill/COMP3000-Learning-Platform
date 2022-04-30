@@ -3,12 +3,14 @@ import React from "react";
 import colors from "../../../config/colors";
 
 export default function OptionBox({
-  optionID = 1,
+  optionID,
   optionText = "placeholder",
   isSelected = false,
+  logToCon,
 }) {
   const optionOnPress = (id) => {
-    console.log(id);
+    // console.log(id);
+    logToCon(id);
   };
 
   const isAnswered = () => {
