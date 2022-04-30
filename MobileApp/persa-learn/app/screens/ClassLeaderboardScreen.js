@@ -66,16 +66,20 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
           })}
         </View>
         <View style={styles.classList}>
-          {students.map((student, i) => (
-            <LeaderboardItem
-              key={i}
-              position={i}
-              name={student.FirstName}
-              level={student.Level}
-              xp={student.Xp}
-              userIcon={student.ProfilePicture}
-            />
-          ))}
+          {students.map((student, i) => {
+            if (i > 3) {
+              return (
+                <LeaderboardItem
+                  key={i}
+                  position={i}
+                  name={student.FirstName}
+                  level={student.Level}
+                  xp={student.Xp}
+                  userIcon={student.ProfilePicture}
+                />
+              );
+            }
+          })}
         </View>
       </View>
     </ScrollView>

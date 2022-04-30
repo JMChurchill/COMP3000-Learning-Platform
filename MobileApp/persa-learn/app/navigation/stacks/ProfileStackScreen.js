@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/ProfileScreen";
 import UpdateDetails from "../../screens/ProfileScreens/UpdateDetails";
 import ChangePasswordScreen from "../../screens/ProfileScreens/ChangePasswordScreen";
+import ChangeProfilePicture from "../../screens/ProfileScreens/ChangeProfilePicture";
+import ChangeBanner from "../../screens/ProfileScreens/ChangeBanner";
 
 // import QuizScreen from "../../screens/QuizScreen";
 // import HomeScreen from "../../screens/HomeScreen";
@@ -19,6 +21,8 @@ const ProfileStackScreen = () => {
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <ProfileStack.Screen name="Update" component={UpdateDetails} />
+      <ProfileStack.Screen name="UpdateProf" component={ChangeProfilePicture} />
+      <ProfileStack.Screen name="UpdateBanner" component={ChangeBanner} />
       <ProfileStack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}

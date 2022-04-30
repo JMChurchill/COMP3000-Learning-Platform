@@ -109,6 +109,7 @@ export default function ShopScreen() {
           <View style={styles.itemContainer}>
             {allProfilePics.map((profilePic) => (
               <Item
+                key={profilePic.ProfilePictureID}
                 setSelectedItem={setSelectedItem}
                 setShowDetails={setShowDetails}
                 id={profilePic.ProfilePictureID}
@@ -121,6 +122,7 @@ export default function ShopScreen() {
             ))}
             {allBanners.map((banner) => (
               <Item
+                key={banner.BannerID}
                 setSelectedItem={setSelectedItem}
                 setShowDetails={setShowDetails}
                 type={"banner"}
@@ -134,6 +136,7 @@ export default function ShopScreen() {
             ))}
             {allThemes.map((theme) => (
               <ThemeItem
+                key={theme.ThemeID}
                 setSelectedItem={setSelectedItem}
                 setShowDetails={setShowDetails}
                 id={theme.ThemeID}
@@ -145,35 +148,7 @@ export default function ShopScreen() {
                 reqLevel={theme.RequiredLevel}
                 isPurchased={theme.Caption === "Purchased" ? true : false}
               />
-              // <Item
-              //   setSelectedItem={setSelectedItem}
-              //   setShowDetails={setShowDetails}
-              //   id={banner.BannerID}
-              //   name={banner.Name}
-              //   cost={banner.Cost}
-              //   reqLevel={banner.RequiredLevel}
-              //   image={banner.Image}
-              //   isPurchased={banner.Caption === "Purchased" ? true : false}
-              // />
             ))}
-            {/* <Item
-            setSelectedItem={setSelectedItem}
-            setShowDetails={setShowDetails}
-            name="item2"
-            cost={100}
-          />
-          <Item
-            setSelectedItem={setSelectedItem}
-            setShowDetails={setShowDetails}
-            name="item3"
-            cost={50}
-          />
-          <Item
-            setSelectedItem={setSelectedItem}
-            setShowDetails={setShowDetails}
-            name="item4"
-            cost={1000}
-          /> */}
           </View>
         </ScrollView>
       </View>

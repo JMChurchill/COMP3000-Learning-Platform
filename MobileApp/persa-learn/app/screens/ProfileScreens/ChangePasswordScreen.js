@@ -32,7 +32,7 @@ const ChangePasswordScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={fonts.title}>Update My Details</Text>
+      <Text style={fonts.title}>Change Password</Text>
       <Text style={fonts.h1}>Current Password</Text>
       <CustomInput
         // value={password}

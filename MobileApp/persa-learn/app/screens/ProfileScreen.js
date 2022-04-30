@@ -87,12 +87,24 @@ export default function ProfileScreen() {
           }
         />
         <CustomButton
+          text={"Change Profile Picture"}
+          type={"SECONDARY"}
+          onPress={() => navigation.navigate("UpdateProf")}
+        />
+        <CustomButton
+          text={"Change Banner"}
+          type={"SECONDARY"}
+          onPress={() => navigation.navigate("UpdateBanner")}
+        />
+        <CustomButton
           text={"Change Password"}
+          type={"SECONDARY"}
           onPress={() => navigation.navigate("ChangePassword")}
         />
         <CustomButton text={"Logout"} onPress={signOut} />
         <CustomButton
           text={"Delete account"}
+          type={"SECONDARY"}
           onPress={() =>
             Alert.alert(
               "Warning",
