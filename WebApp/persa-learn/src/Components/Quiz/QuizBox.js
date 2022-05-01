@@ -40,31 +40,37 @@ const QuizBox = ({
         <p>{details}</p>
       </div>
       {/* <ol type="a" className="quiz-answers"> */}
+      {console.log("this", options)}
       <ol type="a" className={styles.answer_container}>
-        {options.map((ans, i) => {
-          let selected = false;
-          //check if question is answered
-          let isAns = isAnswered();
-          // console.log(isAns);
+        {options == undefined
+          ? console.log("oops")
+          : options.map((ans, i) => {
+              let selected = false;
+              //check if question is answered
+              let isAns = isAnswered();
+              // console.log(isAns);
 
-          if (isAns.answered) {
-            // console.log("found");
-            selected = isAns.opt == i;
-          }
-          return (
-            // <li key={i} id={i} onClick={logToCon}>
-            <li
-              className={styles.option_container}
-              key={i}
-              id={i}
-              onClick={logToCon}
-            >
-              {/* <div className="check-box" aria-selected={selected}></div> */}
-              <div className={styles.check_box} aria-selected={selected}></div>
-              <div>{ans.TheOption}</div>
-            </li>
-          );
-        })}
+              if (isAns.answered) {
+                // console.log("found");
+                selected = isAns.opt == i;
+              }
+              return (
+                // <li key={i} id={i} onClick={logToCon}>
+                <li
+                  className={styles.option_container}
+                  key={i}
+                  id={i}
+                  onClick={logToCon}
+                >
+                  {/* <div className="check-box" aria-selected={selected}></div> */}
+                  <div
+                    className={styles.check_box}
+                    aria-selected={selected}
+                  ></div>
+                  <div>{ans.TheOption}</div>
+                </li>
+              );
+            })}
       </ol>
     </div>
   );
