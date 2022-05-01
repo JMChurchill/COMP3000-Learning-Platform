@@ -28,7 +28,7 @@ export default function CompleteOverlay({ results, setIsComplete }) {
         />
         <CustomButton
           // style={{ marginHorizontal: 10 }}
-          text="Share"
+          text="Back"
           type="SECONDARY"
           onPress={onBackPressed}
         />

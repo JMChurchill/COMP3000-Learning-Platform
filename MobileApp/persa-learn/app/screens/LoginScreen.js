@@ -28,8 +28,6 @@ export default function LoginScreen() {
   const { signIn } = useContext(AuthContext);
 
   const onSignInPressed = (data) => {
-    // alert(data.email);
-    // alert(data.password);
     signIn(data.email, data.password);
     // navigation.navigate("HomeTab");
   };

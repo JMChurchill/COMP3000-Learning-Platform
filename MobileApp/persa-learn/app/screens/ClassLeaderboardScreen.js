@@ -31,7 +31,6 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
     const data = await getStudentsByClass({ classID });
     console.log(data);
     if (data.status === "success") {
-      // alert("suce");
       setStudents(data.data);
     }
   }, []);

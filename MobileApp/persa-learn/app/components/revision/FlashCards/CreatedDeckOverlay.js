@@ -19,19 +19,19 @@ export default function CreatedDeckOverlay({ title, module }) {
       <View style={[styles.overlayWindow, common.shadow]}>
         <Text style={fonts.title}>Created Deck</Text>
         <Text style={fonts.h1}>Title: {title}</Text>
-        <Text style={fonts.h2}>Module: {module}</Text>
+        {/* <Text style={fonts.h2}>Module: {module}</Text> */}
 
         <CustomButton
           // style={{ marginHorizontal: 10 }}
           text="Finsh"
           onPress={finishedPressed}
         />
-        <CustomButton
+        {/* <CustomButton
           // style={{ marginHorizontal: 10 }}
           text="Add to Deck"
           type="SECONDARY"
           onPress={addToDeckPressed}
-        />
+        /> */}
       </View>
     </View>
   );

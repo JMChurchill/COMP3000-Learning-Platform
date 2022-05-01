@@ -33,7 +33,6 @@ export default function ClassesScreen() {
     const data = await getClassesByStudent();
     console.log(data);
     if (data.status === "success") {
-      alert("suc");
       setClasses(data.data);
     }
     setRefreshing(false);
@@ -76,6 +75,7 @@ export default function ClassesScreen() {
               keyExtractor={({ id }, index) => id}
               renderItem={({ item, separator }) => (
                 <ClassesItem
+                  key={item.ClassDetailsID}
                   id={item.ClassDetailsID}
                   name={item.Name}
                   teacher={`${item.FirstName} ${item.LastName}`}

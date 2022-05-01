@@ -6,8 +6,10 @@ import CustomButton from "../CustomButton/CustomButton";
 import common from "../../config/common";
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CompleteOverlay({ results, setIsComplete }) {
+  const navigation = useNavigation();
   const onBackPressed = () => {
     setIsComplete(false);
   };
@@ -44,14 +46,16 @@ export default function CompleteOverlay({ results, setIsComplete }) {
         </Text>
         <CustomButton
           // style={{ marginHorizontal: 10 }}
-          text="Go back"
-          onPress={onBackPressed}
+          text="Done"
+          // onPress={onBackPressed}
+          onPress={() => navigation.navigate("ProfilePage")}
         />
         <CustomButton
           // style={{ marginHorizontal: 10 }}
           text="Go To Shop"
           type="SECONDARY"
-          onPress={onBackPressed}
+          // onPress={onBackPressed}
+          onPress={() => navigation.navigate("Shop")}
         />
       </View>
     </View>

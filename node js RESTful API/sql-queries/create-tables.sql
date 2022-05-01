@@ -360,7 +360,7 @@ CREATE TABLE QuizRatings (
 # signups 
 CREATE TABLE StudentSignups (
     StudentSignupID int AUTO_INCREMENT,
-    StudentID int NOT NULL, 
+    StudentID int, 
     SignUpDate DATE NOT NULL, 
     PRIMARY KEY (StudentSignupID),
     FOREIGN KEY (StudentID) 
