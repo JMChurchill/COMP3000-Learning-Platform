@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ProgressBar from "../ProgressBar";
 import CustomButton from "../CustomButton/CustomButton";
 
@@ -7,8 +7,10 @@ import common from "../../config/common";
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
 import { useNavigation } from "@react-navigation/native";
+import Rating from "./Rating";
 
-export default function CompleteOverlay({ results, setIsComplete }) {
+export default function CompleteOverlay({ results, setIsComplete, quizID }) {
+  const [isRating, setIsRating] = useState(false);
   const navigation = useNavigation();
   const onBackPressed = () => {
     setIsComplete(false);
@@ -48,7 +50,7 @@ export default function CompleteOverlay({ results, setIsComplete }) {
           // style={{ marginHorizontal: 10 }}
           text="Done"
           // onPress={onBackPressed}
-          onPress={() => navigation.navigate("ProfilePage")}
+          onPress={() => setIsRating(true)}
         />
         <CustomButton
           // style={{ marginHorizontal: 10 }}
@@ -58,6 +60,11 @@ export default function CompleteOverlay({ results, setIsComplete }) {
           onPress={() => navigation.navigate("Shop")}
         />
       </View>
+      {isRating ? (
+        <Rating quizID={quizID} close={() => setIsRating(false)} />
+      ) : (
+        <></>
+      )}
     </View>
   );
 }

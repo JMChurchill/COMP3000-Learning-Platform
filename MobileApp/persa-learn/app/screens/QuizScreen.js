@@ -123,7 +123,11 @@ export default function QuizScreen({ route, navigation }) {
         </View>
       </ScrollView>
       {isComplete ? (
-        <CompleteOverlay results={results} setIsComplete={setIsComplete} />
+        <CompleteOverlay
+          results={results}
+          setIsComplete={setIsComplete}
+          quizID={quizID}
+        />
       ) : (
         <></>
       )}

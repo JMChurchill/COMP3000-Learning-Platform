@@ -24,40 +24,18 @@ export default function ClassesScreen() {
   useEffect(async () => {
     await getData();
   }, []);
-  const wait = (timeout) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
-  };
 
   const getData = async () => {
     setRefreshing(true);
     const data = await getClassesByStudent();
-    console.log(data);
     if (data.status === "success") {
       setClasses(data.data);
     }
     setRefreshing(false);
-    // const retrievedData = [
-    //   { id: 1, class: "maths", teacher: "Mary" },
-    //   { id: 2, class: "science", teacher: "John" },
-    //   { id: 3, class: "english", teacher: "Phil" },
-    // ];
-    // await wait(1000).then(() => setRefreshing(false));
-    // await setClasses(retrievedData);
   };
 
   const onRefresh = useCallback(async () => {
     await getData();
-    // setRefreshing(true);
-    // const retrievedData = [
-    //   { id: 1, class: "maths", teacher: "Mary" },
-    //   { id: 2, class: "science", teacher: "John" },
-    //   { id: 3, class: "english", teacher: "Phil" },
-    //   { id: 4, class: "art", teacher: "Mary2" },
-    //   { id: 5, class: "DT", teacher: "John2" },
-    //   { id: 6, class: "Geography", teacher: "Phil2" },
-    // ];
-    // await wait(1000).then(() => setRefreshing(false));
-    // await setClasses(retrievedData);
   }, []);
 
   return (
