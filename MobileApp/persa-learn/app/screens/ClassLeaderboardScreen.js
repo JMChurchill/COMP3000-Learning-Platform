@@ -52,15 +52,27 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
             //adjust position for order of array (to display fist place in center)
             if (pos == 1)
               return (
-                <TopPositionSmall position={2} image={student.ProfilePicture} />
+                <TopPositionSmall
+                  key={2}
+                  position={2}
+                  image={student.ProfilePicture}
+                />
               );
             else if (pos == 2)
               return (
-                <TopPositionLarge position={1} image={student.ProfilePicture} />
+                <TopPositionLarge
+                  key={1}
+                  position={1}
+                  image={student.ProfilePicture}
+                />
               );
             else
               return (
-                <TopPositionSmall position={3} image={student.ProfilePicture} />
+                <TopPositionSmall
+                  key={3}
+                  position={3}
+                  image={student.ProfilePicture}
+                />
               );
           })}
         </View>

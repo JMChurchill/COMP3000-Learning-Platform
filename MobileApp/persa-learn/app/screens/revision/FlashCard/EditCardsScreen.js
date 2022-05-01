@@ -28,7 +28,6 @@ const EditCardsScreen = ({ route, navigation }) => {
 
   const getCards = async () => {
     const data = await getFlashCardsRequest({ deckID });
-    console.log(data);
     setCards(data.flashCards);
   };
 
@@ -40,7 +39,7 @@ const EditCardsScreen = ({ route, navigation }) => {
       <View style={styles.root}>
         <Text style={fonts.title}>Edit {deckName} Deck</Text>
         {cards.map((card) => (
-          <EditCard card={card} getCards={getCards} />
+          <EditCard key={card.CardID} card={card} getCards={getCards} />
         ))}
 
         <CustomButton

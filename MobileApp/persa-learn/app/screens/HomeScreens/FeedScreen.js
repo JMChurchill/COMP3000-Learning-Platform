@@ -114,6 +114,7 @@ export default function FeedScreen() {
                 if (item.type === "assignment") {
                   return (
                     <AssignmentItem
+                      key={item.id}
                       id={item.id}
                       title={item.title}
                       cName={item.class}
@@ -123,6 +124,7 @@ export default function FeedScreen() {
                 } else if (item.type === "class") {
                   return (
                     <ClassesItem
+                      key={item.id}
                       id={item.id}
                       name={item.name}
                       teacher={item.teacher}
@@ -131,6 +133,7 @@ export default function FeedScreen() {
                 } else if (item.type === "result") {
                   return (
                     <ResultItem
+                      key={item.id}
                       id={item.id}
                       sName={`${item.firstName} ${item.lastName}`}
                       score={item.score}
@@ -140,6 +143,7 @@ export default function FeedScreen() {
                 } else if (item.type === "shared") {
                   return (
                     <SharedItem
+                      key={item.id}
                       id={item.id}
                       sName={`${item.firstName} ${item.lastName}`}
                       iName={item.itemName}

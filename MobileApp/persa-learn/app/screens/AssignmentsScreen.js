@@ -57,7 +57,6 @@ export default function AssignmentsScreen() {
               data={data}
               keyExtractor={({ id }, index) => id}
               renderItem={({ item, separator }) => {
-                console.log(item);
                 return (
                   <AssignmentItem
                     key={item.QuizID}
