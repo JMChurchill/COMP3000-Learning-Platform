@@ -11,6 +11,8 @@ import FlashCardsScreen from "../../screens/revision/FlashCard/FlashCardsScreen"
 import FlashCardCreateScreen from "../../screens/revision/FlashCard/FlashCardCreateScreen";
 import FlashCardPlayScreen from "../../screens/revision/FlashCard/FlashCardPlayScreen";
 import FlashCardCreateDeckScreen from "../../screens/revision/FlashCard/FlashCardCreateDeckScreen";
+import DeckEditScreen from "../../screens/revision/FlashCard/DeckEditScreen";
+import EditCardsScreen from "../../screens/revision/FlashCard/EditCardsScreen";
 
 const RevisionStack = createNativeStackNavigator();
 
@@ -32,6 +34,8 @@ const RevisionStackScreen = () => {
         name="FlashCardCreateDeck"
         component={FlashCardCreateDeckScreen}
       />
+      <RevisionStack.Screen name="DeckEdit" component={DeckEditScreen} />
+      <RevisionStack.Screen name="CardsEdit" component={EditCardsScreen} />
       <RevisionStack.Screen name="Notebook" component={NotebookScreen} />
     </RevisionStack.Navigator>
 

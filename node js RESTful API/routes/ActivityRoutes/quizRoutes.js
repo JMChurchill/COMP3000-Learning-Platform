@@ -275,9 +275,9 @@ router
           });
         }
         const score = correctAnswers.length - wrongAnswers.length;
-        const xp = quiz.Xp * (score / correctAnswers.length);
+        const xp = Math.ceil(quiz.Xp * (score / correctAnswers.length));
         // console.log(password);
-        const coins = quiz.Coins * (score / correctAnswers.length);
+        const coins = Math.ceil(quiz.Coins * (score / correctAnswers.length));
         // console.log(coins);
 
         //get current xp and level from database

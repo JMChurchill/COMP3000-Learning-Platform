@@ -7,18 +7,26 @@ import fonts from "../../config/fonts";
 export default function Item({
   setSelectedItem,
   setShowDetails,
+  id,
   name = "temp",
   cost = 0,
+  reqLevel,
   image = "https://reactnative.dev/img/tiny_logo.png",
+  isPurchased,
+  type = "ProfilePic",
 }) {
   const showItemDetails = () => {
-    setSelectedItem({ name, cost, image });
+    setSelectedItem({ type, id, name, cost, image, reqLevel });
     setShowDetails(true);
   };
   return (
     <TouchableOpacity
-      style={[styles.itemContainer, common.shadow]}
-      onPress={() => showItemDetails()}
+      style={[
+        styles.itemContainer,
+        common.shadow,
+        isPurchased ? { opacity: 0.5 } : {},
+      ]}
+      onPress={!isPurchased ? () => showItemDetails() : () => {}}
     >
       <Image
         style={styles.tinyLogo}
@@ -28,6 +36,7 @@ export default function Item({
       />
       <Text style={[fonts.h2, { color: colors.mainText }]}>{name}</Text>
       <Text style={fonts.h3}>{cost} coins</Text>
+      <Text style={fonts.h3}>Level {reqLevel}</Text>
     </TouchableOpacity>
   );
 }

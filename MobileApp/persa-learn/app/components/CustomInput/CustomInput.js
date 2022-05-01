@@ -14,6 +14,7 @@ export default function CustomInput({
   fSize,
   fBold,
   large = false,
+  value,
 }) {
   return (
     // <View style={styles.container}>
@@ -29,6 +30,7 @@ export default function CustomInput({
       control={control}
       name={name}
       rules={rules}
+      defaultValue={value ? value : ""}
       render={({
         field: { value, onChange, onBlur },
         fieldState: { error },

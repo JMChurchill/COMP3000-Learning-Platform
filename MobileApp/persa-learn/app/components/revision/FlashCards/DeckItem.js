@@ -4,11 +4,13 @@ import fonts from "../../../config/fonts";
 import common from "../../../config/common";
 import { useNavigation } from "@react-navigation/native";
 
-export default function DeckItem({ deckName = "Deck Name" }) {
-  const navigation = useNavigation();
+export default function DeckItem({ deckName, deckID, setSelectedDeck }) {
+  console.log("id", deckID);
+  // const navigation = useNavigation();
 
   const deckOnPress = () => {
-    navigation.navigate("FlashCardPlay");
+    setSelectedDeck({ deckName, deckID });
+    // navigation.navigate("FlashCardPlay", { deckID });
   };
   return (
     <TouchableOpacity

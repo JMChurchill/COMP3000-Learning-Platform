@@ -15,7 +15,13 @@ export default function TopPositionSmall({ position, image }) {
         },
       ]}
     >
-      <Image source={image} style={styles.userIcon} resizeMode={"contain"} />
+      <Image
+        source={{
+          uri: image,
+        }}
+        style={styles.userIcon}
+        resizeMode={"contain"}
+      />
       <View style={styles.topPosition}>
         <View
           style={[
@@ -41,6 +47,7 @@ const styles = StyleSheet.create({
   },
   userIcon: {
     height: "100%",
+    width: "100%",
     position: "absolute",
   },
   topPosition: {

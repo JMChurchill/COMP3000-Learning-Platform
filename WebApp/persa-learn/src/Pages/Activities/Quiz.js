@@ -66,16 +66,18 @@ const Quiz = () => {
     // check if all questions answered
     if (answers.length === questions.length) {
       //check answers and submit
-      const data = await checkAnswers({ quizID, answers });
-      console.log("data: ", data);
-      //set values for overlay
-      setScore(answers.length - data.wrongAnswers.length);
-      setEarnedXp(data.xp);
-      setEarnedCoins(data.coins);
-      setLevel(data.level);
-      setTotalXp(data.totalXp);
-      setRemaining(data.remainingXp);
-      setIsComplete(true);
+      try {
+        const data = await checkAnswers({ quizID, answers });
+        console.log("data: ", data);
+        //set values for overlay
+        setScore(answers.length - data.wrongAnswers.length);
+        setEarnedXp(data.xp);
+        setEarnedCoins(data.coins);
+        setLevel(data.level);
+        setTotalXp(data.totalXp);
+        setRemaining(data.remainingXp);
+        setIsComplete(true);
+      } catch (e) {}
     } else alert("answer all the questions");
   };
 

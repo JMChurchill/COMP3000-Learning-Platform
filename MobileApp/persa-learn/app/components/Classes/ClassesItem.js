@@ -11,8 +11,7 @@ export default function ClassesItem({ id, name, teacher }) {
   const navigation = useNavigation();
 
   const listItemOnPress = (id) => {
-    console.log("pressed ", id);
-    navigation.navigate("Leaderboard");
+    navigation.navigate("Leaderboard", { classID: id });
   };
   return (
     <TouchableOpacity
@@ -41,6 +40,6 @@ const styles = StyleSheet.create({
     borderRadius: common.containerBorderRadius,
   },
   col: {
-    width: "40%",
+    width: "45%",
   },
 });

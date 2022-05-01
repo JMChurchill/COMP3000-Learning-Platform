@@ -1,13 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ProgressBar from "../ProgressBar";
 import CustomButton from "../CustomButton/CustomButton";
 
 import common from "../../config/common";
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
+import { useNavigation } from "@react-navigation/native";
+import Rating from "./Rating";
 
-export default function CompleteOverlay({ results, setIsComplete }) {
+export default function CompleteOverlay({ results, setIsComplete, quizID }) {
+  const [isRating, setIsRating] = useState(false);
+  const navigation = useNavigation();
   const onBackPressed = () => {
     setIsComplete(false);
   };
@@ -16,42 +20,51 @@ export default function CompleteOverlay({ results, setIsComplete }) {
       <View style={styles.overlayWindow}>
         <Text style={fonts.title}>Completed</Text>
         <Text style={fonts.h1}>
-          {results.correct}/{results.totalQuestions}
+          {results.score}/{results.total}
         </Text>
         <View style={[styles.levelContainer, common.shadowStrong]}>
-          <Text style={[fonts.title, styles.level]}>Lv8</Text>
+          <Text style={[fonts.title, styles.level]}>Lv{results.level}</Text>
         </View>
         <View style={styles.gainedContainer}>
           <View style={styles.xpCoinsContainer}>
             <Text style={[fonts.h1, { color: "black", fontWeight: "bold" }]}>
-              +100
+              +{results.earnedXp}
             </Text>
             <Text style={[fonts.h3]}>xp earned</Text>
           </View>
           <View style={styles.xpCoinsContainer}>
             <Text style={[fonts.h1, { color: "black", fontWeight: "bold" }]}>
-              +100
+              +{results.coins}
             </Text>
             <Text style={[fonts.h3]}>Coins earned</Text>
           </View>
         </View>
         <ProgressBar
-          numerator={results.correct}
-          denominator={results.totalQuestions}
+          numerator={results.totalXp}
+          denominator={results.remainingXp}
         />
-        <Text style={{ marginVertical: 10 }}>200/1000XP</Text>
+        <Text style={{ marginVertical: 10 }}>
+          {results.totalXp}/{results.remainingXp}xp
+        </Text>
         <CustomButton
           // style={{ marginHorizontal: 10 }}
-          text="Go back"
-          onPress={onBackPressed}
+          text="Done"
+          // onPress={onBackPressed}
+          onPress={() => setIsRating(true)}
         />
         <CustomButton
           // style={{ marginHorizontal: 10 }}
           text="Go To Shop"
           type="SECONDARY"
-          onPress={onBackPressed}
+          // onPress={onBackPressed}
+          onPress={() => navigation.navigate("Shop")}
         />
       </View>
+      {isRating ? (
+        <Rating quizID={quizID} close={() => setIsRating(false)} />
+      ) : (
+        <></>
+      )}
     </View>
   );
 }

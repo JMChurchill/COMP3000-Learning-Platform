@@ -9,6 +9,9 @@ import RevisionStackScreen from "../stacks/RevisionStackScreen";
 import ShopStackScreen from "../stacks/ShopStackScreen";
 import colors from "../../config/colors";
 import TabTestScreen from "../../screens/TabTestScreen";
+import ShopScreen from "../../screens/ShopScreen";
+import ProfileScreen from "../../screens/ProfileScreen";
+import ProfileStackScreen from "../stacks/ProfileStackScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +31,8 @@ const TabScreen = () => {
             iconName = focused ? "book" : "book-outline";
           } else if (route.name === "Shop") {
             iconName = focused ? "cart" : "cart-outline";
+          } else if (route.name === "Profile") {
+            iconName = focused ? "person" : "person-outline";
           }
 
           // You can return any component that you like here!
@@ -42,6 +47,7 @@ const TabScreen = () => {
       <Tab.Screen name="Shop" component={ShopStackScreen} />
       <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Revision" component={RevisionStackScreen} />
+      <Tab.Screen name="Profile" component={ProfileStackScreen} />
     </Tab.Navigator>
     // {/* <Text>Navigation</Text> */}
     // </NavigationContainer>

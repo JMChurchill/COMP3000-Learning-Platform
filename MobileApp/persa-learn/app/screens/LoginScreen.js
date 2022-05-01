@@ -6,11 +6,13 @@ import {
   Image,
   useWindowDimensions,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import CustomInput from "../components/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
+
+import { AuthContext } from "../components/context";
 
 import Logo from "../assets/tempLogo.png";
 import CustomButton from "../components/CustomButton/CustomButton";
@@ -23,8 +25,11 @@ export default function LoginScreen() {
   const { height } = useWindowDimensions();
   const { control, handleSubmit, watch } = useForm();
 
-  const onSignInPressed = () => {
-    navigation.navigate("HomeTab");
+  const { signIn } = useContext(AuthContext);
+
+  const onSignInPressed = (data) => {
+    signIn(data.email, data.password);
+    // navigation.navigate("HomeTab");
   };
 
   const onForgotPasswordPressed = () => {
@@ -68,12 +73,13 @@ export default function LoginScreen() {
           }}
           secureTextEntry={true}
         />
+        {/* <CustomButton text="Sign In" onPress={handleSubmit(()=>signIn())} /> */}
         <CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
-        <CustomButton
+        {/* <CustomButton
           text="Forgot Password?"
           onPress={onForgotPasswordPressed}
           type="TERTIARY"
-        />
+        /> */}
         <CustomButton
           text="Dont have an account? Create one"
           onPress={onSignUpPressed}

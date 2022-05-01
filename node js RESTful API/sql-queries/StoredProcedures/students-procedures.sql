@@ -129,7 +129,7 @@ BEGIN
     SET theStudentID = (SELECT StudentID FROM students WHERE email = sEmail AND password = sPassword LIMIT 1);
     #check student is in class
     IF EXISTS (SELECT * FROM classes WHERE StudentID = theStudentID AND ClassDetailsID = classID) THEN
-        SELECT FirstName,LastName,Xp FROM classes INNER JOIN students ON students.StudentID = classes.StudentID WHERE classes.ClassDetailsID = classID ORDER BY Xp DESC;# join with student name
+        SELECT FirstName,LastName,Xp,Level,ProfilePicture FROM classes INNER JOIN students ON students.StudentID = classes.StudentID WHERE classes.ClassDetailsID = classID ORDER BY Level DESC,Xp DESC;# join with student name
     ELSE
         ROLLBACK;
     END IF;

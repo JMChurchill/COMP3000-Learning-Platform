@@ -359,9 +359,11 @@ CREATE TABLE QuizRatings (
 
 # signups 
 CREATE TABLE StudentSignups (
-    StudentID int NOT NULL, 
+    StudentSignupID int AUTO_INCREMENT,
+    StudentID int, 
     SignUpDate DATE NOT NULL, 
-    PRIMARY KEY (StudentID,SignUpDate),
+    PRIMARY KEY (StudentSignupID),
     FOREIGN KEY (StudentID) 
         REFERENCES Students(StudentID)
+        ON DELETE set null
     );

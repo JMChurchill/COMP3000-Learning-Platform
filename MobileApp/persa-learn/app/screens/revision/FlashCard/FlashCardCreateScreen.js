@@ -9,22 +9,29 @@ import colors from "../../../config/colors";
 import common from "../../../config/common";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../components/CustomButton/CustomButton";
+import { createFlashCardRequest } from "../../../httpRequests/flashcardRequests";
 
-export default function FlashCardCreateScreen() {
+export default function FlashCardCreateScreen({ route, navigation }) {
   const { control, handleSubmit, watch } = useForm();
-  const navigation = useNavigation();
+  const { deckID, deckName } = route.params;
 
-  const createCardPressed = () => {
-    console.warn("Card created");
-    navigation.navigate("FlashCards");
+  // const navigation = useNavigation();
+
+  const createCardPressed = async (credentials) => {
+    const data = await createFlashCardRequest({
+      DeckID: deckID,
+      Question: credentials.front,
+      Answer: credentials.back,
+    });
+    if (data.status === "success") {
+      navigation.navigate("CardsEdit", { deckID, deckName });
+    } else alert("Unable to add card, please try again");
   };
-  const createAnotherPressed = () => {
-    navigation.navigate("FlashCardCreate");
-  };
+
   return (
     <ScrollView>
       <View style={styles.root}>
-        <Text style={fonts.title}>FlashCardCreate</Text>
+        <Text style={fonts.title}>Create flashcard</Text>
         <View style={[styles.container, common.shadow]}>
           <Text style={fonts.h1}>Front</Text>
           <CustomInput
@@ -42,27 +49,24 @@ export default function FlashCardCreateScreen() {
         <View style={[styles.container, common.shadow]}>
           <Text style={fonts.h1}>Back</Text>
           <CustomInput
-            // value={username}
-            // setValue={setUsername}
             name="back"
             placeholder="Add back text"
             control={control}
             rules={{ required: "Back text is required" }}
             large={true}
             fSize={20}
-            // fBold={true}
           />
         </View>
         <CustomButton
           // style={{ marginHorizontal: 10 }}
           text="Save Card"
-          onPress={createCardPressed}
+          onPress={handleSubmit(createCardPressed)}
         />
         <CustomButton
           // style={{ marginHorizontal: 10 }}
-          text="Create Another"
+          text="Back"
           type="SECONDARY"
-          onPress={createAnotherPressed}
+          onPress={() => navigation.navigate("FlashCards")}
         />
       </View>
     </ScrollView>
