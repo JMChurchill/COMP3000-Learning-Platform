@@ -20,7 +20,7 @@ const ClassList = ({
       <div className={styles.col_names}>
         <p>Class Name</p>
         <p>Year Group</p>
-        <p>Overdue</p>
+        {/* <p>Overdue</p> */}
       </div>
       <div className={styles.task_box}>
         {classes.map((c, i) => {

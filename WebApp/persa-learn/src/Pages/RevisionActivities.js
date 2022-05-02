@@ -9,15 +9,12 @@ const Activities = () => {
     <div className="content-box">
       <h1>Activities</h1>
       <div className="container center-container flex-wrap">
-        <Link to="/quiz">
+        {/* <Link to="/quiz">
           <Activity name="Quiz" />
-        </Link>
+        </Link> */}
         <Link to="/flash-cards">
           <Activity name="Flash Cards" />
         </Link>
-        <Activity />
-        <Activity />
-        <Activity />
       </div>
     </div>
   );

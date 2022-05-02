@@ -32,6 +32,7 @@ const StudentProfile = () => {
   const [requiredXp, setRequiredXp] = useState(0);
   const [level, setLevel] = useState(0);
   const [coins, setCoins] = useState(0);
+  const [className, setClassName] = useState(0);
 
   const tabs = ["Classes", "Feed", "Assignments"];
   useEffect(async () => {
@@ -67,6 +68,7 @@ const StudentProfile = () => {
     }
     // assignments
     if (dataAssignment.hasOwnProperty("quizzes")) {
+      console.log(dataAssignment);
       setAssignments(dataAssignment.quizzes);
     }
   }, []);
@@ -131,16 +133,17 @@ const StudentProfile = () => {
             <>
               <div className={styles.column_names}>
                 <p>Name</p>
-                <p>Type</p>
+                <p>Class</p>
                 <p>Teacher</p>
                 <p>Module</p>
                 <p>Due Date</p>
               </div>
               <div className={styles.list_items}>
-                {assignments.map((a) => (
+                {assignments.map((a, i) => (
                   <AssignmentItem
-                    key={a.QuizID}
+                    key={i}
                     id={a.QuizID}
+                    className={a.ClassName}
                     assignmentName={a.QuizName}
                     teacherName={`${a.FirstName} ${a.LastName}`}
                     ModuleName={a.ModuleName}
