@@ -26,7 +26,7 @@ BEGIN
     #get from both class and indivisual assignments
     SELECT * FROM
     (
-        SELECT 'Indivisual' Caption, quizassignments.QuizID, QuizName, teachers.FirstName, teachers.LastName, ModuleName, DueDate
+        SELECT 'Indivisual' Caption, quizassignments.QuizID, QuizName,null AS 'ClassName', teachers.FirstName, teachers.LastName, ModuleName, DueDate
         FROM quizassignments 
         INNER JOIN quizzes 
         ON quizassignments.QuizID = quizzes.QuizID 
@@ -36,7 +36,7 @@ BEGIN
         ON quizzes.TeacherID = teachers.TeacherID 
         WHERE quizassignments.studentID = theStudentID AND quizassignments.QuizID NOT IN (SELECT QuizID FROM QuizSubmissions WHERE StudentID = theStudentID)
         UNION ALL
-        SELECT 'Class' Caption, quizclassassignments.QuizID, QuizName, teachers.FirstName, teachers.LastName, ModuleName, DueDate
+        SELECT 'Class' Caption, quizclassassignments.QuizID, QuizName,classdetails.Name AS 'ClassName', teachers.FirstName, teachers.LastName, ModuleName, DueDate
         FROM quizclassassignments 
         INNER JOIN quizzes 
         ON quizclassassignments.QuizID = quizzes.QuizID 
@@ -48,6 +48,8 @@ BEGIN
         ON quizclassassignments.ClassDetailsID = classes.ClassDetailsID
         INNER JOIN Students
         ON classes.StudentID = students.StudentID
+        INNER JOIN classdetails
+        ON classdetails.ClassDetailsID = classes.ClassDetailsID
         WHERE students.studentID = theStudentID AND quizclassassignments.QuizID NOT IN (SELECT QuizID FROM QuizSubmissions WHERE StudentID = theStudentID)
 
     ) subquery

@@ -14,7 +14,7 @@ const Rating = ({ quizID }) => {
 
   const submitRating = async () => {
     const data = await rateQuiz({ quizID, rating });
-    navigate("/profile_student", {});
+    navigate("/", {});
   };
   return (
     <div className={styles.overlay}>

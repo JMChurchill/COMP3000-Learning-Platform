@@ -18,7 +18,7 @@ const ClassItem = ({
     >
       <p>{name}</p>
       <p>Year Group: {yearGroup}</p>
-      <p>Overdue: {overdue}</p>
+      {/* <p>Overdue: {overdue}</p> */}
     </div>
   );
 };

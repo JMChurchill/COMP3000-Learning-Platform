@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CustomButton from "../../../Components/CustomButton";
 import CustomInput from "../../../Components/CustomInput";
 import CreateQuestionBox from "../../../Components/QuizDesigner/CreateQuestionBox";
@@ -25,6 +25,8 @@ const QuizEdit = () => {
   const [moduleCreated, setModuleCreated] = useState(false);
 
   const { state } = useLocation();
+  const navigate = useNavigate();
+
   console.log(state);
 
   const getModules = async () => {
@@ -52,20 +54,16 @@ const QuizEdit = () => {
     setQuestions([...questions, question]);
   };
   const updateQuiz = async () => {
-    console.log({
-      quizID: state.quizID,
-      title,
-      questions,
-      selectedModule,
-      //   selectedClass,
-    });
     const data = await updateTheQuiz({
       quizID: state.quizID,
       title,
       questions,
       selectedModule,
     });
-    console.log(data);
+
+    if (data.status == "success") {
+      navigate("/", {});
+    } else alert("unable to update quiz");
     // //add quiz to database
     // const data = await createTheQuiz({
     //   title,

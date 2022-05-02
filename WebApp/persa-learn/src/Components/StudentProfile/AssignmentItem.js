@@ -11,6 +11,7 @@ const AssignmentItem = ({
   ModuleName,
   dueDate,
   Caption,
+  className,
 }) => {
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ const AssignmentItem = ({
       }
     >
       <p>{assignmentName}</p>
-      <p>{Caption}</p>
+      <p>{className}</p>
       <p>{teacherName}</p>
       <p className={styles.module}>Module: {ModuleName}</p>
       <p>{dueDate ? new Date(dueDate).toLocaleDateString("en-GB") : ""}</p>

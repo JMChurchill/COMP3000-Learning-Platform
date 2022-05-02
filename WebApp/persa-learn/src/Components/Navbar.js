@@ -50,17 +50,13 @@ const Navbar = () => {
           // className="primary-navigation flex"
           className={styles.primary_navigation}
         >
-          <li>
+          {/* <li>
             <Link aria-current="true" to="/">
               Home
             </Link>
-          </li>
-          <li>
-            <Link aria-current="false" to="/shop">
-              Shop
-            </Link>
-          </li>
-          <li>
+          </li> */}
+
+          {/* <li>
             <Link aria-current="false" to="/activity">
               Activities
             </Link>
@@ -69,22 +65,68 @@ const Navbar = () => {
             <Link aria-current="false" to="/create">
               Create
             </Link>
-          </li>
-          <li>
-            {isAdmin ? (
+          </li> */}
+          {/* <li> */}
+          {isAdmin ? (
+            <>
+              <li>
+                <Link aria-current="false" to="/">
+                  Home
+                </Link>
+              </li>
+            </>
+          ) : !isTeacher ? (
+            <>
+              <li>
+                <Link aria-current="false" to="/">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link aria-current="false" to="/revision">
+                  Revision
+                </Link>
+              </li>
+              <li>
+                <Link aria-current="false" to="/shop">
+                  Shop
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link aria-current="false" to="/">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link aria-current="false" to="/classes">
+                  Classes
+                </Link>
+              </li>
+            </>
+          )}
+          {/* {isAdmin ? (
+            <li>
               <Link aria-current="false" to="/profile_admin">
                 Admin
               </Link>
-            ) : !isTeacher ? (
+            </li>
+          ) : !isTeacher ? (
+            <li>
               <Link aria-current="false" to="/profile_student">
                 Profile
               </Link>
-            ) : (
+            </li>
+          ) : (
+            <li>
               <Link aria-current="false" to="/profile_teacher">
                 Teacher
               </Link>
-            )}
-            {/* {!isTeacher ? (
+            </li>
+          )} */}
+          {/* {!isTeacher ? (
               <Link aria-current="false" to="/profile_student">
                 Profile
               </Link>
@@ -93,7 +135,7 @@ const Navbar = () => {
                 Teacher
               </Link>
             )} */}
-          </li>
+          {/* </li> */}
           <li>
             <a onClick={() => logout()}>Logout</a>
           </li>

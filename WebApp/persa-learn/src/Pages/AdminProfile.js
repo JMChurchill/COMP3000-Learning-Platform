@@ -75,7 +75,7 @@ const AdminProfile = () => {
             <h3>Number of Quizzes</h3>
           </div> */}
         </div>
-        <h2>Schools Actions</h2>
+        {/* <h2>Schools Actions</h2> */}
 
         <h2>Item Actions</h2>
         <CustomButton
