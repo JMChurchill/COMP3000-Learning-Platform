@@ -1,5 +1,5 @@
 import { StyleSheet, View, ScrollView, Text } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import fonts from "../../config/fonts";
 import Item from "../../components/Profile/ChangeProfPic/Item";
 import {
@@ -8,33 +8,44 @@ import {
 } from "../../httpRequests/itemRequests";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../components/context";
 
 const ChangeProfilePicture = () => {
+  const { signOut } = useContext(AuthContext);
+
   const [profilePictures, setProfilePictures] = useState([]);
   const [selectedPic, setSelectedPic] = useState({ id: null, image: null });
 
   const navigation = useNavigation();
 
   const getProfPics = async () => {
-    const data = await getPurchasedProfilePictures();
-    if (data.status === "success") {
-      setProfilePictures(data.data);
-    }
+    try {
+      const data = await getPurchasedProfilePictures();
+      if (data.status === "success") {
+        setProfilePictures(data.data);
+      }
+    } catch (e) {}
   };
   useEffect(async () => {
     await getProfPics();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, []);
   const change = async () => {
-    if (selectedPic != null) {
-      const data = await updateProfilePicture({
-        ProfilePicture: selectedPic.image,
-      });
-      if (data.status === "success") {
-        navigation.navigate("ProfileScreen");
-      } else {
-        alert("Something went wrong unable to profile picture");
-      }
-    } else alert("Select a profile picture");
+    try {
+      if (selectedPic != null) {
+        const data = await updateProfilePicture({
+          ProfilePicture: selectedPic.image,
+        });
+        if (data.status === "success") {
+          navigation.navigate("ProfileScreen");
+        } else {
+          alert("Something went wrong unable to profile picture");
+        }
+      } else alert("Select a profile picture");
+    } catch (e) {}
   };
   return (
     <ScrollView>

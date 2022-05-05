@@ -1,79 +1,104 @@
 import * as SecureStore from "expo-secure-store";
+import { checkTokenCorrect } from "./checkValidToken";
 
 export const getBanners = async () => {
-  let token = await SecureStore.getItemAsync("userToken");
+  try {
+    let token = await SecureStore.getItemAsync("userToken");
 
-  const data = fetch("http://10.0.2.2:8080/banner", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      autherization: token,
-    },
-  }).then((data) => data.json());
-  return data;
+    const data = fetch("http://10.0.2.2:8080/banner", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }).then((data) => data.json());
+    checkTokenCorrect(data);
+
+    return data;
+  } catch (e) {}
 };
 
 export const getProfilePics = async () => {
-  let token = await SecureStore.getItemAsync("userToken");
+  try {
+    let token = await SecureStore.getItemAsync("userToken");
 
-  const data = fetch("http://10.0.2.2:8080/profilePicture", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      autherization: token,
-    },
-  }).then((data) => data.json());
-  return data;
+    const data = fetch("http://10.0.2.2:8080/profilePicture", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }).then((data) => data.json());
+    checkTokenCorrect(data);
+
+    return data;
+  } catch (e) {}
 };
 
 export const getThemes = async () => {
-  let token = await SecureStore.getItemAsync("userToken");
+  try {
+    let token = await SecureStore.getItemAsync("userToken");
 
-  const data = fetch("http://10.0.2.2:8080/theme", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      autherization: token,
-    },
-  }).then((data) => data.json());
-  return data;
+    const data = fetch("http://10.0.2.2:8080/theme", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }).then((data) => data.json());
+    checkTokenCorrect(data);
+
+    return data;
+  } catch (e) {}
 };
 
 export const purchaseProfilePic = async (credentials) => {
-  let token = await SecureStore.getItemAsync("userToken");
-  const data = fetch("http://10.0.2.2:8080/profilePicture/purchased", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      autherization: token,
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-  return data;
+  try {
+    let token = await SecureStore.getItemAsync("userToken");
+    const data = fetch("http://10.0.2.2:8080/profilePicture/purchased", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+      body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    checkTokenCorrect(data);
+
+    return data;
+  } catch (e) {}
 };
 
 export const purchaseBanner = async (credentials) => {
-  let token = await SecureStore.getItemAsync("userToken");
-  const data = fetch("http://10.0.2.2:8080/banner/purchased", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      autherization: token,
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-  return data;
+  try {
+    let token = await SecureStore.getItemAsync("userToken");
+    const data = fetch("http://10.0.2.2:8080/banner/purchased", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+      body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    checkTokenCorrect(data);
+
+    return data;
+  } catch (e) {}
 };
 
 export const purchaseTheme = async (credentials) => {
-  let token = await SecureStore.getItemAsync("userToken");
-  const data = fetch("http://10.0.2.2:8080/theme/purchased", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      autherization: token,
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-  return data;
+  try {
+    let token = await SecureStore.getItemAsync("userToken");
+    const data = fetch("http://10.0.2.2:8080/theme/purchased", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+      body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    checkTokenCorrect(data);
+
+    return data;
+  } catch (e) {}
 };

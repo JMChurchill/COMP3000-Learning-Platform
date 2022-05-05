@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import fonts from "../../config/fonts";
 import CustomButton from "../../components/CustomButton/CustomButton";
@@ -8,30 +8,41 @@ import {
   getPurchasedBanners,
   updateBanner,
 } from "../../httpRequests/itemRequests";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../components/context";
 
 const ChangeBanner = () => {
+  const { signOut } = useContext(AuthContext);
+
   const [banners, setBanners] = useState([]);
   const [selectedPic, setSelectedPic] = useState({ id: null, image: null });
 
   const navigation = useNavigation();
 
   const change = async () => {
-    if (selectedPic != null) {
-      const data = await updateBanner({
-        Banner: selectedPic.image,
-      });
-      if (data.status === "success") {
-        navigation.navigate("ProfileScreen");
-      } else {
-        alert("Something went wrong unable to banner");
-      }
-    } else alert("Select a banner");
+    try {
+      if (selectedPic != null) {
+        const data = await updateBanner({
+          Banner: selectedPic.image,
+        });
+        if (data.status === "success") {
+          navigation.navigate("ProfileScreen");
+        } else {
+          alert("Something went wrong unable to banner");
+        }
+        if ((await SecureStore.getItemAsync("userToken")) === null) {
+          signOut();
+        }
+      } else alert("Select a banner");
+    } catch (e) {}
   };
   const getBanners = async () => {
-    const data = await getPurchasedBanners();
-    if (data.status === "success") {
-      setBanners(data.data);
-    }
+    try {
+      const data = await getPurchasedBanners();
+      if (data.status === "success") {
+        setBanners(data.data);
+      }
+    } catch (e) {}
   };
   useEffect(async () => {
     await getBanners();

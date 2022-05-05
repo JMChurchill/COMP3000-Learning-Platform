@@ -6,7 +6,8 @@ import {
   FlatList,
   RefreshControl,
 } from "react-native";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
+import * as SecureStore from "expo-secure-store";
 
 import fonts from "../config/fonts";
 import common from "../config/common";
@@ -15,8 +16,11 @@ import colors from "../config/colors";
 import AssignmentItem from "../components/Assignments/AssignmentItem";
 import { getAssignmentsByStudent } from "../httpRequests/assignmentRequests";
 import { useIsFocused } from "@react-navigation/native";
+import { AuthContext } from "../components/context";
 
 export default function AssignmentsScreen() {
+  const { signOut } = useContext(AuthContext);
+
   // const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -28,17 +32,22 @@ export default function AssignmentsScreen() {
 
   useEffect(async () => {
     await getData();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, [isFocused]);
 
   const getData = async () => {
-    setRefreshing(true);
-    let data = await getAssignmentsByStudent();
-    // console.log(data);
-    if (data.status === "success") {
-      console.log(data.quizzes);
-      await setData(data.quizzes);
-      setRefreshing(false);
-    }
+    try {
+      setRefreshing(true);
+      let data = await getAssignmentsByStudent();
+      // console.log(data);
+      if (data.status === "success") {
+        console.log(data.quizzes);
+        await setData(data.quizzes);
+        setRefreshing(false);
+      }
+    } catch (e) {}
   };
 
   // { height: height * 0.2 + height * 0.07 }

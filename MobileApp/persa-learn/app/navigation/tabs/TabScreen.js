@@ -1,8 +1,10 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+
+import * as SecureStore from "expo-secure-store";
 
 import HomeStackScreen from "../stacks/HomeStackScreen";
 import RevisionStackScreen from "../stacks/RevisionStackScreen";
@@ -12,10 +14,20 @@ import TabTestScreen from "../../screens/TabTestScreen";
 import ShopScreen from "../../screens/ShopScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import ProfileStackScreen from "../stacks/ProfileStackScreen";
+import { AuthContext } from "../../components/context";
 
 const Tab = createBottomTabNavigator();
 
 const TabScreen = () => {
+  const { signOut } = useContext(AuthContext);
+
+  // useEffect(async () => {
+  //   // console.log(await SecureStore.getItemAsync("userToken"));
+  //   if ((await SecureStore.getItemAsync("userToken")) === null) {
+  //     // console.log("no token");
+  //     signOut();
+  //   }
+  // });
   return (
     // <NavigationContainer>
     // <Tab.Navigator screenOptions={{ headerShown: false }}>

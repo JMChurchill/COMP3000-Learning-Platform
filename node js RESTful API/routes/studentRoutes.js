@@ -11,6 +11,24 @@ const checkAuth = require("../middleware/checkAuth");
 const { check, validationResult } = require("express-validator");
 const { requiredXp } = require("../LevelSystem/Level");
 
+////to implenet refresh token
+// router.route("/token").post(async (req, res) => {
+//   const refreshToken = req.body.token;
+//   if (refreshToken == null) return res.sendStatus(401);
+//   // check db for refresh token
+//   jwt.verify(
+//     refreshToken,
+//     process.env.REFRESH_TOKEN_SECRET,
+//     async (err, data) => {
+//       if (err) return res.sendStatus(403);
+//       // generate access token
+//       const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
+//         expiresIn: parseInt(process.env.EXPIRES_IN),
+//       });
+//     }
+//   );
+// });
+
 router.route("/login").post(async (req, res) => {
   data = {
     email: req.body.email,
@@ -35,10 +53,15 @@ router.route("/login").post(async (req, res) => {
           const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
             expiresIn: parseInt(process.env.EXPIRES_IN),
           });
+          // const refreshToken = jwt.sign(
+          //   { data },
+          //   process.env.REFRESH_TOKEN_SECRET
+          // );
           // return token
           res.status(200).json({
             message: "Successfull login",
             token: token,
+            // refreshToken: refreshToken,
           });
         } else {
           res.status(401).json({ status: "Email or Password incorrect" });

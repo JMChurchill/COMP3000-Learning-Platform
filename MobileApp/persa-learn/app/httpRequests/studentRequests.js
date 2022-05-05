@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+import { checkTokenCorrect } from "./checkValidToken";
 
 export const detailsStudentRequest = async () => {
   //   console.log("aa");
@@ -16,6 +17,8 @@ export const detailsStudentRequest = async () => {
         autherization: token,
       },
     }).then((data) => data.json());
+    checkTokenCorrect(data);
+
     return data;
   } catch (e) {}
 };
@@ -32,6 +35,8 @@ export const updateStudentRequest = async (credentials) => {
       },
       body: JSON.stringify(credentials),
     }).then((data) => data.json());
+    checkTokenCorrect(data);
+
     return data;
   } catch (e) {}
 };
@@ -49,19 +54,24 @@ export const changePasswordRequest = async (credentials) => {
       },
       body: JSON.stringify(credentials),
     }).then((data) => data.json());
+    checkTokenCorrect(data);
+
     return data;
   } catch (e) {}
 };
 
 export const deleteStudentRequest = async () => {
-  let token = await SecureStore.getItemAsync("userToken");
-  let data = fetch("http://10.0.2.2:8080/student", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      autherization: token,
-    },
-  }).then((data) => data.json());
+  try {
+    let token = await SecureStore.getItemAsync("userToken");
+    let data = fetch("http://10.0.2.2:8080/student", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        autherization: token,
+      },
+    }).then((data) => data.json());
+    checkTokenCorrect(data);
 
-  return data;
+    return data;
+  } catch (e) {}
 };

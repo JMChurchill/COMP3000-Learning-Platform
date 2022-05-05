@@ -10,28 +10,37 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import common from "../config/common";
 import colors from "../config/colors";
 import ClassesItem from "../components/Classes/ClassesItem";
 import { getClassesByStudent } from "../httpRequests/classRequests";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../components/context";
 
 export default function ClassesScreen() {
+  const { signOut } = useContext(AuthContext);
+
   const [classes, setClasses] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(async () => {
     await getData();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, []);
 
   const getData = async () => {
-    setRefreshing(true);
-    const data = await getClassesByStudent();
-    if (data.status === "success") {
-      setClasses(data.data);
-    }
-    setRefreshing(false);
+    try {
+      setRefreshing(true);
+      const data = await getClassesByStudent();
+      if (data.status === "success") {
+        setClasses(data.data);
+      }
+      setRefreshing(false);
+    } catch (e) {}
   };
 
   const onRefresh = useCallback(async () => {
