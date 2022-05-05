@@ -3,8 +3,8 @@ import styles from "./QuizBox.module.css";
 
 const QuizBox = ({
   questionId,
-  question = "placeholder",
-  details = "details here",
+  question,
+  details,
   options,
   answers,
   addAnswer,

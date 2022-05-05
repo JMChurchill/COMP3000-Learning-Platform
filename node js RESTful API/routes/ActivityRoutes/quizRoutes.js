@@ -404,9 +404,16 @@ router
             return res.status(400).json({ status: "failure", reason: err });
           });
           quiz.questions[i].options = optionsed;
-          // console.log(array);
-          if (i === array.length - 1) {
-            console.log(array);
+          // if (i === array.length - 1) {
+          //   // console.log(array);
+          //   res.status(201).json({ status: "success", quiz });
+          // }
+          let isDone = true;
+          array.map((it) => {
+            if (!it.hasOwnProperty("options")) isDone = false;
+          });
+
+          if (isDone === true) {
             res.status(201).json({ status: "success", quiz });
           }
         });
