@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { editPasswordStudent } from "../../http_Requests/StudentRequests/StudentRequests";
 import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
@@ -10,6 +11,8 @@ const OverlayChangePassword = ({ close }) => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isChanged, setIsChanged] = useState(false);
+
+  const navigate = useNavigate();
 
   const changePassword = async () => {
     if (newPassword === confirmPassword) {
@@ -63,6 +66,10 @@ const OverlayChangePassword = ({ close }) => {
           yes={() => {
             setIsChanged(false);
             close();
+            navigate("/", {});
+            sessionStorage.clear();
+
+            window.location.reload();
           }}
         />
       ) : (
