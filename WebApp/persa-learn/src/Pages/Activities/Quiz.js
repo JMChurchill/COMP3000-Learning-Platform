@@ -34,12 +34,13 @@ const Quiz = () => {
     if (state !== null) {
       const data = await getQuiz(state.quizID);
 
-      console.log(data);
+      // console.log(data);
       if (data.status === "success") {
         //set quiz title
         setTitle(data.quiz.quizName);
         setQuizID(data.quiz.quizID);
         setQuestions(data.quiz.questions);
+        console.log(data.quiz);
       }
     }
   }, []);
@@ -95,8 +96,8 @@ const Quiz = () => {
             <QuizBox
               key={question.QuestionID}
               questionId={question.QuestionID}
-              question={question.name}
-              details={question.details}
+              question={question.Question}
+              details={question.Details}
               options={question.options}
               answers={answers}
               addAnswer={addAnswer}
