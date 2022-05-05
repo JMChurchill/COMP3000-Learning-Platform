@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CustomButton from "../../../Components/CustomButton";
 import CustomInput from "../../../Components/CustomInput";
 import {
@@ -18,6 +18,8 @@ const EditCardsInDeck = () => {
   const [u, setU] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState();
   const [isDeleteing, setIsDeleting] = useState(false);
+
+  const navigate = useNavigate();
 
   const deleteCard = (id) => {
     console.log("Deleting card");
@@ -63,6 +65,23 @@ const EditCardsInDeck = () => {
             />
           ))}
         </div>
+        <CustomButton
+          text={"Add Card"}
+          onClick={() => {
+            navigate("/designer_flashcard", {
+              state,
+            });
+          }}
+        />
+        <CustomButton
+          text={"Back"}
+          type={2}
+          onClick={() => {
+            navigate("/flash-cards", {
+              state,
+            });
+          }}
+        />
       </div>
       {isDeleteing ? (
         <OverlayConfirm

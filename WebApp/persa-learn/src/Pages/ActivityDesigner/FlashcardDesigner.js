@@ -21,6 +21,11 @@ const FlashcardDesigner = () => {
         Question: question,
         Answer: answer,
       });
+      if (data.status === "success") {
+        navigate("/flash-card/edit", {
+          state,
+        });
+      }
       console.log(data);
     }
   };
@@ -37,23 +42,31 @@ const FlashcardDesigner = () => {
         {/* <div className="card-designer"> */}
         <div className={styles.card_design_container}>
           {/* <form action=""> */}
-          <div className={styles.row}>
-            <div className={styles.input_container}>
-              <h2>Front</h2>
-              <CustomInput placeholder={"add word"} setValue={setQuestion} />
-            </div>
-            <div className={styles.input_container}>
-              <h2>Back</h2>
-              <CustomInput placeholder={"add word"} setValue={setAnswer} />
-            </div>
+          {/* <div className={styles.row}> */}
+          <div className={styles.input_container}>
+            <h2>Front</h2>
+            <CustomInput
+              placeholder={"add word"}
+              setValue={setQuestion}
+              fill={true}
+            />
           </div>
+          <div className={styles.input_container}>
+            <h2>Back</h2>
+            <CustomInput
+              placeholder={"add word"}
+              setValue={setAnswer}
+              fill={true}
+            />
+          </div>
+          {/* </div> */}
           {/* </form> */}
         </div>
         {/* <Flashcard
             question={currentCard.question}
             answer={currentCard.answer}
           /> */}
-        <div className="rows center-container">
+        <div className={styles.btn_container}>
           {/* <button className="btn">delete card</button>
           <button className="btn">create card</button> */}
           <CustomButton text={"Create Card"} onClick={() => createCard()} />
