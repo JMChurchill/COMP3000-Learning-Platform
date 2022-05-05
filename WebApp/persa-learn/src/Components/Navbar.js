@@ -4,7 +4,9 @@ import styles from "./Navbar.module.css";
 
 import { MdMenu } from "react-icons/md";
 
-import logo from "../assets/tempLogo.svg";
+// import logo from "../assets/tempLogo.svg";
+import logo from "../assets/logo.png";
+// import logo from "../assets/logo.svg";
 
 const Navbar = () => {
   const [navVisibility, setNavVisibility] = useState(false);
@@ -28,7 +30,7 @@ const Navbar = () => {
   return (
     // <header className="primary-header flex">
     <header className={styles.primary_header}>
-      <div>
+      <div className={styles.logo_container}>
         {/* <img src={logo} alt="logo" className="logo" /> */}
         <img src={logo} alt="logo" className={styles.logo} />
       </div>

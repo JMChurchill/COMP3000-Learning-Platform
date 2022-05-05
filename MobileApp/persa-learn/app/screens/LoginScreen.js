@@ -14,7 +14,8 @@ import { useForm } from "react-hook-form";
 
 import { AuthContext } from "../components/context";
 
-import Logo from "../assets/tempLogo.png";
+// import Logo from "../assets/tempLogo.png";
+import Logo from "../assets/icon.png";
 import CustomButton from "../components/CustomButton/CustomButton";
 import fonts from "../config/fonts";
 
