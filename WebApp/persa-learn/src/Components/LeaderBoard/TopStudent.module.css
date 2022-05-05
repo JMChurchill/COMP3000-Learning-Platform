@@ -3,14 +3,16 @@
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  width: 30%;
+  align-items: center;
+  width: MIN(30%, 28rem);
 }
 .medal {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: gold;
   width: fit-content;
-  align-self: center;
+  /* align-self: center; */
   padding: 0.5rem;
   aspect-ratio: 1;
   border-radius: 100rem;
@@ -18,7 +20,7 @@
   color: #fff;
 }
 .top_student p {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 0.2rem;
 }
 .img_container {
@@ -28,11 +30,18 @@
   margin: auto;
   display: flex;
   justify-content: center;
-  width: max(70%, 8rem);
+  /* width: max(70%, 8rem); */
+  width: 100%;
   aspect-ratio: 1;
 }
 .img_container img {
   width: 90%;
   height: 90%;
   margin: auto;
+}
+@media (max-width: 50em) {
+  .top_student p {
+    font-size: 1rem;
+    margin: 0.2rem;
+  }
 }

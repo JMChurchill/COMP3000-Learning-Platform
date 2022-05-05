@@ -1,6 +1,6 @@
 .leaderboard_student {
   display: grid;
-  grid-template-columns: 2% 5rem 50% 10%;
+  grid-template-columns: 2% MAX(3rem, 8%) 50% 10% 10%;
   /* gap: clamp(1rem, 5vh, 2rem); */
   gap: 1rem;
   background-color: var(--background-color);
@@ -29,7 +29,7 @@
   margin-bottom: 2rem;
 } */
 .leaderboard_student p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 /* 
 @media (max-width: 50em) {
@@ -42,3 +42,10 @@
     grid-template-columns: 2% 20% 50% 10%;
   }
 } */
+@media (max-width: 50em) {
+  .leaderboard_student {
+    grid-template-columns: 2% MAX(3rem, 10%) 30% 10% 10%;
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem;
+  }
+}

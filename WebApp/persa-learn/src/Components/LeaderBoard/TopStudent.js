@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TopStudent.module.css";
 
-const TopStudent = ({ name = "TempName", icon, xp = "200", position }) => {
+const TopStudent = ({ name, icon, xp, position, level }) => {
   return (
     <div
       className={styles.top_student}
@@ -38,6 +38,7 @@ const TopStudent = ({ name = "TempName", icon, xp = "200", position }) => {
         <p>{position}</p>
       </div>
       <p>{name}</p>
+      <p>Lv{level}</p>
       <p>{xp}xp</p>
     </div>
     // <div
