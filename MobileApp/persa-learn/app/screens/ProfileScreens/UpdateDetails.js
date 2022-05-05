@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import fonts from "../../config/fonts";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,8 @@ import { AuthContext } from "../../components/context";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const UpdateDetails = ({ route, navigation }) => {
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const { signOut } = useContext(AuthContext);
 
   const { control, handleSubmit, watch } = useForm();
@@ -22,7 +24,8 @@ const UpdateDetails = ({ route, navigation }) => {
       const data = await updateStudentRequest(credentials);
       console.log("res", data);
       if (data.status === "success") {
-        navigation.navigate("ProfileScreen");
+        // navigation.navigate("ProfileScreen");
+        setIsSuccess(true);
       } else {
         alert("Something went wrong unable to change details");
       }
@@ -37,38 +40,49 @@ const UpdateDetails = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={fonts.title}>Update My Details</Text>
-      <Text style={fonts.h1}>Email</Text>
-      <CustomInput
-        name="email"
-        placeholder="Email"
-        control={control}
-        value={email}
-        rules={{
-          required: "Username is required",
-          pattern: { value: EMAIL_REGEX, message: "Invalid email" },
-        }}
-      />
-      <Text style={fonts.h1}>First name</Text>
-      <CustomInput
-        name="firstname"
-        placeholder="firstname"
-        control={control}
-        value={firstname}
-        rules={{ required: "First name is required" }}
-      />
+      {isSuccess ? (
+        <>
+          <Text style={[fonts.h1, { color: "green", textAlign: "center" }]}>
+            Successfuly Updated Details
+          </Text>
+          <CustomButton text={"Login"} onPress={signOut} />
+        </>
+      ) : (
+        <>
+          <Text style={fonts.h1}>Email</Text>
+          <CustomInput
+            name="email"
+            placeholder="Email"
+            control={control}
+            value={email}
+            rules={{
+              required: "Username is required",
+              pattern: { value: EMAIL_REGEX, message: "Invalid email" },
+            }}
+          />
+          <Text style={fonts.h1}>First name</Text>
+          <CustomInput
+            name="firstname"
+            placeholder="firstname"
+            control={control}
+            value={firstname}
+            rules={{ required: "First name is required" }}
+          />
 
-      <Text style={fonts.h1}>Last name</Text>
-      <CustomInput
-        name="lastname"
-        placeholder="lastname"
-        control={control}
-        value={lastname}
-        rules={{ required: "Last name is required" }}
-      />
-      <CustomButton
-        text={"Update Details"}
-        onPress={handleSubmit(updateUser)}
-      />
+          <Text style={fonts.h1}>Last name</Text>
+          <CustomInput
+            name="lastname"
+            placeholder="lastname"
+            control={control}
+            value={lastname}
+            rules={{ required: "Last name is required" }}
+          />
+          <CustomButton
+            text={"Update Details"}
+            onPress={handleSubmit(updateUser)}
+          />
+        </>
+      )}
     </View>
   );
 };
