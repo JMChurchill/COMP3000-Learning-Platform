@@ -53,9 +53,11 @@ const ClassLeaderboard = () => {
               return (
                 <TopStudent
                   key={i}
-                  icon={tempUserIcon}
+                  // icon={tempUserIcon}
+                  icon={student.ProfilePicture}
                   name={`${student.FirstName} ${student.LastName}`}
                   position={pos}
+                  level={student.Level}
                   xp={student.Xp}
                 />
               );
@@ -68,9 +70,11 @@ const ClassLeaderboard = () => {
               return (
                 <LeaderboardStudent
                   key={i}
-                  icon={tempUserIcon}
+                  // icon={tempUserIcon}
+                  icon={student.ProfilePicture}
                   name={`${student.FirstName} ${student.LastName}`}
                   position={i}
+                  level={student.Level}
                   xp={student.Xp}
                 />
               );

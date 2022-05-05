@@ -34,7 +34,7 @@ const StudentProfile = () => {
   const [coins, setCoins] = useState(0);
   const [className, setClassName] = useState(0);
 
-  const tabs = ["Classes", "Feed", "Assignments"];
+  const tabs = ["Assignments", "Feed", "Classes"];
   useEffect(async () => {
     //get page details
     const [dataClasses, dataStudentDetails, dataAssignment] = await Promise.all(
@@ -110,26 +110,6 @@ const StudentProfile = () => {
             })}
           </div>
           {selectedTab == 1 ? (
-            // <div className="class-items list-items">
-            <div className={styles.list_items}>
-              {classes.map((c) => (
-                <ClassItem
-                  key={c.ClassDetailsID}
-                  id={c.ClassDetailsID}
-                  name={c.Name}
-                  firstname={c.FirstName}
-                  lastname={c.LastName}
-                  yearGroup={c.YearGroup}
-                />
-              ))}
-            </div>
-          ) : (
-            <></>
-          )}
-
-          {selectedTab == 2 ? <></> : <></>}
-
-          {selectedTab == 3 ? (
             <>
               <div className={styles.column_names}>
                 <p>Name</p>
@@ -153,6 +133,26 @@ const StudentProfile = () => {
                 ))}
               </div>
             </>
+          ) : (
+            <></>
+          )}
+
+          {selectedTab == 2 ? <></> : <></>}
+
+          {selectedTab == 3 ? (
+            // <div className="class-items list-items">
+            <div className={styles.list_items}>
+              {classes.map((c) => (
+                <ClassItem
+                  key={c.ClassDetailsID}
+                  id={c.ClassDetailsID}
+                  name={c.Name}
+                  firstname={c.FirstName}
+                  lastname={c.LastName}
+                  yearGroup={c.YearGroup}
+                />
+              ))}
+            </div>
           ) : (
             <></>
           )}
