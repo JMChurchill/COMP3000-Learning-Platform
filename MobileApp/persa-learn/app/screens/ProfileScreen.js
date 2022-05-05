@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import CustomButton from "../components/CustomButton/CustomButton";
 
 import { AuthContext } from "../components/context";
+import * as SecureStore from "expo-secure-store";
 
 import UserIcon from "../assets/UserIcons/001-man-1.png";
 import Banner from "../assets/Banners/banner-1.jpg";
@@ -16,6 +17,8 @@ import {
 import { set } from "react-hook-form";
 
 export default function ProfileScreen() {
+  const { signOut } = useContext(AuthContext);
+
   const [xp, setXp] = useState();
   const [level, setLevel] = useState();
   const [firstname, setFirstname] = useState();
@@ -44,7 +47,6 @@ export default function ProfileScreen() {
         setBanner(data.data.Banner);
         setCoins(data.data.Coins);
       } else {
-        alert("Unable to get details");
       }
     } catch (e) {}
   };
@@ -64,8 +66,10 @@ export default function ProfileScreen() {
 
   useEffect(async () => {
     await getDetails();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, [isFocused]);
-  const { signOut } = useContext(AuthContext);
   return (
     <View style={styles.root}>
       <Header

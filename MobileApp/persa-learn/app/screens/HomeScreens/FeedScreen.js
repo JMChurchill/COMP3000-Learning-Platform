@@ -1,12 +1,16 @@
 import { StyleSheet, Text, View, FlatList, RefreshControl } from "react-native";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import AssignmentItem from "../../components/Assignments/AssignmentItem";
 import colors from "../../config/colors";
 import ClassesItem from "../../components/Classes/ClassesItem";
 import ResultItem from "../../components/Feed/ResultItem";
 import SharedItem from "../../components/Feed/SharedItem";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../components/context";
 
 export default function FeedScreen() {
+  const { signOut } = useContext(AuthContext);
+
   // const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -55,6 +59,9 @@ export default function FeedScreen() {
 
   useEffect(async () => {
     await getData();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, []);
 
   const getData = async () => {

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 
 import CustomInput from "../../../components/CustomInput/CustomInput";
@@ -12,8 +12,12 @@ import { useNavigation } from "@react-navigation/native";
 import CreatedDeckOverlay from "../../../components/revision/FlashCards/CreatedDeckOverlay";
 import DeleteDeckOverlay from "../../../components/revision/FlashCards/DeleteDeckOverlay";
 import { createFlashCardDecks } from "../../../httpRequests/flashcardRequests";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../../components/context";
 
 export default function FlashCardCreateDeckScreen() {
+  const { signOut } = useContext(AuthContext);
+
   const [isComplete, setIsComplete] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [title, setTitle] = useState("");
@@ -25,9 +29,14 @@ export default function FlashCardCreateDeckScreen() {
 
   const createDeckPressed = async (credentials) => {
     setTitle(credentials.title);
-    const data = await createFlashCardDecks({ Name: credentials.title });
-    if (data.status === "success") {
-      setIsComplete(true);
+    try {
+      const data = await createFlashCardDecks({ Name: credentials.title });
+      if (data.status === "success") {
+        setIsComplete(true);
+      }
+    } catch (e) {}
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
     }
   };
   const deleteDeckPressed = () => {

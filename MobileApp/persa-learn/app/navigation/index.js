@@ -125,20 +125,20 @@ const Navigation = () => {
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   useEffect(async () => {
-    setTimeout(async () => {
-      let userToken;
-      userToken = null;
-      try {
-        // userToken = await AsyncStorage.getItem("userToken");
-        userToken = await SecureStore.getItemAsync("userToken");
+    // setTimeout(async () => {
+    let userToken;
+    userToken = null;
+    try {
+      // userToken = await AsyncStorage.getItem("userToken");
+      userToken = await SecureStore.getItemAsync("userToken");
 
-        // alert(userToken);
-      } catch (e) {
-        console.log(e);
-      }
-      //setIsLoading(false);
-      dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
-    }, 1000);
+      // alert(userToken);
+    } catch (e) {
+      console.log(e);
+    }
+    //setIsLoading(false);
+    dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
+    // }, 5000);
   }, []);
 
   if (loginState.isLoading) {

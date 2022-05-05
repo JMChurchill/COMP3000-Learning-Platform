@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 
 import { useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
@@ -10,22 +10,31 @@ import common from "../../../config/common";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import { createFlashCardRequest } from "../../../httpRequests/flashcardRequests";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../../components/context";
 
 export default function FlashCardCreateScreen({ route, navigation }) {
+  const { signOut } = useContext(AuthContext);
+
   const { control, handleSubmit, watch } = useForm();
   const { deckID, deckName } = route.params;
 
   // const navigation = useNavigation();
 
   const createCardPressed = async (credentials) => {
-    const data = await createFlashCardRequest({
-      DeckID: deckID,
-      Question: credentials.front,
-      Answer: credentials.back,
-    });
-    if (data.status === "success") {
-      navigation.navigate("CardsEdit", { deckID, deckName });
-    } else alert("Unable to add card, please try again");
+    try {
+      const data = await createFlashCardRequest({
+        DeckID: deckID,
+        Question: credentials.front,
+        Answer: credentials.back,
+      });
+      if (data.status === "success") {
+        navigation.navigate("CardsEdit", { deckID, deckName });
+      } else alert("Unable to add card, please try again");
+    } catch (e) {}
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   };
 
   return (

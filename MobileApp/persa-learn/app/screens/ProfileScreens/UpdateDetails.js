@@ -1,13 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import fonts from "../../config/fonts";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { updateStudentRequest } from "../../httpRequests/studentRequests";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../components/context";
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const UpdateDetails = ({ route, navigation }) => {
+  const { signOut } = useContext(AuthContext);
+
   const { control, handleSubmit, watch } = useForm();
 
   const { email, firstname, lastname } = route.params;
@@ -20,6 +25,9 @@ const UpdateDetails = ({ route, navigation }) => {
         navigation.navigate("ProfileScreen");
       } else {
         alert("Something went wrong unable to change details");
+      }
+      if ((await SecureStore.getItemAsync("userToken")) === null) {
+        signOut();
       }
     } catch (e) {
       console.log(e);

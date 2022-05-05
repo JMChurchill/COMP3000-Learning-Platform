@@ -1,16 +1,20 @@
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import fonts from "../config/fonts";
 import colors from "../config/colors";
 import common from "../config/common";
+import * as SecureStore from "expo-secure-store";
 
 import userIcon from "../assets/UserIcons/001-man-1.png";
 import LeaderboardItem from "../components/Leaderboard/LeaderboardItem";
 import TopPositionSmall from "../components/Leaderboard/TopPositionSmall";
 import TopPositionLarge from "../components/Leaderboard/TopPositionLarge";
 import { getStudentsByClass } from "../httpRequests/classRequests";
+import { AuthContext } from "../components/context";
 
 export default function ClassLeaderboardScreen({ route, navigation }) {
+  const { signOut } = useContext(AuthContext);
+
   const { classID } = route.params;
   const [students, setStudents] = useState([]);
   const [topThree, setTopThree] = useState([]);
@@ -28,10 +32,15 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
   };
 
   useEffect(async () => {
-    const data = await getStudentsByClass({ classID });
-    console.log(data);
-    if (data.status === "success") {
-      setStudents(data.data);
+    try {
+      const data = await getStudentsByClass({ classID });
+      console.log(data);
+      if (data.status === "success") {
+        setStudents(data.data);
+      }
+    } catch (e) {}
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
     }
   }, []);
 

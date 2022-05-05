@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import colors from "../../../config/colors";
@@ -12,8 +12,12 @@ import {
 } from "../../../httpRequests/flashcardRequests";
 import EditCard from "../../../components/revision/FlashCards/EditCard";
 import { useIsFocused } from "@react-navigation/native";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../../components/context";
 
 const EditCardsScreen = ({ route, navigation }) => {
+  const { signOut } = useContext(AuthContext);
+
   const { deckID, deckName } = route.params;
   const [cards, setCards] = useState([]);
   // console.log(deckName);
@@ -27,12 +31,17 @@ const EditCardsScreen = ({ route, navigation }) => {
   const isFocused = useIsFocused();
 
   const getCards = async () => {
-    const data = await getFlashCardsRequest({ deckID });
-    setCards(data.flashCards);
+    try {
+      const data = await getFlashCardsRequest({ deckID });
+      setCards(data.flashCards);
+    } catch (e) {}
   };
 
   useEffect(async () => {
     await getCards();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, [isFocused]);
   return (
     <ScrollView>

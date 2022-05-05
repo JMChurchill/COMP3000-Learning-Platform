@@ -7,6 +7,7 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../components/context";
 import { changePasswordRequest } from "../../httpRequests/studentRequests";
+import * as SecureStore from "expo-secure-store";
 
 const ChangePasswordScreen = () => {
   const { control, handleSubmit, watch } = useForm();
@@ -14,18 +15,23 @@ const ChangePasswordScreen = () => {
   const { signOut } = useContext(AuthContext);
 
   const changePassword = async (credentials) => {
-    const data = await changePasswordRequest({
-      oPassword: credentials.oPassword,
-      nPassword: credentials.nPassword,
-    });
-    console.log(data);
-    if (data.status === "success") {
-      signOut();
-    } else if (data.status == "Password incorrect") {
-      alert("Password Incorrect");
-    } else {
-      alert("Unable to change password");
-    }
+    try {
+      const data = await changePasswordRequest({
+        oPassword: credentials.oPassword,
+        nPassword: credentials.nPassword,
+      });
+      console.log(data);
+      if (data.status === "success") {
+        signOut();
+      } else if (data.status == "Password incorrect") {
+        alert("Password Incorrect");
+      } else {
+        alert("Unable to change password");
+      }
+      if ((await SecureStore.getItemAsync("userToken")) === null) {
+        signOut();
+      }
+    } catch (e) {}
   };
 
   const pwd = watch("nPassword");

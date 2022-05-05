@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
+import * as SecureStore from "expo-secure-store";
 
 import fonts from "../config/fonts";
 import Item from "../components/Shop/Item";
 import colors from "../config/colors";
 import common from "../config/common";
+// import AuthContext from "../components/context";
 
 import UserIcon from "../assets/UserIcons/001-man-1.png";
 import Banner from "../assets/Banners/banner-1.jpg";
@@ -18,8 +20,11 @@ import {
 import ThemeItem from "../components/Shop/ThemeItem";
 import { detailsStudentRequest } from "../httpRequests/studentRequests";
 import Header from "../components/Feed/Header";
+import { AuthContext } from "../components/context";
 
 export default function ShopScreen() {
+  const { signOut } = useContext(AuthContext);
+
   const [selectedItem, setSelectedItem] = useState();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -51,24 +56,28 @@ export default function ShopScreen() {
         setBanner(data.data.Banner);
         setCoins(data.data.Coins);
       } else {
-        alert("Unable to get details");
       }
     } catch (e) {}
   };
 
   const getItems = async () => {
-    let data = await getBanners();
-    setAllBanners(data.data);
-    data = await getThemes();
-    console.log(data.data);
-    setAllThemes(data.data);
-    data = await getProfilePics();
-    setAllProfilePics(data.data);
+    try {
+      let data = await getBanners();
+      if (data.status === "success") setAllBanners(data.data);
+      data = await getThemes();
+      console.log(data.data);
+      if (data.status === "success") setAllThemes(data.data);
+      data = await getProfilePics();
+      if (data.status === "success") setAllProfilePics(data.data);
+    } catch (e) {}
   };
 
   useEffect(async () => {
     await getItems();
     await getDetails();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, []);
   return (
     <>

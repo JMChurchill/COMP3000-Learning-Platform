@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import fonts from "../../../config/fonts";
 import colors from "../../../config/colors";
 import common from "../../../config/common";
@@ -16,8 +16,12 @@ import CompleteOverlay from "../../../components/revision/CompleteOverlay";
 import { getFlashCardsRequest } from "../../../httpRequests/flashcardRequests";
 import FlashCard from "../../../components/revision/FlashCards/Play/FlashCard";
 import CustomButton from "../../../components/CustomButton/CustomButton";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../../components/context";
 
 export default function FlashCardPlayScreen({ route, navigation }) {
+  const { signOut } = useContext(AuthContext);
+
   const [score, setScore] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [index, setIndex] = useState(0);
@@ -38,8 +42,15 @@ export default function FlashCardPlayScreen({ route, navigation }) {
   ];
 
   useEffect(async () => {
-    const data = await getFlashCardsRequest({ deckID });
-    setCards(data.flashCards);
+    try {
+      const data = await getFlashCardsRequest({ deckID });
+      if (data.status === "success") {
+        setCards(data.flashCards);
+      }
+    } catch (e) {}
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, []);
   return (
     <View style={styles.root}>

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import fonts from "../config/fonts";
 import colors from "../config/colors";
@@ -9,8 +9,12 @@ import CustomButton from "../components/CustomButton/CustomButton";
 import common from "../config/common";
 import CompleteOverlay from "../components/Quiz/CompleteOverlay";
 import { checkAnswers, getQuizRequest } from "../httpRequests/quizRequests";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../components/context";
 
 export default function QuizScreen({ route, navigation }) {
+  const { signOut } = useContext(AuthContext);
+
   const [title, setTitle] = useState();
   const [questions, setQuestions] = useState([]);
 
@@ -31,13 +35,15 @@ export default function QuizScreen({ route, navigation }) {
   const [results, setResults] = useState({});
 
   const getQuiz = async () => {
-    const data = await getQuizRequest(quizID);
-    // console.log(data);
-    if (data.status === "success") {
-      console.log("aa:: ", data.quiz);
-      setTitle(data.quiz.quizName);
-      setQuestions(data.quiz.questions);
-    }
+    try {
+      const data = await getQuizRequest(quizID);
+      // console.log(data);
+      if (data.status === "success") {
+        console.log("aa:: ", data.quiz);
+        setTitle(data.quiz.quizName);
+        setQuestions(data.quiz.questions);
+      }
+    } catch (e) {}
   };
   const addAnswer = (questionID, answerIdx) => {
     let isFound = false;
@@ -60,35 +66,39 @@ export default function QuizScreen({ route, navigation }) {
 
   useEffect(async () => {
     console.log(quizID);
-
     await getQuiz();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, []);
 
   const onCompletedPressed = async () => {
     console.log("ans:", answers);
     // console.log("complete");
-    if (answers.length === questions.length) {
-      const data = await checkAnswers({ quizID, answers });
-      console.log("data: ", data);
-      // setScore(answers.length - data.wrongAnswers.length);
-      // setEarnedXp(data.xp);
-      // setEarnedCoins(data.coins);
-      // setLevel(data.level);
-      // setTotalXp(data.totalXp);
-      // setRemaining(data.remainingXp);
-      setResults({
-        score: answers.length - data.wrongAnswers.length,
-        total: questions.length,
-        earnedXp: data.xp,
-        coins: data.coins,
-        level: data.level,
-        totalXp: data.totalXp,
-        remainingXp: data.remainingXp,
-      });
-      setIsComplete(true);
-    } else {
-      alert("Please answer all the questions");
-    }
+    try {
+      if (answers.length === questions.length) {
+        const data = await checkAnswers({ quizID, answers });
+        console.log("data: ", data);
+        // setScore(answers.length - data.wrongAnswers.length);
+        // setEarnedXp(data.xp);
+        // setEarnedCoins(data.coins);
+        // setLevel(data.level);
+        // setTotalXp(data.totalXp);
+        // setRemaining(data.remainingXp);
+        setResults({
+          score: answers.length - data.wrongAnswers.length,
+          total: questions.length,
+          earnedXp: data.xp,
+          coins: data.coins,
+          level: data.level,
+          totalXp: data.totalXp,
+          remainingXp: data.remainingXp,
+        });
+        setIsComplete(true);
+      } else {
+        alert("Please answer all the questions");
+      }
+    } catch (e) {}
   };
 
   return (

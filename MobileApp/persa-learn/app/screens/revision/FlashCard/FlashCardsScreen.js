@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import fonts from "../../../config/fonts";
 import DeckItem from "../../../components/revision/FlashCards/DeckItem";
 import colors from "../../../config/colors";
@@ -14,8 +14,12 @@ import common from "../../../config/common";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { getFlashCardDecksRequest } from "../../../httpRequests/flashcardRequests";
 import OptionsOverlay from "../../../components/revision/FlashCards/OptionsOverlay";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../../components/context";
 
 export default function FlashCardsScreen() {
+  const { signOut } = useContext(AuthContext);
+
   const [decks, setDecks] = useState([]);
   const [selectedDeck, setSelectedDeck] = useState();
 
@@ -27,16 +31,21 @@ export default function FlashCardsScreen() {
     navigation.navigate("FlashCardCreateDeck");
   };
   const getDecks = async () => {
-    const data = await getFlashCardDecksRequest();
-    // console.log(data);
-    if (data.status === "success") {
-      // alert("s");
-      // console.log(data.decks);
-      setDecks(data.decks);
-    }
+    try {
+      const data = await getFlashCardDecksRequest();
+      // console.log(data);
+      if (data.status === "success") {
+        // alert("s");
+        // console.log(data.decks);
+        setDecks(data.decks);
+      }
+    } catch (e) {}
   };
   useEffect(async () => {
     await getDecks();
+    if ((await SecureStore.getItemAsync("userToken")) === null) {
+      signOut();
+    }
   }, [isFocused]);
   return (
     <View style={styles.root}>

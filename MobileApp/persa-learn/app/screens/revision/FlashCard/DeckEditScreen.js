@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import fonts from "../../../config/fonts";
@@ -7,20 +7,29 @@ import common from "../../../config/common";
 import { useForm } from "react-hook-form";
 import colors from "../../../config/colors";
 import { updateDecksRequest } from "../../../httpRequests/flashcardRequests";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../../../components/context";
 
 const DeckEditScreen = ({ route, navigation }) => {
+  const { signOut } = useContext(AuthContext);
+
   const { control, handleSubmit, watch } = useForm();
   const { deckID, deckName } = route.params;
 
   const editDeck = async (credentials) => {
     // console.log(credentials);
-    const data = await updateDecksRequest({
-      DeckID: deckID,
-      Name: credentials.deckName,
-    });
-    if (data.status === "success") {
-      navigation.navigate("FlashCards");
-    }
+    try {
+      const data = await updateDecksRequest({
+        DeckID: deckID,
+        Name: credentials.deckName,
+      });
+      if (data.status === "success") {
+        navigation.navigate("FlashCards");
+      }
+      if ((await SecureStore.getItemAsync("userToken")) === null) {
+        signOut();
+      }
+    } catch (e) {}
   };
 
   return (
