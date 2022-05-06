@@ -42,6 +42,7 @@ import TeacherEdit from "./Pages/Teacher/TeacherEdit";
 import QuizEdit from "./Pages/ActivityDesigner/Quiz/QuizEdit";
 import AssignmentSubmissions from "./Pages/Teacher/AssignmentSubmissions";
 import { Classes } from "./Pages/Teacher/Classes";
+import { default as StudentsClasses } from "./Pages/Student/Classes";
 
 function App() {
   const { token, setToken } = useToken();
@@ -130,6 +131,7 @@ function App() {
                 element={<StudentProfile />}
               />
               <Route exact path="/" element={<StudentProfile />} />
+              <Route exact path="/classes" element={<StudentsClasses />} />
               <Route exact path="/user_settings" element={<UserSettings />} />
               <Route
                 exact

@@ -97,3 +97,55 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+
+
+
+
+
+
+#get all students
+DELIMITER $$
+CREATE PROCEDURE class_request_view_all_students (cID int,sTerm TEXT,tEmail varchar(255), tPassword varchar(60))
+BEGIN
+    #check if teacher
+    IF EXISTS (SELECT * FROM teachers WHERE email = tEmail AND password = tPassword) THEN
+                SELECT students.StudentID, Email, FirstName, LastName, IF(ClassRequests.StudentID IS NULL, FALSE,TRUE) as isRequest 
+        FROM Students
+        LEFT JOIN ClassRequests 
+        ON (students.StudentID = ClassRequests.StudentID and classrequests.ClassDetailsID = cID)
+        WHERE students.StudentID NOT IN (SELECT StudentID FROM Classes WHERE Classes.ClassDetailsID = cID) AND (Email LIKE CONCAT('%', sTerm , '%') 
+        OR FirstName LIKE CONCAT('%', sTerm , '%') 
+        OR LastName LIKE CONCAT('%', sTerm , '%'));
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+#search students
+DELIMITER $$
+CREATE PROCEDURE class_request_view_search_students (tEmail varchar(255), tPassword varchar(60), sTerm TEXT)
+BEGIN
+    IF EXISTS (SELECT * FROM teachers WHERE email = tEmail AND password = tPassword) THEN
+        /* SELECT StudentID, Email, FirstName, LastName 
+        FROM Students 
+        WHERE Email LIKE CONCAT('%', sTerm , '%') 
+        OR FirstName LIKE CONCAT('%', sTerm , '%') 
+        OR LastName LIKE CONCAT('%', sTerm , '%'); */
+
+                SELECT students.StudentID, Email, FirstName, LastName, IF(ClassRequests.StudentID IS NULL, FALSE,TRUE) as isRequest 
+        FROM Students
+        LEFT JOIN ClassRequests 
+        ON (students.StudentID = ClassRequests.StudentID and classrequests.ClassDetailsID = cID)
+        WHERE students.StudentID NOT IN (SELECT StudentID FROM Classes WHERE Classes.ClassDetailsID = cID) AND (Email LIKE CONCAT('%', sTerm , '%') 
+        OR FirstName LIKE CONCAT('%', sTerm , '%') 
+        OR LastName LIKE CONCAT('%', sTerm , '%'));
+
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+CALL search_students ("email2@email.com", "password", "e")

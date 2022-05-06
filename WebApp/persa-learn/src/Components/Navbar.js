@@ -85,6 +85,11 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
+                <Link aria-current="false" to="/classes">
+                  Classes
+                </Link>
+              </li>
+              <li>
                 <Link aria-current="false" to="/revision">
                   Revision
                 </Link>
