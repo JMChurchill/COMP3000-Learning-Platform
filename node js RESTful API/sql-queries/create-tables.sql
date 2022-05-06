@@ -367,3 +367,17 @@ CREATE TABLE StudentSignups (
         REFERENCES Students(StudentID)
         ON DELETE set null
     );
+
+-- class requests
+CREATE TABLE ClassRequests(
+    StudentID int NOT NULL,
+    ClassDetailsID int NOT NULL,
+    DateSent DATE NOT NULL DEFAULT (CURRENT_DATE),
+    PRIMARY KEY (StudentID,ClassDetailsID),
+    FOREIGN KEY (StudentID)
+        REFERENCES Students(StudentID)
+        ON DELETE CASCADE,
+    FOREIGN KEY (ClassDetailsID)
+        REFERENCES ClassDetails(ClassDetailsID)
+        ON DELETE CASCADE
+);
