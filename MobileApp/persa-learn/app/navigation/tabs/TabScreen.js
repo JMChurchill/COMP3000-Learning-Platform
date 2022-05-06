@@ -10,11 +10,11 @@ import HomeStackScreen from "../stacks/HomeStackScreen";
 import RevisionStackScreen from "../stacks/RevisionStackScreen";
 import ShopStackScreen from "../stacks/ShopStackScreen";
 import colors from "../../config/colors";
-import TabTestScreen from "../../screens/TabTestScreen";
 import ShopScreen from "../../screens/ShopScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import ProfileStackScreen from "../stacks/ProfileStackScreen";
 import { AuthContext } from "../../components/context";
+import Requests from "../../screens/Classes/Requests";
 
 const Tab = createBottomTabNavigator();
 
@@ -45,6 +45,8 @@ const TabScreen = () => {
             iconName = focused ? "cart" : "cart-outline";
           } else if (route.name === "Profile") {
             iconName = focused ? "person" : "person-outline";
+          } else if (route.name === "Classes") {
+            iconName = focused ? "people" : "people-outline";
           }
 
           // You can return any component that you like here!
@@ -55,7 +57,7 @@ const TabScreen = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Test" component={TabTestScreen} />
+      <Tab.Screen name="Classes" component={Requests} />
       <Tab.Screen name="Shop" component={ShopStackScreen} />
       <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Revision" component={RevisionStackScreen} />

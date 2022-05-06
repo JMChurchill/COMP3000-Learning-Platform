@@ -180,13 +180,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  header: {
-    backgroundColor: "orange",
-    width: "100%",
-    minHeight: "10%",
-    flexDirection: "row",
-    alignItems: "baseline",
-  },
   userIconContainer: {
     // borderWidth: 1,
     // borderColor: "red",
