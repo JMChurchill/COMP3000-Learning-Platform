@@ -22,14 +22,9 @@
 .container .student_container {
   align-self: center;
   display: grid;
-  /* grid-template-columns: 20% 70%;
-  align-items: center; */
   display: flex;
   align-items: center;
-
   width: 100%;
-  /* grid-column-start: 1;
-  grid-column-end: 4; */
 }
 .container .image {
   width: 30%;
@@ -42,15 +37,9 @@
     flex-direction: column;
   }
   .container .student_container {
-    /* align-self: center; */
-    /* display: grid; */
-    /* grid-template-columns: 40% 60%; */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* width: 100%; */
-    /* grid-column-start: 1;
-  grid-column-end: 4; */
   }
   .container .image {
     width: 3rem;
