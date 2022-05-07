@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../Components/CustomButton";
-import LineChar from "../Components/LineChar";
+import LineChar from "../Components/Charts/LineChar";
 import { getMonthlySignups } from "../http_Requests/StatsRequest";
 import styles from "./AdminProfile.module.css";
 
