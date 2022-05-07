@@ -6,7 +6,8 @@
   gap: var(--gap, 1rem);
   height: 4rem;
   /* background: HSL(0 0% 0% /0.5); */
-  background: var(--nav-color);
+  /* background: var(--nav-color); */
+  background: var(--background-color);
   /* box-shadow: 0 0.5rem 0.5rem -0.25em black; */
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
@@ -17,7 +18,7 @@
   padding: 0.5rem 1rem;
   box-sizing: border-box;
   border-radius: var(--border-radius);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .logo {
   /* margin: 1rem; */
@@ -37,7 +38,7 @@
 }
 .primary_navigation a {
   text-decoration: none;
-  color: var(--nav-text-color);
+  color: var(--text-color);
 }
 .primary_navigation a:hover {
   color: var(--primary-color);
@@ -63,7 +64,7 @@
     margin: 0;
     z-index: 9999;
     background-color: transparent;
-    color: black;
+    color: var(--text-color);
     border: 0;
     top: 0rem;
     right: 0rem;
