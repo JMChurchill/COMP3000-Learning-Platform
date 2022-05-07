@@ -77,7 +77,7 @@ const Overlay = ({
         {!isShared ? (
           <CustomButton type={2} text={"Share"} onClick={share} />
         ) : (
-          <CustomButton type={2} text={"UnShare"} onClick={unshare} />
+          <CustomButton type={2} text={"Unshare"} onClick={unshare} />
         )}
 
         <CustomButton

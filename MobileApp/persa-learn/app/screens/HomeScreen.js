@@ -5,7 +5,6 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Header from "../components/Feed/Header";
 import AssignmentsScreen from "./AssignmentsScreen";
 import FeedScreen from "./HomeScreens/FeedScreen";
-import ClassesScreen from "./ClassesScreen";
 import * as SecureStore from "expo-secure-store";
 
 import fonts from "../config/fonts";
@@ -16,6 +15,7 @@ import Banner from "../assets/Banners/banner-1.jpg";
 import { detailsStudentRequest } from "../httpRequests/studentRequests";
 import { useIsFocused } from "@react-navigation/native";
 import { AuthContext } from "../components/context";
+import AllClassesScreen from "./ClassesScreens/AllClassesScreen";
 
 const HomeTabs = createMaterialTopTabNavigator();
 
@@ -77,7 +77,8 @@ export default function HomeScreen() {
       <HomeTabs.Navigator>
         <HomeTabs.Screen name="Assignments" component={AssignmentsScreen} />
         <HomeTabs.Screen name="Feed" component={FeedScreen} />
-        <HomeTabs.Screen name="Classes" component={ClassesScreen} />
+        {/* <HomeTabs.Screen name="Classes" component={AllClassesScreen} /> */}
+        {/* <HomeTabs.Screen name="Classes" component={ClassesScreen} /> */}
       </HomeTabs.Navigator>
     </>
   );

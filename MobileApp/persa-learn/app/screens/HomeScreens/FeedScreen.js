@@ -7,6 +7,7 @@ import ResultItem from "../../components/Feed/ResultItem";
 import SharedItem from "../../components/Feed/SharedItem";
 import * as SecureStore from "expo-secure-store";
 import { AuthContext } from "../../components/context";
+import { getFeedRequest } from "../../httpRequests/feedRequests";
 
 export default function FeedScreen() {
   const { signOut } = useContext(AuthContext);
@@ -20,41 +21,7 @@ export default function FeedScreen() {
   };
 
   const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    const retrievedData = [
-      {
-        id: 1,
-        title: "assignment1",
-        class: "Maths 01",
-        DueDate: "10/1/22",
-        type: "assignment",
-      },
-      { id: 2, name: "maths", teacher: "Mary", type: "class" },
-      {
-        id: 3,
-        title: "Moments",
-        class: "Physics 03",
-        DueDate: "10/2/22",
-        type: "assignment",
-      },
-      {
-        id: 4,
-        firstName: "James",
-        lastName: "John",
-        score: "10/10",
-        assignmentName: "Algibra",
-        type: "result",
-      },
-      {
-        id: 5,
-        firstName: "Bobby",
-        lastName: "Smith",
-        itemName: "flashcards",
-        type: "shared",
-      },
-    ];
-    await wait(1000).then(() => setRefreshing(false));
-    await setData(retrievedData);
+    await getData();
   }, []);
 
   useEffect(async () => {
@@ -66,40 +33,11 @@ export default function FeedScreen() {
 
   const getData = async () => {
     setRefreshing(true);
-    const retrievedData = [
-      {
-        id: 1,
-        title: "assignment1",
-        class: "Maths 01",
-        DueDate: "10/1/22",
-        type: "assignment",
-      },
-      { id: 2, name: "maths", teacher: "Mary", type: "class" },
-      {
-        id: 3,
-        title: "Moments",
-        class: "Physics 03",
-        DueDate: "10/2/22",
-        type: "assignment",
-      },
-      {
-        id: 4,
-        firstName: "James",
-        lastName: "John",
-        score: "10/10",
-        assignmentName: "Algibra",
-        type: "result",
-      },
-      {
-        id: 5,
-        firstName: "Bobby",
-        lastName: "Smith",
-        itemName: "flashcards",
-        type: "shared",
-      },
-    ];
-    await wait(1000).then(() => setRefreshing(false));
-    await setData(retrievedData);
+    const data = await getFeedRequest();
+    if (data.status === "success") {
+      await setData(data.data);
+    }
+    setRefreshing(false);
   };
 
   // { height: height * 0.2 + height * 0.07 }
@@ -118,33 +56,26 @@ export default function FeedScreen() {
               data={data}
               keyExtractor={({ id }, index) => id}
               renderItem={({ item, separator }) => {
-                if (item.type === "assignment") {
+                if (item.Caption === "Assignment") {
                   return (
                     <AssignmentItem
-                      key={item.id}
-                      id={item.id}
-                      title={item.title}
-                      cName={item.class}
+                      key={item.QuizID}
+                      id={item.QuizID}
+                      title={item.QuizName}
+                      cName={item.className}
                       dueDate={item.DueDate}
                     />
                   );
-                } else if (item.type === "class") {
-                  return (
-                    <ClassesItem
-                      key={item.id}
-                      id={item.id}
-                      name={item.name}
-                      teacher={item.teacher}
-                    />
-                  );
-                } else if (item.type === "result") {
+                } else if (item.Caption === "Submission") {
                   return (
                     <ResultItem
-                      key={item.id}
-                      id={item.id}
-                      sName={`${item.firstName} ${item.lastName}`}
+                      key={item.QuizID}
+                      id={item.QuizID}
+                      sName={`${item.firstname} ${item.lastname}`}
                       score={item.score}
-                      aName={item.assignmentName}
+                      total={item.Total}
+                      aName={item.QuizName}
+                      profilePicture={item.profilePicture}
                     />
                   );
                 } else if (item.type === "shared") {
