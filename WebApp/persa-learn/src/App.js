@@ -53,15 +53,16 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(
     sessionStorage.getItem("admin") === "true"
   );
-
+  useEffect(() => {
+    setIsTeacher(sessionStorage.getItem("teacher") === "true");
+    setIsAdmin(sessionStorage.getItem("admin") === "true");
+  });
   useEffect(() => {
     //get theme from local storage
     let theme = JSON.parse(localStorage.getItem("theme"));
-    setIsTeacher(sessionStorage.getItem("teacher") === "true");
-    setIsAdmin(sessionStorage.getItem("admin") === "true");
 
     //set themes
-    if (theme) {
+    if (theme && !isTeacher && !isAdmin && token) {
       try {
         // setTheme(theme);
         setTheme(
@@ -72,9 +73,10 @@ function App() {
           theme.isDark
         );
       } catch (err) {}
+    } else {
+      setTheme();
     }
   });
-
   const setTheme = (
     id,
     backgroundColor = "white",
@@ -206,7 +208,6 @@ function App() {
           ) : (
             <></>
           )}
-
           {/* temp routes */}
           <Route exact path="/create" element={<CreateActivity />} />
         </Routes>
