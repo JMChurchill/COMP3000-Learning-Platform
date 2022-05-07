@@ -21,6 +21,7 @@ const ratingRouter = require("./routes/ActivityRoutes/ratingRoutes");
 const adminStatRouter = require("./routes/adminStatRoutes");
 const submissionRouter = require("./routes/submissionRoutes");
 const feedRouter = require("./routes/feedRoutes");
+const teacherStatRouter = require("./routes/teacherStatRoutes");
 
 const cors = require("cors");
 const { levelUp } = require("./LevelSystem/Level");
@@ -57,6 +58,7 @@ app.use("/rating", ratingRouter);
 app.use("/stats", adminStatRouter);
 app.use("/submission", submissionRouter);
 app.use("/feed", feedRouter);
+app.use("/tstats", teacherStatRouter);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
