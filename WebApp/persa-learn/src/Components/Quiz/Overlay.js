@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  shareSubmission,
+  unshareSubmission,
+} from "../../http_Requests/StudentRequests/SubmissionRequests";
 import CustomButton from "../CustomButton";
 import LevelProgressbar from "./LevelProgressbar";
 import styles from "./Overlay.module.css";
@@ -18,6 +22,20 @@ const Overlay = ({
   const navigate = useNavigate();
 
   const [isRating, setIsRating] = useState(false);
+  const [isShared, setIsShared] = useState(false);
+
+  const share = async () => {
+    const data = await shareSubmission({ quizID: quizID });
+    if (data.status === "success") {
+      setIsShared(true);
+    }
+  };
+  const unshare = async () => {
+    const data = await unshareSubmission({ quizID: quizID });
+    if (data.status === "success") {
+      setIsShared(false);
+    }
+  };
 
   return (
     <div className={styles.overlay}>
@@ -56,6 +74,12 @@ const Overlay = ({
           text={"Done"}
           onClick={() => setIsRating(true)}
         />
+        {!isShared ? (
+          <CustomButton type={2} text={"Share"} onClick={share} />
+        ) : (
+          <CustomButton type={2} text={"UnShare"} onClick={unshare} />
+        )}
+
         <CustomButton
           type={2}
           text={"Go To Shop"}
