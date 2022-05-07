@@ -9,12 +9,14 @@ import * as SecureStore from "expo-secure-store";
 import HomeStackScreen from "../stacks/HomeStackScreen";
 import RevisionStackScreen from "../stacks/RevisionStackScreen";
 import ShopStackScreen from "../stacks/ShopStackScreen";
+import ClassesScreen from "../../screens/ClassesScreens/ClassesScreen";
 import colors from "../../config/colors";
 import ShopScreen from "../../screens/ShopScreen";
 import ProfileScreen from "../../screens/ProfileScreen";
 import ProfileStackScreen from "../stacks/ProfileStackScreen";
 import { AuthContext } from "../../components/context";
 import Requests from "../../screens/Classes/Requests";
+import ClassesStackScreen from "../stacks/ClassesStackScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -57,7 +59,8 @@ const TabScreen = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Classes" component={Requests} />
+      {/* <Tab.Screen name="Classes" component={Requests} /> */}
+      <Tab.Screen name="Classes" component={ClassesStackScreen} />
       <Tab.Screen name="Shop" component={ShopStackScreen} />
       <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Revision" component={RevisionStackScreen} />

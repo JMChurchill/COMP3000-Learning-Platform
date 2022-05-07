@@ -8,12 +8,29 @@ import colors from "../../config/colors";
 import fonts from "../../config/fonts";
 import { useNavigation } from "@react-navigation/native";
 import Rating from "./Rating";
+import {
+  shareSubmission,
+  unshareSubmission,
+} from "../../httpRequests/submissionRequests";
 
 export default function CompleteOverlay({ results, setIsComplete, quizID }) {
   const [isRating, setIsRating] = useState(false);
+  const [isShared, setIsShared] = useState(false);
   const navigation = useNavigation();
   const onBackPressed = () => {
     setIsComplete(false);
+  };
+  const share = async () => {
+    const data = await shareSubmission({ quizID: quizID });
+    if (data.status === "success") {
+      setIsShared(true);
+    }
+  };
+  const unshare = async () => {
+    const data = await unshareSubmission({ quizID: quizID });
+    if (data.status === "success") {
+      setIsShared(false);
+    }
   };
   return (
     <View style={styles.overlay}>
@@ -46,17 +63,16 @@ export default function CompleteOverlay({ results, setIsComplete, quizID }) {
         <Text style={{ marginVertical: 10 }}>
           {results.totalXp}/{results.remainingXp}xp
         </Text>
+        <CustomButton text="Done" onPress={() => setIsRating(true)} />
+        {!isShared ? (
+          <CustomButton text="Share" type="SECONDARY" onPress={share} />
+        ) : (
+          <CustomButton text="Unshared" type="SECONDARY" onPress={unshare} />
+        )}
+
         <CustomButton
-          // style={{ marginHorizontal: 10 }}
-          text="Done"
-          // onPress={onBackPressed}
-          onPress={() => setIsRating(true)}
-        />
-        <CustomButton
-          // style={{ marginHorizontal: 10 }}
           text="Go To Shop"
           type="SECONDARY"
-          // onPress={onBackPressed}
           onPress={() => navigation.navigate("Shop")}
         />
       </View>

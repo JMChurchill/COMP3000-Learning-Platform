@@ -6,9 +6,14 @@ import common from "../../config/common";
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
 
-import userIcon from "../../assets/UserIcons/001-man-1.png";
-
-export default function ResultItem({ id, image, sName, score, aName }) {
+export default function ResultItem({
+  id,
+  sName,
+  score,
+  aName,
+  profilePicture,
+  total,
+}) {
   const navigation = useNavigation();
 
   return (
@@ -16,7 +21,9 @@ export default function ResultItem({ id, image, sName, score, aName }) {
       {/* <Text style={fonts.large}>{id}.</Text> */}
       <View style={styles.row}>
         <Image
-          source={userIcon}
+          source={{
+            uri: profilePicture,
+          }}
           style={styles.userIcon}
           resizeMode={"contain"}
         />
@@ -24,7 +31,7 @@ export default function ResultItem({ id, image, sName, score, aName }) {
       </View>
       <View style={styles.row}>
         <Text style={fonts.large}>
-          Scored {score} on {aName}
+          Scored {score}/{total} on {aName}
         </Text>
       </View>
       <Text style={styles.row}>🎉🎉🎉</Text>
@@ -35,7 +42,7 @@ export default function ResultItem({ id, image, sName, score, aName }) {
 const styles = StyleSheet.create({
   row: {
     textAlign: "center",
-    // alignItems: "center",
+    alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
     paddingVertical: 5,
@@ -51,6 +58,8 @@ const styles = StyleSheet.create({
   },
   userIcon: {
     height: "100%",
+    aspectRatio: 1,
     width: 40,
+    marginRight: 10,
   },
 });

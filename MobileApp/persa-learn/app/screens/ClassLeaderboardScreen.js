@@ -20,7 +20,7 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
   const [topThree, setTopThree] = useState([]);
 
   const getTopThree = () => {
-    if (students.length > 0) {
+    if (students.length > 1) {
       // get first 3 values from array
       const tempArray = students.slice(0, 3);
       // switch order to be displayed later
@@ -28,7 +28,11 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
       tempArray[0] = tempArray[1];
       tempArray[1] = tempVal;
       setTopThree(tempArray);
+    } else if (students.length === 1) {
+      const tempArray = [students[0]];
+      setTopThree(tempArray);
     }
+    console.log("this");
   };
 
   useEffect(async () => {
@@ -57,6 +61,15 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
           <TopPositionLarge position={1} image={userIcon} />
           <TopPositionSmall position={3} image={userIcon} /> */}
           {topThree.map((student, i) => {
+            if (topThree.length === 1) {
+              return (
+                <TopPositionLarge
+                  key={1}
+                  position={1}
+                  image={student.ProfilePicture}
+                />
+              );
+            }
             let pos = i + 1;
             //adjust position for order of array (to display fist place in center)
             if (pos == 1)

@@ -18,10 +18,13 @@ import {
 } from "../http_Requests/userRequests";
 
 import styles from "./StudentProfile.module.css";
+import { getFeedRequest } from "../http_Requests/StudentRequests/FeedRoutes";
+import ResultsItem from "../Components/StudentProfile/ResultsItem";
 
 const StudentProfile = () => {
   const [classes, setClasses] = useState([]);
   const [assignments, setAssignments] = useState([]);
+  const [feed, setFeed] = useState([]);
 
   const [usersName, setUsersName] = useState("");
   const [selectedTab, setSelectedTab] = useState(1);
@@ -37,10 +40,13 @@ const StudentProfile = () => {
   const tabs = ["Assignments", "Feed", "Classes"];
   useEffect(async () => {
     //get page details
-    const [dataClasses, dataStudentDetails, dataAssignment] = await Promise.all(
-      [getStudentsClassses(), getUserDetails(), getStudentsAssignmentQuizzes()]
-    );
-    console.log(dataStudentDetails);
+    const [dataClasses, dataStudentDetails, dataAssignment, dataFeed] =
+      await Promise.all([
+        getStudentsClassses(),
+        getUserDetails(),
+        getStudentsAssignmentQuizzes(),
+        getFeedRequest(),
+      ]);
 
     if (dataClasses.hasOwnProperty("data")) {
       setClasses(dataClasses.data);
@@ -70,6 +76,10 @@ const StudentProfile = () => {
     if (dataAssignment.hasOwnProperty("quizzes")) {
       console.log(dataAssignment);
       setAssignments(dataAssignment.quizzes);
+    }
+    if (dataFeed.status === "success") {
+      console.log(dataFeed.data);
+      setFeed(dataFeed.data);
     }
   }, []);
 
@@ -137,7 +147,42 @@ const StudentProfile = () => {
             <></>
           )}
 
-          {selectedTab == 2 ? <></> : <></>}
+          {selectedTab == 2 ? (
+            <div className={styles.list_items}>
+              {feed.map((item, i) => {
+                if (item.Caption === "Assignment") {
+                  return (
+                    <AssignmentItem
+                      key={i}
+                      id={item.QuizID}
+                      className={item.className}
+                      assignmentName={item.quizName}
+                      teacherName={`${item.firstname} ${item.lastname}`}
+                      ModuleName={item.moduleName}
+                      Caption={item.Caption}
+                      dueDate={item.DueDate}
+                    />
+                  );
+                } else if (item.Caption === "Submission") {
+                  return (
+                    <ResultsItem
+                      key={i}
+                      firstname={item.firstname}
+                      lastname={item.lastname}
+                      profilePicture={item.profilePicture}
+                      className={item.className}
+                      quizName={item.QuizName}
+                      score={item.score}
+                      total={item.Total}
+                      subDate={item.subDate}
+                    />
+                  );
+                }
+              })}
+            </div>
+          ) : (
+            <></>
+          )}
 
           {selectedTab == 3 ? (
             // <div className="class-items list-items">
