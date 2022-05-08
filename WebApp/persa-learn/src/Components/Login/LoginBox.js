@@ -8,16 +8,42 @@ import CustomInput from "../CustomInput";
 
 import styles from "./LoginBox.module.css";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [emailError, setEmailError] = useState();
+  const [passwordError, setPasswordError] = useState();
   const [isError, setIsError] = useState(false);
   const [reason, setReason] = useState("");
   // const [httpResponseCode, setHttpResponseCode] = useState();
 
   const login = async () => {
     try {
-      if (email != null && password != null) {
+      if (email == null || email == "") {
+        setEmailError("Please enter an email");
+      } else if (!EMAIL_REGEX.test(email)) {
+        setEmailError("Please enter a valid email");
+      } else {
+        setEmailError(null);
+      }
+      if (password == null || password == "") {
+        setPasswordError("Please enter a password");
+      } else if (password.length < 8) {
+        setPasswordError("Password must be 8 or more characters");
+      } else {
+        setPasswordError(null);
+      }
+      // if (email != null && password != null && email != "" && password != "") {
+      if (
+        password != null &&
+        password != "" &&
+        email != null &&
+        email != "" &&
+        EMAIL_REGEX.test(email) &&
+        password.length >= 8
+      ) {
         const data = await loginUser(
           {
             email,
@@ -27,6 +53,7 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
           isAdmin
         );
         console.log("data: ", data);
+
         if (data !== null && data !== undefined) {
           const token = data.token;
           console.log(token);
@@ -54,8 +81,6 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
         } else {
           console.log("No data returned");
         }
-      } else {
-        alert("enter user name and password");
       }
     } catch (e) {
       console.log("error occured: ", e);
@@ -67,14 +92,15 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
       {!isAdmin ? <h1>Login</h1> : <h1>Admin Login</h1>}
 
       {isError ? <p className={styles.error_message}>{reason}</p> : ""}
-
       <label htmlFor="email" className={styles.title}>
         Email
       </label>
+      <div className={styles.error}>{emailError}</div>
       <CustomInput name={email} setValue={setEmail} />
       <label htmlFor="password" className={styles.title}>
         Password
       </label>
+      <div className={styles.error}>{passwordError}</div>
       <CustomInput password={true} name={password} setValue={setPassword} />
       <CustomButton type={1} text={"Login"} onClick={() => login()} />
 

@@ -7,6 +7,9 @@
   padding: 2rem;
   border-radius: var(--border-radius);
 }
+.error {
+  color: red;
+}
 .success_message {
   color: green;
   background-color: var(--items-container);

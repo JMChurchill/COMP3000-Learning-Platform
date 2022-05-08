@@ -11,8 +11,16 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
   const [lastname, setLastname] = useState();
   const [phonenumber, setPhonenumber] = useState();
 
+  const [emailError, setEmailError] = useState();
+  const [passwordError, setPasswordError] = useState();
+  const [firstnameError, setFirstnameError] = useState();
+  const [lastnameError, setLastnameError] = useState();
+  const [phonenumberError, setPhonenumberError] = useState();
+
   const [error, setError] = useState();
   const [httpResponseCode, setHttpResponseCode] = useState();
+
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const signUpUser = (credentials) => {
     let url;
@@ -40,9 +48,48 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
 
   const signUp = async (e) => {
     // e.preventDefault();
+    if (email == null || email == "") {
+      setEmailError("Please enter an email");
+    } else if (!EMAIL_REGEX.test(email)) {
+      setEmailError("Please enter a valid email");
+    } else {
+      setEmailError(null);
+    }
+    if (password == null || password == "") {
+      setPasswordError("Please enter a password");
+    } else if (password.length < 8) {
+      setPasswordError("Password must be 8 or more characters");
+    } else {
+      setPasswordError(null);
+    }
+    if (firstname == null || firstname == "") {
+      setFirstnameError("Please enter a firstname");
+    } else {
+      setFirstnameError(null);
+    }
+    if (lastname == null || lastname == "") {
+      setLastnameError("Please enter a lastname");
+    } else {
+      setLastnameError(null);
+    }
+    if (isTeacher && (phonenumber == null || phonenumber == "")) {
+      setPhonenumberError("Please enter a phonenumber");
+    } else {
+      setPhonenumberError(null);
+    }
+
     if (
       email != null &&
-      (password != null) & (firstname != null) & (lastname != null)
+      password != null &&
+      firstname != null &&
+      lastname != null &&
+      email != "" &&
+      password != "" &&
+      firstname != "" &&
+      lastname != "" &&
+      EMAIL_REGEX.test(email) &&
+      password.length >= 8 &&
+      ((!isTeacher && phonenumber != null) || (!isTeacher && phonenumber != ""))
     ) {
       try {
         let data;
@@ -62,51 +109,57 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
             phonenumber,
           });
         }
-        //   console.log(error);
-        //   console.log(data);
-        // console.log(data.reason:);
         if (data !== null && data.status === "success") {
           setSignUp(false);
           alert("Account created successfully");
         } else if (data.status == "failure") {
-          if (data.reason === "ER_DUP_ENTRY") {
-            alert("This user already exists");
+          if (data.reason == "ER_DUP_ENTRY") {
+            setError("This user already exists");
           }
         } else {
-          alert("Could not create user");
+          setError("Could not create user");
         }
       } catch (e) {
         console.log("error occured: ", e);
       }
-    } else {
-      alert("Fill out all values");
     }
   };
   return (
     // <div className="right-box">
     <>
       <h1>Sign up</h1>
+      <div className={styles.error}>{error}</div>
       <label htmlFor="email" className={styles.title}>
         Email
       </label>
+      <div className={styles.error}>{emailError}</div>
+
       <CustomInput name={email} setValue={setEmail} />
       <label htmlFor="password" className={styles.title}>
         Password
       </label>
+      <div className={styles.error}>{passwordError}</div>
+
       <CustomInput password={true} name={password} setValue={setPassword} />
       <label htmlFor="firstname" className={styles.title}>
         First name
       </label>
+      <div className={styles.error}>{firstnameError}</div>
+
       <CustomInput name={firstname} setValue={setFirstname} />
       <label htmlFor="lastname" className={styles.title}>
         Last name
       </label>
+      <div className={styles.error}>{lastnameError}</div>
+
       <CustomInput name={lastname} setValue={setLastname} />
       {isTeacher ? (
         <>
           <label htmlFor="phonenumber" className={styles.title}>
             Phone number
           </label>
+          <div className={styles.error}>{phonenumberError}</div>
+
           <CustomInput name={phonenumber} setValue={setPhonenumber} />
         </>
       ) : (
