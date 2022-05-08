@@ -76,17 +76,6 @@ const AdminProfile = () => {
           </div> */}
         </div>
         {/* <h2>Schools Actions</h2> */}
-
-        <h2>Item Actions</h2>
-        <CustomButton
-          text={"Banners"}
-          onClick={() => navigate("/banners", {})}
-        />
-        <CustomButton
-          text={"Profile Pictures"}
-          onClick={() => navigate("/profilePictures", {})}
-        />
-        <CustomButton text={"Themes"} onClick={() => navigate("/themes", {})} />
       </div>
     </div>
   );

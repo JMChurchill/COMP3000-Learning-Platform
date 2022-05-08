@@ -43,6 +43,10 @@ import QuizEdit from "./Pages/ActivityDesigner/Quiz/QuizEdit";
 import AssignmentSubmissions from "./Pages/Teacher/AssignmentSubmissions";
 import { Classes } from "./Pages/Teacher/Classes";
 import { default as StudentsClasses } from "./Pages/Student/Classes";
+import ShopManagement from "./Components/Admin/ShopManagement";
+import AccountActions from "./Components/Admin/AccountActions";
+import CreateAdmin from "./Components/Admin/CreateAdmin";
+import EditAccountSettings from "./Pages/Admin/EditAccountSettings";
 
 function App() {
   const { token, setToken } = useToken();
@@ -195,6 +199,14 @@ function App() {
             <>
               <Route exact path="/profile_admin" element={<AdminProfile />} />
               <Route exact path="/" element={<AdminProfile />} />
+              <Route exact path="/shop" element={<ShopManagement />} />
+              <Route exact path="/account" element={<AccountActions />} />
+              <Route
+                exact
+                path="/account/edit"
+                element={<EditAccountSettings />}
+              />
+              <Route exact path="/create" element={<CreateAdmin />} />
               <Route exact path="/themes" element={<ThemesAll />} />
               <Route exact path="/themes/add" element={<ThemesAdd />} />
               <Route exact path="/themes/edit" element={<ThemesEdit />} />

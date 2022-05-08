@@ -347,7 +347,6 @@ router
               .status(400)
               .json({ status: "failure", reason: error.code });
           } else {
-            console.log(req.body.nPassword);
             return res.status(200).json({ status: "success" });
           }
         });
