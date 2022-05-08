@@ -76,6 +76,16 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
+              <li>
+                <Link aria-current="false" to="/shop">
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <Link aria-current="false" to="/account">
+                  Profile
+                </Link>
+              </li>
             </>
           ) : !isTeacher ? (
             <>

@@ -49,10 +49,7 @@ const UserSettings = () => {
     await getDetails();
   }, []);
   const deleteAccount = async () => {
-    //TODO: Make delete user
     const data = await deleteStudent();
-    console.log(data);
-    // // data;
     if (data.status === "success") {
       navigate("/", {});
       sessionStorage.clear();

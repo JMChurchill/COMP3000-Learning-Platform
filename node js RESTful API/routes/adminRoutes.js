@@ -104,7 +104,7 @@ router
     });
   });
 
-//create student
+//create admin
 router
   .route("/create")
   .post(
@@ -178,30 +178,24 @@ router
         };
 
         // get all students from database with corresponding email
-        const query = `SELECT * FROM admins WHERE email = "${aEmail}"`;
-        pool.query(query, async (error, results) => {
-          console.log(query);
-          if (error) {
-            return res
-              .status(500)
-              .json({ status: "failure", reason: error.code });
-          }
-          if (!results[0]) {
-            // no students with that email
-            res.status(401).json({ status: "Password incorrect" });
-          } else {
-            try {
-              // compare input password with password on database
-              if (await bcrypt.compare(data.oldPassword, results[0].Password)) {
-                data.oldPassword = results[0].Password;
-              } else {
-                res.status(401).json({ status: " Password incorrect" });
-              }
-            } catch {
-              res.status(404).json({ status: "error occured" });
-            }
-          }
+        let query = `SELECT * FROM admins WHERE email = "${aEmail}"`;
+        const [result] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+
+        try {
+          // compare input password with password on database
+          if (await bcrypt.compare(data.oldPassword, result.Password)) {
+            data.oldPassword = result.Password;
+          } else {
+            return res
+              .status(401)
+              .json({ status: "failure", message: "Password incorrect" });
+          }
+        } catch {
+          return res.status(404).json({ status: "error occured" });
+        }
 
         query = `CALL Admin_edit_password ("${aEmail}","${data.oldPassword}", "${data.newPassword}")`;
         pool.query(query, (error) => {
@@ -214,6 +208,7 @@ router
           }
         });
       } catch (err) {
+        console.log(err);
         return res.status(500).send(err);
       }
     }
