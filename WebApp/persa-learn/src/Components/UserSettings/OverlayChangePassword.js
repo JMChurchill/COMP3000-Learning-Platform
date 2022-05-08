@@ -102,7 +102,6 @@ const OverlayChangePassword = ({ close }) => {
             close();
             navigate("/", {});
             sessionStorage.clear();
-
             window.location.reload();
           }}
         />

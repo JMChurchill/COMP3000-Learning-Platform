@@ -35,6 +35,18 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
     console.log("option array: ", options);
     updateThisQuestion();
   };
+  const removeOption = (index) => {
+    // e.preventDefault();
+    console.log("op", options[index]);
+    if (index > -1) {
+      options.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    updateCorrectAns(undefined);
+    console.log("this", options);
+    setOptions([...options]);
+    // console.log("option array: ", options);
+    updateThisQuestion();
+  };
 
   const updateThisQuestion = async () => {
     console.log("updating all values");
@@ -84,14 +96,17 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
           if (thisQuestion.Answer == index) {
             correctAnsw = true;
           }
+          console.log("updating");
+          console.log(option);
           return (
             <NewOption
               key={index}
               opID={index}
-              value={option.TheOption}
+              value={option}
               updateOption={updateOption}
               correctAns={correctAnsw}
               updateCorrectAns={updateCorrectAns}
+              removeOption={removeOption}
             />
           );
         })}

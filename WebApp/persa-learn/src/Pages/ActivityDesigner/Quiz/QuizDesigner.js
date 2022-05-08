@@ -90,19 +90,68 @@ const QuizDesigner = () => {
       selectedModule,
       selectedClass,
     });
-    //add quiz to database
-    const data = await createTheQuiz({
-      title,
-      questions,
-      selectedModule,
-      selectedClass,
+
+    let noTitle = false;
+    if (title == null || title == "") {
+      noTitle = true;
+    }
+    let noQuestions = false;
+    if (questions.length <= 0) {
+      noQuestions = true;
+    }
+    let noQuestionName = false;
+    let noQuestionAns = false;
+    let noOps = false;
+    questions.map((x) => {
+      console.log(x.options.length);
+      if (x.Question == "" || x.Question == null) {
+        noQuestionName = true;
+        console.log("this", x);
+      }
+      if (x.Answer === "" || x.Answer === null || x.Answer === undefined) {
+        noQuestionAns = true;
+      }
+      if (x.options.length <= 0) {
+        noOps = true;
+      } else {
+        x.options.map((z) => {
+          if (z == "") {
+            noOps = true;
+          }
+        });
+      }
     });
-    //display status
-    // if (data.status === "success") {
-    //   setIsComplete(true);
-    // } else {
-    //   setIsError(true);
-    // }
+    if (
+      !noTitle &&
+      !noQuestions &&
+      !noQuestionName &&
+      !noQuestionAns &&
+      !noOps
+    ) {
+      // console.log("send");
+      // add quiz to database
+      const data = await createTheQuiz({
+        title,
+        questions,
+        selectedModule,
+        selectedClass,
+      });
+      // display status
+      if (data.status === "success") {
+        setIsComplete(true);
+      } else {
+        setIsError(true);
+      }
+    } else {
+      alert(
+        `Please enter a ${noTitle ? "title" : ""} ${
+          noQuestions ? ",a question" : ""
+        } ${noQuestionName ? ",a question name" : ""} ${
+          noQuestionAns ? ",an answer on every question" : ""
+        }
+            ${noOps ? ",options on all questions" : ""}`
+      );
+    }
   };
 
   return (

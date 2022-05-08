@@ -29,6 +29,10 @@ const AssignActivities = () => {
   const [xp, setXp] = useState(0);
   const [coins, setCoins] = useState(0);
 
+  const [dueDateError, setDueDateError] = useState(null);
+  const [xpError, setXpError] = useState(null);
+  const [coinsError, setCoinsError] = useState(null);
+
   const [settingDate, setSettingDate] = useState(false);
   const [isDeleting, setIsDelete] = useState(false);
   const [isUnassigning, setIsUnassigning] = useState(false);
@@ -60,20 +64,50 @@ const AssignActivities = () => {
   };
 
   const submitAssignToClass = async () => {
-    const data = await assignQuizToClass({
-      coins,
-      xp,
-      classID: selectedClass.classID,
-      quizID,
-      dueDate: dueDate.toISOString().slice(0, 19).replace("T", " "),
-    });
-    console.log(data);
-    if (data.status === "failure")
-      alert("an error occured when attempting to assign");
-    else {
-      await getAssignments();
+    if (xp == null || xp == "") {
+      setXpError("Please enter xp");
+    } else if (isNaN(xp)) {
+      setXpError("Please enter a valid xp");
+    } else {
+      setXpError(null);
     }
-    setSettingDate(false);
+    if (dueDate == null || dueDate == "") {
+      setDueDateError("Please enter a due date");
+    } else {
+      setDueDateError(null);
+    }
+    if (coins == null || coins == "") {
+      setCoinsError("Please enter coin");
+    } else if (isNaN(coins)) {
+      setCoinsError("Please enter valid coins");
+    } else {
+      setCoinsError(null);
+    }
+    if (
+      xp != null &&
+      xp != "" &&
+      !isNaN(xp) &&
+      dueDate != null &&
+      dueDate != "" &&
+      coins != null &&
+      coins != "" &&
+      !isNaN(coins)
+    ) {
+      const data = await assignQuizToClass({
+        coins,
+        xp,
+        classID: selectedClass.classID,
+        quizID,
+        dueDate: dueDate.toISOString().slice(0, 19).replace("T", " "),
+      });
+      console.log(data);
+      if (data.status === "failure")
+        alert("an error occured when attempting to assign");
+      else {
+        await getAssignments();
+      }
+      setSettingDate(false);
+    }
   };
   const submitUnassignFromClass = async () => {
     const data = await unassignQuizFromClass({
@@ -136,6 +170,9 @@ const AssignActivities = () => {
           setCoins={setCoins}
           submitAssignToClass={submitAssignToClass}
           setSettingDate={setSettingDate}
+          dueDateError={dueDateError}
+          xpError={xpError}
+          coinsError={coinsError}
         />
       ) : (
         <></>

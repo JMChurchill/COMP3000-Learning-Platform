@@ -14,6 +14,9 @@
   --box-shadow-spread: -0.25rem;
   --box-shadow-color: black; */
 }
+.error {
+  color: red;
+}
 .heading {
   font-size: 2rem;
   font-weight: bold;

@@ -51,7 +51,7 @@ router.route("/login").post(async (req, res) => {
       return res.status(500).json({ status: "failure", reason: error.code });
     }
     if (!results[0]) {
-      res.status(401).json({ status: "Email not found" });
+      return res.status(401).json({ status: "Email not found" });
     } else {
       try {
         if (await bcrypt.compare(req.body.password, results[0].Password)) {
@@ -59,15 +59,15 @@ router.route("/login").post(async (req, res) => {
           const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
             expiresIn: parseInt(process.env.EXPIRES_IN),
           });
-          res.status(200).json({
+          return res.status(200).json({
             message: "Successfull login",
             token: token,
           });
         } else {
-          res.status(401).json({ status: "Password not matching" });
+          return res.status(401).json({ status: "Password not matching" });
         }
       } catch {
-        res.status(404).json({ status: "error occured" });
+        return res.status(404).json({ status: "error occured" });
       }
     }
   });
@@ -100,9 +100,11 @@ router
       console.log(query);
       pool.query(query, (error) => {
         if (error) {
-          res.status(400).json({ status: "failure", reason: error.code });
+          return res
+            .status(400)
+            .json({ status: "failure", reason: error.code });
         } else {
-          res.status(200).json({ status: "success", data: data });
+          return res.status(200).json({ status: "success", data: data });
         }
       });
     }
@@ -116,9 +118,9 @@ router
     const query = `CALL delete_teacher ( "${email}", "${password}")`;
     pool.query(query, (error) => {
       if (error) {
-        res.status(400).json({ status: "failure", reason: error.code });
+        return res.status(400).json({ status: "failure", reason: error.code });
       } else {
-        res.status(200).json({
+        return res.status(200).json({
           status: "success",
           message: `deleted user: ${req.params.id}`,
         });
@@ -165,18 +167,20 @@ router
           if (await bcrypt.compare(data.oldPassword, result.Password)) {
             data.oldPassword = result.Password;
           } else {
-            res.status(401).json({ status: " Password incorrect" });
+            return res.status(401).json({ status: " Password incorrect" });
           }
         } catch {
-          res.status(404).json({ status: "error occured" });
+          return res.status(404).json({ status: "error occured" });
         }
 
         query = `CALL teacher_edit_password ("${tEmail}","${data.oldPassword}", "${data.newPassword}")`;
         pool.query(query, (error) => {
           if (error) {
-            res.status(400).json({ status: "failure", reason: error.code });
+            return res
+              .status(400)
+              .json({ status: "failure", reason: error.code });
           } else {
-            res.status(200).json({ status: "success" });
+            return res.status(200).json({ status: "success" });
           }
         });
       } catch (err) {
@@ -190,9 +194,9 @@ router.get("/all", async (req, res) => {
   const query = "SELECT * FROM teachers";
   pool.query(query, (error, results) => {
     if (results === null) {
-      res.status(204).json({ status: "Not found" });
+      return res.status(204).json({ status: "Not found" });
     } else {
-      res.status(200).json(results);
+      return res.status(200).json(results);
     }
   });
 });
@@ -335,9 +339,9 @@ router.route("/search").post(checkAuth, async (req, res) => {
         return res.status(400).json({ status: "failure", reason: error.code });
       } else {
         if (results === null) {
-          res.status(204).json({ status: "Not found" });
+          return res.status(204).json({ status: "Not found" });
         } else {
-          res.status(200).json({ status: "success", data: results[0] });
+          return res.status(200).json({ status: "success", data: results[0] });
         }
       }
     });
@@ -369,10 +373,10 @@ router
       const query = `CALL teacher_get_students_by_class (${data.classID}, "${email}", "${password}")`;
       pool.query(query, (error, results) => {
         if (results === null) {
-          res.status(204).json({ status: "Not found" });
+          return res.status(204).json({ status: "Not found" });
         } else {
           console.log(results[0]);
-          res.status(200).json({ status: "success", data: results[0] });
+          return res.status(200).json({ status: "success", data: results[0] });
         }
       });
     }

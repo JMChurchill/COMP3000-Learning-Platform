@@ -82,8 +82,11 @@ const QuizEdit = () => {
   const getTheQuiz = async () => {
     //get existing questions
     const data = await getQuiz(state.quizID);
-    console.log(data);
+    setSelectedModule(data.quiz.moduleID);
     setTitle(data.quiz.quizName);
+    const a = data.quiz.questions.map(
+      (x) => (x.options = x.options.map((y) => y.TheOption))
+    );
     setQuestions(data.quiz.questions);
   };
   useEffect(async () => {
@@ -105,6 +108,7 @@ const QuizEdit = () => {
             id="module"
             name="moduleList"
             className={styles.selector}
+            value={selectedModule}
             onChange={(e) => {
               setSelectedModule(e.target.value);
             }}
@@ -123,7 +127,6 @@ const QuizEdit = () => {
           />
         </div>
         {questions.map((quest, index) => {
-          console.log(quest);
           return (
             <CreateQuestionBox
               key={quest.id}
