@@ -150,11 +150,11 @@ const TeacherProfile = () => {
             />
           </div>
         </div>
-        <h3>Details</h3>
+        {/* <h3>Details</h3>
         <CustomButton
           text={"My details"}
           onClick={() => navigate("/details_teacher", {})}
-        />
+        /> */}
       </div>
     </div>
   );

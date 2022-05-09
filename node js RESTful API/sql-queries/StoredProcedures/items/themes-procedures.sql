@@ -90,7 +90,7 @@ BEGIN
     SET numCoins = (SELECT Coins FROM Students WHERE StudentID = theStudentID LIMIT 1);
     SET itemCost = (SELECT Cost FROM Themes WHERE ThemeID = tID LIMIT 1);
     SET sLevel = (SELECT Level FROM Students WHERE StudentID = theStudentID LIMIT 1);
-    SET itemLevel = (SELECT RequiredLevel FROM Banners WHERE BannerID = tID LIMIT 1);
+    SET itemLevel = (SELECT RequiredLevel FROM Themes WHERE ThemeID = tID LIMIT 1);
 
 
     # check if can afford

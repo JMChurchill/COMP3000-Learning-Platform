@@ -43,7 +43,7 @@ router.route("/login").post(async (req, res) => {
     }
     if (!results[0]) {
       // no students with that email
-      res.status(401).json({ status: "Email or Password incorrect" });
+      return res.status(401).json({ status: "Email or Password incorrect" });
     } else {
       try {
         // compare input password with password on database
@@ -58,16 +58,18 @@ router.route("/login").post(async (req, res) => {
           //   process.env.REFRESH_TOKEN_SECRET
           // );
           // return token
-          res.status(200).json({
+          return res.status(200).json({
             message: "Successfull login",
             token: token,
             // refreshToken: refreshToken,
           });
         } else {
-          res.status(401).json({ status: "Email or Password incorrect" });
+          return res
+            .status(401)
+            .json({ status: "Email or Password incorrect" });
         }
       } catch {
-        res.status(404).json({ status: "error occured" });
+        return res.status(404).json({ status: "error occured" });
       }
     }
   });
@@ -103,9 +105,11 @@ router
       const query = `CALL update_student ( "${oEmail}", "${oPassword}", "${data.fName}", "${data.lName}", "${data.email}")`;
       pool.query(query, (error) => {
         if (error) {
-          res.status(400).json({ status: "failure", reason: error.code });
+          return res
+            .status(400)
+            .json({ status: "failure", reason: error.code });
         } else {
-          res.status(200).json({ status: "success", data: data });
+          return res.status(200).json({ status: "success", data: data });
         }
       });
     }
@@ -117,9 +121,9 @@ router
     const query = `CALL delete_student ( "${oEmail}", "${oPassword}")`;
     pool.query(query, (error) => {
       if (error) {
-        res.status(400).json({ status: "failure", reason: error.code });
+        return res.status(400).json({ status: "failure", reason: error.code });
       } else {
-        res.status(200).json({
+        return res.status(200).json({
           status: "success",
           message: `deleted user: ${oEmail}`,
         });
@@ -154,9 +158,11 @@ router
       const query = `CALL update_profile_picture ("${data.profilePicture}", "${email}", "${password}")`;
       pool.query(query, (error) => {
         if (error) {
-          res.status(400).json({ status: "failure", reason: error.code });
+          return res
+            .status(400)
+            .json({ status: "failure", reason: error.code });
         } else {
-          res.status(200).json({ status: "success", data: data });
+          return res.status(200).json({ status: "success", data: data });
         }
       });
     }
@@ -187,9 +193,11 @@ router
 
       pool.query(query, (error) => {
         if (error) {
-          res.status(400).json({ status: "failure", reason: error.code });
+          return res
+            .status(400)
+            .json({ status: "failure", reason: error.code });
         } else {
-          res.status(200).json({ status: "success", data: data });
+          return res.status(200).json({ status: "success", data: data });
         }
       });
     }
@@ -262,9 +270,9 @@ router
       const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
       pool.query(query, (error, results) => {
         if (results === null) {
-          res.status(204).json({ status: "Not found" });
+          return res.status(204).json({ status: "Not found" });
         } else {
-          res.status(200).json({ status: "success", data: results[0] });
+          return res.status(200).json({ status: "success", data: results[0] });
         }
       });
     }
@@ -284,14 +292,14 @@ router.route("/details").get(checkAuth, async (req, res) => {
     console.log(results);
 
     if (results === null) {
-      res.status(204).json({ status: "Not found" });
+      return res.status(204).json({ status: "Not found" });
     } else {
       //get required xp for next level
       results.RequiredXp = requiredXp(results.Level);
-      res.status(200).json({ status: "success", data: results });
+      return res.status(200).json({ status: "success", data: results });
     }
   } catch (err) {
-    res.status(500).json({ status: "Not found", err });
+    return res.status(500).json({ status: "Not found", err });
   }
 });
 

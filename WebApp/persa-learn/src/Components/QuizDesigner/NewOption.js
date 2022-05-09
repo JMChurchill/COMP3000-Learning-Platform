@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomInput from "../CustomInput";
 import styles from "./NewOption.module.css";
+
+import { MdClose } from "react-icons/md";
+
 const NewOption = ({
   opID,
   updateOption,
   correctAns,
   updateCorrectAns,
   value,
+  removeOption,
 }) => {
   const [option, setOption] = useState(value);
-
+  useEffect(() => {
+    console.log("the value changed");
+    setOption(value);
+  }, [value]);
   return (
     // <div className="new-option">
     <div className={styles.new_option}>
@@ -34,9 +41,13 @@ const NewOption = ({
         className={styles.check_box}
         aria-selected={correctAns}
         onClick={() => {
-          updateCorrectAns(opID);
+          // updateCorrectAns(opID);
+          updateCorrectAns(option);
         }}
       ></div>
+      <div className={styles.delete_box} onClick={() => removeOption(opID)}>
+        <MdClose />
+      </div>
     </div>
   );
 };

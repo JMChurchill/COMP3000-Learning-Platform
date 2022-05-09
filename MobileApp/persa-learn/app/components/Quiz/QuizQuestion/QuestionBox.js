@@ -34,7 +34,8 @@ export default function QuestionBox({
         <Text style={fonts.h2}>{description}</Text>
       </View>
       {options.map((option, i) => {
-        let isAns = isAnswered(i);
+        // let isAns = isAnswered(i);
+        let isAns = isAnswered(option.TheOption);
 
         return (
           <OptionBox

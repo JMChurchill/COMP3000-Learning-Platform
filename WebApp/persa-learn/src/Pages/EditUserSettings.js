@@ -12,27 +12,61 @@ const EditUserSettings = () => {
   const [email, setEmail] = useState(state.email);
   const [firstName, setFirstName] = useState(state.firstName);
   const [lastName, setLastName] = useState(state.lastName);
+  const [emailError, setEmailError] = useState();
+  const [firstNameError, setFirstNameError] = useState();
+  const [lastNameError, setLastNameError] = useState();
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const navigate = useNavigate();
 
   const updateUser = async (e) => {
     // e.preventDefault();
-    const credentials = {
-      email: email,
-      firstname: firstName,
-      lastname: lastName,
-    };
-    // send update request
-    let data = await updateUserDetails(credentials);
-    if (data.status === "success") {
-      setIsSuccess(true);
-      sessionStorage.clear();
-      // window.location.reload();
+
+    if (email == null || email == "") {
+      setEmailError("Please enter an email");
+    } else if (!EMAIL_REGEX.test(email)) {
+      setEmailError("Please enter a valid email");
     } else {
-      setIsSuccess(false);
+      setEmailError(null);
     }
-    console.log("the data: ", data);
+    if (firstName == null || firstName == "") {
+      setFirstNameError("Please enter a firstname");
+    } else {
+      setFirstNameError(null);
+    }
+    if (lastName == null || lastName == "") {
+      setLastNameError("Please enter a lastname");
+    } else {
+      setLastNameError(null);
+    }
+
+    if (
+      email != null &&
+      firstName != null &&
+      lastName != null &&
+      email != "" &&
+      firstName != "" &&
+      lastName != "" &&
+      EMAIL_REGEX.test(email)
+    ) {
+      const credentials = {
+        email: email,
+        firstname: firstName,
+        lastname: lastName,
+      };
+      // send update request
+      let data = await updateUserDetails(credentials);
+      if (data.status === "success") {
+        setIsSuccess(true);
+        sessionStorage.clear();
+        // window.location.reload();
+      } else {
+        setIsSuccess(false);
+      }
+      console.log("the data: ", data);
+    }
   };
   return (
     <div className="content-box">
@@ -58,10 +92,12 @@ const EditUserSettings = () => {
             <label htmlFor="email" className={styles.title}>
               Email
             </label>
+            <div className={styles.error}>{emailError}</div>
             <CustomInput value={email} name={"email"} setValue={setEmail} />
             <label htmlFor="firstname" className={styles.title}>
               First name
             </label>
+            <div className={styles.error}>{firstNameError}</div>
             <CustomInput
               value={firstName}
               name={"firstname"}
@@ -70,6 +106,7 @@ const EditUserSettings = () => {
             <label htmlFor="lastname" className={styles.title}>
               Last name
             </label>
+            <div className={styles.error}>{lastNameError}</div>
             <CustomInput
               value={lastName}
               name={"lastname"}

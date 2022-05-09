@@ -41,6 +41,7 @@
   display: grid;
   grid-template-columns: max(3rem) 80%;
   gap: 2rem;
+  align-items: center;
 
   border: 1px solid var(--items-container);
   width: 100%;
@@ -71,6 +72,10 @@
   background-color: var(--success-color);
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+.ans_text {
+  color: var(--text-color);
+  font-size: 1.5rem;
 }
 /* .option_container .check_box:hover {
   background-color: var(--success-color);

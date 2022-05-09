@@ -122,6 +122,11 @@ const Navbar = () => {
                   Classes
                 </Link>
               </li>
+              <li>
+                <Link aria-current="false" to="/details_teacher">
+                  Profile
+                </Link>
+              </li>
             </>
           )}
           {/* {isAdmin ? (

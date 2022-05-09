@@ -27,6 +27,7 @@
   padding: 1rem;
   gap: 1rem;
   border-radius: var(--border-radius);
+  margin-bottom: 1rem;
 
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);

@@ -10,6 +10,9 @@
 .overlay[aria-disabled="true"] {
   display: none;
 }
+.error {
+  color: red;
+}
 .message_box {
   background-color: var(--background-color);
   padding: 2% 10%;

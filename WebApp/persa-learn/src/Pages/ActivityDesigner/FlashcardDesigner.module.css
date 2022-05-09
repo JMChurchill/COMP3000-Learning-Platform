@@ -10,6 +10,9 @@
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
+.error {
+  color: red;
+}
 .title_container {
   width: 100%;
   text-align: center;

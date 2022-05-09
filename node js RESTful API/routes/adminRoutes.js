@@ -25,7 +25,7 @@ router.route("/login").post(async (req, res) => {
     }
     if (!results[0]) {
       // no students with that email
-      res.status(401).json({ status: "Email or Password incorrect" });
+      return res.status(401).json({ status: "Email or Password incorrect" });
     } else {
       try {
         // compare input password with password on database
@@ -36,15 +36,17 @@ router.route("/login").post(async (req, res) => {
             expiresIn: parseInt(process.env.EXPIRES_IN),
           });
           // return token
-          res.status(200).json({
+          return res.status(200).json({
             message: "Successfull login",
             token: token,
           });
         } else {
-          res.status(401).json({ status: "Email or Password incorrect" });
+          return res
+            .status(401)
+            .json({ status: "Email or Password incorrect" });
         }
       } catch {
-        res.status(404).json({ status: "error occured" });
+        return res.status(404).json({ status: "error occured" });
       }
     }
   });
@@ -80,9 +82,11 @@ router
       const query = `CALL Admin_edit ( "${oEmail}", "${oPassword}", "${data.email}", "${data.fName}", "${data.lName}")`;
       pool.query(query, (error) => {
         if (error) {
-          res.status(400).json({ status: "failure", reason: error.code });
+          return res
+            .status(400)
+            .json({ status: "failure", reason: error.code });
         } else {
-          res.status(200).json({ status: "success", data: data });
+          return res.status(200).json({ status: "success", data: data });
         }
       });
     }
@@ -94,9 +98,9 @@ router
     const query = `CALL Admin_delete ( "${oEmail}", "${oPassword}")`;
     pool.query(query, (error) => {
       if (error) {
-        res.status(400).json({ status: "failure", reason: error.code });
+        return res.status(400).json({ status: "failure", reason: error.code });
       } else {
-        res.status(200).json({
+        return res.status(200).json({
           status: "success",
           message: `deleted user: ${oEmail}`,
         });
@@ -222,9 +226,9 @@ router.route("/details").get(checkAuth, async (req, res) => {
   const query = `CALL Admin_details ("${email}", "${password}")`;
   pool.query(query, (error, results) => {
     if (results === null) {
-      res.status(204).json({ status: "Not found" });
+      return res.status(204).json({ status: "Not found" });
     } else {
-      res.status(200).json({ status: "success", data: results[0] });
+      return res.status(200).json({ status: "success", data: results[0] });
     }
   });
 });

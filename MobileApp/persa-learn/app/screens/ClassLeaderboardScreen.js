@@ -32,7 +32,6 @@ export default function ClassLeaderboardScreen({ route, navigation }) {
       const tempArray = [students[0]];
       setTopThree(tempArray);
     }
-    console.log("this");
   };
 
   useEffect(async () => {

@@ -19,14 +19,14 @@ router.route("/student").get(checkAuth, async (req, res) => {
     const query = `CALL class_request_view_student ("${email}", "${password}")`;
     pool.query(query, (error, results) => {
       if (results === null) {
-        res.status(204).json({ status: "Not found" });
+        return res.status(204).json({ status: "Not found" });
       } else {
         // console.log(results[0]);
-        res.status(200).json({ status: "success", data: results[0] });
+        return res.status(200).json({ status: "success", data: results[0] });
       }
     });
   } catch (e) {
-    res.status(400).json({ status: "failure", reason: e });
+    return res.status(400).json({ status: "failure", reason: e });
   }
 });
 
@@ -43,9 +43,9 @@ router.route("/teacher/all").get(checkAuth, async (req, res) => {
         return res.status(400).json({ status: "failure", reason: error.code });
       } else {
         if (results === null) {
-          res.status(204).json({ status: "Not found" });
+          return res.status(204).json({ status: "Not found" });
         } else {
-          res.status(200).json({ status: "success", data: results[0] });
+          return res.status(200).json({ status: "success", data: results[0] });
         }
       }
     });
@@ -80,9 +80,11 @@ router
               .json({ status: "failure", reason: error.code });
           } else {
             if (results === null) {
-              res.status(204).json({ status: "Not found" });
+              return res.status(204).json({ status: "Not found" });
             } else {
-              res.status(200).json({ status: "success", data: results[0] });
+              return res
+                .status(200)
+                .json({ status: "success", data: results[0] });
             }
           }
         });

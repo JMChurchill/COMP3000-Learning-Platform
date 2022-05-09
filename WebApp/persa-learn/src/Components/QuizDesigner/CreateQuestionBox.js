@@ -35,6 +35,18 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
     console.log("option array: ", options);
     updateThisQuestion();
   };
+  const removeOption = (index) => {
+    // e.preventDefault();
+    console.log("op", options[index]);
+    if (index > -1) {
+      options.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    updateCorrectAns(undefined);
+    console.log("this", options);
+    setOptions([...options]);
+    // console.log("option array: ", options);
+    updateThisQuestion();
+  };
 
   const updateThisQuestion = async () => {
     console.log("updating all values");
@@ -52,8 +64,9 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
     options[opID] = opValue;
     updateThisQuestion();
   };
-  const updateCorrectAns = (opID) => {
-    setCorrectAns(opID);
+  const updateCorrectAns = (opAns) => {
+    // setCorrectAns(opID);
+    setCorrectAns(opAns);
   };
   return (
     // <div className="create-question">
@@ -81,17 +94,25 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
       <div className={styles.options_box}>
         {options.map((option, index) => {
           let correctAnsw = false;
-          if (thisQuestion.Answer == index) {
+          console.log(thisQuestion.Answer);
+          console.log(option);
+          if (thisQuestion.Answer == option) {
             correctAnsw = true;
           }
+          // if (thisQuestion.Answer == index) {
+          //   correctAnsw = true;
+          // }
+          console.log("updating");
+          console.log(option);
           return (
             <NewOption
               key={index}
               opID={index}
-              value={option.TheOption}
+              value={option}
               updateOption={updateOption}
               correctAns={correctAnsw}
               updateCorrectAns={updateCorrectAns}
+              removeOption={removeOption}
             />
           );
         })}

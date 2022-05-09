@@ -63,7 +63,7 @@ router
             // insert questions
             data.questions.map((question) => {
               console.log("correct answre is", question.correct);
-              const query = `CALL quiz_add_question (${quizID},"${question.name}","${question.details}", ${question.correct})`;
+              const query = `CALL quiz_add_question (${quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
               console.log("the query: ", query);
 
               pool.query(query, (error, results) => {
@@ -383,8 +383,10 @@ router
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(quized[0]);
         quiz.quizID = quized[0].QuizID;
         quiz.quizName = quized[0].QuizName;
+        quiz.moduleID = quized[0].ModuleID;
 
         // get all questions from the quiz
         query = `CALL quiz_question_view (${quizID})`;
@@ -481,7 +483,7 @@ router
           } else {
             // insert questions
             data.questions.map((question) => {
-              const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", ${question.Answer})`;
+              const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
               console.log("the query: ", query);
 
               pool.query(query, (error, results) => {

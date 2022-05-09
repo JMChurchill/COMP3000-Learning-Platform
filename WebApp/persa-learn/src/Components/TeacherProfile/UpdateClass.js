@@ -12,17 +12,40 @@ const UpdateClass = ({
 }) => {
   const [className, setClassName] = useState(selectedClass.name);
   const [yearGroup, setYearGroup] = useState(selectedClass.yearGroup);
+  const [classNameError, setClassNameError] = useState(null);
+  const [yearGroupError, setYearGroupError] = useState(null);
 
   const updateTheClass = async () => {
-    let details = { name: className, year: yearGroup, classID: classID };
-    let data = await updateClass(details);
-
-    if (data.status === "success") {
-      console.log("class updated successfully");
-      classChanged();
-      flipIsUpdating();
+    if (className == null || className == "") {
+      setClassNameError("Please enter a class name");
     } else {
-      alert("Unable to update class");
+      setClassNameError(null);
+    }
+    if (yearGroup == null || yearGroup == "") {
+      setYearGroupError("Please enter a year group");
+    } else if (isNaN(yearGroup)) {
+      setYearGroupError("Please enter a valid year group");
+    } else {
+      setYearGroupError(null);
+    }
+
+    if (
+      className != null &&
+      className != "" &&
+      yearGroup != null &&
+      yearGroup != "" &&
+      !isNaN(yearGroup)
+    ) {
+      let details = { name: className, year: yearGroup, classID: classID };
+      let data = await updateClass(details);
+
+      if (data.status === "success") {
+        console.log("class updated successfully");
+        classChanged();
+        flipIsUpdating();
+      } else {
+        alert("Unable to update class");
+      }
     }
   };
   return (
@@ -32,10 +55,12 @@ const UpdateClass = ({
       <label className={styles.subheading} htmlFor="name">
         Class Name
       </label>
+      <div className={styles.error}>{classNameError}</div>
       <CustomInput name={"name"} value={className} setValue={setClassName} />
       <label className={styles.subheading} htmlFor="yearGroup">
         Year group
       </label>
+      <div className={styles.error}>{yearGroupError}</div>
       <CustomInput
         name={"yearGroup"}
         value={yearGroup}
