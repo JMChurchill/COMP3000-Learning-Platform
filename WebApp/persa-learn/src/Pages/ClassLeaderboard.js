@@ -26,13 +26,16 @@ const ClassLeaderboard = () => {
   }, [students]);
 
   const getTopThree = () => {
-    if (students.length > 0) {
+    if (students.length > 1) {
       // get first 3 values from array
       const tempArray = students.slice(0, 3);
       // switch order to be displayed later
       const tempVal = tempArray[0];
       tempArray[0] = tempArray[1];
       tempArray[1] = tempVal;
+      setTopThree(tempArray);
+    } else if (students.length === 1) {
+      const tempArray = [students[0]];
       setTopThree(tempArray);
     }
   };
@@ -49,7 +52,19 @@ const ClassLeaderboard = () => {
             //adjust position for order of array (to display fist place in center)
             if (pos == 1) pos = 2;
             else if (pos == 2) pos = 1;
-            if (i < 3) {
+            if (topThree.length == 1) {
+              return (
+                <TopStudent
+                  key={i}
+                  // icon={tempUserIcon}
+                  icon={student.ProfilePicture}
+                  name={`${student.FirstName} ${student.LastName}`}
+                  position={1}
+                  level={student.Level}
+                  xp={student.Xp}
+                />
+              );
+            } else if (i < 3) {
               return (
                 <TopStudent
                   key={i}

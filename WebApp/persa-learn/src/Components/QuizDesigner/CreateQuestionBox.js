@@ -64,8 +64,9 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
     options[opID] = opValue;
     updateThisQuestion();
   };
-  const updateCorrectAns = (opID) => {
-    setCorrectAns(opID);
+  const updateCorrectAns = (opAns) => {
+    // setCorrectAns(opID);
+    setCorrectAns(opAns);
   };
   return (
     // <div className="create-question">
@@ -93,9 +94,14 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
       <div className={styles.options_box}>
         {options.map((option, index) => {
           let correctAnsw = false;
-          if (thisQuestion.Answer == index) {
+          console.log(thisQuestion.Answer);
+          console.log(option);
+          if (thisQuestion.Answer == option) {
             correctAnsw = true;
           }
+          // if (thisQuestion.Answer == index) {
+          //   correctAnsw = true;
+          // }
           console.log("updating");
           console.log(option);
           return (

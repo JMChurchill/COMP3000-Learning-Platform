@@ -8,6 +8,7 @@ import SharedItem from "../../components/Feed/SharedItem";
 import * as SecureStore from "expo-secure-store";
 import { AuthContext } from "../../components/context";
 import { getFeedRequest } from "../../httpRequests/feedRequests";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function FeedScreen() {
   const { signOut } = useContext(AuthContext);
@@ -15,6 +16,8 @@ export default function FeedScreen() {
   // const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+
+  const isFocused = useIsFocused();
 
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -29,7 +32,7 @@ export default function FeedScreen() {
     if ((await SecureStore.getItemAsync("userToken")) === null) {
       signOut();
     }
-  }, []);
+  }, [isFocused]);
 
   const getData = async () => {
     setRefreshing(true);

@@ -41,7 +41,8 @@ const NewOption = ({
         className={styles.check_box}
         aria-selected={correctAns}
         onClick={() => {
-          updateCorrectAns(opID);
+          // updateCorrectAns(opID);
+          updateCorrectAns(option);
         }}
       ></div>
       <div className={styles.delete_box} onClick={() => removeOption(opID)}>

@@ -32,7 +32,7 @@ CALL quiz_update ("test", "email","password")
 
 # add question to quiz
 DELIMITER $$
-CREATE PROCEDURE quiz_add_question(theQuizID int, nQuestion text, nDetails text, ans int)
+CREATE PROCEDURE quiz_add_question(theQuizID int, nQuestion text, nDetails text, ans text)
 BEGIN 
     #START TRANSACTION
         INSERT INTO quizquestions(QuizID, Question, Details,Answer)

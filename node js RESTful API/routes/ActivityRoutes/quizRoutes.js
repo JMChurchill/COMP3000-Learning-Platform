@@ -63,7 +63,7 @@ router
             // insert questions
             data.questions.map((question) => {
               console.log("correct answre is", question.correct);
-              const query = `CALL quiz_add_question (${quizID},"${question.Question}","${question.Details}", ${question.correct})`;
+              const query = `CALL quiz_add_question (${quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
               console.log("the query: ", query);
 
               pool.query(query, (error, results) => {
@@ -483,7 +483,7 @@ router
           } else {
             // insert questions
             data.questions.map((question) => {
-              const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", ${question.Answer})`;
+              const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
               console.log("the query: ", query);
 
               pool.query(query, (error, results) => {

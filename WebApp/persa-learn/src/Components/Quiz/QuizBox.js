@@ -9,11 +9,12 @@ const QuizBox = ({
   answers,
   addAnswer,
 }) => {
-  const logToCon = async (e) => {
-    console.log(questionId);
+  const logToCon = async (selectedAns) => {
+    // console.log(a);
+    // console.log(questionId);
     // console.log(e, { props: { id: Number(e.currentTarget.id) } });
-    console.log(e.currentTarget.id);
-    addAnswer(questionId, e.currentTarget.id);
+    // console.log(e.currentTarget.ans);
+    addAnswer(questionId, selectedAns);
     // console.log("aaa");
   };
 
@@ -21,12 +22,17 @@ const QuizBox = ({
     // console.log(answers);
     let answer = { answered: false, opt: null };
     answers.map((ans) => {
-      // console.log(ans);
+      // console.log(ans.ans);
       if (ans.questionID === questionId) {
         // console.log("found");
         answer.answered = true;
         answer.opt = ans.ans;
       }
+      // if (ans.questionID === questionId) {
+      //   // console.log("found");
+      //   answer.answered = true;
+      //   answer.opt = ans.ans;
+      // }
     });
 
     return answer;
@@ -52,7 +58,7 @@ const QuizBox = ({
 
               if (isAns.answered) {
                 // console.log("found");
-                selected = isAns.opt == i;
+                selected = isAns.opt == ans.TheOption;
               }
               return (
                 // <li key={i} id={i} onClick={logToCon}>
@@ -60,14 +66,14 @@ const QuizBox = ({
                   className={styles.option_container}
                   key={i}
                   id={i}
-                  onClick={logToCon}
+                  onClick={() => logToCon(ans.TheOption)}
                 >
                   {/* <div className="check-box" aria-selected={selected}></div> */}
                   <div
                     className={styles.check_box}
                     aria-selected={selected}
                   ></div>
-                  <div>{ans.TheOption}</div>
+                  <div className={styles.ans_text}>{ans.TheOption}</div>
                 </li>
               );
             })}

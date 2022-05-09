@@ -4,7 +4,7 @@ import colors from "../../../config/colors";
 
 export default function OptionBox({
   optionID,
-  optionText = "placeholder",
+  optionText,
   isSelected = false,
   logToCon,
 }) {
@@ -25,7 +25,8 @@ export default function OptionBox({
   return (
     <TouchableOpacity
       style={[styles.option, styles.shadow]}
-      onPress={() => optionOnPress(optionID)}
+      // onPress={() => optionOnPress(optionID)}
+      onPress={() => optionOnPress(optionText)}
     >
       <View
         style={[
