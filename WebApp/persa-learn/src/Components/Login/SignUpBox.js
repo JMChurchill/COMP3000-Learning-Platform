@@ -141,21 +141,15 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
       <h1>Sign up</h1>
       <div className={styles.error}>{error}</div>
 
-      <label htmlFor="email" className={styles.title}>
-        Email
-      </label>
+      <label htmlFor="email">Email</label>
       <div className={styles.error}>{emailError}</div>
       <CustomInput name={email} setValue={setEmail} />
 
-      <label htmlFor="password" className={styles.title}>
-        Password
-      </label>
+      <label htmlFor="password">Password</label>
       <div className={styles.error}>{passwordError}</div>
       <CustomInput password={true} name={password} setValue={setPassword} />
 
-      <label htmlFor="confirmPassword" className={styles.title}>
-        Confirm Password
-      </label>
+      <label htmlFor="confirmPassword">Confirm Password</label>
       <div className={styles.error}>{confPasswordError}</div>
       <CustomInput
         password={true}
@@ -163,23 +157,17 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
         setValue={setConfPassword}
       />
 
-      <label htmlFor="firstname" className={styles.title}>
-        First name
-      </label>
+      <label htmlFor="firstname">First name</label>
       <div className={styles.error}>{firstnameError}</div>
       <CustomInput name={firstname} setValue={setFirstname} />
 
-      <label htmlFor="lastname" className={styles.title}>
-        Last name
-      </label>
+      <label htmlFor="lastname">Last name</label>
       <div className={styles.error}>{lastnameError}</div>
       <CustomInput name={lastname} setValue={setLastname} />
 
       {isTeacher ? (
         <>
-          <label htmlFor="phonenumber" className={styles.title}>
-            Phone number
-          </label>
+          <label htmlFor="phonenumber">Phone number</label>
           <div className={styles.error}>{phonenumberError}</div>
 
           <CustomInput name={phonenumber} setValue={setPhonenumber} />

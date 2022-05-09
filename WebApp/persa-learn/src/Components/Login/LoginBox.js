@@ -92,16 +92,12 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
       {!isAdmin ? <h1>Login</h1> : <h1>Admin Login</h1>}
 
       {isError ? <p className={styles.error_message}>{reason}</p> : ""}
-      <label htmlFor="email" className={styles.title}>
-        Email
-      </label>
+      <label htmlFor="email">Email</label>
       <div className={styles.error}>{emailError}</div>
-      <CustomInput name={email} setValue={setEmail} />
-      <label htmlFor="password" className={styles.title}>
-        Password
-      </label>
+      <CustomInput name={"email"} setValue={setEmail} />
+      <label htmlFor="password">Password</label>
       <div className={styles.error}>{passwordError}</div>
-      <CustomInput password={true} name={password} setValue={setPassword} />
+      <CustomInput password={true} name={"password"} setValue={setPassword} />
       <CustomButton type={1} text={"Login"} onClick={() => login()} />
 
       {isAdmin ? (

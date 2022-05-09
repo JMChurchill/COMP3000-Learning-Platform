@@ -60,10 +60,20 @@ const FlashCards = () => {
               <div
                 className={styles.deck}
                 key={deck.DeckID}
+                role="button"
+                aria-pressed={false}
+                tabindex="0"
                 onClick={() => {
                   setSelectedDeck(deck);
                   console.log(selectedDeck);
                   setIsDeckSelected(true);
+                }}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 13) {
+                    setSelectedDeck(deck);
+                    console.log(selectedDeck);
+                    setIsDeckSelected(true);
+                  }
                 }}
               >
                 <p>{deck.Name}</p>

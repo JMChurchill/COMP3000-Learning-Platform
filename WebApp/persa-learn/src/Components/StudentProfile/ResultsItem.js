@@ -13,7 +13,7 @@ const ResultsItem = ({
   subDate,
 }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} tabIndex={0}>
       {/* <div> */}
       <div className={styles.student_container}>
         <div

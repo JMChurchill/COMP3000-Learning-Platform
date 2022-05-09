@@ -16,6 +16,14 @@
   color: var(--primary-color);
   transform: scale(1.05);
 }
+.primary[aria-disabled="true"] {
+  opacity: 0.5;
+}
+.primary[aria-disabled="true"]:hover {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  transform: scale(1);
+}
 
 .secondary {
   background-color: var(--background-color);
@@ -33,6 +41,12 @@
 .secondary:hover {
   /* scale: 1.05; */
   transform: scale(1.05);
+}
+.secondary[aria-disabled="true"] {
+  opacity: 0.5;
+}
+.secondary[aria-disabled="true"]:hover {
+  transform: scale(1);
 }
 
 .icon {

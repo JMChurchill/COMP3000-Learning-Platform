@@ -70,6 +70,7 @@ const OverlayDetails = ({ selectedDeck, close, getDecks }) => {
             <h1>{selectedDeck.Name} Deck</h1>
             <p>Number cards: {numberCards}</p>
             <CustomButton
+              disabled={numberCards === 0}
               text={"Play"}
               onClick={() =>
                 navigate("/flash-card", {

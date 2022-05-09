@@ -17,6 +17,9 @@ const ThemeItem = ({
   return (
     <div
       className={styles.item}
+      tabIndex={0}
+      role="button"
+      aria-pressed="false"
       onClick={() =>
         itemSelected({
           itemID,
@@ -32,6 +35,22 @@ const ThemeItem = ({
           requiredLevel,
         })
       }
+      onKeyDown={(e) => {
+        if (e.keyCode === 13)
+          itemSelected({
+            itemID,
+            type,
+            image,
+            details,
+            name,
+            cost,
+            primary,
+            background,
+            isDark,
+            isPurchased,
+            requiredLevel,
+          });
+      }}
       style={isPurchased ? { opacity: "0.5" } : {}}
     >
       <p>{type}</p>

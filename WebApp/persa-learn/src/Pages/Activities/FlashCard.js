@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const FlashCard = () => {
   const [deck, setDeck] = useState([]);
+  const [isFlipped, setIsFlipped] = useState(false);
   // const [currentCard, setCurrentCard] = useState(tempFlashcardData[0]);
   const [currentCard, setCurrentCard] = useState(null);
   const [count, setCount] = useState(1);
@@ -77,13 +78,23 @@ const FlashCard = () => {
           <Flashcard
             question={currentCard.Question}
             answer={currentCard.Answer}
+            setIsFlipped={setIsFlipped}
           />
         ) : (
           <></>
         )}
 
-        <CustomButton text={"Correct"} onClick={() => correct()} />
-        <CustomButton text={"Incorrect"} onClick={() => incorrect()} />
+        <CustomButton
+          disabled={!isFlipped}
+          text={"Correct"}
+          onClick={() => correct()}
+        />
+        <CustomButton
+          disabled={!isFlipped}
+          text={"Incorrect"}
+          onClick={() => incorrect()}
+        />
+
         {/* <button className="btn">Flip card</button> */}
         {/* {count < tempFlashcardData.length ? (
           <button onClick={nextCard} className="btn">

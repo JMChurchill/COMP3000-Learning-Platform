@@ -63,10 +63,16 @@ const QuizBox = ({
               return (
                 // <li key={i} id={i} onClick={logToCon}>
                 <li
+                  tabIndex={0}
+                  role="button"
+                  aria-selected={selected}
                   className={styles.option_container}
                   key={i}
                   id={i}
                   onClick={() => logToCon(ans.TheOption)}
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 13) logToCon(ans.TheOption);
+                  }}
                 >
                   {/* <div className="check-box" aria-selected={selected}></div> */}
                   <div

@@ -23,6 +23,7 @@
 .logo {
   /* margin: 1rem; */
   height: 100%;
+  aspect-ratio: 5.5/1;
 }
 .mobile_nav_toggle {
   display: none;

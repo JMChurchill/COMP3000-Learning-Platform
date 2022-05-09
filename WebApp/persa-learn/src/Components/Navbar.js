@@ -43,7 +43,7 @@ const Navbar = () => {
         onClick={navToggle}
       >
         {/* <span className="sr-only">Menu</span> */}
-        <MdMenu />
+        <MdMenu aria-label="menu" />
       </button>
       <nav>
         <ul
@@ -52,23 +52,6 @@ const Navbar = () => {
           // className="primary-navigation flex"
           className={styles.primary_navigation}
         >
-          {/* <li>
-            <Link aria-current="true" to="/">
-              Home
-            </Link>
-          </li> */}
-
-          {/* <li>
-            <Link aria-current="false" to="/activity">
-              Activities
-            </Link>
-          </li>
-          <li>
-            <Link aria-current="false" to="/create">
-              Create
-            </Link>
-          </li> */}
-          {/* <li> */}
           {isAdmin ? (
             <>
               <li>
@@ -129,37 +112,10 @@ const Navbar = () => {
               </li>
             </>
           )}
-          {/* {isAdmin ? (
-            <li>
-              <Link aria-current="false" to="/profile_admin">
-                Admin
-              </Link>
-            </li>
-          ) : !isTeacher ? (
-            <li>
-              <Link aria-current="false" to="/profile_student">
-                Profile
-              </Link>
-            </li>
-          ) : (
-            <li>
-              <Link aria-current="false" to="/profile_teacher">
-                Teacher
-              </Link>
-            </li>
-          )} */}
-          {/* {!isTeacher ? (
-              <Link aria-current="false" to="/profile_student">
-                Profile
-              </Link>
-            ) : (
-              <Link aria-current="false" to="/profile_teacher">
-                Teacher
-              </Link>
-            )} */}
-          {/* </li> */}
           <li>
-            <a onClick={() => logout()}>Logout</a>
+            <a aria-current="false" href="#" onClick={() => logout()}>
+              Logout
+            </a>
           </li>
 
           {/* <li>

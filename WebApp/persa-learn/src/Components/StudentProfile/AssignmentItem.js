@@ -19,6 +19,9 @@ const AssignmentItem = ({
     <div
       key={id}
       className={styles.assignment_item}
+      tabIndex={0}
+      role="button"
+      aria-pressed="false"
       onClick={() =>
         navigate("/quiz", {
           state: {
@@ -26,6 +29,15 @@ const AssignmentItem = ({
           },
         })
       }
+      onKeyDown={(e) => {
+        if (e.keyCode === 13) {
+          navigate("/quiz", {
+            state: {
+              quizID: id,
+            },
+          });
+        }
+      }}
     >
       <p>{assignmentName}</p>
       <p>{className}</p>

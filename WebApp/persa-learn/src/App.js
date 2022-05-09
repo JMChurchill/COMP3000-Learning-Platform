@@ -14,11 +14,8 @@ import CreateActivity from "./Pages/CreateActivity";
 import Quiz from "./Pages/Activities/Quiz";
 import FlashCards from "./Pages/Activities/FlashCards";
 import QuizDesigner from "./Pages/ActivityDesigner/Quiz/QuizDesigner";
-// import QuizDesigner from "./Pages/ActivityDesigner/Quiz/QuizDesigner";
 import FlashCard from "./Pages/Activities/FlashCard";
-// import UserProfile from "./Pages/UserProfile";
 import ClassLeaderboard from "./Pages/ClassLeaderboard";
-// import Achievements from "./Pages/Achievements";
 import FlashcardDesigner from "./Pages/ActivityDesigner/FlashcardDesigner";
 import StudentProfile from "./Pages/StudentProfile";
 import TeacherProfile from "./Pages/Teacher/TeacherProfile";
@@ -27,7 +24,6 @@ import TeacherProfile from "./Pages/Teacher/TeacherProfile";
 import Navbar from "./Components/Navbar";
 import UserSettings from "./Pages/UserSettings";
 import EditUserSettings from "./Pages/EditUserSettings";
-// import AllQuizzes from "./Pages/ActivityDesigner/Quiz/AllQuizzes/AllQuizzes";
 import AssignActivities from "./Pages/AssignActivities/AssignActivities";
 import EditCardsInDeck from "./Pages/Activities/FlashCards/EditCardsInDeck";
 import Shop from "./Pages/Shop";
@@ -109,12 +105,6 @@ function App() {
 
   if (!token) {
     return <Login setToken={setToken} />;
-    // return (
-    //   <Router>
-    //     <Route path="*" element={<Login setToken={setToken} />} />
-    //     <Route exact path="/login/admin" element={<LoginAdmin />} />
-    //   </Router>
-    // );
   }
 
   return (

@@ -41,6 +41,7 @@
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+  cursor: pointer;
 }
 .deck:hover {
   scale: 1.1;

@@ -11,11 +11,7 @@ const Login = ({ setToken }) => {
   const [signUp, setSignUp] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  if (isTeacher) {
-    console.log("youre a teacher");
-  } else {
-    console.log("your a student");
-  }
+
   return (
     <div className="content-box">
       <h1>Login</h1>
