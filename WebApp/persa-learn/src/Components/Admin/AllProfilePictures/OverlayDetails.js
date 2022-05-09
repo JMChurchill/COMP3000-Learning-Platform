@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { deleteProfilePictureAdmin } from "../../../http_Requests/StudentRequests/ItemRequests";
 import CustomButton from "../../CustomButton";
+import OverlayConfirm from "../../OverlayConfirm";
 import styles from "./OverlayDetails.module.css";
 import OverlayEdit from "./OverlayEdit";
 
@@ -10,6 +11,7 @@ const OverlayDetails = ({
   close,
 }) => {
   const [showEdit, setShowEdit] = useState();
+  const [isDeleting, setIsDeleting] = useState();
 
   console.log(selectedProfilePicture);
   const deleteProfilePic = async () => {
@@ -37,7 +39,7 @@ const OverlayDetails = ({
         <p>cost: {selectedProfilePicture.cost}</p>
         <p>Required Level: {selectedProfilePicture.requiredLevel}</p>
         <CustomButton text={"Edit"} onClick={() => setShowEdit(true)} />
-        <CustomButton text={"Delete"} onClick={deleteProfilePic} />
+        <CustomButton text={"Delete"} onClick={() => setIsDeleting(true)} />
         <CustomButton text={"Back"} type={2} onClick={close} />
       </div>
       {showEdit ? (
@@ -49,6 +51,15 @@ const OverlayDetails = ({
             setShowEdit(false);
             close();
           }}
+        />
+      ) : (
+        <></>
+      )}
+      {isDeleting ? (
+        <OverlayConfirm
+          message={"Are you sure you want to delete this profile?"}
+          yes={deleteProfilePic}
+          no={() => setIsDeleting(false)}
         />
       ) : (
         <></>

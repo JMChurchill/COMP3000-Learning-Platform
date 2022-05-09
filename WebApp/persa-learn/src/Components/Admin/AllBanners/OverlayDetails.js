@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { deleteBannerAdmin } from "../../../http_Requests/StudentRequests/ItemRequests";
 import CustomButton from "../../CustomButton";
+import OverlayConfirm from "../../OverlayConfirm";
 import styles from "./OverlayDetails.module.css";
 import OverlayEdit from "./OverlayEdit";
 
 const OverlayDetails = ({ selectedBanner, getAllBanners, close }) => {
   const [showEdit, setShowEdit] = useState();
+  const [isDeleting, setIsDeleting] = useState(true);
+
   const deleteBanner = async () => {
-    const data = await deleteBannerAdmin();
+    const data = await deleteBannerAdmin({ BannerID: selectedBanner.id });
     console.log(data);
     getAllBanners();
     close();
@@ -30,7 +33,7 @@ const OverlayDetails = ({ selectedBanner, getAllBanners, close }) => {
         <p>cost: {selectedBanner.cost}</p>
         <p>Required Level: {selectedBanner.requiredLevel}</p>
         <CustomButton text={"Edit"} onClick={() => setShowEdit(true)} />
-        <CustomButton text={"Delete"} onClick={deleteBanner} />
+        <CustomButton text={"Delete"} onClick={() => setIsDeleting(true)} />
         <CustomButton text={"Back"} type={2} onClick={close} />
       </div>
       {showEdit ? (
@@ -42,6 +45,17 @@ const OverlayDetails = ({ selectedBanner, getAllBanners, close }) => {
             close();
           }}
           close={() => setShowEdit(false)}
+        />
+      ) : (
+        <></>
+      )}
+      {isDeleting ? (
+        <OverlayConfirm
+          message={"Are you sure you want delete this banner?"}
+          yes={deleteBanner}
+          no={() => {
+            setIsDeleting(false);
+          }}
         />
       ) : (
         <></>

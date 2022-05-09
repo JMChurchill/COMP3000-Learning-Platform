@@ -4,7 +4,8 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  width: MIN(30%, 28rem);
+  width: 30%;
+  min-width: 7rem;
   max-width: 12rem;
 }
 .medal {

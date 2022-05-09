@@ -7,12 +7,14 @@ import styles from "./SignUpBox.module.css";
 const SignUpBox = ({ setSignUp, isTeacher }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [confPassword, setConfPassword] = useState();
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [phonenumber, setPhonenumber] = useState();
 
   const [emailError, setEmailError] = useState();
   const [passwordError, setPasswordError] = useState();
+  const [confPasswordError, setConfPasswordError] = useState();
   const [firstnameError, setFirstnameError] = useState();
   const [lastnameError, setLastnameError] = useState();
   const [phonenumberError, setPhonenumberError] = useState();
@@ -62,6 +64,15 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
     } else {
       setPasswordError(null);
     }
+    if (confPassword == null || confPassword == "") {
+      setConfPasswordError("Please enter a password");
+    } else if (confPassword !== password) {
+      setConfPasswordError("Passwords do not match");
+    } else if (password.length < 8) {
+      setConfPasswordError("Password must be 8 or more characters");
+    } else {
+      setConfPasswordError(null);
+    }
     if (firstname == null || firstname == "") {
       setFirstnameError("Please enter a firstname");
     } else {
@@ -87,9 +98,9 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
       password != "" &&
       firstname != "" &&
       lastname != "" &&
+      confPassword == password &&
       EMAIL_REGEX.test(email) &&
-      password.length >= 8 &&
-      ((!isTeacher && phonenumber != null) || (!isTeacher && phonenumber != ""))
+      password.length >= 8
     ) {
       try {
         let data;
@@ -129,30 +140,41 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
     <>
       <h1>Sign up</h1>
       <div className={styles.error}>{error}</div>
+
       <label htmlFor="email" className={styles.title}>
         Email
       </label>
       <div className={styles.error}>{emailError}</div>
-
       <CustomInput name={email} setValue={setEmail} />
+
       <label htmlFor="password" className={styles.title}>
         Password
       </label>
       <div className={styles.error}>{passwordError}</div>
-
       <CustomInput password={true} name={password} setValue={setPassword} />
+
+      <label htmlFor="confirmPassword" className={styles.title}>
+        Confirm Password
+      </label>
+      <div className={styles.error}>{confPasswordError}</div>
+      <CustomInput
+        password={true}
+        name={confPassword}
+        setValue={setConfPassword}
+      />
+
       <label htmlFor="firstname" className={styles.title}>
         First name
       </label>
       <div className={styles.error}>{firstnameError}</div>
-
       <CustomInput name={firstname} setValue={setFirstname} />
+
       <label htmlFor="lastname" className={styles.title}>
         Last name
       </label>
       <div className={styles.error}>{lastnameError}</div>
-
       <CustomInput name={lastname} setValue={setLastname} />
+
       {isTeacher ? (
         <>
           <label htmlFor="phonenumber" className={styles.title}>

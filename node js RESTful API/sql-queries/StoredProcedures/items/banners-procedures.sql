@@ -104,7 +104,7 @@ CALL Banners_get_all_admin('email2@email.com','$2b$10$frqy1S4DXpzTiM9H2MvdiO5z7N
 
 # delete banner admin
 DELIMITER $$
-CREATE PROCEDURE Banners_delete (aEmail varchar(255), aPassword varchar(60),bID)
+CREATE PROCEDURE Banners_delete (aEmail varchar(255), aPassword varchar(60),bID int)
 BEGIN
     #get student id
     IF EXISTS (SELECT AdminID FROM admins WHERE email = aEmail AND password = aPassword LIMIT 1) THEN

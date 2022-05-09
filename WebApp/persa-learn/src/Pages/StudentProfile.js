@@ -37,7 +37,7 @@ const StudentProfile = () => {
   const [coins, setCoins] = useState(0);
   const [className, setClassName] = useState(0);
 
-  const tabs = ["Assignments", "Feed", "Classes"];
+  const tabs = ["Assignments", "Feed"];
   useEffect(async () => {
     //get page details
     const [dataClasses, dataStudentDetails, dataAssignment, dataFeed] =

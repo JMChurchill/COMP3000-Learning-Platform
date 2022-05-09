@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteThemeAdmin } from "../../../http_Requests/StudentRequests/ItemRequests";
 import CustomButton from "../../CustomButton";
+import OverlayConfirm from "../../OverlayConfirm";
 import styles from "./OverlayDetails.module.css";
 
 const OverlayDetails = ({
@@ -16,6 +17,7 @@ const OverlayDetails = ({
   requiredLevel,
   close,
 }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
   const deleteTheme = async () => {
     const data = await deleteThemeAdmin({ ThemeID: id });
     console.log(data);
@@ -56,9 +58,21 @@ const OverlayDetails = ({
             })
           }
         />
-        <CustomButton text={"Delete theme"} onClick={deleteTheme} />
+        <CustomButton
+          text={"Delete theme"}
+          onClick={() => setIsDeleting(true)}
+        />
         <CustomButton text={"Back"} type={2} onClick={close} />
       </div>
+      {isDeleting ? (
+        <OverlayConfirm
+          message={"Are you sure you want to delete this theme?"}
+          yes={deleteTheme}
+          no={() => setIsDeleting(false)}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
