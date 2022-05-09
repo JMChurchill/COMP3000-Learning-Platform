@@ -27,22 +27,22 @@
   /* gap: max(10%, 1rem); */
   gap: 2rem;
 }
-.tabs h3 {
+.tabs h2 {
   position: relative;
   cursor: pointer;
   white-space: nowrap;
   margin: 1rem 0;
 }
-.tabs h3:hover {
+.tabs h2:hover {
   color: var(--primary-color);
 }
-.tabs h3:hover::before {
+.tabs h2:hover::before {
   transform: scaleX(1);
 }
-.tabs h3[aria-selected="true"] {
+.tabs h2[aria-selected="true"] {
   color: var(--primary-color) !important;
 }
-.tabs h3::before {
+.tabs h2::before {
   content: "";
   position: absolute;
   display: block;

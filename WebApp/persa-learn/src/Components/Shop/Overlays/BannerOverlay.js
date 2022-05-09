@@ -43,10 +43,14 @@ const BannerOverlay = ({ selectedItem = {}, getItems, close }) => {
         >
           {/* {selectedItem.image} */}
         </div>
-        <p>{selectedItem.name}</p>
+        <h3>{selectedItem.name}</h3>
         <p>{selectedItem.details}</p>
-        <p>{selectedItem.cost} Coins</p>
-        <p>lvl {selectedItem.requiredLevel}</p>
+        <p>
+          <b>{selectedItem.cost} Coins</b>
+        </p>
+        <p>
+          <b>lvl {selectedItem.requiredLevel}</b>
+        </p>
 
         {selectedItem.isPurchased ? (
           <h3>Already Purchased</h3>

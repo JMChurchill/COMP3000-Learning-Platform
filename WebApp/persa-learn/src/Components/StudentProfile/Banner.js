@@ -38,6 +38,7 @@ const Banner = ({
           <Link
             to="/user_settings"
             style={{ textDecoration: "none", zIndex: "999" }}
+            aria-label="settings"
           >
             <FaCog />
           </Link>

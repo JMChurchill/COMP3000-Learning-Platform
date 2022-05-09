@@ -4,7 +4,7 @@
   height: 1.5rem;
   border-radius: 2rem;
   padding: 0;
-  z-index: 99;
+  /* z-index: 99; */
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }

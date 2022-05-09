@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Redirect,
-  Link,
-} from "react-router-dom";
 
-import ClassItem from "../Components/StudentProfile/ClassItem";
 import AssignmentItem from "../Components/StudentProfile/AssignmentItem";
 import Banner from "../Components/StudentProfile/Banner";
 
 import {
   getStudentsAssignmentQuizzes,
-  getStudentsClassses,
   getUserDetails,
 } from "../http_Requests/userRequests";
 
@@ -22,7 +13,6 @@ import { getFeedRequest } from "../http_Requests/StudentRequests/FeedRoutes";
 import ResultsItem from "../Components/StudentProfile/ResultsItem";
 
 const StudentProfile = () => {
-  const [classes, setClasses] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [feed, setFeed] = useState([]);
 
@@ -35,22 +25,16 @@ const StudentProfile = () => {
   const [requiredXp, setRequiredXp] = useState(0);
   const [level, setLevel] = useState(0);
   const [coins, setCoins] = useState(0);
-  const [className, setClassName] = useState(0);
 
   const tabs = ["Assignments", "Feed"];
   useEffect(async () => {
     //get page details
-    const [dataClasses, dataStudentDetails, dataAssignment, dataFeed] =
-      await Promise.all([
-        getStudentsClassses(),
-        getUserDetails(),
-        getStudentsAssignmentQuizzes(),
-        getFeedRequest(),
-      ]);
+    const [dataStudentDetails, dataAssignment, dataFeed] = await Promise.all([
+      getUserDetails(),
+      getStudentsAssignmentQuizzes(),
+      getFeedRequest(),
+    ]);
 
-    if (dataClasses.hasOwnProperty("data")) {
-      setClasses(dataClasses.data);
-    }
     //student details
     if (dataStudentDetails.hasOwnProperty("data")) {
       const {
@@ -74,11 +58,9 @@ const StudentProfile = () => {
     }
     // assignments
     if (dataAssignment.hasOwnProperty("quizzes")) {
-      console.log(dataAssignment);
       setAssignments(dataAssignment.quizzes);
     }
     if (dataFeed.status === "success") {
-      console.log(dataFeed.data);
       setFeed(dataFeed.data);
     }
   }, []);
@@ -109,13 +91,18 @@ const StudentProfile = () => {
                 isSelected = true;
               }
               return (
-                <h3
+                <h2
                   key={j}
+                  tabIndex={0}
+                  role="button"
                   aria-selected={isSelected}
                   onClick={() => setSelectedTab(j)}
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 13) setSelectedTab(j);
+                  }}
                 >
                   {tab}
-                </h3>
+                </h2>
               );
             })}
           </div>
@@ -179,24 +166,6 @@ const StudentProfile = () => {
                   );
                 }
               })}
-            </div>
-          ) : (
-            <></>
-          )}
-
-          {selectedTab == 3 ? (
-            // <div className="class-items list-items">
-            <div className={styles.list_items}>
-              {classes.map((c) => (
-                <ClassItem
-                  key={c.ClassDetailsID}
-                  id={c.ClassDetailsID}
-                  name={c.Name}
-                  firstname={c.FirstName}
-                  lastname={c.LastName}
-                  yearGroup={c.YearGroup}
-                />
-              ))}
             </div>
           ) : (
             <></>

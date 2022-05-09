@@ -108,13 +108,18 @@ const Shop = () => {
               isSelected = true;
             }
             return (
-              <h3
+              <h2
                 key={i}
+                tabIndex={0}
+                role="button"
                 aria-selected={isSelected}
                 onClick={() => setSelectedTab(i)}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 13) setSelectedTab(i);
+                }}
               >
                 {tab}
-              </h3>
+              </h2>
             );
           })}
         </div>

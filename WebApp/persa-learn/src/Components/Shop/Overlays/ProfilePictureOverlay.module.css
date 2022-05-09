@@ -29,9 +29,12 @@
 .overlay .message_box .image {
   width: 80%;
   aspect-ratio: 1;
-  border: 1px solid red;
+  border-radius: 100%;
   box-shadow: inset var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+.overlay .message_box p {
+  margin: 0.25rem;
 }
 @media (max-width: 35em) {
   .overlay .message_box {

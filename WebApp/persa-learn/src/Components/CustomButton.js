@@ -8,10 +8,12 @@ const CustomButton = ({
   onClick,
   fill = false,
   floating = false,
+  disabled = false,
 }) => {
   if (type === 3) {
     return (
       <div
+        aria-disabled={disabled}
         className={styles.special}
         style={
           floating
@@ -30,9 +32,10 @@ const CustomButton = ({
   } else if (type === 4) {
     return (
       <button
+        aria-disabled={disabled}
         className={styles.icon}
         style={fill ? { width: "100%", minWidth: 0, maxWidth: "12rem" } : {}}
-        onClick={() => onClick()}
+        onClick={() => (!disabled ? onClick() : {})}
       >
         {text}
       </button>
@@ -40,9 +43,10 @@ const CustomButton = ({
   }
   return (
     <button
+      aria-disabled={disabled}
       className={type == 1 ? styles.primary : styles.secondary}
       style={fill ? { width: "100%", minWidth: 0, maxWidth: "12rem" } : {}}
-      onClick={() => onClick()}
+      onClick={() => (!disabled ? onClick() : {})}
     >
       {text}
     </button>

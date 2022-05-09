@@ -9,6 +9,7 @@
   margin: 1rem;
   padding: 0;
   transform-style: preserve-3d;
+  cursor: pointer;
 }
 .flash_card p {
   font-weight: bold;
