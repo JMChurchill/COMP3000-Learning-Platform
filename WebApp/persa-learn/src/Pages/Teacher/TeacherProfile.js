@@ -100,7 +100,7 @@ const TeacherProfile = () => {
 
   return (
     <div className="content-box">
-      <h1>Teacher Profile (Classes)</h1>
+      <h1>Teacher Profile</h1>
       {/* <div className="container"> */}
       <div className={styles.container}>
         <h2>Welcome back {firstName} </h2>
@@ -119,7 +119,7 @@ const TeacherProfile = () => {
                     borderWidth: 1,
                   },
                   {
-                    label: "Overdue",
+                    label: "Incomplete",
                     data: assignProgress.map((x) => x.incompleted),
                     backgroundColor: ["RGB(248,37,0,0.2)"],
                     borderColor: ["RGB(248,37,0)"],

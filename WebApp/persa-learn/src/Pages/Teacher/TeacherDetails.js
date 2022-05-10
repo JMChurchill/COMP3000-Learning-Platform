@@ -44,15 +44,16 @@ const TeacherDetails = () => {
   }, []);
   return (
     <div className="content-box">
-      <h1>Teacher Details</h1>
+      <h1>Profile</h1>
       <div className={styles.container}>
-        <h2>Email</h2>
+        <h2>My Details</h2>
+        <h3>Email</h3>
         <p>{email}</p>
-        <h2>First name</h2>
+        <h3>First name</h3>
         <p>{firstName}</p>
-        <h2>Last name</h2>
+        <h3>Last name</h3>
         <p>{lastName}</p>
-        <h2>Phone number</h2>
+        <h3>Phone number</h3>
         <p>{phoneNumber}</p>
 
         <CustomButton

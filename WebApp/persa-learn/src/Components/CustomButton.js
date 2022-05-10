@@ -13,6 +13,7 @@ const CustomButton = ({
   if (type === 3) {
     return (
       <div
+        data-testid="button"
         aria-disabled={disabled}
         className={styles.special}
         style={
@@ -32,6 +33,7 @@ const CustomButton = ({
   } else if (type === 4) {
     return (
       <button
+        data-testid="button"
         aria-disabled={disabled}
         className={styles.icon}
         style={fill ? { width: "100%", minWidth: 0, maxWidth: "12rem" } : {}}
@@ -43,6 +45,7 @@ const CustomButton = ({
   }
   return (
     <button
+      data-testid="button"
       aria-disabled={disabled}
       className={type == 1 ? styles.primary : styles.secondary}
       style={fill ? { width: "100%", minWidth: 0, maxWidth: "12rem" } : {}}

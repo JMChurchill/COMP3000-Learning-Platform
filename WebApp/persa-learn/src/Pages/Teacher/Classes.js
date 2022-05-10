@@ -70,7 +70,7 @@ export const Classes = () => {
 
   return (
     <div className="content-box">
-      <h1>Teacher Profile (Classes)</h1>
+      <h1>Classes</h1>
       {/* <div className="container"> */}
       <div className={styles.container}>
         <h2>Classes</h2>
