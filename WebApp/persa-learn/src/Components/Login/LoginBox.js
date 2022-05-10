@@ -89,7 +89,11 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
 
   return (
     <>
-      {!isAdmin ? <h1>Login</h1> : <h1>Admin Login</h1>}
+      {!isAdmin ? (
+        <h1 data-testid={"thelogin"}>Login</h1>
+      ) : (
+        <h1>Admin Login</h1>
+      )}
 
       {isError ? <p className={styles.error_message}>{reason}</p> : ""}
       <label htmlFor="email">Email</label>
