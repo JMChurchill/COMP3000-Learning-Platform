@@ -27,15 +27,23 @@ export const loginUser = async (credentials, isTeacher, isAdmin) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then(
-    (data) => data.json()
-    // (errorData) => {
-    //   setError(errorData);
-    // },
-    // (response) => {
-    //   setHttpResponseCode(response.status);
-    // }
-  );
+  }).then((data) => data.json());
+};
+
+export const signUpUser = (credentials, isTeacher) => {
+  let url;
+  if (isTeacher) {
+    url = "http://localhost:8080/teacher/create";
+  } else {
+    url = "http://localhost:8080/student/create";
+  }
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
 };
 
 export const getUserDetails = () => {

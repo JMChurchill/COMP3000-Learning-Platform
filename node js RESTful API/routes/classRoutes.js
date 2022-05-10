@@ -33,6 +33,7 @@ router.route("/teacher").get(checkAuth, async (req, res) => {
   const password = req.user.password;
 
   const query = `CALL get_classes_by_teacher ("${email}", "${password}")`;
+  console.log(query);
   pool.query(query, (error, results) => {
     if (error) {
       return res.status(400).json({ status: "failure", reason: error.code });

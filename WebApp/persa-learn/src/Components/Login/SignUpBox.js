@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
 
+import { signUpUser } from "../../http_Requests/userRequests";
+
 import styles from "./SignUpBox.module.css";
 
 const SignUpBox = ({ setSignUp, isTeacher }) => {
@@ -23,30 +25,6 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
   const [httpResponseCode, setHttpResponseCode] = useState();
 
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const signUpUser = (credentials) => {
-    let url;
-    if (isTeacher) {
-      url = "http://localhost:8080/teacher/create";
-    } else {
-      url = "http://localhost:8080/student/create";
-    }
-    return fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }).then(
-      (data) => data.json(),
-      (errorData) => {
-        setError(errorData);
-      },
-      (response) => {
-        setHttpResponseCode(response.status);
-      }
-    );
-  };
 
   const signUp = async (e) => {
     // e.preventDefault();
@@ -105,20 +83,26 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
       try {
         let data;
         if (!isTeacher) {
-          data = await signUpUser({
-            email,
-            password,
-            firstname,
-            lastname,
-          });
+          data = await signUpUser(
+            {
+              email,
+              password,
+              firstname,
+              lastname,
+            },
+            isTeacher
+          );
         } else {
-          data = await signUpUser({
-            email,
-            password,
-            firstname,
-            lastname,
-            phonenumber,
-          });
+          data = await signUpUser(
+            {
+              email,
+              password,
+              firstname,
+              lastname,
+              phonenumber,
+            },
+            isTeacher
+          );
         }
         if (data !== null && data.status === "success") {
           setSignUp(false);
@@ -143,34 +127,52 @@ const SignUpBox = ({ setSignUp, isTeacher }) => {
 
       <label htmlFor="email">Email</label>
       <div className={styles.error}>{emailError}</div>
-      <CustomInput name={email} setValue={setEmail} />
+      <CustomInput name={"email"} placeholder={"email"} setValue={setEmail} />
 
       <label htmlFor="password">Password</label>
       <div className={styles.error}>{passwordError}</div>
-      <CustomInput password={true} name={password} setValue={setPassword} />
+      <CustomInput
+        password={true}
+        name={"password"}
+        placeholder={"password"}
+        setValue={setPassword}
+      />
 
       <label htmlFor="confirmPassword">Confirm Password</label>
       <div className={styles.error}>{confPasswordError}</div>
       <CustomInput
         password={true}
-        name={confPassword}
+        name={"confPassword"}
+        placeholder={"confPassword"}
         setValue={setConfPassword}
       />
 
       <label htmlFor="firstname">First name</label>
       <div className={styles.error}>{firstnameError}</div>
-      <CustomInput name={firstname} setValue={setFirstname} />
+      <CustomInput
+        name={"firstname"}
+        placeholder={"firstname"}
+        setValue={setFirstname}
+      />
 
       <label htmlFor="lastname">Last name</label>
       <div className={styles.error}>{lastnameError}</div>
-      <CustomInput name={lastname} setValue={setLastname} />
+      <CustomInput
+        name={"lastname"}
+        placeholder={"lastname"}
+        setValue={setLastname}
+      />
 
       {isTeacher ? (
         <>
           <label htmlFor="phonenumber">Phone number</label>
           <div className={styles.error}>{phonenumberError}</div>
 
-          <CustomInput name={phonenumber} setValue={setPhonenumber} />
+          <CustomInput
+            name={"phonenumber"}
+            placeholder={"phonenumber"}
+            setValue={setPhonenumber}
+          />
         </>
       ) : (
         <></>

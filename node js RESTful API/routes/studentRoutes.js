@@ -59,6 +59,7 @@ router.route("/login").post(async (req, res) => {
           // );
           // return token
           return res.status(200).json({
+            status: "success",
             message: "Successfull login",
             token: token,
             // refreshToken: refreshToken,

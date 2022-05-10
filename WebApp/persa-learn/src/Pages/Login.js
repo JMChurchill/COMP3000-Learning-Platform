@@ -13,7 +13,7 @@ const Login = ({ setToken }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   return (
-    <div className="content-box">
+    <div className="content-box" data-testid="login">
       {/* <h1>Login</h1> */}
       {/* <div className="container center-container"> */}
       {/* <div className="container"> */}

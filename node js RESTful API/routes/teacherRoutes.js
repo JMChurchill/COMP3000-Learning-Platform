@@ -60,6 +60,7 @@ router.route("/login").post(async (req, res) => {
             expiresIn: parseInt(process.env.EXPIRES_IN),
           });
           return res.status(200).json({
+            status: "success",
             message: "Successfull login",
             token: token,
           });
@@ -233,6 +234,7 @@ router
         email = data.email;
 
         const query = `CALL create_teacher ("${data.firstName}", "${data.lastName}", "${data.email}", "${data.password}","${data.phoneNumber}")`;
+        console.log(query);
         pool.query(query, (error) => {
           if (error) {
             return res

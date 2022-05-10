@@ -13,6 +13,7 @@ const CustomInput = ({
 }) => {
   return (
     <input
+      data-testid="input"
       className={styles.primary}
       placeholder={placeholder}
       style={fill ? { margin: 0, width: "100%" } : {}}
