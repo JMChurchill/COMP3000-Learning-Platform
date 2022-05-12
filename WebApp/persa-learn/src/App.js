@@ -10,7 +10,7 @@ import Home from "./Pages/Home";
 import Error from "./Pages/Error";
 import Login from "./Pages/Login";
 import Activities from "./Pages/RevisionActivities";
-import CreateActivity from "./Pages/CreateActivity";
+// import CreateActivity from "./Pages/CreateActivity";
 import Quiz from "./Pages/Activities/Quiz";
 import FlashCards from "./Pages/Activities/FlashCards";
 import QuizDesigner from "./Pages/ActivityDesigner/Quiz/QuizDesigner";
@@ -27,7 +27,7 @@ import EditUserSettings from "./Pages/EditUserSettings";
 import AssignActivities from "./Pages/AssignActivities/AssignActivities";
 import EditCardsInDeck from "./Pages/Activities/FlashCards/EditCardsInDeck";
 import Shop from "./Pages/Shop";
-import AdminProfile from "./Pages/AdminProfile";
+import AdminProfile from "./Pages/Admin/AdminProfile";
 import ThemesAll from "./Pages/Admin/ThemesAll";
 import ThemesAdd from "./Pages/Admin/ThemesAdd";
 import ThemesEdit from "./Pages/Admin/ThemesEdit";
@@ -211,7 +211,7 @@ function App() {
             <></>
           )}
           {/* temp routes */}
-          <Route exact path="/create" element={<CreateActivity />} />
+          {/* <Route exact path="/create" element={<CreateActivity />} /> */}
         </Routes>
       </Router>
     </div>

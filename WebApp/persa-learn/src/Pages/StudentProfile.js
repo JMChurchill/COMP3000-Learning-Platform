@@ -66,7 +66,7 @@ const StudentProfile = () => {
   }, []);
 
   return (
-    <div className="content-box">
+    <div className="content-box" data-testid={"studentProfile"}>
       {/* <div className="container wide-container center-container"> */}
       <h1>Student profile</h1>
       {/* <div className="container wide-container center-container"> */}

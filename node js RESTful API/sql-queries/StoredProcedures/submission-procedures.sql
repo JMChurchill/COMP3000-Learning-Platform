@@ -40,7 +40,8 @@ BEGIN
             SELECT 'Completed' Caption, students.studentID,email,firstname,lastname, score, subDate, rating FROM QuizSubmissions 
             INNER JOIN quizclassassignments ON quizclassassignments.quizID = quizsubmissions.QuizID 
             INNER JOIN students ON students.StudentID = quizsubmissions.StudentID
-            INNER JOIN quizratings ON students.StudentID = quizratings.StudentID AND quizratings.QuizID= quizclassassignments.QuizID
+            LEFT JOIN quizratings ON students.StudentID = quizratings.StudentID AND quizratings.QuizID= quizclassassignments.QuizID
+            /* INNER JOIN quizratings ON students.StudentID = quizratings.StudentID AND quizratings.QuizID= quizclassassignments.QuizID */
             WHERE quizclassassignments.ClassDetailsID = cID AND QuizSubmissions.QuizID = qID 
             AND students.StudentID IN (SELECT StudentID FROM Classes WHERE ClassDetailsID = cID)
             UNION

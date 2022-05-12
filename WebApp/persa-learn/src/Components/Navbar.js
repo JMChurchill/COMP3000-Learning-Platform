@@ -29,7 +29,7 @@ const Navbar = () => {
   };
   return (
     // <header className="primary-header flex">
-    <header className={styles.primary_header}>
+    <header className={styles.primary_header} data-testid={"navbar"}>
       <div className={styles.logo_container}>
         {/* <img src={logo} alt="logo" className="logo" /> */}
         <img src={logo} alt="logo" className={styles.logo} />

@@ -6,7 +6,7 @@ const OverlayConfirm = ({ message, yes, no, type = 1 }) => {
     <div className={styles.overlay}>
       {/* <div className="message-box"> */}
       <div className={styles.message_box}>
-        <h1>{message}</h1>
+        <h2>{message}</h2>
         {/* <button className="btn" onClick={yes}>
           yes
         </button>

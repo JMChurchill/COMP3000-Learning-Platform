@@ -55,7 +55,7 @@ const OverlayEdit = ({ ThemeID, close, getAllBanners }) => {
         <CustomInput setValue={setName} value={name} />
         <h2>Details</h2>
         <CustomInput setValue={setDetails} value={details} />
-        <h2>Image</h2>
+        <h2>Image (URL)</h2>
         <CustomInput setValue={setImage} value={image} />
         <div
           className={styles.previewImage}

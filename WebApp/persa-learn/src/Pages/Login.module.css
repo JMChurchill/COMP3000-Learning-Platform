@@ -1,6 +1,7 @@
 .container {
   display: flex;
   justify-content: center;
+  margin: 2.5rem;
 }
 .left_box,
 .right_box {

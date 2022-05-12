@@ -10,7 +10,7 @@ const ToggleSwitch = ({
 }) => {
   return (
     // <div className="toggle-switch">
-    <div className={styles.toggle_switch}>
+    <div className={styles.toggle_switch} data-cy="toggleTeacher">
       <input
         type="checkbox"
         // className="toggle-switch-checkbox"
@@ -21,7 +21,16 @@ const ToggleSwitch = ({
         onChange={(e) => onChange(e.target.checked)}
       />
       {/* <label className="toggle-switch-label" htmlFor={name}> */}
-      <label className={styles.toggle_switch_label} htmlFor={name}>
+      <label
+        className={styles.toggle_switch_label}
+        htmlFor={name}
+        tabIndex={0}
+        role="button"
+        aria-selected={false}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13) onChange(!checked);
+        }}
+      >
         {/* <span className="toggle-switch-inner" data-yes={yes} data-no={no} /> */}
         <span
           className={styles.toggle_switch_inner}

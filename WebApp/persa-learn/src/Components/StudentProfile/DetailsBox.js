@@ -8,7 +8,7 @@ const DetailsBox = ({ username, coins }) => {
         <p>{coins} Coins</p>
       </div>
       <div className={styles.name_box}>
-        <p>{username}</p>
+        <p data-testid="firstlast">{username}</p>
       </div>
     </div>
   );

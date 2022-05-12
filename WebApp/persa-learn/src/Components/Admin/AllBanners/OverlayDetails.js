@@ -7,7 +7,7 @@ import OverlayEdit from "./OverlayEdit";
 
 const OverlayDetails = ({ selectedBanner, getAllBanners, close }) => {
   const [showEdit, setShowEdit] = useState();
-  const [isDeleting, setIsDeleting] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteBanner = async () => {
     const data = await deleteBannerAdmin({ BannerID: selectedBanner.id });

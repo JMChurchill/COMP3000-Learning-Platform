@@ -82,23 +82,11 @@ const ClassDetails = ({
   return (
     // <div className="right-box vFill">
     <>
-      {/* <div className="class-details"> */}
       <div className={styles.class_details}>
         <h2>Class {name}'s Details</h2>
-        {/* <p>ID {classID}</p> */}
         <p>Year Group: {yearGroup}</p>
-        <p>Number of students:</p>
-        <p>Nearest due date: </p>
-        <p>Class Progress:</p>
+        <h3>Class Progress:</h3>
         <Progressbar complete={overalComplete} incomplete={overalIncomplete} />
-        {/* <div className="progressbar">
-          <div className="bar-fill-left">
-            <p>23</p>
-          </div>
-          <div className="bar-fill-right">
-            <p>7</p>
-          </div>
-        </div> */}
         <CustomButton
           text={"Add Student"}
           onClick={() => setIsSearching(!isSearching)}
@@ -107,14 +95,9 @@ const ClassDetails = ({
           text={"View Students"}
           onClick={() => flipIsShowStudents()}
         />
-        <CustomButton
-          text={"Update Class"}
-          // onClick={() => setIsDeleting(true)}
-          onClick={() => flipIsUpdating()}
-        />
+        <CustomButton text={"Update Class"} onClick={() => flipIsUpdating()} />
         <CustomButton
           text={"Delete Class"}
-          // onClick={() => flipIsShowStudents()}
           onClick={() => setIsDeleting(true)}
         />
         <CustomButton
