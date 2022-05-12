@@ -27,7 +27,7 @@ const AddClass = ({ flipAddClass, classChanged }) => {
       <CustomInput name={"name"} type={"text"} setValue={setClassName} />
       <label htmlFor="yearGroup">Year group</label>
       <CustomInput name={"yearGroup"} type={"text"} setValue={setYearGroup} />
-      <CustomButton text={"Add Class"} onClick={addToClass} />
+      <CustomButton text={"Confirm"} onClick={addToClass} />
       <CustomButton text={"Back"} type={2} onClick={() => flipAddClass()} />
     </div>
   );

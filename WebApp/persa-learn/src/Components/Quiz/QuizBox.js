@@ -46,7 +46,6 @@ const QuizBox = ({
         <p>{details}</p>
       </div>
       {/* <ol type="a" className="quiz-answers"> */}
-      {console.log("this", options)}
       <ol type="a" className={styles.answer_container}>
         {options == undefined
           ? console.log("oops")

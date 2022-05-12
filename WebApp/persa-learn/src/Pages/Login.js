@@ -24,7 +24,7 @@ const Login = ({ setToken }) => {
             <></>
           ) : (
             <ToggleSwitch
-              name="aa"
+              name="toggleTeacher"
               checked={isTeacher}
               onChange={setIsTeacher}
               yes="teacher"

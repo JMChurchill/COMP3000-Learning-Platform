@@ -22,6 +22,7 @@ describe("clickButton", () => {
     expect(consoleSpy).toHaveBeenCalledWith("worked");
   });
 });
+
 // test("renders without crashing", () => {
 //   render(<CustomButton text={"learn react"} />);
 //   const linkElement = screen.getByText(/learn react/i);

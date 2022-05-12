@@ -13,6 +13,7 @@ const AssignmentSubmissions = () => {
       cID: state.classID,
       qID: state.quizID,
     });
+    console.log("This", data);
     setSubmissions(data.data);
   }, []);
   return (

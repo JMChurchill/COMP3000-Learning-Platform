@@ -40,6 +40,7 @@ const NewOption = ({
         // className="check-box"
         className={styles.check_box}
         aria-selected={correctAns}
+        id={"checkbox"}
         onClick={() => {
           // updateCorrectAns(opID);
           updateCorrectAns(option);

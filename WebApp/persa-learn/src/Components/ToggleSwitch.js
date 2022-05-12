@@ -10,7 +10,7 @@ const ToggleSwitch = ({
 }) => {
   return (
     // <div className="toggle-switch">
-    <div className={styles.toggle_switch}>
+    <div className={styles.toggle_switch} data-cy="toggleTeacher">
       <input
         type="checkbox"
         // className="toggle-switch-checkbox"
