@@ -87,3 +87,49 @@ BEGIN
     WHERE StudentID = theStudentID AND QuizID = qID;
 END$$
 DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+# get quiz submission by student
+DELIMITER $$
+CREATE PROCEDURE quiz_submission_get_by_student (sID int,cID int, tEmail varchar(255), tPassword varchar(60))
+BEGIN
+    #get student id
+    DECLARE theTeacherID int;
+    SET theTeacherID = (SELECT TeacherID FROM teachers WHERE email = tEmail AND password = tPassword LIMIT 1);
+    IF EXISTS (SELECT * FROM ClassDetails WHERE TeacherID = theTeacherID AND ClassDetailsID = cID) THEN
+        SELECT * FROM
+        (
+            SELECT 'Completed' Caption, score, subDate, rating, quizzes.QuizName, COUNT(quizquestions.QuizID) AS total
+            FROM QuizSubmissions 
+            INNER JOIN quizclassassignments ON quizclassassignments.quizID = quizsubmissions.QuizID 
+            INNER JOIN quizzes ON quizclassassignments.quizID = quizzes.QuizID 
+            INNER JOIN students ON students.StudentID = quizsubmissions.StudentID
+            LEFT JOIN quizratings ON students.StudentID = quizratings.StudentID AND quizratings.QuizID= quizclassassignments.QuizID
+            RIGHT JOIN quizquestions ON quizsubmissions.QuizID = quizquestions.QuizID
+            WHERE quizclassassignments.ClassDetailsID = cID AND Students.StudentID = sID GROUP BY quizzes.QuizID 
+            UNION
+            SELECT 'Incomplete' Caption, NULL AS score, NULL AS subDate, NULL AS rating, quizzes.QuizName, COUNT(quizquestions.QuizID) AS total
+            FROM quizclassassignments
+            INNER JOIN quizzes ON quizclassassignments.quizID = quizzes.QuizID 
+            INNER JOIN classes ON classes.ClassDetailsID = quizclassassignments.ClassDetailsID
+            RIGHT JOIN quizquestions ON quizclassassignments.QuizID = quizquestions.QuizID
+            WHERE classes.StudentID NOT IN (SELECT StudentID FROM QuizSubmissions WHERE QuizID = quizzes.QuizID) AND quizclassassignments.ClassDetailsID = cID AND classes.StudentID = sID 			
+            GROUP BY quizzes.QuizID 
+        )subquery
+        ORDER BY Caption asc, FIELD(Caption, 'Completed', 'Incompleted');
+    ELSE
+        ROLLBACK;
+    END IF;
+END$$
+DELIMITER ;
+
+
+CALL quiz_submission_get_by_student(1,1,"e@email.com","password")

@@ -22,7 +22,6 @@ const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
       classID: classID,
       searchTerm,
     });
-    console.log(data);
     if (data.status === "success") {
       setSearchResults(data.data);
     }
@@ -30,58 +29,33 @@ const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
 
   useEffect(async () => {
     // get all students from database
-    // const data = await allStudents();
     await getAllStudents();
   }, []);
 
   const addStudent = async (studentID) => {
     let details = { studentID, classID };
     // add student to the class
-    // let data = await addStudentToClass(details);
-    // if (data.status === "success") console.log("student added to class");
-    // else if (data.reason === "ER_DUP_ENTRY")
-    //   console.log("student already in class");
     let data = await createClassRequest(details);
     console.log(data);
     if (data.status === "success") getAllStudents();
-    // else if (data.reason === "ER_DUP_ENTRY")
-    //   console.log("student already in class");
   };
   const removeStudent = async (studentID) => {
     let details = { studentID, classID };
     // add student to the class
-    // let data = await addStudentToClass(details);
-    // if (data.status === "success") console.log("student added to class");
-    // else if (data.reason === "ER_DUP_ENTRY")
-    //   console.log("student already in class");
     let data = await removeClassRequest(details);
-    console.log(data);
     if (data.status === "success") getAllStudents();
-    // else if (data.reason === "ER_DUP_ENTRY")
-    //   console.log("student already in class");
   };
 
   const searchForStudents = async () => {
     console.log(searchTerm);
     //get students
-    // let data = await searchStudents(searchTerm);
     await getAllStudents();
-    // //add to array
-    // console.log(data);
-    // if (data.status === "success") {
-    //   setSearchResults(data.data);
-    // }
   };
   console.log(classID);
 
   return (
-    // <div className="right-box vFill user-search">
     <>
-      {/* <div className="search-box"> */}
       <div className={styles.search_box}>
-        {/* <button className="btn" onClick={() => setIsSearching(!isSearching)}>
-          Stop Searching
-        </button> */}
         <CustomButton
           text={"X"}
           onClick={() => setIsSearching(!isSearching)}

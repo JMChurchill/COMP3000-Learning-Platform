@@ -27,3 +27,17 @@ export const unshareSubmission = (credentials) => {
   checkTokenCorrect(data);
   return data;
 };
+
+export const getStudentsSubmissionsByClass = (credentials) => {
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const data = fetch("http://localhost:8080/submission/class/student", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+  checkTokenCorrect(data);
+  return data;
+};

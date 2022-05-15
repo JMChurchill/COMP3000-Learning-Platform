@@ -45,6 +45,7 @@ router
     }
   );
 
+// stop sharing quiz submission
 router
   .route("/")
   .delete(
@@ -72,6 +73,53 @@ router
         // console.log(results);
         return res.status(200).json({
           status: "success",
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
+    }
+  );
+
+// get quiz submissions by student id
+router
+  .route("/class/student")
+  .post(
+    [
+      check("studentID", "Invalid Quiz ID").not().isEmpty(),
+      check("classID", "Invalid Quiz ID").not().isEmpty(),
+    ],
+    checkAuth,
+    async (req, res) => {
+      try {
+        //get these values from check auth (JWT)
+        const email = req.user.email;
+        const password = req.user.password;
+
+        const errs = validationResult(req);
+        if (!errs.isEmpty()) {
+          console.log(errs);
+          return res.status(400).json({
+            errors: errs.array(),
+          });
+        }
+
+        const data = {
+          studentID: req.body.studentID,
+          classID: req.body.classID,
+        };
+
+        let query = `CALL quiz_submission_get_by_student (${data.studentID}, ${data.classID},"${email}","${password}")`;
+        const [submissions] = await pool
+          .query(query)
+          .catch((err) => {
+            // throw err;
+            return res.status(400).json({ status: "failure", reason: err });
+          })
+          .then();
+        // console.log(results);
+        return res.status(200).json({
+          status: "success",
+          data: submissions,
         });
       } catch (err) {
         return res.status(500).send(err);

@@ -11,6 +11,7 @@
 .column_names {
   display: grid;
   width: 100%;
+  box-sizing: border-box;
   grid-template-columns: 40% 20% 20%;
   background-color: lightgray;
   background-color: var(--background-color);
@@ -31,7 +32,7 @@
 }
 .result {
   display: grid;
-  grid-template-columns: 40% 20% 20% 15%;
+  grid-template-columns: 40% 20% 20% 20%;
   margin-bottom: 0.23rem;
   /* border-bottom: #bbb 1px solid; */
   background-color: var(--background-color);
@@ -40,37 +41,3 @@
   box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y)
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
-/* .column-names {
-      display: grid;
-      width: 100%;
-      grid-template-columns: 40% 20% 20%;
-      background-color: lightgray;
-      &.in-class {
-        grid-template-columns: 20% 40% 20%;
-      }
-      p {
-        margin: 0.8rem 0;
-      }
-    } */
-/* .search-results {
-      border: solid 1px orange;
-      width: 100%;
-      overflow-x: none;
-      overflow-y: scroll;
-      > div {
-        display: grid;
-        grid-template-columns: 40% 20% 20% 15%;
-        margin-bottom: 0.23rem;
-        border-bottom: #bbb 1px solid;
-        &.in-class {
-          grid-template-columns: 20% 40% 20%;
-        }
-        .btn {
-          font-size: 1.5rem;
-          font-weight: bold;
-        }
-        cursor: pointer;
-        p {
-          margin: 0.8rem 0;
-        }
-      } */

@@ -2,7 +2,12 @@ import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { AiFillStar } from "react-icons/ai";
 import styles from "./Rate.module.css";
-const Rate = ({ rating = 0, onRating, isLocked = false }) => {
+const Rate = ({
+  rating = 0,
+  onRating,
+  isLocked = false,
+  isCentered = true,
+}) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   const stars = useMemo(() => {
@@ -22,12 +27,10 @@ const Rate = ({ rating = 0, onRating, isLocked = false }) => {
   });
 
   return (
-    <div className={styles.star_container}>
-      {/* <AiFillStar onClick={() => onRating(1)} />
-      <AiFillStar onClick={() => onRating(2)} />
-      <AiFillStar onClick={() => onRating(3)} />
-      <AiFillStar onClick={() => onRating(4)} />
-      <AiFillStar onClick={() => onRating(5)} /> */}
+    <div
+      style={isCentered ? {} : { justifySelf: "start", maxWidth: "100%" }}
+      className={styles.star_container}
+    >
       {stars}
     </div>
   );

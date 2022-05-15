@@ -31,9 +31,7 @@ const Classes = () => {
   }, []);
   return (
     <div className="content-box">
-      {/* <div className="container wide-container center-container"> */}
       <h1>Classes</h1>
-      {/* <div className="container wide-container center-container"> */}
       <div className={styles.container}>
         <div className={styles.tabs}>
           {tabs.map((tab, i) => {
@@ -55,7 +53,6 @@ const Classes = () => {
           })}
         </div>
         {selectedTab == 1 ? (
-          // <div className="class-items list-items">
           <div className={styles.list_items}>
             {requests.map((c) => (
               <RequestItem
