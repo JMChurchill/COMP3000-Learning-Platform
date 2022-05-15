@@ -32,7 +32,8 @@ const QuizListItem = ({
     <div className={styles.quiz_cols}>
       <p>{name}</p>
       <p className={styles.module}>{module}</p>
-      <p className={styles.num_quest}>{numQuest}</p>
+      {/* <p className={styles.num_quest}>{numQuest}</p> */}
+      <p className={styles.num_quest}></p>
       <div className={styles.icon}>
         <ToolTip
           Icon={IoStatsChart}
@@ -54,7 +55,7 @@ const QuizListItem = ({
           Icon={MdModeEdit}
           action={() =>
             navigate("/designer_quiz/edit", {
-              state: { quizID: id },
+              state: { quizID: id, selectedClass: { classID, className } },
             })
           }
           id={id}

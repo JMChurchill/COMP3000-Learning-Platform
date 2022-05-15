@@ -51,13 +51,8 @@ router.route("/login").post(async (req, res) => {
           data.password = results[0].Password;
           // create jwt of email and password with a predefined expiry time
           const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
-            expiresIn: parseInt(process.env.EXPIRES_IN),
+            // expiresIn: parseInt(process.env.EXPIRES_IN),
           });
-          // const refreshToken = jwt.sign(
-          //   { data },
-          //   process.env.REFRESH_TOKEN_SECRET
-          // );
-          // return token
           return res.status(200).json({
             status: "success",
             message: "Successfull login",

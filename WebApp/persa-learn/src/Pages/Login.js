@@ -3,6 +3,7 @@ import LoginBox from "../Components/Login/LoginBox";
 import SignUpBox from "../Components/Login/SignUpBox";
 import ToggleSwitch from "../Components/ToggleSwitch";
 import userIcon from "../assets/tempUserIcon.svg";
+import logo from "../assets/largeLogo.png";
 
 import styles from "./Login.module.css";
 import CustomButton from "../Components/CustomButton";
@@ -19,7 +20,7 @@ const Login = ({ setToken }) => {
       {/* <div className="container"> */}
       <div className={styles.container}>
         <div className={styles.right_box}>
-          <img src={userIcon} alt="User icon" />
+          <img src={logo} alt="User icon" />
           {isAdmin ? (
             <></>
           ) : (

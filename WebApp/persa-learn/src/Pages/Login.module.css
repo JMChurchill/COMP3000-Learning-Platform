@@ -1,7 +1,9 @@
 .container {
   display: flex;
+  /* align-self: center; */
   justify-content: center;
-  margin: 2.5rem;
+  align-items: center;
+  margin: auto;
 }
 .left_box,
 .right_box {
@@ -18,7 +20,7 @@
     var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 .right_box img {
-  border-radius: 50%;
+  /* border-radius: 50%; */
   width: 30%;
   height: 90%;
   margin: auto;

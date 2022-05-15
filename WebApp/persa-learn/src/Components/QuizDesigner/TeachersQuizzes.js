@@ -25,7 +25,8 @@ const TeachersQuizzes = ({
         <div className={styles.quiz_cols}>
           <p>Quiz names</p>
           <p className={styles.module}>Module</p>
-          <p className={styles.num_quest}>No. of Questions</p>
+          {/* <p className={styles.num_quest}>No. of Questions</p> */}
+          <p className={styles.num_quest}></p>
           <p>Options</p>
           <p>Due</p>
         </div>

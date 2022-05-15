@@ -11,6 +11,9 @@ import colors from "./app/config/colors";
 
 import Navigation from "./app/navigation";
 import HomeScreen from "./app/screens/HomeScreen";
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function App() {
   return (

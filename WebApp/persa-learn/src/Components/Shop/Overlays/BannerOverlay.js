@@ -61,7 +61,7 @@ const BannerOverlay = ({ selectedItem = {}, getItems, close }) => {
       </div>
       {isPoor ? (
         <OverlayConfirm
-          message={"Sorry you don't have enough coins"}
+          message={"Sorry you don't have enough coins or level"}
           yes={() => setIsPoor(false)}
           type={2}
         />

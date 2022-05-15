@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 import { MdMenu } from "react-icons/md";
 
-// import logo from "../assets/tempLogo.svg";
 import logo from "../assets/logo.png";
-// import logo from "../assets/logo.svg";
 
 const Navbar = () => {
   const [navVisibility, setNavVisibility] = useState(false);
@@ -16,6 +14,7 @@ const Navbar = () => {
   const [isAdmin, setIsAdmin] = useState(
     sessionStorage.getItem("admin") === "true"
   );
+  const navigate = useNavigate();
 
   const navToggle = () => {
     setNavVisibility(!navVisibility);
@@ -23,6 +22,8 @@ const Navbar = () => {
   // console.log(isTeacher);
   const logout = (e) => {
     // e.preventDefault();
+    navigate("/", {});
+
     sessionStorage.clear();
     window.location.reload();
     // setToken("");

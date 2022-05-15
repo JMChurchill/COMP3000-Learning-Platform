@@ -62,7 +62,13 @@ const QuizEdit = () => {
     });
 
     if (data.status == "success") {
-      navigate("/", {});
+      // navigate("/", {});
+      navigate("/Assign", {
+        state: {
+          id: state.selectedClass.classID,
+          name: state.selectedClass.name,
+        },
+      });
     } else alert("unable to update quiz");
     // //add quiz to database
     // const data = await createTheQuiz({

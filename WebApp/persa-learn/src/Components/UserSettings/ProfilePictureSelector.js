@@ -58,7 +58,6 @@ const ProfilePictureSelector = ({ close, getDetails }) => {
           }}
         >
           <CustomButton text={"Confirm"} onClick={updatePicture} />
-          <CustomButton text={"Get more"} onClick={updatePicture} />
           <CustomButton text={"Back"} type={2} onClick={close} />
         </div>
       </div>

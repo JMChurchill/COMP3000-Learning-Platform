@@ -62,7 +62,7 @@ const ProfilePictureOverlay = ({ selectedItem, getItems, close }) => {
       </div>
       {isPoor ? (
         <OverlayConfirm //TODO: fix
-          message={"Sorry you don't have enough coins"}
+          message={"Sorry you don't have enough coins or level"}
           yes={() => setIsPoor(false)}
           type={2}
         />
