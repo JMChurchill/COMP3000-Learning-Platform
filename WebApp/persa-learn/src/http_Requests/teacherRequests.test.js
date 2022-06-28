@@ -13,6 +13,7 @@ import { loginUser, signUpUser } from "./userRequests";
 
 describe("teacherRequests", () => {
   beforeAll(async () => {
+    // create account
     let results = await signUpUser(
       {
         email: "email@testing.test",
@@ -24,7 +25,7 @@ describe("teacherRequests", () => {
       true
     );
     expect(results.status).toBe("success");
-
+    //login to account just created
     let data = await loginUser(
       { email: "email@testing.test", password: "password" },
       true,
@@ -35,6 +36,7 @@ describe("teacherRequests", () => {
   });
 
   afterAll(async () => {
+    // delete the account to allow for test to be repeated
     const results = await deleteTeacher();
     expect(results.status).toBe("success");
   });

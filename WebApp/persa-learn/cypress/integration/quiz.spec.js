@@ -2,9 +2,11 @@
 
 describe("quiz flow", () => {
   beforeEach(() => {
+    // go to home page
     cy.visit("/");
   });
   afterEach(() => {
+    // go to home page and logout
     cy.visit("/");
     cy.contains("a", "Logout").click();
   });
