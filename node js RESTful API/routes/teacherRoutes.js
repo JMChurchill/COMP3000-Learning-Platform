@@ -316,17 +316,26 @@ router.route("/classes/remove").delete(checkAuth, async (req, res) => {
     };
 
     const query = `CALL remove_student_from_class (${data.classID}, ${data.studentID}, "${email}", "${password}")`;
-    pool.query(query, (error, results) => {
-      if (error) {
-        return res.status(400).json({ status: "failure", reason: error.code });
-      } else {
-        return res.status(201).json({
-          status: "success",
-          data: data,
-          message: "student added to class",
-        });
-      }
+    const [results] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
     });
+    return res.status(201).json({
+      status: "success",
+      data: data,
+      message: "student added to class",
+    });
+    // pool.query(query, (error, results) => {
+    //   if (error) {
+    //     return res.status(400).json({ status: "failure", reason: error.code });
+    //   } else {
+    //     return res.status(201).json({
+    //       status: "success",
+    //       data: data,
+    //       message: "student added to class",
+    //     });
+    //   }
+    // });
   } catch (err) {
     return res.status(500).send(err);
   }
@@ -399,14 +408,24 @@ router
       };
 
       const query = `CALL teacher_get_students_by_class (${data.classID}, "${email}", "${password}")`;
-      pool.query(query, (error, results) => {
-        if (results === null) {
-          return res.status(204).json({ status: "Not found" });
-        } else {
-          console.log(results[0]);
-          return res.status(200).json({ status: "success", data: results[0] });
-        }
+      const [results] = await pool.query(query).catch((err) => {
+        // throw err;
+        return res.status(400).json({ status: "failure", reason: err });
       });
+      if (results === null) {
+        return res.status(204).json({ status: "Not found" });
+      } else {
+        console.log(results[0]);
+        return res.status(200).json({ status: "success", data: results[0] });
+      }
+      // pool.query(query, (error, results) => {
+      //   if (results === null) {
+      //     return res.status(204).json({ status: "Not found" });
+      //   } else {
+      //     console.log(results[0]);
+      //     return res.status(200).json({ status: "success", data: results[0] });
+      //   }
+      // });
     }
   );
 

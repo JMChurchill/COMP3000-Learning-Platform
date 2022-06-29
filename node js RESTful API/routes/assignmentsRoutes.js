@@ -197,37 +197,43 @@ router.route("/quizzes").get(checkAuth, async (req, res) => {
 });
 
 // get class assignments progress
-router.route("/progress").get(checkAuth, async (req, res) => {
-  try {
-    //get these values from check auth (JWT)
-    const email = req.user.email;
-    const password = req.user.password;
+router
+  .route("/progress")
+  .get(
+    [check("classID", "Invalid class ID").not().isEmpty()],
+    checkAuth,
+    async (req, res) => {
+      // try {
+      //get these values from check auth (JWT)
+      const email = req.user.email;
+      const password = req.user.password;
 
-    const errs = validationResult(req);
-    if (!errs.isEmpty()) {
-      console.log(errs);
-      return res.status(400).json({
-        errors: errs.array(),
+      const errs = validationResult(req);
+      if (!errs.isEmpty()) {
+        console.log(errs);
+        return res.status(400).json({
+          errors: errs.array(),
+        });
+      }
+      const data = {
+        classID: req.query.classID,
+      };
+      let query = `CALL assignment_overall_class_progress(${data.classID},"${email}","${password}")`;
+      console.log(query);
+      const [[progress]] = await pool.query(query).catch((err) => {
+        // throw err;
+        return res.status(400).json({ status: "failure", reason: err });
       });
+      console.log(progress);
+      return res.status(200).json({
+        status: "success",
+        data: progress,
+      });
+      // } catch (err) {
+      //   return res.status(500).send(err);
+      // }
     }
-    const data = {
-      classID: req.query.classID,
-    };
-    let query = `CALL assignment_overall_class_progress(${data.classID},"${email}","${password}")`;
-    console.log(query);
-    const [progress] = await pool.query(query).catch((err) => {
-      // throw err;
-      return res.status(400).json({ status: "failure", reason: err });
-    });
-    console.log(progress);
-    return res.status(200).json({
-      status: "success",
-      data: progress,
-    });
-  } catch (err) {
-    return res.status(500).send(err);
-  }
-});
+  );
 
 // get all quiz submissions
 router
@@ -247,7 +253,7 @@ router
         const quizID = req.query.quizID;
         const query = `CALL quiz_submission_get_by_assignment (${quizID},${classID},"${email}", "${password}")`;
         console.log(query);
-        const [submissions] = await pool.query(query).catch((err) => {
+        const [[submissions]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });

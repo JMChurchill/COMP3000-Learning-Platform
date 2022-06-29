@@ -83,21 +83,31 @@ router
           searchTerm: req.body.searchTerm,
         };
         const query = `CALL class_request_view_all_students (${data.classID},"${data.searchTerm}","${email}", "${password}")`;
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            if (results === null) {
-              return res.status(204).json({ status: "Not found" });
-            } else {
-              return res
-                .status(200)
-                .json({ status: "success", data: results[0] });
-            }
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(results);
+        if (results === null) {
+          return res.status(204).json({ status: "Not found" });
+        } else {
+          return res.status(200).json({ status: "success", data: results[0] });
+        }
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     if (results === null) {
+        //       return res.status(204).json({ status: "Not found" });
+        //     } else {
+        //       return res
+        //         .status(200)
+        //         .json({ status: "success", data: results[0] });
+        //     }
+        //   }
+        // });
       } catch (e) {
         return res.status(400).json({ status: "failure", reason: e });
       }
@@ -131,19 +141,28 @@ router
         };
 
         const query = `CALL class_request_send ("${data.classID}", ${data.studentID}, "${email}", "${password}")`;
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({
-              status: "success",
-              data: data,
-              message: "sent request",
-            });
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({
+          status: "success",
+          data: data,
+          message: "sent request",
+        });
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({
+        //       status: "success",
+        //       data: data,
+        //       message: "sent request",
+        //     });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -177,18 +196,26 @@ router
 
         const query = `CALL class_request_cancel (${data.classID}, ${data.studentID}, "${email}", "${password}")`;
         console.log(query);
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({
-              status: "success",
-              message: "Deleted Request",
-            });
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({
+          status: "success",
+          message: "Deleted Request",
+        });
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({
+        //       status: "success",
+        //       message: "Deleted Request",
+        //     });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -218,19 +245,29 @@ router
         };
 
         const query = `CALL class_request_accept ("${data.classID}", "${email}", "${password}")`;
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({
-              status: "success",
-              data: data,
-              message: "sent request",
-            });
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({
+          status: "success",
+          data: data,
+          message: "sent request",
+        });
+
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({
+        //       status: "success",
+        //       data: data,
+        //       message: "sent request",
+        //     });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -260,18 +297,26 @@ router
 
         const query = `CALL class_request_decline (${data.classID}, "${email}", "${password}")`;
         console.log(query);
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({
-              status: "success",
-              message: "Deleted Request",
-            });
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({
+          status: "success",
+          message: "Deleted Request",
+        });
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({
+        //       status: "success",
+        //       message: "Deleted Request",
+        //     });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }

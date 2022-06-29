@@ -221,7 +221,7 @@ END$$
     DECLARE theTeacherID int;
     SET theTeacherID = (SELECT TeacherID FROM teachers WHERE Email = tEmail AND Password = tPassword LIMIT 1);
     #check is teachers class
-    IF EXISTS (SELECT * FROM quizclassassignments INNER JOIN classdetails ON classdetails.ClassDetailsID = quizclassassignments.ClassDetailsID WHERE quizclassassignments.ClassDetailsID = cID AND classdetails.TeacherID = theTeacherID) THEN
+    #IF EXISTS (SELECT * FROM quizclassassignments INNER JOIN classdetails ON classdetails.ClassDetailsID = quizclassassignments.ClassDetailsID WHERE quizclassassignments.ClassDetailsID = cID AND classdetails.TeacherID = theTeacherID) THEN
         SELECT * FROM 
         (
             SELECT 'Complete' Caption, COUNT(*) AS Number FROM (
@@ -240,9 +240,9 @@ END$$
         )subquery
         ORDER BY Number, FIELD(Caption, 'Complete', 'Incomplete');
 
-    ELSE
-        ROLLBACK;
-    END IF;
+    #ELSE
+        #ROLLBACK;
+    #END IF;
 END$$
 
  CREATE PROCEDURE `assignment_quiz_create_class` (`cID` INT, `qID` INT, `dDate` DATE, `qXp` INT, `qCoins` INT, `tEmail` VARCHAR(255), `tPassword` VARCHAR(60))  BEGIN 

@@ -59,6 +59,7 @@ export const Classes = () => {
 
   useEffect(async () => {
     let data = await getTeachersClasses();
+    console.log(data);
     if (data.hasOwnProperty("data")) {
       setClasses(data.data);
     }

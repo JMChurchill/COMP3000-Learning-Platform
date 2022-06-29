@@ -44,17 +44,27 @@ router.route("/teacher").get(checkAuth, async (req, res) => {
 
   const query = `CALL get_classes_by_teacher ("${email}", "${password}")`;
   console.log(query);
-  pool.query(query, (error, results) => {
-    if (error) {
-      return res.status(400).json({ status: "failure", reason: error.code });
-    } else {
-      if (results === null) {
-        return res.status(204).json({ status: "Not found" });
-      } else {
-        return res.status(200).json({ status: "success", data: results[0] });
-      }
-    }
+  const [results] = await pool.query(query).catch((err) => {
+    // throw err;
+    return res.status(400).json({ status: "failure", reason: err });
   });
+  if (results === null) {
+    return res.status(204).json({ status: "Not found" });
+  } else {
+    return res.status(200).json({ status: "success", data: results[0] });
+  }
+
+  // pool.query(query, (error, results) => {
+  //   if (error) {
+  //     return res.status(400).json({ status: "failure", reason: error.code });
+  //   } else {
+  //     if (results === null) {
+  //       return res.status(204).json({ status: "Not found" });
+  //     } else {
+  //       return res.status(200).json({ status: "success", data: results[0] });
+  //     }
+  //   }
+  // });
 });
 
 //create class
@@ -84,19 +94,28 @@ router
         };
 
         const query = `CALL create_class ("${data.name}", ${data.yGroup}, "${email}", "${password}")`;
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({
-              status: "success",
-              data: data,
-              message: "created class",
-            });
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({
+          status: "success",
+          data: data,
+          message: "created class",
+        });
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({
+        //       status: "success",
+        //       data: data,
+        //       message: "created class",
+        //     });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -133,19 +152,28 @@ router
 
         const query = `CALL update_class (${data.classID},"${data.name}", ${data.yGroup}, "${email}", "${password}")`;
         console.log(query);
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({
-              status: "success",
-              data: data,
-              message: "created class",
-            });
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({
+          status: "success",
+          data: data,
+          message: "created class",
+        });
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({
+        //       status: "success",
+        //       data: data,
+        //       message: "created class",
+        //     });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -175,18 +203,27 @@ router
 
         const query = `CALL delete_class (${data.classID}, "${email}", "${password}")`;
         console.log(query);
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({
-              status: "success",
-              message: "Class successfully deleted",
-            });
-          }
+        const [results] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({
+          status: "success",
+          message: "Class successfully deleted",
+        });
+
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({
+        //       status: "success",
+        //       message: "Class successfully deleted",
+        //     });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
