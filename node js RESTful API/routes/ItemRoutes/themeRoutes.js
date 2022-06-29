@@ -26,7 +26,7 @@ router.route("/").get(checkAuth, async (req, res) => {
 
     const query = `CALL Themes_get_all ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[themes]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
@@ -114,7 +114,7 @@ router.route("/purchased").get(checkAuth, async (req, res) => {
 
     const query = `CALL Themes_purchased ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[themes]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
@@ -151,7 +151,7 @@ router
 
         const query = `CALL Themes_purchased_add (${data.themeID},"${email}", "${password}")`;
         console.log(query);
-        const results = await pool.query(query).catch((err) => {
+        const [results] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });

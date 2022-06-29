@@ -121,6 +121,7 @@ export const getQuiz = (quizID) => {
 
 export const checkAnswers = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
+  console.log(credentials);
   const data = fetch(`http://localhost:8080/quiz/checkAnswers`, {
     method: "POST",
     headers: {

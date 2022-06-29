@@ -26,7 +26,7 @@ router.route("/").get(checkAuth, async (req, res) => {
 
     const query = `CALL Banners_get_all ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[themes]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
@@ -84,21 +84,21 @@ router.route("/purchased").get(checkAuth, async (req, res) => {
 
     const query = `CALL Banners_purchased ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[banners]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
     // console.log(results);
     return res.status(200).json({
       status: "success",
-      data: themes,
+      data: banners,
     });
   } catch (err) {
     return res.status(500).send(err);
   }
 });
 
-// purchase a theme
+// purchase a banner
 router
   .route("/purchased")
   .post(
@@ -121,7 +121,7 @@ router
 
         const query = `CALL Banners_purchased_add (${data.bannerID},"${email}", "${password}")`;
         console.log(query);
-        const results = await pool.query(query).catch((err) => {
+        const [results] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });

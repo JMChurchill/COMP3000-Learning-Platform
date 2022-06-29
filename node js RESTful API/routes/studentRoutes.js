@@ -36,39 +36,87 @@ router.route("/login").post(async (req, res) => {
   };
   // get all students from database with corresponding email
   const query = `SELECT * FROM students WHERE email = "${data.email}"`;
-  pool.query(query, async (error, results) => {
-    console.log(query);
-    if (error) {
-      return res.status(500).json({ status: "failure", reason: error.code });
-    }
-    if (!results[0]) {
-      // no students with that email
-      return res.status(401).json({ status: "Email or Password incorrect" });
-    } else {
-      try {
-        // compare input password with password on database
-        if (await bcrypt.compare(req.body.password, results[0].Password)) {
-          data.password = results[0].Password;
-          // create jwt of email and password with a predefined expiry time
-          const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
-            // expiresIn: parseInt(process.env.EXPIRES_IN),
-          });
-          return res.status(200).json({
-            status: "success",
-            message: "Successfull login",
-            token: token,
-            // refreshToken: refreshToken,
-          });
-        } else {
-          return res
-            .status(401)
-            .json({ status: "Email or Password incorrect" });
-        }
-      } catch {
-        return res.status(404).json({ status: "error occured" });
-      }
-    }
+  const [results] = await pool.query(query).catch((err) => {
+    // throw err;
+    console.log("something went wrong");
+    return res.status(400).json({ status: "failure", reason: err });
   });
+  console.log(results);
+  // if (error) {
+  //   return res.status(500).json({ status: "failure", reason: error.code });
+  // }
+  if (!results[0]) {
+    // no students with that email
+    return res.status(401).json({ status: "Email or Password incorrect" });
+  } else {
+    try {
+      console.log("result found");
+      // compare input password with password on database
+      if (await bcrypt.compare(req.body.password, results[0].Password)) {
+        console.log("doing bcrypt");
+        data.password = results[0].Password;
+        console.log("getting password");
+        console.log(data);
+        console.log("secure key: ", process.env.SECURE_KEY);
+        // create jwt of email and password with a predefined expiry time
+        const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
+          // expiresIn: parseInt(process.env.EXPIRES_IN),
+        });
+        console.log("this is token:", token);
+        return res.status(200).json({
+          status: "success",
+          message: "Successfull login",
+          token: token,
+          // refreshToken: refreshToken,
+        });
+      } else {
+        return res.status(401).json({ status: "Email or Password incorrect" });
+      }
+    } catch {
+      return res.status(404).json({ status: "error occured" });
+    }
+  }
+
+  // pool.query(query, async (error, results) => {
+  //   console.log(query);
+  //   console.log(error);
+  //   if (error) {
+  //     return res.status(500).json({ status: "failure", reason: error.code });
+  //   }
+  //   if (!results[0]) {
+  //     // no students with that email
+  //     return res.status(401).json({ status: "Email or Password incorrect" });
+  //   } else {
+  //     try {
+  //       console.log("result found");
+  //       // compare input password with password on database
+  //       if (await bcrypt.compare(req.body.password, results[0].Password)) {
+  //         console.log("doing bcrypt");
+  //         data.password = results[0].Password;
+  //         console.log("getting password");
+  //         console.log(data);
+  //         console.log("secure key: ", process.env.SECURE_KEY);
+  //         // create jwt of email and password with a predefined expiry time
+  //         const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
+  //           // expiresIn: parseInt(process.env.EXPIRES_IN),
+  //         });
+  //         console.log("this is token:", token);
+  //         return res.status(200).json({
+  //           status: "success",
+  //           message: "Successfull login",
+  //           token: token,
+  //           // refreshToken: refreshToken,
+  //         });
+  //       } else {
+  //         return res
+  //           .status(401)
+  //           .json({ status: "Email or Password incorrect" });
+  //       }
+  //     } catch {
+  //       return res.status(404).json({ status: "error occured" });
+  //     }
+  //   }
+  // });
 });
 
 //update student , delete student
@@ -99,15 +147,11 @@ router
         lName: req.body.lastname,
       };
       const query = `CALL update_student ( "${oEmail}", "${oPassword}", "${data.fName}", "${data.lName}", "${data.email}")`;
-      pool.query(query, (error) => {
-        if (error) {
-          return res
-            .status(400)
-            .json({ status: "failure", reason: error.code });
-        } else {
-          return res.status(200).json({ status: "success", data: data });
-        }
+      const result = await pool.query(query).catch((err) => {
+        // throw err;
+        return res.status(400).json({ status: "failure", reason: err });
       });
+      return res.status(200).json({ status: "success", data: result });
     }
   )
   .delete(checkAuth, async (req, res) => {
@@ -115,16 +159,24 @@ router
     const oEmail = req.user.email;
     const oPassword = req.user.password;
     const query = `CALL delete_student ( "${oEmail}", "${oPassword}")`;
-    pool.query(query, (error) => {
-      if (error) {
-        return res.status(400).json({ status: "failure", reason: error.code });
-      } else {
-        return res.status(200).json({
-          status: "success",
-          message: `deleted user: ${oEmail}`,
-        });
-      }
+    const result = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
     });
+    return res.status(200).json({
+      status: "success",
+      message: `deleted user: ${oEmail}`,
+    });
+    // pool.query(query, (error) => {
+    //   if (error) {
+    //     return res.status(400).json({ status: "failure", reason: error.code });
+    //   } else {
+    //     return res.status(200).json({
+    //       status: "success",
+    //       message: `deleted user: ${oEmail}`,
+    //     });
+    //   }
+    // });
   });
 
 //update profile picture
@@ -152,15 +204,12 @@ router
         profilePicture: req.body.ProfilePicture,
       };
       const query = `CALL update_profile_picture ("${data.profilePicture}", "${email}", "${password}")`;
-      pool.query(query, (error) => {
-        if (error) {
-          return res
-            .status(400)
-            .json({ status: "failure", reason: error.code });
-        } else {
-          return res.status(200).json({ status: "success", data: data });
-        }
+      console.log(query);
+      const result = await pool.query(query).catch((err) => {
+        // throw err;
+        return res.status(400).json({ status: "failure", reason: err });
       });
+      return res.status(200).json({ status: "success", data: data });
     }
   );
 
@@ -187,15 +236,11 @@ router
       const query = `CALL update_banner ("${data.banner}", "${email}", "${password}")`;
       console.log(query);
 
-      pool.query(query, (error) => {
-        if (error) {
-          return res
-            .status(400)
-            .json({ status: "failure", reason: error.code });
-        } else {
-          return res.status(200).json({ status: "success", data: data });
-        }
+      const result = await pool.query(query).catch((err) => {
+        // throw err;
+        return res.status(400).json({ status: "failure", reason: err });
       });
+      return res.status(200).json({ status: "success", data: data });
     }
   );
 
@@ -229,15 +274,21 @@ router
         email = data.email;
         const query = `CALL create_student ("${data.fName}", "${data.lName}", "${data.email}", "${data.password}")`;
         console.log(query);
-        pool.query(query, (error) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({ status: "success" });
-          }
+        const result = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({ status: "success" });
+
+        // pool.query(query, (error) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({ status: "success" });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -264,13 +315,24 @@ router
         classID: req.body.classID,
       };
       const query = `CALL get_students_by_class (${data.classID}, "${email}", "${password}")`;
-      pool.query(query, (error, results) => {
-        if (results === null) {
-          return res.status(204).json({ status: "Not found" });
-        } else {
-          return res.status(200).json({ status: "success", data: results[0] });
-        }
+      const [results] = await pool.query(query).catch((err) => {
+        // throw err;
+        return res.status(400).json({ status: "failure", reason: err });
       });
+      console.log(results);
+      if (results === null) {
+        return res.status(204).json({ status: "Not found" });
+      } else {
+        return res.status(200).json({ status: "success", data: results[0] });
+      }
+
+      // pool.query(query, (error, results) => {
+      //   if (results === null) {
+      //     return res.status(204).json({ status: "Not found" });
+      //   } else {
+      //     return res.status(200).json({ status: "success", data: results[0] });
+      //   }
+      // });
     }
   );
 
@@ -281,7 +343,8 @@ router.route("/details").get(checkAuth, async (req, res) => {
     const password = req.user.password;
 
     const query = `CALL get_student_details ("${email}", "${password}")`;
-    const [[results]] = await pool.query(query).catch((err) => {
+    console.log(query);
+    const [[[results]]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
@@ -328,11 +391,11 @@ router
         // get all students from database with corresponding email
         let query = `SELECT * FROM students WHERE email = "${sEmail}"`;
 
-        const [result] = await pool.query(query).catch((err) => {
+        const [[result]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-
+        console.log(result);
         try {
           // compare input password with password on database
           if (await bcrypt.compare(data.oldPassword, result.Password)) {
@@ -345,15 +408,11 @@ router
         }
 
         query = `CALL student_edit_password ("${sEmail}","${data.oldPassword}", "${data.newPassword}")`;
-        pool.query(query, (error) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(200).json({ status: "success" });
-          }
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(200).json({ status: "success" });
       } catch (err) {
         return res.status(500).send(err);
       }

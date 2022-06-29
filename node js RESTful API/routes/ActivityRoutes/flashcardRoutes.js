@@ -25,7 +25,7 @@ router.route("/view").get(checkAuth, async (req, res) => {
     const password = req.user.password;
 
     const query = `CALL deck_get ("${email}", "${password}")`;
-    const [decks] = await pool.query(query).catch((err) => {
+    const [[decks]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
@@ -184,10 +184,11 @@ router
         console.log(data);
         const query = `CALL flashcard_get_all_by_deck ("${data.deckID}","${email}", "${password}")`;
         console.log(query);
-        const [flashCards] = await pool.query(query).catch((err) => {
+        const [[flashCards]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(flashCards);
         return res.status(200).json({
           status: "success",
           flashCards,
@@ -222,10 +223,11 @@ router
         };
 
         const query = `CALL deck_num_flashcards ("${data.deckID}","${email}", "${password}")`;
-        const [[numCards]] = await pool.query(query).catch((err) => {
+        const [[[numCards]]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(numCards);
         // console.log(numCards[0]);
         return res.status(200).json({
           status: "success",

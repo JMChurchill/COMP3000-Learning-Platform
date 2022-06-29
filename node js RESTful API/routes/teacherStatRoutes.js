@@ -16,15 +16,14 @@ router.route("/assignment/Progress").get(checkAuth, async (req, res) => {
   const password = req.user.password;
 
   const query = `CALL all_assignment_progress('${email}','${password}')`;
-  console.log(query);
-  const [signUps] = await pool.query(query).catch((err) => {
+  const [[assignProgr]] = await pool.query(query).catch((err) => {
     // throw err;
     return res.status(400).json({ status: "failure", reason: err });
   });
   // console.log(results);
   return res.status(200).json({
     status: "success",
-    data: signUps,
+    data: assignProgr,
   });
 });
 
@@ -35,14 +34,14 @@ router.route("/assignment/Rating").get(checkAuth, async (req, res) => {
 
   const query = `CALL assignment_ratings_by_teacher('${email}','${password}')`;
   console.log(query);
-  const [signUps] = await pool.query(query).catch((err) => {
+  const [[ratings]] = await pool.query(query).catch((err) => {
     // throw err;
     return res.status(400).json({ status: "failure", reason: err });
   });
   // console.log(results);
   return res.status(200).json({
     status: "success",
-    data: signUps,
+    data: ratings,
   });
 });
 

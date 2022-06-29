@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+  web-app:
+    build:
+      context: ./WebApp/persa-learn
+      dockerfile: Dockerfile.prod
+    # ./WebApp/persa-learn
+    ports:
+      - "8080:80"
+    # dockerfile: ./WebApp/persa-learn/Dockerfile

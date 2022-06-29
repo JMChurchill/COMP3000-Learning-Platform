@@ -248,16 +248,18 @@ router
           quizID: req.body.quizID,
           ans: req.body.answers,
         };
-        const query1 = `SELECT * FROM QuizClassAssignments WHERE QuizID = ${data.quizID}`;
-        const [quiz] = await pool.query(query1).catch((err) => {
+        const query1 = `SELECT * FROM quizclassassignments WHERE QuizID = ${data.quizID}`;
+        const [[quiz]] = await pool.query(query1).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(quiz);
         const query = `CALL quiz_answers_by_id(${data.quizID})`;
-        const [correctAnswers] = await pool.query(query).catch((err) => {
+        const [[correctAnswers]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(correctAnswers);
         const wrongAnswers = [];
         console.log(correctAnswers);
         //check answers
@@ -282,10 +284,12 @@ router
 
         //get current xp and level from database
         const queryDetails = `CALL get_student_details ("${email}", "${password}")`;
-        const [details] = await pool.query(queryDetails).catch((err) => {
+        console.log(queryDetails);
+        const [[details]] = await pool.query(queryDetails).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(details);
         console.log("Student details: ", details[0]);
         //calculate the level
         const levelSystem = levelUp(details[0].Level, details[0].Xp, xp);
@@ -379,29 +383,30 @@ router
         const quizID = req.query.quizID;
         let query = `CALL quiz_view ("${quizID}")`;
         // get quiz details
-        const [quized] = await pool.query(query).catch((err) => {
+        const [[quized]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-        console.log(quized[0]);
+        console.log(quized);
         quiz.quizID = quized[0].QuizID;
         quiz.quizName = quized[0].QuizName;
         quiz.moduleID = quized[0].ModuleID;
 
         // get all questions from the quiz
         query = `CALL quiz_question_view (${quizID})`;
-        const [questionsed] = await pool.query(query).catch((err) => {
+        const [[questionsed]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-        // console.log("all questions", questionsed);
         quiz.questions = questionsed;
 
         // numQuests = quiz.questions.length;
         await quiz.questions.forEach(async (quest, i, array) => {
+          // console.log("returned ", quest);
           query = `CALL quiz_question_option_view (${quizID},${quest.QuestionID})`;
           // console.log("getting option:", query);
-          const [optionsed] = await pool.query(query).catch((err) => {
+          // console.log(query);
+          const [[optionsed]] = await pool.query(query).catch((err) => {
             // throw err;
             return res.status(400).json({ status: "failure", reason: err });
           });
@@ -416,6 +421,7 @@ router
           });
 
           if (isDone === true) {
+            console.log("dis", quiz);
             res.status(201).json({ status: "success", quiz });
           }
         });

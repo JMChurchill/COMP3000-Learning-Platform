@@ -25,11 +25,10 @@ router.route("/").get(checkAuth, async (req, res) => {
     }
 
     let query = `CALL feed_get ("${email}","${password}")`;
-    const [feed] = await pool.query(query).catch((err) => {
+    const [[feed]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
-    // console.log(results);
     return res.status(200).json({
       status: "success",
       data: feed,

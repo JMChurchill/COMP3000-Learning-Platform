@@ -16,8 +16,7 @@ router.route("/").get(checkAuth, async (req, res) => {
   const password = req.user.password;
 
   const query = `CALL details_teacher("${email}", "${password}")`;
-  console.log(query);
-  const [[details]] = await pool.query(query).catch((err) => {
+  const [[[details]]] = await pool.query(query).catch((err) => {
     // throw err;
     return res.status(400).json({ status: "failure", reason: err });
   });
@@ -45,33 +44,60 @@ router.route("/login").post(async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   };
-  const query = "SELECT * FROM teachers WHERE email = ?";
-  pool.query(query, [req.body.email], async (error, results) => {
-    if (error) {
-      return res.status(500).json({ status: "failure", reason: error.code });
-    }
-    if (!results[0]) {
-      return res.status(401).json({ status: "Email not found" });
-    } else {
-      try {
-        if (await bcrypt.compare(req.body.password, results[0].Password)) {
-          data.password = results[0].Password;
-          const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
-            expiresIn: parseInt(process.env.EXPIRES_IN),
-          });
-          return res.status(200).json({
-            status: "success",
-            message: "Successfull login",
-            token: token,
-          });
-        } else {
-          return res.status(401).json({ status: "Password not matching" });
-        }
-      } catch {
-        return res.status(404).json({ status: "error occured" });
-      }
-    }
+  // const query = "SELECT * FROM teachers WHERE email = ?";
+  const query = `SELECT * FROM teachers WHERE email = "${data.email}"`;
+  const [results] = await pool.query(query).catch((err) => {
+    // throw err;
+    console.log("something went wrong");
+    return res.status(400).json({ status: "failure", reason: err });
   });
+  if (!results[0]) {
+    return res.status(401).json({ status: "Email not found" });
+  } else {
+    try {
+      if (await bcrypt.compare(req.body.password, results[0].Password)) {
+        data.password = results[0].Password;
+        const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
+          expiresIn: parseInt(process.env.EXPIRES_IN),
+        });
+        return res.status(200).json({
+          status: "success",
+          message: "Successfull login",
+          token: token,
+        });
+      } else {
+        return res.status(401).json({ status: "Password not matching" });
+      }
+    } catch {
+      return res.status(404).json({ status: "error occured" });
+    }
+  }
+  // pool.query(query, [req.body.email], async (error, results) => {
+  //   if (error) {
+  //     return res.status(500).json({ status: "failure", reason: error.code });
+  //   }
+  //   if (!results[0]) {
+  //     return res.status(401).json({ status: "Email not found" });
+  //   } else {
+  //     try {
+  //       if (await bcrypt.compare(req.body.password, results[0].Password)) {
+  //         data.password = results[0].Password;
+  //         const token = await JWT.sign({ data }, process.env.SECURE_KEY, {
+  //           expiresIn: parseInt(process.env.EXPIRES_IN),
+  //         });
+  //         return res.status(200).json({
+  //           status: "success",
+  //           message: "Successfull login",
+  //           token: token,
+  //         });
+  //       } else {
+  //         return res.status(401).json({ status: "Password not matching" });
+  //       }
+  //     } catch {
+  //       return res.status(404).json({ status: "error occured" });
+  //     }
+  //   }
+  // });
 });
 
 router

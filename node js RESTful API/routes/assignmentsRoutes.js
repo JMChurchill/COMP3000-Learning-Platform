@@ -177,15 +177,13 @@ router.route("/quizzes").get(checkAuth, async (req, res) => {
 
     const errs = validationResult(req);
     if (!errs.isEmpty()) {
-      console.log(errs);
       return res.status(400).json({
         errors: errs.array(),
       });
     }
 
     let query = `CALL assignments_by_students("${email}","${password}")`;
-    console.log(query);
-    const [quizzes] = await pool.query(query).catch((err) => {
+    const [[quizzes]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });

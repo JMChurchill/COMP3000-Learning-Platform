@@ -26,7 +26,7 @@ router.route("/").get(checkAuth, async (req, res) => {
 
     const query = `CALL ProfilePic_get_all ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[themes]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
@@ -56,7 +56,7 @@ router.route("/admin").get(checkAuth, async (req, res) => {
 
     const query = `CALL ProfilePic_get_all_admin ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[themes]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
@@ -86,21 +86,21 @@ router.route("/purchased").get(checkAuth, async (req, res) => {
 
     const query = `CALL ProfilePic_purchased ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[banners]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
     // console.log(results);
     return res.status(200).json({
       status: "success",
-      data: themes,
+      data: banners,
     });
   } catch (err) {
     return res.status(500).send(err);
   }
 });
 
-// purchase a theme
+// purchase a profile picture
 router
   .route("/purchased")
   .post(
@@ -126,12 +126,12 @@ router
         };
 
         const query = `CALL ProfilePic_purchased_add (${data.profilePictureID},"${email}", "${password}")`;
-        // console.log(query);
-        const results = await pool.query(query).catch((err) => {
+        console.log(query);
+        const [results] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-        // console.log("results", results);
+        console.log("results", results);
 
         return res.status(200).json({
           status: "success",

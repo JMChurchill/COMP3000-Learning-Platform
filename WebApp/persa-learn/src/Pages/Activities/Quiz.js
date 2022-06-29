@@ -37,6 +37,7 @@ const Quiz = () => {
       // console.log(data);
       if (data.status === "success") {
         //set quiz title
+        console.log("aaa", data.quiz);
         setTitle(data.quiz.quizName);
         setQuizID(data.quiz.quizID);
         setQuestions(data.quiz.questions);
