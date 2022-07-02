@@ -13,3 +13,6 @@ Expo
 MYSQL  
 Node JS  
 JWT  
+### Testing
+React Testing Library   
+Cypress
