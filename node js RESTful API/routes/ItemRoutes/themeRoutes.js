@@ -84,7 +84,7 @@ router.route("/admin").get(checkAuth, async (req, res) => {
 
     const query = `CALL Themes_get_all_admin ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[themes]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });

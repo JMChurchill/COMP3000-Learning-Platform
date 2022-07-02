@@ -33,8 +33,9 @@ const OverlayEdit = ({ ThemeID, close, getAllBanners }) => {
 
   const getDetails = async () => {
     let data = await getBannersDetails(ThemeID);
+    console.log(data.data);
     if (data.status == "success") {
-      data = data.data;
+      data = data.data[0];
       //   console.log(data.data);
       setID(data.BannerID);
       setName(data.Name);

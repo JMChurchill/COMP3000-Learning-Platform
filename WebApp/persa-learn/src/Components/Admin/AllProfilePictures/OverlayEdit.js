@@ -37,7 +37,7 @@ const OverlayEdit = ({ ProfilePicID, close, getProfilePictures }) => {
   const getDetails = async () => {
     let data = await getProfilePictureDetails(ProfilePicID);
     if (data.status == "success") {
-      data = data.data;
+      data = data.data[0];
       console.log(data);
       //   console.log(data.data);
       setID(data.ProfilePictureID);

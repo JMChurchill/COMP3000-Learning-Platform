@@ -125,15 +125,22 @@ router
       // const query = `UPDATE teachers SET Email = '${data.email}', Name = '${data.email}',Password = '${data.password}' WHERE id = ${req.params.id}`;
       const query = `CALL update_teacher ( "${oEmail}", "${oPassword}", "${data.fName}", "${data.lName}", "${data.email}","${data.phonenumber}")`;
       console.log(query);
-      pool.query(query, (error) => {
-        if (error) {
-          return res
-            .status(400)
-            .json({ status: "failure", reason: error.code });
-        } else {
-          return res.status(200).json({ status: "success", data: data });
-        }
+      const [results] = await pool.query(query).catch((err) => {
+        // throw err;
+        console.log("something went wrong");
+        return res.status(400).json({ status: "failure", reason: err });
       });
+      return res.status(200).json({ status: "success", data: data });
+
+      // pool.query(query, (error) => {
+      //   if (error) {
+      //     return res
+      //       .status(400)
+      //       .json({ status: "failure", reason: error.code });
+      //   } else {
+      //     return res.status(200).json({ status: "success", data: data });
+      //   }
+      // });
     }
   )
 
@@ -143,16 +150,25 @@ router
     const password = req.user.password;
 
     const query = `CALL delete_teacher ( "${email}", "${password}")`;
-    pool.query(query, (error) => {
-      if (error) {
-        return res.status(400).json({ status: "failure", reason: error.code });
-      } else {
-        return res.status(200).json({
-          status: "success",
-          message: `deleted user: ${req.params.id}`,
-        });
-      }
+    const [results] = await pool.query(query).catch((err) => {
+      // throw err;
+      console.log("something went wrong");
+      return res.status(400).json({ status: "failure", reason: err });
     });
+    return res.status(200).json({
+      status: "success",
+      message: `deleted user: ${req.params.id}`,
+    });
+    // pool.query(query, (error) => {
+    //   if (error) {
+    //     return res.status(400).json({ status: "failure", reason: error.code });
+    //   } else {
+    //     return res.status(200).json({
+    //       status: "success",
+    //       message: `deleted user: ${req.params.id}`,
+    //     });
+    //   }
+    // });
   });
 
 router
@@ -183,12 +199,12 @@ router
 
         // get all students from database with corresponding email
         let query = `SELECT * FROM teachers WHERE email = "${tEmail}"`;
-
-        const [result] = await pool.query(query).catch((err) => {
+        console.log(query);
+        const [[result]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-
+        console.log(result);
         try {
           // compare input password with password on database
           if (await bcrypt.compare(data.oldPassword, result.Password)) {
@@ -201,32 +217,26 @@ router
         }
 
         query = `CALL teacher_edit_password ("${tEmail}","${data.oldPassword}", "${data.newPassword}")`;
-        pool.query(query, (error) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(200).json({ status: "success" });
-          }
+        const [result2] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(200).json({ status: "success" });
+
+        // pool.query(query, (error) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(200).json({ status: "success" });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
     }
   );
-
-//get all teachers - for testing
-router.get("/all", async (req, res) => {
-  const query = "SELECT * FROM teachers";
-  pool.query(query, (error, results) => {
-    if (results === null) {
-      return res.status(204).json({ status: "Not found" });
-    } else {
-      return res.status(200).json(results);
-    }
-  });
-});
 
 //create teacher
 router
@@ -261,15 +271,21 @@ router
 
         const query = `CALL create_teacher ("${data.firstName}", "${data.lastName}", "${data.email}", "${data.password}","${data.phoneNumber}")`;
         console.log(query);
-        pool.query(query, (error) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            return res.status(201).json({ status: "success" });
-          }
+        const [result] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        return res.status(201).json({ status: "success" });
+
+        // pool.query(query, (error) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     return res.status(201).json({ status: "success" });
+        //   }
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -288,17 +304,26 @@ router.route("/classes/assign").post(checkAuth, async (req, res) => {
     };
 
     const query = `CALL add_student_to_class (${data.classID}, ${data.studentID}, "${email}", "${password}")`;
-    pool.query(query, (error, results) => {
-      if (error) {
-        return res.status(400).json({ status: "failure", reason: error.code });
-      } else {
-        return res.status(201).json({
-          status: "success",
-          data: data,
-          message: "student added to class",
-        });
-      }
+    const [result] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
     });
+    return res.status(201).json({
+      status: "success",
+      data: data,
+      message: "student added to class",
+    });
+    // pool.query(query, (error, results) => {
+    //   if (error) {
+    //     return res.status(400).json({ status: "failure", reason: error.code });
+    //   } else {
+    //     return res.status(201).json({
+    //       status: "success",
+    //       data: data,
+    //       message: "student added to class",
+    //     });
+    //   }
+    // });
   } catch (err) {
     return res.status(500).send(err);
   }
@@ -371,16 +396,13 @@ router.route("/search").post(checkAuth, async (req, res) => {
     };
 
     const query = `CALL search_students ("${email}", "${password}", "${data.sTerm}")`;
-    pool.query(query, (error, results) => {
-      if (error) {
-        return res.status(400).json({ status: "failure", reason: error.code });
-      } else {
-        if (results === null) {
-          return res.status(204).json({ status: "Not found" });
-        } else {
-          return res.status(200).json({ status: "success", data: results[0] });
-        }
-      }
+    const [students] = await pool.query(query).catch((err) => {
+      // throw err;
+      return res.status(400).json({ status: "failure", reason: err });
+    });
+    return res.status(200).json({
+      status: "success",
+      students,
     });
   } catch (err) {
     return res.status(500).send(err);

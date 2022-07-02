@@ -24,6 +24,7 @@ const OverlayAdd = ({ getAllBanners, close }) => {
     });
     if (data.status == "success") {
       getAllBanners();
+      close();
     }
   };
 

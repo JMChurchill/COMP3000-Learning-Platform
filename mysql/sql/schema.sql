@@ -45,7 +45,7 @@ END$$
     SET theAdminID = (SELECT AdminID FROM admins WHERE Email = aEmail AND password = aPassword LIMIT 1);
     IF EXISTS (SELECT * FROM admins WHERE AdminID = theAdminID) THEN
         #insert new admin
-        INSERT INTO Admins(Email, Password, Firstname,Lastname) VALUES (nEmail,nPassword,nFirstname,nLastname);
+        INSERT INTO admins(Email, Password, Firstname,Lastname) VALUES (nEmail,nPassword,nFirstname,nLastname);
     ELSE
         ROLLBACK;
     END IF;

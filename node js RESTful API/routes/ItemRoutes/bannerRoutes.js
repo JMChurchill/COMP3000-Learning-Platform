@@ -136,7 +136,7 @@ router
     }
   );
 
-// get all themes admin
+// get all banners admin
 router.route("/admin").get(checkAuth, async (req, res) => {
   try {
     const email = req.user.email;
@@ -152,14 +152,14 @@ router.route("/admin").get(checkAuth, async (req, res) => {
 
     const query = `CALL Banners_get_all_admin ("${email}", "${password}")`;
 
-    const [themes] = await pool.query(query).catch((err) => {
+    const [[banners]] = await pool.query(query).catch((err) => {
       // throw err;
       return res.status(400).json({ status: "failure", reason: err });
     });
     // console.log(results);
     return res.status(200).json({
       status: "success",
-      data: themes,
+      data: banners,
     });
   } catch (err) {
     return res.status(500).send(err);
