@@ -13,6 +13,7 @@ Expo
 MYSQL  
 Node JS  
 JWT  
+Bcrypt JS 
 ### Testing
 React Testing Library   
 Cypress
