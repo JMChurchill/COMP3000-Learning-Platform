@@ -1,10 +1,11 @@
 import * as SecureStore from "expo-secure-store";
 import { checkTokenCorrect } from "./checkValidToken";
+import { hostAddress } from "./hostAddress";
 
 export const getPurchasedProfilePictures = async () => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/profilePicture/purchased", {
+    const data = fetch(`${hostAddress()}/profilePicture/purchased`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +21,7 @@ export const getPurchasedProfilePictures = async () => {
 export const updateProfilePicture = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/student/profilePic", {
+    const data = fetch(`${hostAddress()}/student/profilePic`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +38,7 @@ export const updateProfilePicture = async (credentials) => {
 export const getPurchasedBanners = async () => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/banner/purchased", {
+    const data = fetch(`${hostAddress()}/banner/purchased`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +54,7 @@ export const getPurchasedBanners = async () => {
 export const updateBanner = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/student/banner", {
+    const data = fetch(`${hostAddress()}/student/banner`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

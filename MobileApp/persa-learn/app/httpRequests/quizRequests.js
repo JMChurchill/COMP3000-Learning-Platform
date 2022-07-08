@@ -1,10 +1,11 @@
 import * as SecureStore from "expo-secure-store";
 import { checkTokenCorrect } from "./checkValidToken";
+import { hostAddress } from "./hostAddress";
 
 export const getQuizRequest = async (quizID) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch(`http://10.0.2.2:8080/quiz/view?quizID=${quizID}`, {
+    const data = fetch(`${hostAddress()}/quiz/view?quizID=${quizID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +21,7 @@ export const getQuizRequest = async (quizID) => {
 export const checkAnswers = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch(`http://10.0.2.2:8080/quiz/checkAnswers`, {
+    const data = fetch(`${hostAddress()}/quiz/checkAnswers`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

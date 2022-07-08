@@ -1,8 +1,10 @@
 import { checkTokenCorrect } from "./checkValidToken";
+import { hostAddress } from "./hostAddress";
 
 export const loginRequest = async (credentials) => {
+  hostAddress();
   try {
-    const data = fetch("http://10.0.2.2:8080/student/login", {
+    const data = fetch(`${hostAddress()}/student/login`, {
       // const data = fetch("http://localhost:8080/student/login", {
       method: "POST",
       headers: {
@@ -20,7 +22,7 @@ export const loginRequest = async (credentials) => {
 export const registerRequest = async (credentials) => {
   console.log("jsonon", credentials);
   try {
-    const data = fetch("http://10.0.2.2:8080/student/create", {
+    const data = fetch(`${hostAddress()}/student/create`, {
       // const data = fetch("http://localhost:8080/student/login", {
       method: "POST",
       headers: {
