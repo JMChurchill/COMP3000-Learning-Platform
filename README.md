@@ -1,6 +1,8 @@
 # COMP3000
 ## Project Vision
 PersaLearn is a digital learning platform that incorporate game-design elements and principals. The goal of the platform is to create a more enjoyable learning experience that will make studying less of a chore.
+## Live Site
+http://178.62.104.116:3000/
 ## Technologies
 ### Web Application
 React JS  
