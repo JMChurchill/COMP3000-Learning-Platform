@@ -1,10 +1,12 @@
+import { hostAddress } from "../config/hostAddress";
 import { checkTokenCorrect } from "./userRequests";
 
 export const assignQuizToClass = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
     // "http://localhost:8080/teacher/activity/assignments/quiz/class",
-    "http://localhost:8080/assignments/quiz/class",
+    // "http://localhost:8080/assignments/quiz/class",
+    `${hostAddress()}/assignments/quiz/class`,
     {
       method: "POST",
       headers: {
@@ -20,7 +22,7 @@ export const assignQuizToClass = (credentials) => {
 
 export const unassignQuizFromClass = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/assignments/quiz/class/", {
+  const data = fetch(`${hostAddress()}/assignments/quiz/class/`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +37,7 @@ export const unassignQuizFromClass = (credentials) => {
 export const getAssignmentProgress = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    `http://localhost:8080/assignments/progress?classID=${credentials.cID}`,
+    `${hostAddress()}/assignments/progress?classID=${credentials.cID}`,
     {
       method: "GET",
       headers: {
@@ -51,7 +53,9 @@ export const getAssignmentProgress = (credentials) => {
 export const getQuizSubmissions = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    `http://localhost:8080/assignments/submissions?classID=${credentials.cID}&quizID=${credentials.qID}`,
+    `${hostAddress()}/assignments/submissions?classID=${
+      credentials.cID
+    }&quizID=${credentials.qID}`,
     {
       method: "GET",
       headers: {

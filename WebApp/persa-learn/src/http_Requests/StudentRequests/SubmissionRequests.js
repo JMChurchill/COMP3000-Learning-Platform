@@ -1,8 +1,9 @@
+import { hostAddress } from "../../config/hostAddress";
 import { checkTokenCorrect } from "../userRequests";
 
 export const shareSubmission = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/submission", {
+  const data = fetch(`${hostAddress()}/submission`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +17,7 @@ export const shareSubmission = (credentials) => {
 
 export const unshareSubmission = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/submission", {
+  const data = fetch(`${hostAddress()}/submission`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -30,7 +31,7 @@ export const unshareSubmission = (credentials) => {
 
 export const getStudentsSubmissionsByClass = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/submission/class/student", {
+  const data = fetch(`${hostAddress()}/submission/class/student`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

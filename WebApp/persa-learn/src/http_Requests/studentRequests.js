@@ -1,8 +1,10 @@
+import { hostAddress } from "../config/hostAddress";
 import { checkTokenCorrect } from "./userRequests";
 
 export const updateUserDetails = (credentials) => {
+  // console.log(hostAddress());
   const token = JSON.parse(sessionStorage.getItem("token"));
-  let data = fetch("http://localhost:8080/student/", {
+  let data = fetch(`${hostAddress()}/student/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

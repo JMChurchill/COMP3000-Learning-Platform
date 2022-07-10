@@ -1,3 +1,5 @@
+import { hostAddress } from "../../config/hostAddress";
+
 export const checkTokenCorrect = (status) => {
   status.then((value) => {
     // console.log(value.errors[0].message);
@@ -14,7 +16,7 @@ export const checkTokenCorrect = (status) => {
 
 export const getAllBanners = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/banner", {
+  const data = fetch(`${hostAddress()}/banner`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +29,7 @@ export const getAllBanners = () => {
 
 export const getAllThemes = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/theme", {
+  const data = fetch(`${hostAddress()}/theme`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +42,7 @@ export const getAllThemes = () => {
 
 export const getAllThemesAdmin = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/theme/admin", {
+  const data = fetch(`${hostAddress()}/theme/admin`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +55,7 @@ export const getAllThemesAdmin = () => {
 
 export const getAllProfilePics = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/profilePicture", {
+  const data = fetch(`${hostAddress()}/profilePicture`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -66,7 +68,7 @@ export const getAllProfilePics = () => {
 
 export const purchaseProfilePic = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/profilePicture/purchased", {
+  const data = fetch(`${hostAddress()}/profilePicture/purchased`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -80,7 +82,7 @@ export const purchaseProfilePic = (credentials) => {
 
 export const purchaseBanner = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/banner/purchased", {
+  const data = fetch(`${hostAddress()}/banner/purchased`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -94,7 +96,7 @@ export const purchaseBanner = (credentials) => {
 
 export const purchaseTheme = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/theme/purchased", {
+  const data = fetch(`${hostAddress()}/theme/purchased`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -108,7 +110,7 @@ export const purchaseTheme = (credentials) => {
 
 export const getPurchasedProfilePictures = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/profilePicture/purchased", {
+  const data = fetch(`${hostAddress()}/profilePicture/purchased`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -121,7 +123,7 @@ export const getPurchasedProfilePictures = () => {
 
 export const getPurchasedBanners = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/banner/purchased", {
+  const data = fetch(`${hostAddress()}/banner/purchased`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -134,7 +136,7 @@ export const getPurchasedBanners = () => {
 
 export const getPurchasedThemes = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/theme/purchased", {
+  const data = fetch(`${hostAddress()}/theme/purchased`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -147,7 +149,7 @@ export const getPurchasedThemes = () => {
 
 export const deleteThemeAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/theme/admin", {
+  const data = fetch(`${hostAddress()}/theme/admin`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -161,7 +163,7 @@ export const deleteThemeAdmin = (credentials) => {
 
 export const addThemeAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/theme/admin", {
+  const data = fetch(`${hostAddress()}/theme/admin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -175,7 +177,7 @@ export const addThemeAdmin = (credentials) => {
 
 export const editThemeAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/theme/admin", {
+  const data = fetch(`${hostAddress()}/theme/admin`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -189,23 +191,20 @@ export const editThemeAdmin = (credentials) => {
 
 export const getThemeDetails = (themeID) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch(
-    `http://localhost:8080/theme/details?ThemeID="${themeID}"`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        autherization: token,
-      },
-    }
-  ).then((data) => data.json());
+  const data = fetch(`${hostAddress()}/theme/details?ThemeID="${themeID}"`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
   checkTokenCorrect(data);
   return data;
 };
 
 export const getAllBannersAdmin = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/banner/admin", {
+  const data = fetch(`${hostAddress()}/banner/admin`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -218,23 +217,20 @@ export const getAllBannersAdmin = () => {
 
 export const getBannersDetails = (ThemeID) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch(
-    `http://localhost:8080/banner/details?ThemeID="${ThemeID}"`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        autherization: token,
-      },
-    }
-  ).then((data) => data.json());
+  const data = fetch(`${hostAddress()}/banner/details?ThemeID="${ThemeID}"`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      autherization: token,
+    },
+  }).then((data) => data.json());
   checkTokenCorrect(data);
   return data;
 };
 
 export const deleteBannerAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/banner/admin", {
+  const data = fetch(`${hostAddress()}/banner/admin`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -248,7 +244,7 @@ export const deleteBannerAdmin = (credentials) => {
 
 export const editBannerAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/banner/admin", {
+  const data = fetch(`${hostAddress()}/banner/admin`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -262,7 +258,7 @@ export const editBannerAdmin = (credentials) => {
 
 export const addBannerAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/banner/admin", {
+  const data = fetch(`${hostAddress()}/banner/admin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -276,7 +272,7 @@ export const addBannerAdmin = (credentials) => {
 
 export const getAllProfilePicturesAdmin = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/profilePicture/admin", {
+  const data = fetch(`${hostAddress()}/profilePicture/admin`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -289,7 +285,7 @@ export const getAllProfilePicturesAdmin = () => {
 
 export const deleteProfilePictureAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/profilePicture/admin", {
+  const data = fetch(`${hostAddress()}/profilePicture/admin`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -303,7 +299,7 @@ export const deleteProfilePictureAdmin = (credentials) => {
 
 export const editProfilePictureAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/profilePicture/admin", {
+  const data = fetch(`${hostAddress()}/profilePicture/admin`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -317,7 +313,7 @@ export const editProfilePictureAdmin = (credentials) => {
 
 export const addProfilePictureAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/profilePicture/admin", {
+  const data = fetch(`${hostAddress()}/profilePicture/admin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -333,7 +329,7 @@ export const getProfilePictureDetails = (ProfilePicID) => {
   console.log(ProfilePicID);
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    `http://localhost:8080/profilePicture/details?ProfilePicID="${ProfilePicID}"`,
+    `${hostAddress()}/profilePicture/details?ProfilePicID="${ProfilePicID}"`,
     {
       method: "GET",
       headers: {

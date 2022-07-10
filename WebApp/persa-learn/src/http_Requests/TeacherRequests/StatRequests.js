@@ -1,8 +1,9 @@
+import { hostAddress } from "../../config/hostAddress";
 import { checkTokenCorrect } from "../userRequests";
 
 export const getAllAssignmentProgress = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/tstats/assignment/Progress", {
+  const data = fetch(`${hostAddress()}/tstats/assignment/Progress`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +16,7 @@ export const getAllAssignmentProgress = () => {
 
 export const getAllAssignmentRatings = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/tstats/assignment/Rating", {
+  const data = fetch(`${hostAddress()}/tstats/assignment/Rating`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
