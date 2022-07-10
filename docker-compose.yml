@@ -28,7 +28,7 @@ services:
     volumes:
       - ./WebApp/persa-learn/src:/app/src
 
-    # dockerfile: ./WebApp/persa-learn/Dockerfile
+  # dockerfile: ./WebApp/persa-learn/Dockerfile
   db:
     image: mariadb:10.5.8
     # image: mysql:latest
