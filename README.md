@@ -1,8 +1,24 @@
 # COMP3000
 ## Project Vision
 PersaLearn is a digital learning platform that incorporate game-design elements and principals. The goal of the platform is to create a more enjoyable learning experience that will make studying less of a chore.
-## Live Site
+## Access
+### Live site 
 http://178.62.104.116:3000/
+### APK download
+A download of the APK is available in the releases section of this GitHub.
+## Run Locally
+### Web, API and Database
+From the root folder, with Docker installed on your system, simply run the following command in the terminal.  
+`docker-compose -f docker-compose.yml -f docker-compose-dev.yml up --build -d`  
+The website will then be accessable from http://localhost:3000/
+### Mobile Application
+In order to start the mobile application first navigate to the MobileApp/persa-learn folder.  
+Then run the following commands:  
+`npm install`     
+`npm start`  
+You can then click the link produced by the terminal.   
+From the web page you can start the application in a local emulator by clicking corresponding button, located on the left side of the page (The emulator must be running before clicking the button.).  
+For the application to funcation correctly an instance of the database and API must be running locally.
 ## Technologies
 ### Web Application
 React JS  
