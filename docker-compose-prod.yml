@@ -6,6 +6,9 @@ services:
     volumes:
       - ./default.conf:/etc/nginx/conf.d/default.conf
       - ./WebApp/persa-learn/build:/web
+    environment:
+      - NODE_ENV=production
+
     restart: always
     # environment:
     #   - apiAdd=value
@@ -16,3 +19,12 @@ services:
     ports:
       - "3000:3000"
     # dockerfile: ./WebApp/persa-learn/Dockerfile
+  api:
+    build:
+      context: ./node js RESTful API
+      dockerfile: Dockerfile.dev
+      args:
+        NODE_ENV: production
+    environment:
+      - NODE_ENV=production
+    command: npm start

@@ -2,9 +2,9 @@ version: "3.4"
 
 services:
   api:
-    build:
-      context: ./node js RESTful API
-      dockerfile: Dockerfile.dev
+    # build:
+    #   context: ./node js RESTful API
+    #   dockerfile: Dockerfile.dev
     ports:
       - "8080:8080"
     env_file:
@@ -12,6 +12,9 @@ services:
       - ./node js RESTful API/.env
     environment:
       - BACKEND_SERVER="here we need to enter backend server"
+    volumes:
+      - ./node js RESTful API/:/app
+      - /app/node_modules
     restart: always
     # volumes:
     #   - ./node js RESTful API:/app
