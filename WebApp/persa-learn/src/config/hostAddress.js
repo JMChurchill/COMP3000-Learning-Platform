@@ -5,6 +5,6 @@ export const hostAddress = () => {
   // return "http://localhost:8080";
   // return "http://178.62.104.116:8080";
   // return "http://178.62.104.116:8080";
-  console.log("api add: " + window.location.hostname);
+  // console.log("api add: " + window.location.hostname);
   return `http://${window.location.hostname}:8080`;
 };
