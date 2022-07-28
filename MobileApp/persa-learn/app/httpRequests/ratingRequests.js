@@ -1,10 +1,11 @@
 import * as SecureStore from "expo-secure-store";
 import { checkTokenCorrect } from "./checkValidToken";
+import { hostAddress } from "./hostAddress";
 
 export const rateQuizRequest = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/rating", {
+    const data = fetch(`${hostAddress()}/rating`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

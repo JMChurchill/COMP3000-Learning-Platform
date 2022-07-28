@@ -48,6 +48,7 @@ const ClassDetails = ({
   };
   useEffect(async () => {
     const data = await getAssignmentProgress({ cID: classID });
+    console.log(data);
     if (data.status === "success") {
       setOveralComplete(data.data[1].Number);
       setOveralIncomplete(data.data[0].Number);

@@ -29,12 +29,16 @@ const StudentProfile = () => {
   const tabs = ["Assignments", "Feed"];
   useEffect(async () => {
     //get page details
-    const [dataStudentDetails, dataAssignment, dataFeed] = await Promise.all([
-      getUserDetails(),
-      getStudentsAssignmentQuizzes(),
-      getFeedRequest(),
-    ]);
+    // const dataAssignment = null,
+    const dataAssignment = await getStudentsAssignmentQuizzes();
+    // const [dataStudentDetails, dataAssignment, dataFeed] = await Promise.all([
+    //   getUserDetails(),
+    //   getStudentsAssignmentQuizzes(),
+    //   getFeedRequest(),
+    // ]);
 
+    const dataStudentDetails = await getUserDetails();
+    const dataFeed = await getFeedRequest();
     //student details
     if (dataStudentDetails.hasOwnProperty("data")) {
       const {
@@ -56,11 +60,12 @@ const StudentProfile = () => {
       setBanner(Banner);
       setProfilePicture(ProfilePicture);
     }
+    // console.log("asd");
     // assignments
     if (dataAssignment.hasOwnProperty("quizzes")) {
       setAssignments(dataAssignment.quizzes);
     }
-    if (dataFeed.status === "success") {
+    if (dataFeed.status == "success") {
       setFeed(dataFeed.data);
     }
   }, []);

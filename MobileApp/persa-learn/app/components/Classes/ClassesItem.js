@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: "5%",
     borderRadius: common.containerBorderRadius,
+    width: "90%",
+    alignSelf: "center",
   },
   col: {
     width: "45%",

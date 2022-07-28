@@ -109,7 +109,7 @@ router
         };
 
         let query = `CALL quiz_submission_get_by_student (${data.studentID}, ${data.classID},"${email}","${password}")`;
-        const [submissions] = await pool
+        const [[submissions]] = await pool
           .query(query)
           .catch((err) => {
             // throw err;

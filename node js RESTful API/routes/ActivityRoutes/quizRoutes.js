@@ -50,55 +50,172 @@ router
         // console.log(data.questions[0].options);
 
         const query = `CALL quiz_create ("${data.title}",${data.moduleID}, "${email}", "${password}")`;
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            // get the quiz just inserted id
-            quizID = results[0][0]["LAST_INSERT_ID()"];
-            console.log(quizID);
-
-            // insert questions
-            data.questions.map((question) => {
-              console.log("correct answre is", question.correct);
-              const query = `CALL quiz_add_question (${quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
-              console.log("the query: ", query);
-
-              pool.query(query, (error, results) => {
-                if (error) {
-                  return res
-                    .status(400)
-                    .json({ status: "failure", reason: error.code });
-                } else {
-                  // get the question just inserted id
-                  opID = results[0][0]["LAST_INSERT_ID()"];
-                  console.log(opID);
-                  // insert options
-                  question.options.map((option) => {
-                    const query = `CALL quiz_add_question_option (${opID},"${option}")`;
-                    console.log("the query: ", query);
-                    pool.query(query, (error, results) => {
-                      if (error) {
-                        return res.status(400).json({
-                          status: "failure",
-                          reason: error.code,
-                        });
-                      } else {
-                      }
-                    });
-                  });
-                }
-              });
-            });
-          }
-          return res.status(201).json({
-            status: "success",
-            quizID,
-            // data: results[0],
-          });
+        const [[[results]]] = await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        quizID = results["LAST_INSERT_ID()"];
+
+        // insert questions
+        data.questions.map(async (question) => {
+          console.log("correct answre is", question.correct);
+          const query = `CALL quiz_add_question (${quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
+          console.log("the query: ", query);
+          const [[[results]]] = await pool.query(query).catch((err) => {
+            // throw err;
+            return res.status(400).json({ status: "failure", reason: err });
+          });
+          opID = results["LAST_INSERT_ID()"];
+          question.options.map(async (option) => {
+            const query = `CALL quiz_add_question_option (${opID},"${option}")`;
+            console.log("the query: ", query);
+            await pool.query(query);
+            // const [[[results]]] = await pool.query(query).catch((err) => {
+            //   // throw err;
+            //   return res.status(400).json({ status: "failure", reason: err });
+            // });
+
+            // pool.query(query, (error, results) => {
+            //   if (error) {
+            //     return res.status(400).json({
+            //       status: "failure",
+            //       reason: error.code,
+            //     });
+            //   } else {
+            //   }
+            // });
+          });
+
+          // pool.query(query, (error, results) => {
+          //   if (error) {
+          //     return res
+          //       .status(400)
+          //       .json({ status: "failure", reason: error.code });
+          //   } else {
+          //     // get the question just inserted id
+          //     opID = results[0][0]["LAST_INSERT_ID()"];
+          //     console.log(opID);
+          //     // insert options
+          //     question.options.map((option) => {
+          //       const query = `CALL quiz_add_question_option (${opID},"${option}")`;
+          //       console.log("the query: ", query);
+          //       pool.query(query, (error, results) => {
+          //         if (error) {
+          //           return res.status(400).json({
+          //             status: "failure",
+          //             reason: error.code,
+          //           });
+          //         } else {
+          //         }
+          //       });
+          //     });
+          //   }
+          // });
+        });
+
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     // get the quiz just inserted id
+        //     quizID = results[0][0]["LAST_INSERT_ID()"];
+
+        //     console.log(quizID);
+
+        //     // insert questions
+        //     data.questions.map((question) => {
+        //       console.log("correct answre is", question.correct);
+        //       const query = `CALL quiz_add_question (${quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
+        //       console.log("the query: ", query);
+
+        //       pool.query(query, (error, results) => {
+        //         if (error) {
+        //           return res
+        //             .status(400)
+        //             .json({ status: "failure", reason: error.code });
+        //         } else {
+        //           // get the question just inserted id
+        //           opID = results[0][0]["LAST_INSERT_ID()"];
+        //           console.log(opID);
+        //           // insert options
+        //           question.options.map((option) => {
+        //             const query = `CALL quiz_add_question_option (${opID},"${option}")`;
+        //             console.log("the query: ", query);
+        //             pool.query(query, (error, results) => {
+        //               if (error) {
+        //                 return res.status(400).json({
+        //                   status: "failure",
+        //                   reason: error.code,
+        //                 });
+        //               } else {
+        //               }
+        //             });
+        //           });
+        //         }
+        //       });
+        //     });
+        //   }
+
+        //   return res.status(201).json({
+        //     status: "success",
+        //     quizID,
+        //     // data: results[0],
+        //   });
+        // });
+
+        ///
+        // const query = `CALL quiz_create ("${data.title}",${data.moduleID}, "${email}", "${password}")`;
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     // get the quiz just inserted id
+        //     quizID = results[0][0]["LAST_INSERT_ID()"];
+        //     console.log(quizID);
+
+        //     // insert questions
+        //     data.questions.map((question) => {
+        //       console.log("correct answre is", question.correct);
+        //       const query = `CALL quiz_add_question (${quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
+        //       console.log("the query: ", query);
+
+        //       pool.query(query, (error, results) => {
+        //         if (error) {
+        //           return res
+        //             .status(400)
+        //             .json({ status: "failure", reason: error.code });
+        //         } else {
+        //           // get the question just inserted id
+        //           opID = results[0][0]["LAST_INSERT_ID()"];
+        //           console.log(opID);
+        //           // insert options
+        //           question.options.map((option) => {
+        //             const query = `CALL quiz_add_question_option (${opID},"${option}")`;
+        //             console.log("the query: ", query);
+        //             pool.query(query, (error, results) => {
+        //               if (error) {
+        //                 return res.status(400).json({
+        //                   status: "failure",
+        //                   reason: error.code,
+        //                 });
+        //               } else {
+        //               }
+        //             });
+        //           });
+        //         }
+        //       });
+        //     });
+        //   }
+        return res.status(201).json({
+          status: "success",
+          quizID,
+          // data: results[0],
+        });
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }
@@ -248,16 +365,18 @@ router
           quizID: req.body.quizID,
           ans: req.body.answers,
         };
-        const query1 = `SELECT * FROM QuizClassAssignments WHERE QuizID = ${data.quizID}`;
-        const [quiz] = await pool.query(query1).catch((err) => {
+        const query1 = `SELECT * FROM quizclassassignments WHERE QuizID = ${data.quizID}`;
+        const [[quiz]] = await pool.query(query1).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(quiz);
         const query = `CALL quiz_answers_by_id(${data.quizID})`;
-        const [correctAnswers] = await pool.query(query).catch((err) => {
+        const [[correctAnswers]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(correctAnswers);
         const wrongAnswers = [];
         console.log(correctAnswers);
         //check answers
@@ -282,10 +401,12 @@ router
 
         //get current xp and level from database
         const queryDetails = `CALL get_student_details ("${email}", "${password}")`;
-        const [details] = await pool.query(queryDetails).catch((err) => {
+        console.log(queryDetails);
+        const [[details]] = await pool.query(queryDetails).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
+        console.log(details);
         console.log("Student details: ", details[0]);
         //calculate the level
         const levelSystem = levelUp(details[0].Level, details[0].Xp, xp);
@@ -347,7 +468,7 @@ router
         const classID = req.query.classID;
         const query = `CALL quiz_all_by_teacher_classID (${classID},"${email}", "${password}")`;
         console.log(query);
-        const [quizzes] = await pool.query(query).catch((err) => {
+        const [[quizzes]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
@@ -379,29 +500,30 @@ router
         const quizID = req.query.quizID;
         let query = `CALL quiz_view ("${quizID}")`;
         // get quiz details
-        const [quized] = await pool.query(query).catch((err) => {
+        const [[quized]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-        console.log(quized[0]);
+        console.log(quized);
         quiz.quizID = quized[0].QuizID;
         quiz.quizName = quized[0].QuizName;
         quiz.moduleID = quized[0].ModuleID;
 
         // get all questions from the quiz
         query = `CALL quiz_question_view (${quizID})`;
-        const [questionsed] = await pool.query(query).catch((err) => {
+        const [[questionsed]] = await pool.query(query).catch((err) => {
           // throw err;
           return res.status(400).json({ status: "failure", reason: err });
         });
-        // console.log("all questions", questionsed);
         quiz.questions = questionsed;
 
         // numQuests = quiz.questions.length;
         await quiz.questions.forEach(async (quest, i, array) => {
+          // console.log("returned ", quest);
           query = `CALL quiz_question_option_view (${quizID},${quest.QuestionID})`;
           // console.log("getting option:", query);
-          const [optionsed] = await pool.query(query).catch((err) => {
+          // console.log(query);
+          const [[optionsed]] = await pool.query(query).catch((err) => {
             // throw err;
             return res.status(400).json({ status: "failure", reason: err });
           });
@@ -416,6 +538,7 @@ router
           });
 
           if (isDone === true) {
+            console.log("dis", quiz);
             res.status(201).json({ status: "success", quiz });
           }
         });
@@ -475,55 +598,133 @@ router
         // console.log(data.questions[0].options);
 
         const query = `CALL quiz_update (${data.quizID},"${data.title}",${data.moduleID}, "${email}", "${password}")`;
-        pool.query(query, (error, results) => {
-          if (error) {
-            return res
-              .status(400)
-              .json({ status: "failure", reason: error.code });
-          } else {
-            // insert questions
-            data.questions.map((question) => {
-              const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
-              console.log("the query: ", query);
-
-              pool.query(query, (error, results) => {
-                if (error) {
-                  return res
-                    .status(400)
-                    .json({ status: "failure", reason: error.code });
-                } else {
-                  // get the question just inserted id
-                  opID = results[0][0]["LAST_INSERT_ID()"];
-                  console.log(opID);
-                  // insert options
-                  question.options.map((option) => {
-                    let query;
-                    if (option.hasOwnProperty("TheOption")) {
-                      query = `CALL quiz_add_question_option (${opID},"${option.TheOption}")`;
-                    } else {
-                      query = `CALL quiz_add_question_option (${opID},"${option}")`;
-                    }
-                    console.log("the query: ", query);
-                    pool.query(query, (error, results) => {
-                      if (error) {
-                        return res.status(400).json({
-                          status: "failure",
-                          reason: error.code,
-                        });
-                      } else {
-                      }
-                    });
-                  });
-                }
-              });
-            });
-          }
-          return res.status(201).json({
-            status: "success",
-            quizID,
-            // data: results[0],
-          });
+        await pool.query(query).catch((err) => {
+          // throw err;
+          return res.status(400).json({ status: "failure", reason: err });
         });
+        // insert questions
+        data.questions.map(async (question) => {
+          const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
+          console.log("the query: ", query);
+          const [[[results]]] = await pool.query(query).catch((err) => {
+            // throw err;
+            return res.status(400).json({ status: "failure", reason: err });
+          });
+          // get the question just inserted id
+          console.log("////", results);
+          // opID = results[0][0]["LAST_INSERT_ID()"];
+          opID = results["LAST_INSERT_ID()"];
+          console.log(opID);
+          // insert options
+          question.options.map(async (option) => {
+            let query;
+            if (option.hasOwnProperty("TheOption")) {
+              query = `CALL quiz_add_question_option (${opID},"${option.TheOption}")`;
+            } else {
+              query = `CALL quiz_add_question_option (${opID},"${option}")`;
+            }
+            console.log("the query: ", query);
+
+            const results = await pool.query(query).catch((err) => {
+              // throw err;
+              return res.status(400).json({ status: "failure", reason: err });
+            });
+
+            // pool.query(query, (error, results) => {
+            //   if (error) {
+            //     return res.status(400).json({
+            //       status: "failure",
+            //       reason: error.code,
+            //     });
+            //   } else {
+            //   }
+            // });
+          });
+
+          // pool.query(query, (error, results) => {
+          //   if (error) {
+          //     return res
+          //       .status(400)
+          //       .json({ status: "failure", reason: error.code });
+          //   } else {
+          //     // get the question just inserted id
+          //     opID = results[0][0]["LAST_INSERT_ID()"];
+          //     console.log(opID);
+          //     // insert options
+          //     question.options.map((option) => {
+          //       let query;
+          //       if (option.hasOwnProperty("TheOption")) {
+          //         query = `CALL quiz_add_question_option (${opID},"${option.TheOption}")`;
+          //       } else {
+          //         query = `CALL quiz_add_question_option (${opID},"${option}")`;
+          //       }
+          //       console.log("the query: ", query);
+          //       pool.query(query, (error, results) => {
+          //         if (error) {
+          //           return res.status(400).json({
+          //             status: "failure",
+          //             reason: error.code,
+          //           });
+          //         } else {
+          //         }
+          //       });
+          //     });
+          //   }
+          // });
+        });
+
+        /////
+
+        // // const query = `CALL quiz_update (${data.quizID},"${data.title}",${data.moduleID}, "${email}", "${password}")`;
+        // pool.query(query, (error, results) => {
+        //   if (error) {
+        //     return res
+        //       .status(400)
+        //       .json({ status: "failure", reason: error.code });
+        //   } else {
+        //     // insert questions
+        //     data.questions.map((question) => {
+        //       const query = `CALL quiz_add_question (${data.quizID},"${question.Question}","${question.Details}", "${question.Answer}")`;
+        //       console.log("the query: ", query);
+
+        //       pool.query(query, (error, results) => {
+        //         if (error) {
+        //           return res
+        //             .status(400)
+        //             .json({ status: "failure", reason: error.code });
+        //         } else {
+        //           // get the question just inserted id
+        //           opID = results[0][0]["LAST_INSERT_ID()"];
+        //           console.log(opID);
+        //           // insert options
+        //           question.options.map((option) => {
+        //             let query;
+        //             if (option.hasOwnProperty("TheOption")) {
+        //               query = `CALL quiz_add_question_option (${opID},"${option.TheOption}")`;
+        //             } else {
+        //               query = `CALL quiz_add_question_option (${opID},"${option}")`;
+        //             }
+        //             console.log("the query: ", query);
+        //             pool.query(query, (error, results) => {
+        //               if (error) {
+        //                 return res.status(400).json({
+        //                   status: "failure",
+        //                   reason: error.code,
+        //                 });
+        //               } else {
+        //               }
+        //             });
+        //           });
+        //         }
+        //       });
+        //     });
+        //   }
+        return res.status(201).json({
+          status: "success",
+          quizID,
+          // data: results[0],
+        });
+        // });
       } catch (err) {
         return res.status(500).send(err);
       }

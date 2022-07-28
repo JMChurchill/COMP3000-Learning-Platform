@@ -13,7 +13,7 @@ const pool = require("../config/db");
 router.route("/").get(async (req, res) => {
   const query = `CALL Monthly_signups()`;
   console.log(query);
-  const [signUps] = await pool.query(query).catch((err) => {
+  const [[signUps]] = await pool.query(query).catch((err) => {
     // throw err;
     return res.status(400).json({ status: "failure", reason: err });
   });

@@ -1,3 +1,5 @@
+import { hostAddress } from "../config/hostAddress";
+
 export const checkTokenCorrect = (status) => {
   status.then((value) => {
     // console.log(value.errors[0].message);
@@ -15,11 +17,12 @@ export const checkTokenCorrect = (status) => {
 export const loginUser = async (credentials, isTeacher, isAdmin) => {
   let url;
   if (isAdmin) {
-    url = "http://localhost:8080/admin/login";
+    url = `${hostAddress()}/admin/login`;
   } else if (isTeacher) {
-    url = "http://localhost:8080/teacher/login";
+    url = `${hostAddress()}/teacher/login`;
   } else {
-    url = "http://localhost:8080/student/login";
+    console.log(hostAddress());
+    url = `${hostAddress()}/student/login`;
   }
   return fetch(url, {
     method: "POST",
@@ -33,9 +36,9 @@ export const loginUser = async (credentials, isTeacher, isAdmin) => {
 export const signUpUser = (credentials, isTeacher) => {
   let url;
   if (isTeacher) {
-    url = "http://localhost:8080/teacher/create";
+    url = `${hostAddress()}/teacher/create`;
   } else {
-    url = "http://localhost:8080/student/create";
+    url = `${hostAddress()}/student/create`;
   }
   return fetch(url, {
     method: "POST",
@@ -48,7 +51,7 @@ export const signUpUser = (credentials, isTeacher) => {
 
 export const getUserDetails = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/student/details", {
+  const data = fetch(`${hostAddress()}/student/details`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -62,7 +65,7 @@ export const getUserDetails = () => {
 export const getStudentsAssignmentQuizzes = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   // const data = fetch("http://localhost:8080/student/assignments/quizzes", {
-  const data = fetch("http://localhost:8080/assignments/quizzes", {
+  const data = fetch(`${hostAddress()}/assignments/quizzes`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -77,7 +80,7 @@ export const getStudentsAssignmentQuizzes = () => {
 export const getStudentsClassses = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   // const data = fetch("http://localhost:8080/student/classes", {
-  const data = fetch("http://localhost:8080/classes/student", {
+  const data = fetch(`${hostAddress()}/classes/student`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -94,7 +97,7 @@ export const getStudentsInClass = (classID) => {
   console.log(classID);
 
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/student/class", {
+  const data = fetch(`${hostAddress()}/student/class`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -108,7 +111,7 @@ export const getStudentsInClass = (classID) => {
 
 export const getQuiz = (quizID) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch(`http://localhost:8080/quiz/view?quizID=${quizID}`, {
+  const data = fetch(`${hostAddress()}/quiz/view?quizID=${quizID}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -121,7 +124,8 @@ export const getQuiz = (quizID) => {
 
 export const checkAnswers = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch(`http://localhost:8080/quiz/checkAnswers`, {
+  console.log(credentials);
+  const data = fetch(`${hostAddress()}/quiz/checkAnswers`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

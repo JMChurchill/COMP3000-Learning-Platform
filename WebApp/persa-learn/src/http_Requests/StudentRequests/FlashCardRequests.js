@@ -1,3 +1,5 @@
+import { hostAddress } from "../../config/hostAddress";
+
 export const checkTokenCorrect = (status) => {
   status.then((value) => {
     // console.log(value.errors[0].message);
@@ -14,7 +16,7 @@ export const checkTokenCorrect = (status) => {
 
 export const getFlashCardDecks = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/decks/view", {
+  const data = fetch(`${hostAddress()}/decks/view`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +29,7 @@ export const getFlashCardDecks = () => {
 
 export const createFlashCardDecks = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/decks/create", {
+  const data = fetch(`${hostAddress()}/decks/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +43,7 @@ export const createFlashCardDecks = (credentials) => {
 
 export const updateFlashCardDecks = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/decks/update", {
+  const data = fetch(`${hostAddress()}/decks/update`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -55,7 +57,7 @@ export const updateFlashCardDecks = (credentials) => {
 
 export const deleteFlashCardDecks = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/decks/delete", {
+  const data = fetch(`${hostAddress()}/decks/delete`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -70,7 +72,7 @@ export const deleteFlashCardDecks = (credentials) => {
 export const getNumFlashCard = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    `http://localhost:8080/decks/num?DeckID=${credentials.DeckID}`,
+    `${hostAddress()}/decks/num?DeckID=${credentials.DeckID}`,
     {
       method: "GET",
       headers: {
@@ -87,7 +89,7 @@ export const getNumFlashCard = (credentials) => {
 export const getFlashCards = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
-    `http://localhost:8080/decks/flashcards?DeckID=${credentials.DeckID}`,
+    `${hostAddress()}/decks/flashcards?DeckID=${credentials.DeckID}`,
     {
       method: "GET",
       headers: {
@@ -103,7 +105,7 @@ export const getFlashCards = (credentials) => {
 
 export const createFlashCard = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/decks/flashcards", {
+  const data = fetch(`${hostAddress()}/decks/flashcards`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -117,7 +119,7 @@ export const createFlashCard = (credentials) => {
 
 export const updateFlashCard = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/decks/flashcards", {
+  const data = fetch(`${hostAddress()}/decks/flashcards`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -131,7 +133,7 @@ export const updateFlashCard = (credentials) => {
 
 export const deleteFlashCard = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/decks/flashcards", {
+  const data = fetch(`${hostAddress()}/decks/flashcards`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

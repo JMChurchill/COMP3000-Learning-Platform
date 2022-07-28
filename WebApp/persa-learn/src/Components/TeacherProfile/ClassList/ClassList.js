@@ -26,14 +26,15 @@ const ClassList = ({
         {classes.map((c, i) => {
           let classSelected = false;
           if (selectedClass) {
-            if (selectedClass.id === c.classdetailsID) {
+            if (selectedClass.id === c.ClassDetailsID) {
+              console.log(c.ClassDetailsID);
               classSelected = true;
             }
           }
           return (
             <ClassItem
-              key={c.classdetailsID}
-              id={c.classdetailsID}
+              key={c.ClassDetailsID}
+              id={c.ClassDetailsID}
               name={c.Name}
               yearGroup={c.YearGroup}
               setSelectedClass={setSelectedClass}

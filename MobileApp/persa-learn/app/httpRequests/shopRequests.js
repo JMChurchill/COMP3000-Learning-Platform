@@ -1,11 +1,12 @@
 import * as SecureStore from "expo-secure-store";
 import { checkTokenCorrect } from "./checkValidToken";
+import { hostAddress } from "./hostAddress";
 
 export const getBanners = async () => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
 
-    const data = fetch("http://10.0.2.2:8080/banner", {
+    const data = fetch(`${hostAddress()}/banner`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +23,7 @@ export const getProfilePics = async () => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
 
-    const data = fetch("http://10.0.2.2:8080/profilePicture", {
+    const data = fetch(`${hostAddress()}/profilePicture`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +40,7 @@ export const getThemes = async () => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
 
-    const data = fetch("http://10.0.2.2:8080/theme", {
+    const data = fetch(`${hostAddress()}/theme`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +56,7 @@ export const getThemes = async () => {
 export const purchaseProfilePic = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/profilePicture/purchased", {
+    const data = fetch(`${hostAddress()}/profilePicture/purchased`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +73,7 @@ export const purchaseProfilePic = async (credentials) => {
 export const purchaseBanner = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/banner/purchased", {
+    const data = fetch(`${hostAddress()}/banner/purchased`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +90,7 @@ export const purchaseBanner = async (credentials) => {
 export const purchaseTheme = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/theme/purchased", {
+    const data = fetch(`${hostAddress()}/theme/purchased`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

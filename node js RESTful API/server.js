@@ -39,6 +39,7 @@ app.use(express.json());
 if (process.env.NODE_ENV != "production") {
   app.use(cors());
 }
+
 // app.use(cors(corsOptions));
 
 //redirect requests to endpoint starting with /posts to postRoutes.js
@@ -64,9 +65,21 @@ const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`API started on port: ${port}`);
 });
-
+// console.log();
+// console.log("a", process.env.BACKEND_SERVER);
+console.log("ab", process.env.MYSQL_PASSWORD);
 app.get("/", async (req, res) => {
-  res.json({ status: "Ready" });
+  // console.log("test");
+  const cred = {
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    host: process.env.MYSQL_HOST,
+  };
+
+  res.json({
+    status: `Ready to go ${process.env.DB_USER}`,
+  });
 });
 
 // console.log(levelUp(1, 100071, 0));

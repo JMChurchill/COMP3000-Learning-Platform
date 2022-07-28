@@ -1,8 +1,9 @@
+import { hostAddress } from "../../config/hostAddress";
 import { checkTokenCorrect } from "../userRequests";
 
 export const getClassRequests = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/classRequests/student", {
+  const data = fetch(`${hostAddress()}/classRequests/student`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +16,7 @@ export const getClassRequests = () => {
 
 export const acceptClassRequests = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/classRequests/student", {
+  const data = fetch(`${hostAddress()}/classRequests/student`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +30,7 @@ export const acceptClassRequests = (credentials) => {
 
 export const declineClassRequests = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/classRequests/student", {
+  const data = fetch(`${hostAddress()}/classRequests/student`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

@@ -27,18 +27,21 @@ const ThemesEdit = () => {
 
   useEffect(async () => {
     setThemeID(state.ThemeID);
+    console.log(state.ThemeID);
     // get themes details
     const data = await getThemeDetails(state.ThemeID);
+    console.log(data);
+    console.log(data.data[0]);
     if (data.status === "success") {
-      setName(data.data.Name);
-      setDetails(data.data.Details);
-      setPrimaryColor(data.data.PrimaryColor);
-      setBackgroundColor(data.data.BackgroundColor);
-      setBtnTextColor(data.data.BtnTextColor);
+      setName(data.data[0].Name);
+      setDetails(data.data[0].Details);
+      setPrimaryColor(data.data[0].PrimaryColor);
+      setBackgroundColor(data.data[0].BackgroundColor);
+      setBtnTextColor(data.data[0].BtnTextColor);
 
-      setIsDark(data.data.IsDark == "true" || data.data.IsDark == true);
-      setCost(data.data.Cost);
-      setRequiredLevel(data.data.RequiredLevel);
+      setIsDark(data.data[0].IsDark == "true" || data.data[0].IsDark == true);
+      setCost(data.data[0].Cost);
+      setRequiredLevel(data.data[0].RequiredLevel);
     }
   }, []);
 

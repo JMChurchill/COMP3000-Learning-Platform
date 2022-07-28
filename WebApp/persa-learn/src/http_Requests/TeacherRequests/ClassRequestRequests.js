@@ -1,3 +1,4 @@
+import { hostAddress } from "../../config/hostAddress";
 import { checkTokenCorrect } from "../userRequests";
 
 // export const getClassRequests = () => {
@@ -15,7 +16,7 @@ import { checkTokenCorrect } from "../userRequests";
 
 export const getClassRequestsByClass = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/classRequests/teacher/class", {
+  const data = fetch(`${hostAddress()}/classRequests/teacher/class`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +30,7 @@ export const getClassRequestsByClass = (credentials) => {
 
 export const createClassRequest = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/classRequests/teacher", {
+  const data = fetch(`${hostAddress()}/classRequests/teacher`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export const createClassRequest = (credentials) => {
 
 export const removeClassRequest = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/classRequests/teacher", {
+  const data = fetch(`${hostAddress()}/classRequests/teacher`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

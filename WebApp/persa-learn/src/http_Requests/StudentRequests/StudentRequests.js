@@ -1,3 +1,5 @@
+import { hostAddress } from "../../config/hostAddress";
+
 export const checkTokenCorrect = (status) => {
   status.then((value) => {
     // console.log(value.errors[0].message);
@@ -14,7 +16,7 @@ export const checkTokenCorrect = (status) => {
 
 export const updateProfilePicture = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/student/profilePic", {
+  const data = fetch(`${hostAddress()}/student/profilePic`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +30,7 @@ export const updateProfilePicture = (credentials) => {
 
 export const updateBanner = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/student/banner", {
+  const data = fetch(`${hostAddress()}/student/banner`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -42,7 +44,7 @@ export const updateBanner = (credentials) => {
 
 export const deleteStudent = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  let data = fetch("http://localhost:8080/student/", {
+  let data = fetch(`${hostAddress()}/student/`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -56,7 +58,7 @@ export const deleteStudent = () => {
 
 export const editPasswordStudent = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  let data = fetch("http://localhost:8080/student/update/password", {
+  let data = fetch(`${hostAddress()}/student/update/password`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

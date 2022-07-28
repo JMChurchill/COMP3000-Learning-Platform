@@ -1,10 +1,11 @@
 import * as SecureStore from "expo-secure-store";
 import { checkTokenCorrect } from "./checkValidToken";
+import { hostAddress } from "./hostAddress";
 
 export const getFlashCardDecksRequest = async () => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/decks/view", {
+    const data = fetch(`${hostAddress()}/decks/view`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +22,7 @@ export const getFlashCardsRequest = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
     const data = fetch(
-      `http://10.0.2.2:8080/decks/flashcards?DeckID=${credentials.deckID}`,
+      `${hostAddress()}/decks/flashcards?DeckID=${credentials.deckID}`,
       {
         method: "GET",
         headers: {
@@ -39,7 +40,7 @@ export const getFlashCardsRequest = async (credentials) => {
 export const createFlashCardDecks = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/decks/create", {
+    const data = fetch(`${hostAddress()}/decks/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export const createFlashCardDecks = async (credentials) => {
 export const updateDecksRequest = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/decks/update", {
+    const data = fetch(`${hostAddress()}/decks/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +74,7 @@ export const updateDecksRequest = async (credentials) => {
 export const updateFlashCardRequest = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/decks/flashcards", {
+    const data = fetch(`${hostAddress()}/decks/flashcards`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +91,7 @@ export const updateFlashCardRequest = async (credentials) => {
 export const deleteFlashCardRequest = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/decks/flashcards", {
+    const data = fetch(`${hostAddress()}/decks/flashcards`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +108,7 @@ export const deleteFlashCardRequest = async (credentials) => {
 export const createFlashCardRequest = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/decks/flashcards", {
+    const data = fetch(`${hostAddress()}/decks/flashcards`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +125,7 @@ export const createFlashCardRequest = async (credentials) => {
 export const deleteFlashCardDeckRequest = async (credentials) => {
   try {
     let token = await SecureStore.getItemAsync("userToken");
-    const data = fetch("http://10.0.2.2:8080/decks/delete", {
+    const data = fetch(`${hostAddress()}/decks/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

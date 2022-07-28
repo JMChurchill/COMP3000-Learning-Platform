@@ -1,8 +1,9 @@
+import { hostAddress } from "../../config/hostAddress";
 import { checkTokenCorrect } from "../userRequests";
 
 export const getAdminDetails = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/admin/details", {
+  const data = fetch(`${hostAddress()}/admin/details`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +16,7 @@ export const getAdminDetails = () => {
 
 export const createAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/admin/create", {
+  const data = fetch(`${hostAddress()}/admin/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +30,7 @@ export const createAdmin = (credentials) => {
 
 export const editAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/admin/", {
+  const data = fetch(`${hostAddress()}/admin/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export const editAdmin = (credentials) => {
 
 export const changePasswordAdmin = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const data = fetch("http://localhost:8080/admin/password", {
+  const data = fetch(`${hostAddress()}/admin/password`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
