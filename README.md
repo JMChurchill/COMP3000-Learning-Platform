@@ -35,6 +35,8 @@ Bcrypt JS
 ### Testing
 React Testing Library   
 Cypress
+### Networking
+Docker
 ## Database Structure (ERD)
 ![ERD](https://user-images.githubusercontent.com/57601700/178161687-b176083b-168f-4185-bc67-e8ddc953a92f.png)
 
