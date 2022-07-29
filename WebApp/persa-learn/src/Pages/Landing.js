@@ -110,7 +110,7 @@ const Landing = () => {
             <div className={styles.img} id={styles.leaderboard}></div>
             <div>
               <h3>Compete with your classmates</h3>
-              <p></p>
+              <p>Compete against your class with the class leaderboard</p>
             </div>
           </div>
         </section>
