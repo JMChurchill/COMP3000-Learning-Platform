@@ -43,6 +43,7 @@ import ShopManagement from "./Components/Admin/ShopManagement";
 import AccountActions from "./Components/Admin/AccountActions";
 import CreateAdmin from "./Components/Admin/CreateAdmin";
 import EditAccountSettings from "./Pages/Admin/EditAccountSettings";
+import Landing from "./Pages/Landing";
 
 function App() {
   const { token, setToken } = useToken();
@@ -104,7 +105,31 @@ function App() {
   };
 
   if (!token) {
-    return <Login setToken={setToken} />;
+    // return <Login setToken={setToken} />;
+    return (
+      <div className="App">
+        <Router>
+          {/* <Navbar /> */}
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <Navbar /> <Landing />
+                </>
+              }
+            />
+            <Route
+              exact
+              path="/login"
+              element={<Login setToken={setToken} />}
+            />
+            <Route path="*" element={<Login setToken={setToken} />} />
+          </Routes>
+        </Router>
+      </div>
+    );
   }
 
   return (

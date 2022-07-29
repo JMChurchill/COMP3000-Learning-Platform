@@ -8,6 +8,7 @@ import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [navVisibility, setNavVisibility] = useState(false);
+  const [token, setIsToken] = useState(sessionStorage.getItem("token"));
   const [isTeacher, setIsTeacher] = useState(
     sessionStorage.getItem("teacher") === "true"
   );
@@ -27,6 +28,9 @@ const Navbar = () => {
     sessionStorage.clear();
     window.location.reload();
     // setToken("");
+  };
+  const login = () => {
+    navigate("/login");
   };
   return (
     // <header className="primary-header flex">
@@ -53,7 +57,9 @@ const Navbar = () => {
           // className="primary-navigation flex"
           className={styles.primary_navigation}
         >
-          {isAdmin ? (
+          {!token ? (
+            <></>
+          ) : isAdmin ? (
             <>
               <li>
                 <Link aria-current="false" to="/">
@@ -113,11 +119,24 @@ const Navbar = () => {
               </li>
             </>
           )}
-          <li>
+          {!token ? (
+            <li>
+              <a aria-current="false" onClick={() => login()}>
+                Login/Sign Up
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a aria-current="false" href="#" onClick={() => logout()}>
+                Logout
+              </a>
+            </li>
+          )}
+          {/* <li>
             <a aria-current="false" href="#" onClick={() => logout()}>
               Logout
             </a>
-          </li>
+          </li> */}
 
           {/* <li>
             <Link aria-current="false" to="/profile_student">
