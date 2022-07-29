@@ -12,11 +12,16 @@ main {
   padding: 0 5rem;
   align-items: center;
 }
+
 .hero .details h1 {
   font-size: 4rem;
 }
 .hero .details p {
   font-size: 1.4rem;
+  margin: 0.5rem 0;
+}
+.hero .details .btns {
+  margin: 0 -0.5rem;
 }
 .hero .img {
   background-image: url(../assets/LandingImages/LandingPhone.png);
@@ -91,4 +96,10 @@ main {
 }
 .feature #leaderboard {
   background-image: url(../assets/LandingImages/featureLeaderboardPc.png);
+}
+
+footer {
+  background-color: #f2f2f2;
+  padding: 2rem 5rem;
+  font-weight: bold;
 }

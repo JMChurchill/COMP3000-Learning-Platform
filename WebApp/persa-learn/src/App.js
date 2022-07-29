@@ -109,8 +109,17 @@ function App() {
     return (
       <div className="App">
         <Router>
+          {/* <Navbar /> */}
           <Routes>
-            <Route exact path="/" element={<Landing />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <Navbar /> <Landing />
+                </>
+              }
+            />
             <Route
               exact
               path="/login"
