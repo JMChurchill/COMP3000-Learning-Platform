@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../http_Requests/userRequests";
 
 import userIcon from "../../assets/tempUserIcon.svg";
@@ -17,6 +18,9 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
   const [passwordError, setPasswordError] = useState();
   const [isError, setIsError] = useState(false);
   const [reason, setReason] = useState("");
+
+  const navigate = useNavigate();
+
   // const [httpResponseCode, setHttpResponseCode] = useState();
 
   const login = async () => {
@@ -77,6 +81,7 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
             sessionStorage.setItem("admin", false);
           }
           setIsError(false);
+          navigate("/");
           setToken(token);
         } else {
           console.log("No data returned");
