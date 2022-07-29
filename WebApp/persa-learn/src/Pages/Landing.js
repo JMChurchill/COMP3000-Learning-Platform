@@ -18,9 +18,9 @@ const Landing = () => {
             <h1>Start Your Learning Journey</h1>
             <p>
               Whether your a student or a teacher PersaLearn can help you reach
-              your goals
+              your goals.
             </p>
-            <p>Avaiable on all devices</p>
+            <p>Avaiable on all devices.</p>
             <div className={styles.btns}>
               <CustomButton text={"Online"} onClick={login} />
               <CustomButton

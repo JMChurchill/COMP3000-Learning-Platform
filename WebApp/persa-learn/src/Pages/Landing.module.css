@@ -108,6 +108,15 @@ footer {
     grid-template-columns: 1fr;
     padding: 0 2.5rem;
   }
+  .hero .details h1 {
+    font-size: 3rem;
+  }
+
+  .hero .details .btns {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
   .hero .img {
     display: none;
   }
