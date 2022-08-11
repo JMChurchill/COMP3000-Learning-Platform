@@ -15,6 +15,7 @@ it("renders without crashing ", () => {
 
 describe("all views render", () => {
   it("renders student view correctly", () => {
+    sessionStorage.setItem("token", "asdasda");
     // enter student items in session storage
     sessionStorage.setItem("teacher", false);
     sessionStorage.setItem("admin", false);
@@ -34,6 +35,8 @@ describe("all views render", () => {
   });
 
   it("renders teacher view correctly", () => {
+    sessionStorage.setItem("token", "asdasda");
+
     // enter teacher items in session storage
     sessionStorage.setItem("teacher", true);
     sessionStorage.setItem("admin", false);
@@ -52,6 +55,8 @@ describe("all views render", () => {
     screen.getByText(/logout/i);
   });
   it("renders admin view correctly", () => {
+    sessionStorage.setItem("token", "asdasda");
+
     sessionStorage.setItem("teacher", false);
     sessionStorage.setItem("admin", true);
 

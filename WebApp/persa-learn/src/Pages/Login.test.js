@@ -1,15 +1,19 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
 import Login from "./Login";
+import { MemoryRouter } from "react-router-dom";
 
 it("renders without crashing ", () => {
-  const { queryByTestId } = render(<Login setToken={() => {}} />);
+  const { queryByTestId } = render(<Login setToken={() => {}} />, {
+    wrapper: MemoryRouter,
+  });
   const login = queryByTestId("login");
   expect(login).toBeTruthy();
 });
 it("renders login screen without crashing ", () => {
   const { queryByTestId, queryByPlaceholderText } = render(
-    <Login setToken={() => {}} />
+    <Login setToken={() => {}} />,
+    { wrapper: MemoryRouter }
   );
   const login = queryByTestId("login");
   expect(login).toBeTruthy();
@@ -21,7 +25,8 @@ it("renders login screen without crashing ", () => {
 describe("clickButton", () => {
   it("onClickSignUp", () => {
     const { queryByText, queryByPlaceholderText } = render(
-      <Login setToken={() => {}} />
+      <Login setToken={() => {}} />,
+      { wrapper: MemoryRouter }
     );
     const btn = queryByText(/Sign Up/i);
 
@@ -44,7 +49,8 @@ describe("clickButton", () => {
 
   it("onClickAdmin", () => {
     const { queryByText, queryByPlaceholderText } = render(
-      <Login setToken={() => {}} />
+      <Login setToken={() => {}} />,
+      { wrapper: MemoryRouter }
     );
     const btn = queryByText(/Admin Login/i);
 
@@ -61,7 +67,8 @@ describe("clickButton", () => {
 describe("login form", () => {
   it("can enter values login form", () => {
     const { queryByText, queryByPlaceholderText } = render(
-      <Login setToken={() => {}} />
+      <Login setToken={() => {}} />,
+      { wrapper: MemoryRouter }
     );
     const inputWord = "testing";
     const inputEmail = queryByPlaceholderText("email");
@@ -80,7 +87,7 @@ describe("login form", () => {
       queryByPlaceholderText,
       queryByTestId,
       queryAllByTestId,
-    } = render(<Login setToken={() => {}} />);
+    } = render(<Login setToken={() => {}} />, { wrapper: MemoryRouter });
     const inputEmail = queryByPlaceholderText("email");
     expect(inputEmail).toBeTruthy();
     const inputPassword = queryByPlaceholderText("password");
@@ -107,7 +114,7 @@ describe("login form", () => {
       queryByPlaceholderText,
       queryByTestId,
       queryAllByTestId,
-    } = render(<Login setToken={() => {}} />);
+    } = render(<Login setToken={() => {}} />, { wrapper: MemoryRouter });
     const inputEmail = queryByPlaceholderText("email");
     expect(inputEmail).toBeTruthy();
     const inputPassword = queryByPlaceholderText("password");
@@ -136,7 +143,7 @@ describe("login form", () => {
       queryByPlaceholderText,
       queryByTestId,
       queryAllByTestId,
-    } = render(<Login setToken={() => {}} />);
+    } = render(<Login setToken={() => {}} />, { wrapper: MemoryRouter });
     const inputEmail = queryByPlaceholderText("email");
     expect(inputEmail).toBeTruthy();
     const inputPassword = queryByPlaceholderText("password");
