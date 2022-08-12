@@ -37,7 +37,6 @@ const TeacherProfile = () => {
     const data = await getAllAssignmentRatings();
     // console.log(data);
     if (data.status === "success") {
-      console.log(data.data);
       setAverageRating(data.data);
     }
   };

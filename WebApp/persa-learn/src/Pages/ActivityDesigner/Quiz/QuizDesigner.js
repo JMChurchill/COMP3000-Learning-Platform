@@ -84,13 +84,6 @@ const QuizDesigner = () => {
   };
 
   const createQuiz = async () => {
-    console.log({
-      title,
-      questions,
-      selectedModule,
-      selectedClass,
-    });
-
     let noTitle = false;
     if (title == null || title == "") {
       noTitle = true;
@@ -103,10 +96,8 @@ const QuizDesigner = () => {
     let noQuestionAns = false;
     let noOps = false;
     questions.map((x) => {
-      console.log(x.options.length);
       if (x.Question == "" || x.Question == null) {
         noQuestionName = true;
-        console.log("this", x);
       }
       if (x.Answer === "" || x.Answer === null || x.Answer === undefined) {
         noQuestionAns = true;
@@ -128,7 +119,6 @@ const QuizDesigner = () => {
       !noQuestionAns &&
       !noOps
     ) {
-      // console.log("send");
       // add quiz to database
       const data = await createTheQuiz({
         title,

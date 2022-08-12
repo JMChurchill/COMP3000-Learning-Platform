@@ -27,7 +27,6 @@ const ClassList = ({
           let classSelected = false;
           if (selectedClass) {
             if (selectedClass.id === c.ClassDetailsID) {
-              console.log(c.ClassDetailsID);
               classSelected = true;
             }
           }

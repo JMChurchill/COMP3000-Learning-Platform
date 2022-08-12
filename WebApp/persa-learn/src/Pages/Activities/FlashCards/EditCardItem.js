@@ -19,10 +19,6 @@ const EditCardItem = ({ q, a, id, deleteCard }) => {
     setIsEditing(false);
   };
   const saveEditCard = async () => {
-    // console.log(
-    //   `Saving card (${id}) new question: ${newQuestion}, new answers: ${newAnswer}`
-    // );
-
     const data = await updateFlashCard({
       FlashCardID: id,
       Question: newQuestion,

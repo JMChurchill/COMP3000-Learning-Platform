@@ -65,7 +65,6 @@ const EditUserSettings = () => {
       } else {
         setIsSuccess(false);
       }
-      console.log("the data: ", data);
     }
   };
   return (

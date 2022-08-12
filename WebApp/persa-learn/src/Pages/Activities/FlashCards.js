@@ -20,9 +20,7 @@ const FlashCards = () => {
 
   const createDeck = async () => {
     if (deckName != null) {
-      console.log(deckName);
       const data = await createFlashCardDecks({ Name: deckName });
-      console.log(data);
       if (data.status === "success") {
         setIsAdded(true);
         setIsAdding(false);
@@ -31,9 +29,7 @@ const FlashCards = () => {
   };
   const getDecks = async () => {
     const data = await getFlashCardDecks();
-    // console.log(data);
     setDecks(data.decks);
-    console.log("got decks");
   };
   useEffect(async () => {
     await getDecks();
@@ -65,13 +61,11 @@ const FlashCards = () => {
                 tabindex="0"
                 onClick={() => {
                   setSelectedDeck(deck);
-                  console.log(selectedDeck);
                   setIsDeckSelected(true);
                 }}
                 onKeyDown={(e) => {
                   if (e.keyCode === 13) {
                     setSelectedDeck(deck);
-                    console.log(selectedDeck);
                     setIsDeckSelected(true);
                   }
                 }}

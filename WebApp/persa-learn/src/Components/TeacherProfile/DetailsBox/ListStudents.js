@@ -20,7 +20,6 @@ const ListStudents = ({ classID, flipIsShowStudents }) => {
   useEffect(async () => {
     let details = { classID: classID };
     let data = await getStudentsInClass(details);
-    console.log(data);
     if (data.status === "success") setStudents(data.data);
   }, [isDeleted]);
 
@@ -37,7 +36,6 @@ const ListStudents = ({ classID, flipIsShowStudents }) => {
       studentID: student.StudentID,
       classID: classID,
     });
-    console.log(result);
     if (result.status === "success") {
       setStudentsSubmissions(result.data);
     }

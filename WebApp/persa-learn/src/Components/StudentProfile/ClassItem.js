@@ -5,9 +5,7 @@ import styles from "./ClassItem.module.css";
 const ClassItem = ({ id, name, firstname, lastname, yearGroup }) => {
   const navigate = useNavigate();
 
-  const getClassMates = (id) => {
-    console.log("class id: ", id);
-  };
+  const getClassMates = (id) => {};
   return (
     <div
       key={id}

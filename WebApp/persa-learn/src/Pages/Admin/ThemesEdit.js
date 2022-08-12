@@ -27,11 +27,8 @@ const ThemesEdit = () => {
 
   useEffect(async () => {
     setThemeID(state.ThemeID);
-    console.log(state.ThemeID);
     // get themes details
     const data = await getThemeDetails(state.ThemeID);
-    console.log(data);
-    console.log(data.data[0]);
     if (data.status === "success") {
       setName(data.data[0].Name);
       setDetails(data.data[0].Details);

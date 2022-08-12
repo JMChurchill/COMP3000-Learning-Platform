@@ -17,9 +17,7 @@ const AdminProfile = () => {
 
   useEffect(async () => {
     const data = await getMonthlySignups();
-    console.log(data);
     setMonthlySignups(data.data);
-    console.log(monthlySignups.map((mon) => mon.Month));
   }, []);
 
   return (
@@ -59,7 +57,6 @@ const AdminProfile = () => {
                       for (let j = 0; j < i + 1; j++) {
                         cumultive = cumultive + monthlySignups[j].Num;
                       }
-                      console.log(cumultive);
                       return cumultive;
                     }),
                     borderColor: "rgba(255, 206, 86, 1)",

@@ -14,7 +14,6 @@ const NewOption = ({
 }) => {
   const [option, setOption] = useState(value);
   useEffect(() => {
-    console.log("the value changed");
     setOption(value);
   }, [value]);
   return (

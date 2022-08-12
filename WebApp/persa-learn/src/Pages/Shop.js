@@ -62,7 +62,6 @@ const Shop = () => {
     let data = await getAllBanners();
     setAllBanners(data.data);
     data = await getAllThemes();
-    console.log(data.data);
     setAllThemes(data.data);
     data = await getAllProfilePics();
     setAllProfilePics(data.data);
@@ -70,7 +69,6 @@ const Shop = () => {
 
   const getStudentDetails = async () => {
     let data = await getUserDetails();
-    console.log(data);
     if (data.status === "success") {
       setName(`${data.data.FirstName} ${data.data.LastName}`);
       setCoins(data.data.Coins);

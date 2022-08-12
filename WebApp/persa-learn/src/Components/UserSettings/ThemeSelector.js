@@ -60,10 +60,6 @@ const ThemeSelector = ({ close }) => {
 
   useEffect(async () => {
     const data = await getPurchasedThemes();
-    console.log(data);
-
-    console.log("all the themes!", data);
-    console.log("accessed from local storage");
     setThemes(data.data);
 
     //get selected theme from local storage

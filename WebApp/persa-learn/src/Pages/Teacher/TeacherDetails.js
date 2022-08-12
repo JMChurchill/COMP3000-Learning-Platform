@@ -22,7 +22,6 @@ const TeacherDetails = () => {
 
   const deleteUser = async () => {
     const data = await deleteTeacher();
-    console.log(data);
     if (data.status === "success") {
       navigate("/", {});
       sessionStorage.clear();

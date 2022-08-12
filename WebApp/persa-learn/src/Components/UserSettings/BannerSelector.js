@@ -11,7 +11,6 @@ const BannerSelector = ({ close, getDetails }) => {
 
   const getBanners = async () => {
     const data = await getPurchasedBanners();
-    console.log("this", data);
     if (data.status === "success") {
       setBanners(data.data);
     }

@@ -13,13 +13,10 @@ const BannerOverlay = ({ selectedItem = {}, getItems, close }) => {
       BannerID: selectedItem.itemID,
     });
     // const data = {};
-    console.log(data);
     //not successful
-    console.log(Array.isArray(data.results));
     if (Array.isArray(data.results)) {
       //not enough money
       if (data.results[0][0].hasOwnProperty("Error")) {
-        // console.log("Youre too poor");
         setIsPoor(true);
       }
     } else if (data.status === "success") {

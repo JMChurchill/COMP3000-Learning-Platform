@@ -13,11 +13,9 @@ const ClassLeaderboard = () => {
   const { state } = useLocation();
   const [students, setStudents] = useState([]);
   const [topThree, setTopThree] = useState([]);
-  // console.log(state.classID);
 
   useEffect(async () => {
     const data = await getStudentsInClass(state);
-    console.log(data);
     if (data.status === "success") setStudents(data.data);
   }, []);
 

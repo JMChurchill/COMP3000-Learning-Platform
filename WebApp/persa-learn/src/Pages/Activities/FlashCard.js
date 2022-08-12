@@ -20,31 +20,23 @@ const FlashCard = () => {
   const [isComplete, setIsComplete] = useState(false);
 
   const { state } = useLocation();
-  console.log(state);
-  console.log("the cur", currentCard);
-
   const navigate = useNavigate();
 
   useEffect(async () => {
     const data = await getFlashCards(state);
-    console.log(data);
     setDeck(data.flashCards);
     // setCurrentCard(deck[0]);
   }, []);
   useEffect(async () => {
-    console.log(deck);
     setNumCards(deck.length);
 
     setCurrentCard(deck[0]);
-    console.log(currentCard);
   }, [deck]);
 
   const nextCard = () => {
-    console.log(count);
     if (count < numCards) {
       setCount(count + 1);
       setCurrentCard(deck[count]);
-      console.log(count, currentCard);
     } else {
       setIsComplete(true);
     }
@@ -53,12 +45,10 @@ const FlashCard = () => {
     alert("done");
   };
   const correct = () => {
-    console.log("correct");
     setScore(score + 1);
     nextCard();
   };
   const incorrect = () => {
-    console.log("incorrect");
     nextCard();
   };
   return (
@@ -73,7 +63,6 @@ const FlashCard = () => {
             <h3>Cards Remaining: {tempFlashcardData.length - count - 1}</h3>
           </div>
         </div>
-        {console.log("current ", currentCard)}
         {currentCard != null ? (
           <Flashcard
             question={currentCard.Question}

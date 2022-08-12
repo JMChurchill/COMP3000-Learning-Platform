@@ -22,15 +22,12 @@ const EditCardsInDeck = () => {
   const navigate = useNavigate();
 
   const deleteCard = (id) => {
-    console.log("Deleting card");
     setSelectedCardId(id);
     setIsDeleting(true);
   };
 
   const deleteConfirmed = async () => {
-    console.log("Deleting card: ", selectedCardId);
     const data = await deleteFlashCard({ FlashCardID: selectedCardId });
-    console.log(data);
     if (data.status === "success") {
       setIsDeleting(false);
       await getCards();
@@ -39,7 +36,6 @@ const EditCardsInDeck = () => {
 
   const getCards = async () => {
     const data = await getFlashCards(state);
-    console.log(data);
     setDeck(data.flashCards);
   };
 

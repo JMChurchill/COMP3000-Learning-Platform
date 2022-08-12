@@ -114,7 +114,6 @@ export const addStudentToClass = (details) => {
 };
 
 export const removeStudentFromClass = (details) => {
-  console.log(details);
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(`${hostAddress()}/teacher/classes/remove`, {
     method: "DELETE",
@@ -228,7 +227,6 @@ export const viewTeachersQuizzes = () => {
 };
 
 export const viewTeachersQuizzesByClass = (credentials) => {
-  console.log("aaa", credentials);
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
     `${hostAddress()}/quiz/all/class/?classID=${credentials}`,

@@ -4,7 +4,6 @@ import CustomButton from "../../CustomButton";
 import OverlayConfirm from "../../OverlayConfirm";
 import styles from "./ThemeOverlay.module.css";
 const ThemeOverlay = ({ selectedItem = {}, getItems, close }) => {
-  console.log(selectedItem);
   const [isPoor, setIsPoor] = useState();
 
   const buyItem = async () => {
@@ -13,12 +12,10 @@ const ThemeOverlay = ({ selectedItem = {}, getItems, close }) => {
       ThemeID: selectedItem.itemID,
     });
     // const data = {};
-    console.log(data);
     //not successful
     if (Array.isArray(data.results)) {
       //not enough money
       if (data.results[0][0].hasOwnProperty("Error")) {
-        // console.log("Youre too poor");
         setIsPoor(true);
       }
     } else if (data.status === "success") {

@@ -21,7 +21,6 @@ export const loginUser = async (credentials, isTeacher, isAdmin) => {
   } else if (isTeacher) {
     url = `${hostAddress()}/teacher/login`;
   } else {
-    console.log(hostAddress());
     url = `${hostAddress()}/student/login`;
   }
   return fetch(url, {
@@ -93,9 +92,6 @@ export const getStudentsClassses = () => {
   // return data;
 };
 export const getStudentsInClass = (classID) => {
-  // console.log(JSON.stringify(classID));
-  console.log(classID);
-
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(`${hostAddress()}/student/class`, {
     method: "POST",
@@ -124,7 +120,6 @@ export const getQuiz = (quizID) => {
 
 export const checkAnswers = (credentials) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
-  console.log(credentials);
   const data = fetch(`${hostAddress()}/quiz/checkAnswers`, {
     method: "POST",
     headers: {

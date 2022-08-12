@@ -20,7 +20,6 @@ const OverlayDetails = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const deleteTheme = async () => {
     const data = await deleteThemeAdmin({ ThemeID: id });
-    console.log(data);
     close();
   };
 

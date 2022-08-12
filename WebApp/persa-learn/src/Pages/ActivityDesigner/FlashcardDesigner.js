@@ -25,7 +25,6 @@ const FlashcardDesigner = () => {
       setAnswerError(null);
     }
     if (question != null && answer != null && question != "" && answer != "") {
-      console.log("ok");
       const data = await createFlashCard({
         DeckID: state.DeckID,
         Question: question,
@@ -36,7 +35,6 @@ const FlashcardDesigner = () => {
           state,
         });
       }
-      console.log(data);
     }
   };
   return (

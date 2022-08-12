@@ -16,7 +16,6 @@ const BannersAll = () => {
 
   const getAllBanners = async () => {
     const data = await getAllBannersAdmin();
-    console.log(data);
     setAllBanners(data.data);
   };
 

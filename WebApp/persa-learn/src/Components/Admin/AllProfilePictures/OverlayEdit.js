@@ -16,10 +16,8 @@ const OverlayEdit = ({ ProfilePicID, close, getProfilePictures }) => {
   const [image, setImage] = useState("");
   const [cost, setCost] = useState("");
   const [requiredLevel, setRequiredLevel] = useState("");
-  console.log(ProfilePicID);
 
   const editDetails = async () => {
-    console.log(id);
     const data = await editProfilePictureAdmin({
       ProfilePicID: id,
       Name: name,
@@ -38,8 +36,6 @@ const OverlayEdit = ({ ProfilePicID, close, getProfilePictures }) => {
     let data = await getProfilePictureDetails(ProfilePicID);
     if (data.status == "success") {
       data = data.data[0];
-      console.log(data);
-      //   console.log(data.data);
       setID(data.ProfilePictureID);
       setName(data.Name);
       setDetails(data.Details != null ? data.Details : "");

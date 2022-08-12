@@ -14,7 +14,6 @@ const ProfilePicturesAll = () => {
 
   const getProfilePictures = async () => {
     const data = await getAllProfilePicturesAdmin();
-    console.log(data);
     if (data.status == "success") {
       setAllProfilePictures(data.data);
     }

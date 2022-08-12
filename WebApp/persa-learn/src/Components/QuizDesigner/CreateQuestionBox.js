@@ -32,30 +32,23 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
   const addOption = () => {
     // e.preventDefault();
     setOptions([...options, ""]);
-    console.log("option array: ", options);
     updateThisQuestion();
   };
   const removeOption = (index) => {
     // e.preventDefault();
-    console.log("op", options[index]);
     if (index > -1) {
       options.splice(index, 1); // 2nd parameter means remove one item only
     }
     updateCorrectAns(undefined);
-    console.log("this", options);
     setOptions([...options]);
-    // console.log("option array: ", options);
     updateThisQuestion();
   };
 
   const updateThisQuestion = async () => {
-    console.log("updating all values");
-    console.log(thisQuestion);
     thisQuestion.Question = name;
     thisQuestion.Details = questionDetails;
     thisQuestion.options = options;
     thisQuestion.Answer = correctAns;
-    console.log(thisQuestion);
 
     updateQuestion(thisQuestion);
   };
@@ -94,16 +87,12 @@ const CreateQuestionBox = ({ qID, updateQuestion, thisQuestion }) => {
       <div className={styles.options_box}>
         {options.map((option, index) => {
           let correctAnsw = false;
-          console.log(thisQuestion.Answer);
-          console.log(option);
           if (thisQuestion.Answer == option) {
             correctAnsw = true;
           }
           // if (thisQuestion.Answer == index) {
           //   correctAnsw = true;
           // }
-          console.log("updating");
-          console.log(option);
           return (
             <NewOption
               key={index}

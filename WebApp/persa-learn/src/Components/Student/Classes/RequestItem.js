@@ -18,7 +18,6 @@ const RequestItem = ({
 }) => {
   const accept = async () => {
     const data = await acceptClassRequests({ classID: id });
-    console.log(data);
     if (data.status === "success") {
       getAllRequests();
       getAllClasses();
@@ -26,7 +25,6 @@ const RequestItem = ({
   };
   const decline = async () => {
     const data = await declineClassRequests({ classID: id });
-    console.log(data);
     if (data.status === "success") {
       getAllRequests();
     }

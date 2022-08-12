@@ -27,8 +27,6 @@ const QuizEdit = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  console.log(state);
-
   const getModules = async () => {
     let data = await viewTeachersModules();
     setModuleList(data.modules);

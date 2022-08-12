@@ -36,7 +36,6 @@ const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
     let details = { studentID, classID };
     // add student to the class
     let data = await createClassRequest(details);
-    console.log(data);
     if (data.status === "success") getAllStudents();
   };
   const removeStudent = async (studentID) => {
@@ -47,11 +46,9 @@ const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
   };
 
   const searchForStudents = async () => {
-    console.log(searchTerm);
     //get students
     await getAllStudents();
   };
-  console.log(classID);
 
   return (
     <>

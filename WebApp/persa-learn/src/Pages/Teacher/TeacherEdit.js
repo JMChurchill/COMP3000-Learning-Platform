@@ -27,7 +27,6 @@ const TeacherEdit = () => {
 
   const getDetails = async () => {
     const data = await getTeachersDetails();
-    console.log(data);
     if (data.status === "success") {
       setFirstName(data.details.FirstName);
       setLastName(data.details.LastName);
@@ -77,7 +76,6 @@ const TeacherEdit = () => {
         lastname: lastName,
         phonenumber: phoneNumber,
       });
-      console.log(data);
       if (data.status === "success") {
         sessionStorage.clear();
         setIsSuccess(true);

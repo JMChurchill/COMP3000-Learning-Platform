@@ -13,12 +13,10 @@ const OverlayDetails = ({
   const [showEdit, setShowEdit] = useState();
   const [isDeleting, setIsDeleting] = useState();
 
-  console.log(selectedProfilePicture);
   const deleteProfilePic = async () => {
     const data = await deleteProfilePictureAdmin({
       ProfilePicID: selectedProfilePicture.id,
     });
-    console.log(data);
     getProfilePictures();
     close();
   };

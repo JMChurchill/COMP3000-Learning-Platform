@@ -11,9 +11,7 @@ const AddClass = ({ flipAddClass, classChanged }) => {
     // e.preventDefault();
     let details = { name: className, year: yearGroup };
     let data = await createClass(details);
-    console.log(data);
     if (data.status === "success") {
-      console.log("class created successfully");
       classChanged();
       flipAddClass();
     } else {

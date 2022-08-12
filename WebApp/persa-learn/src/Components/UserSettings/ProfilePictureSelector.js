@@ -11,7 +11,6 @@ const ProfilePictureSelector = ({ close, getDetails }) => {
 
   const getProfilePictures = async () => {
     const data = await getPurchasedProfilePictures();
-    console.log(data);
     if (data.status === "success") {
       setProfilePictures(data.data);
     }
@@ -26,9 +25,7 @@ const ProfilePictureSelector = ({ close, getDetails }) => {
   };
   const updatePicture = async () => {
     if (selectedIcon != null) {
-      console.log("Profile picture changed to: ", selectedIcon);
       const data = await updateProfilePicture({ ProfilePicture: selectedIcon });
-      console.log(data);
       await getDetails();
       close();
     } else alert("Select a profile picture");
@@ -39,7 +36,6 @@ const ProfilePictureSelector = ({ close, getDetails }) => {
         <h2>Select a profile picture</h2>
         <div className={styles.all_picture_container}>
           {profilePictures.map((image, i) => {
-            console.log(image);
             return (
               <IconSelect
                 image={image.Image}

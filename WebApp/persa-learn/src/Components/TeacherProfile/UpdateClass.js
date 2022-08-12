@@ -40,7 +40,6 @@ const UpdateClass = ({
       let data = await updateClass(details);
 
       if (data.status === "success") {
-        console.log("class updated successfully");
         classChanged();
         flipIsUpdating();
       } else {

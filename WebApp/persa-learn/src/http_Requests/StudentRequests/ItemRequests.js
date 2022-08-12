@@ -2,7 +2,6 @@ import { hostAddress } from "../../config/hostAddress";
 
 export const checkTokenCorrect = (status) => {
   status.then((value) => {
-    // console.log(value.errors[0].message);
     // ask to log back in if token invalid
     if (
       value.hasOwnProperty("errors") &&
@@ -326,7 +325,6 @@ export const addProfilePictureAdmin = (credentials) => {
 };
 
 export const getProfilePictureDetails = (ProfilePicID) => {
-  console.log(ProfilePicID);
   const token = JSON.parse(sessionStorage.getItem("token"));
   const data = fetch(
     `${hostAddress()}/profilePicture/details?ProfilePicID="${ProfilePicID}"`,

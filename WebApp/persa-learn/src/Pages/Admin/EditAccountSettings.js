@@ -9,7 +9,6 @@ import { editAdmin } from "../../http_Requests/AdminRequests/AccountRequests";
 const EditUserSettings = () => {
   //get variables passed from user settings
   const { state } = useLocation();
-  console.log(state);
   const [email, setEmail] = useState(state.email);
   const [firstName, setFirstName] = useState(state.firstName);
   const [lastName, setLastName] = useState(state.lastName);
@@ -31,7 +30,6 @@ const EditUserSettings = () => {
     } else {
       setIsSuccess(false);
     }
-    console.log("the data: ", data);
   };
   return (
     <div className="content-box">

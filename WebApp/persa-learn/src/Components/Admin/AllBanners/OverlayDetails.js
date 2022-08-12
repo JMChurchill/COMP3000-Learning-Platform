@@ -11,7 +11,6 @@ const OverlayDetails = ({ selectedBanner, getAllBanners, close }) => {
 
   const deleteBanner = async () => {
     const data = await deleteBannerAdmin({ BannerID: selectedBanner.id });
-    console.log(data);
     getAllBanners();
     close();
   };

@@ -28,7 +28,6 @@ const ThemesAdd = () => {
       Cost: cost,
       ReqLevel: requiredLevel,
     });
-    console.log(data);
     navigate("/themes", {});
   };
 

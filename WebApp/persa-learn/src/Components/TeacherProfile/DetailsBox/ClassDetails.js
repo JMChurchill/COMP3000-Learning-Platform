@@ -41,14 +41,12 @@ const ClassDetails = ({
   const deleteThisClass = async () => {
     // check if user wants to delete
     let data = await deleteClass({ classID });
-    console.log(data);
     classChanged();
     setIsDeleting(false);
     setSelectedClass();
   };
   useEffect(async () => {
     const data = await getAssignmentProgress({ cID: classID });
-    console.log(data);
     if (data.status === "success") {
       setOveralComplete(data.data[1].Number);
       setOveralIncomplete(data.data[0].Number);

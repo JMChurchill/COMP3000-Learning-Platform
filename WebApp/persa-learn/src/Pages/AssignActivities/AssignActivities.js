@@ -37,7 +37,6 @@ const AssignActivities = () => {
   const [isDeleting, setIsDelete] = useState(false);
   const [isUnassigning, setIsUnassigning] = useState(false);
 
-  console.log(state);
   useEffect(async () => {
     await setSelectedClass({
       classID: state.id,
@@ -49,7 +48,6 @@ const AssignActivities = () => {
 
   const getAssignments = async () => {
     const data = await viewTeachersQuizzesByClass(state.id);
-    console.log("quizzes: ", data);
     setQuizzes(data.quizzes);
   };
 
@@ -100,7 +98,6 @@ const AssignActivities = () => {
         quizID,
         dueDate: dueDate.toISOString().slice(0, 19).replace("T", " "),
       });
-      console.log(data);
       if (data.status === "failure")
         alert("an error occured when attempting to assign");
       else {
@@ -114,7 +111,6 @@ const AssignActivities = () => {
       classID: selectedClass.classID,
       quizID,
     });
-    console.log(data);
     if (data.status === "failure")
       alert("an error occured when attempting to unassign");
     else {
@@ -129,10 +125,8 @@ const AssignActivities = () => {
     setIsDelete(true);
   };
   const deleteNow = async () => {
-    console.log(`Deleted ${quizID}`);
     // delete quiz from database
     const res = await deleteTheQuiz({ quizID });
-    console.log(res);
     // display message if unsuccessful
     if (res.status !== "success") {
       alert("error occured when deleting");

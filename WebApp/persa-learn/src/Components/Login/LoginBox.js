@@ -56,11 +56,9 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
           isTeacher,
           isAdmin
         );
-        console.log("data: ", data);
 
         if (data !== null && data !== undefined) {
           const token = data.token;
-          console.log(token);
           if (!token) {
             setIsError(true);
             if (data.reason === "ENOTFOUND" || data.reason === "ECONNREFUSED") {
@@ -84,11 +82,10 @@ const LoginBox = ({ setToken, isTeacher, isAdmin, signUp }) => {
           navigate("/");
           setToken(token);
         } else {
-          console.log("No data returned");
         }
       }
     } catch (e) {
-      console.log("error occured: ", e);
+      // console.log("error occured: ", e);
     }
   };
 

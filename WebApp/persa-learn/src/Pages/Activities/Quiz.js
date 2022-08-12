@@ -34,14 +34,11 @@ const Quiz = () => {
     if (state !== null) {
       const data = await getQuiz(state.quizID);
 
-      // console.log(data);
       if (data.status === "success") {
         //set quiz title
-        console.log("aaa", data.quiz);
         setTitle(data.quiz.quizName);
         setQuizID(data.quiz.quizID);
         setQuestions(data.quiz.questions);
-        console.log(data.quiz);
       }
     }
   }, []);
@@ -64,13 +61,11 @@ const Quiz = () => {
     }
   };
   const complete = async () => {
-    console.log("answers", answers);
     // check if all questions answered
     if (answers.length === questions.length) {
       //check answers and submit
       try {
         const data = await checkAnswers({ quizID, answers });
-        console.log("data: ", data);
         //set values for overlay
         setScore(answers.length - data.wrongAnswers.length);
         setEarnedXp(data.xp);
