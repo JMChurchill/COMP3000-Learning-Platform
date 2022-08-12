@@ -45,8 +45,11 @@ const OverlayEdit = ({ ThemeID, close, getAllBanners }) => {
       setRequiredLevel(data.RequiredLevel);
     }
   };
-  useEffect(async () => {
-    await getDetails();
+  useEffect(() => {
+    async function fetchData() {
+      await getDetails();
+    }
+    fetchData();
   }, []);
   return (
     <div className={styles.overlay}>

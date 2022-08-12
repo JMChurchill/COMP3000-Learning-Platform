@@ -25,9 +25,12 @@ const Classes = () => {
     }
   };
 
-  useEffect(async () => {
-    await getAllClasses();
-    await getAllRequests();
+  useEffect(() => {
+    async function fetchData() {
+      await getAllClasses();
+      await getAllRequests();
+    }
+    fetchData();
   }, []);
   return (
     <div className="content-box">

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Rating.module.css";
 
-import { AiFillStar } from "react-icons/ai";
 import Rate from "../Rate";
 import CustomButton from "../CustomButton";
 import { rateQuiz } from "../../http_Requests/QuizRatingRequests";

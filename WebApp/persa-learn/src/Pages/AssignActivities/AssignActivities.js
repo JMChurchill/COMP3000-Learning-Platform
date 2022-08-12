@@ -37,13 +37,16 @@ const AssignActivities = () => {
   const [isDeleting, setIsDelete] = useState(false);
   const [isUnassigning, setIsUnassigning] = useState(false);
 
-  useEffect(async () => {
-    await setSelectedClass({
-      classID: state.id,
-      className: state.name,
-      yearGroup: state.yearGroup,
-    });
-    await getAssignments();
+  useEffect(() => {
+    async function fetchData() {
+      await setSelectedClass({
+        classID: state.id,
+        className: state.name,
+        yearGroup: state.yearGroup,
+      });
+      await getAssignments();
+    }
+    fetchData();
   }, []);
 
   const getAssignments = async () => {

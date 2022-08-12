@@ -19,8 +19,11 @@ const ProfilePicturesAll = () => {
     }
   };
 
-  useEffect(async () => {
-    await getProfilePictures();
+  useEffect(() => {
+    async function fetchData() {
+      await getProfilePictures();
+    }
+    fetchData();
   }, []);
 
   const profilePictureSelected = (

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./UserSettings.module.css";
 
-import studentIcon from "../assets/UserIcons/001-man-1.png";
 import CustomButton from "../Components/CustomButton";
 import { MdEdit } from "react-icons/md";
 
@@ -45,8 +44,11 @@ const UserSettings = () => {
   };
 
   //get user details from api on load
-  useEffect(async () => {
-    await getDetails();
+  useEffect(() => {
+    async function fetchData() {
+      await getDetails();
+    }
+    fetchData();
   }, []);
   const deleteAccount = async () => {
     const data = await deleteStudent();

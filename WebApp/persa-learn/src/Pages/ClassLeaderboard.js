@@ -14,13 +14,19 @@ const ClassLeaderboard = () => {
   const [students, setStudents] = useState([]);
   const [topThree, setTopThree] = useState([]);
 
-  useEffect(async () => {
-    const data = await getStudentsInClass(state);
-    if (data.status === "success") setStudents(data.data);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getStudentsInClass(state);
+      if (data.status === "success") setStudents(data.data);
+    }
+    fetchData();
   }, []);
 
-  useEffect(async () => {
-    getTopThree();
+  useEffect(() => {
+    async function fetchData() {
+      getTopThree();
+    }
+    fetchData();
   }, [students]);
 
   const getTopThree = () => {

@@ -8,12 +8,15 @@ const AssignmentSubmissions = () => {
   const [submissions, setSubmissions] = useState([]);
   const { state } = useLocation();
 
-  useEffect(async () => {
-    const data = await getQuizSubmissions({
-      cID: state.classID,
-      qID: state.quizID,
-    });
-    setSubmissions(data.data);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getQuizSubmissions({
+        cID: state.classID,
+        qID: state.quizID,
+      });
+      setSubmissions(data.data);
+    }
+    fetchData();
   }, []);
   return (
     <div className="content-box">

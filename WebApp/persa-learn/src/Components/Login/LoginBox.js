@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../http_Requests/userRequests";
 
-import userIcon from "../../assets/tempUserIcon.svg";
 import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
 

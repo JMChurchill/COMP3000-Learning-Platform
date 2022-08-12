@@ -39,8 +39,11 @@ const EditCardsInDeck = () => {
     setDeck(data.flashCards);
   };
 
-  useEffect(async () => {
-    await getCards();
+  useEffect(() => {
+    async function fetchData() {
+      await getCards();
+    }
+    fetchData();
   }, []);
 
   return (

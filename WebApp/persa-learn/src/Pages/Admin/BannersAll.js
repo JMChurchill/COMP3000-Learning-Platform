@@ -19,8 +19,11 @@ const BannersAll = () => {
     setAllBanners(data.data);
   };
 
-  useEffect(async () => {
-    await getAllBanners();
+  useEffect(() => {
+    async function fetchData() {
+      await getAllBanners();
+    }
+    fetchData();
   }, []);
 
   const bannerSelected = (id, name, details, image, cost, requiredLevel) => {

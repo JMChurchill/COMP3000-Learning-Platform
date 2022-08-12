@@ -38,8 +38,11 @@ const TeacherDetails = () => {
       setPhoneNumber(data.details.PhoneNumber);
     }
   };
-  useEffect(async () => {
-    await getDetails();
+  useEffect(() => {
+    async function fetchData() {
+      await getDetails();
+    }
+    fetchData();
   }, []);
   return (
     <div className="content-box">

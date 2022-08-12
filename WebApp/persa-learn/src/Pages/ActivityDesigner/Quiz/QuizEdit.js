@@ -93,9 +93,12 @@ const QuizEdit = () => {
     );
     setQuestions(data.quiz.questions);
   };
-  useEffect(async () => {
-    await getModules();
-    await getTheQuiz();
+  useEffect(() => {
+    async function fetchData() {
+      await getModules();
+      await getTheQuiz();
+    }
+    fetchData();
   }, []);
   return (
     <div className="content-box">

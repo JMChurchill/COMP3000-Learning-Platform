@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CustomButton from "../../Components/CustomButton";
 import ClassList from "../../Components/TeacherProfile/ClassList/ClassList";
 import styles from "./Classes.module.css";
-import { useNavigate } from "react-router-dom";
 
 import {
   AiOutlineExpandAlt,
@@ -11,16 +10,12 @@ import {
 } from "react-icons/ai";
 import AddClass from "../../Components/TeacherProfile/DetailsBox/AddClass";
 import ClassDetails from "../../Components/TeacherProfile/DetailsBox/ClassDetails";
-import {
-  getTeachersClasses,
-  getTeachersDetails,
-} from "../../http_Requests/teacherRequests";
+import { getTeachersClasses } from "../../http_Requests/teacherRequests";
 
 export const Classes = () => {
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState();
   const [classSuccess, setClassSuccess] = useState(false);
-  const [showDetailBox, setShowDetailBox] = useState(false);
   // current right view
   const [addingClass, setAddingClass] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
@@ -28,8 +23,6 @@ export const Classes = () => {
   const [isShowStudents, setIsShowStudents] = useState(false);
 
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const navigate = useNavigate();
 
   // const [usersName, setUsersName] = useState();
   //   const getDetails = async () => {
@@ -57,11 +50,14 @@ export const Classes = () => {
     setIsShowStudents(false);
   };
 
-  useEffect(async () => {
-    let data = await getTeachersClasses();
-    if (data.hasOwnProperty("data")) {
-      setClasses(data.data);
+  useEffect(() => {
+    async function fetchData() {
+      let data = await getTeachersClasses();
+      if (data.hasOwnProperty("data")) {
+        setClasses(data.data);
+      }
     }
+    fetchData();
   }, [classSuccess]);
 
   const flipAddClass = () => {

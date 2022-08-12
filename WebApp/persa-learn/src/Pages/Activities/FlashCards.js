@@ -31,8 +31,11 @@ const FlashCards = () => {
     const data = await getFlashCardDecks();
     setDecks(data.decks);
   };
-  useEffect(async () => {
-    await getDecks();
+  useEffect(() => {
+    async function fetchData() {
+      await getDecks();
+    }
+    fetchData();
   }, [isAdded]);
 
   return (

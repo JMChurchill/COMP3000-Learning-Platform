@@ -15,8 +15,11 @@ const BannerSelector = ({ close, getDetails }) => {
       setBanners(data.data);
     }
   };
-  useEffect(async () => {
-    await getBanners();
+  useEffect(() => {
+    async function fetchData() {
+      await getBanners();
+    }
+    fetchData();
   }, []);
   const updatePicture = async () => {
     if (selectedBanner != null) {

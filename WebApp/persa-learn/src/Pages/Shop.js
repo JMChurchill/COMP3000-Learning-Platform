@@ -80,9 +80,12 @@ const Shop = () => {
     }
   };
 
-  useEffect(async () => {
-    await getItems();
-    await getStudentDetails();
+  useEffect(() => {
+    async function fetchData() {
+      await getItems();
+      await getStudentDetails();
+    }
+    fetchData();
   }, []);
   return (
     <div className="content-box">

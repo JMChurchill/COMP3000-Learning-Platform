@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  MdQueryStats,
-  MdAdd,
-  MdDelete,
-  MdModeEdit,
-  MdClose,
-} from "react-icons/md";
+import { MdAdd, MdDelete, MdModeEdit, MdClose } from "react-icons/md";
 import { IoStatsChart } from "react-icons/io5";
 
 import styles from "./QuizListItem.module.css";

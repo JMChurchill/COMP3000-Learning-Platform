@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Redirect,
-  Link,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./Banner.module.css";
 
 import { FaCog } from "react-icons/fa";

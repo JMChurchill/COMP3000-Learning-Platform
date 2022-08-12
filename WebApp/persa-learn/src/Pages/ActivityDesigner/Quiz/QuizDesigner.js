@@ -38,15 +38,18 @@ const QuizDesigner = () => {
     setModuleList(data.modules);
   };
 
-  useEffect(async () => {
-    //get data from previous page
-    await setSelectedClass({
-      id: state.classID,
-      name: state.className,
-      yearGroup: state.yearGroup,
-    });
-    //get all modules
-    await getModules();
+  useEffect(() => {
+    async function fetchData() {
+      //get data from previous page
+      await setSelectedClass({
+        id: state.classID,
+        name: state.className,
+        yearGroup: state.yearGroup,
+      });
+      //get all modules
+      await getModules();
+    }
+    fetchData();
   }, []);
 
   // const addModule = async () => {

@@ -21,9 +21,12 @@ const AccountActions = () => {
       setLastname(data.data[0].Lastname);
     }
   };
-  useEffect(async () => {
-    await getAccountDetails();
-  });
+  useEffect(() => {
+    async function fetchData() {
+      await getAccountDetails();
+    }
+    fetchData();
+  }, []);
   return (
     <div className="content-box">
       <h1>Admin Actions</h1>

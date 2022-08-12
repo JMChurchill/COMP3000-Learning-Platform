@@ -4,8 +4,6 @@ import {
   getStudentsInClass,
   removeStudentFromClass,
 } from "../../../http_Requests/teacherRequests";
-import AssignmentSubmissions from "../../../Pages/Teacher/AssignmentSubmissions";
-import SubmissionItem from "../../AssignmentSubmissions/SubmissionItem";
 import CustomButton from "../../CustomButton";
 import styles from "./ListStudents.module.css";
 import StudentsSubmission from "./StudentsSubmission";
@@ -17,10 +15,13 @@ const ListStudents = ({ classID, flipIsShowStudents }) => {
   //   const [searchResults, setSearchResults] = useState([]);
   const [isDeleted, setIsDeleted] = useState(false);
 
-  useEffect(async () => {
-    let details = { classID: classID };
-    let data = await getStudentsInClass(details);
-    if (data.status === "success") setStudents(data.data);
+  useEffect(() => {
+    async function fetchData() {
+      let details = { classID: classID };
+      let data = await getStudentsInClass(details);
+      if (data.status === "success") setStudents(data.data);
+    }
+    fetchData();
   }, [isDeleted]);
 
   const removeStudent = async (studentID) => {

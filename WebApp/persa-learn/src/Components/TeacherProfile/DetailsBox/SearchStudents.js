@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  addStudentToClass,
-  allStudents,
-  searchStudents,
-} from "../../../http_Requests/teacherRequests";
-import {
   createClassRequest,
   getClassRequestsByClass,
   removeClassRequest,
@@ -27,9 +22,12 @@ const SearchStudents = ({ classID, setIsSearching, isSearching }) => {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
+      await getAllStudents();
+    }
     // get all students from database
-    await getAllStudents();
+    fetchData();
   }, []);
 
   const addStudent = async (studentID) => {

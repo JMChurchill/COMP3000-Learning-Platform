@@ -58,15 +58,18 @@ const ThemeSelector = ({ close }) => {
     } else setTheme();
   };
 
-  useEffect(async () => {
-    const data = await getPurchasedThemes();
-    setThemes(data.data);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getPurchasedThemes();
+      setThemes(data.data);
 
-    //get selected theme from local storage
-    let theme = JSON.parse(localStorage.getItem("theme"));
-    if (theme) {
-      setSelectedTheme(theme);
+      //get selected theme from local storage
+      let theme = JSON.parse(localStorage.getItem("theme"));
+      if (theme) {
+        setSelectedTheme(theme);
+      }
     }
+    fetchData();
   }, []);
 
   const themeSelected = (

@@ -19,12 +19,15 @@ const OverlayDetails = ({ selectedDeck, close, getDecks }) => {
   const [status, setStatus] = useState({ error: false, message: "" });
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    // get number of cards
-    const data = await getNumFlashCard({ DeckID: selectedDeck.DeckID });
-    if (data.status === "success") {
-      setNumberCards(data.numCards.NumberOfCards);
-    } else console.log("Couldn't get number of cards");
+  useEffect(() => {
+    async function fetchData() {
+      // get number of cards
+      const data = await getNumFlashCard({ DeckID: selectedDeck.DeckID });
+      if (data.status === "success") {
+        setNumberCards(data.numCards.NumberOfCards);
+      } else console.log("Couldn't get number of cards");
+    }
+    fetchData();
   }, []);
   const editDeck = async () => {
     if (newName != null && newName != "") {

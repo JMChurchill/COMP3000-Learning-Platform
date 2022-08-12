@@ -16,8 +16,11 @@ const ProfilePictureSelector = ({ close, getDetails }) => {
     }
   };
 
-  useEffect(async () => {
-    await getProfilePictures();
+  useEffect(() => {
+    async function fetchData() {
+      await getProfilePictures();
+    }
+    fetchData();
   }, []);
 
   const iconSelected = (image) => {

@@ -17,8 +17,11 @@ const ThemesAll = () => {
     setAllThemes(data.data);
   };
 
-  useEffect(async () => {
-    await getThemes();
+  useEffect(() => {
+    async function fetchData() {
+      await getThemes();
+    }
+    fetchData();
   }, []);
 
   const selectTheme = (

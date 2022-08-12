@@ -45,15 +45,18 @@ const ClassDetails = ({
     setIsDeleting(false);
     setSelectedClass();
   };
-  useEffect(async () => {
-    const data = await getAssignmentProgress({ cID: classID });
-    if (data.status === "success") {
-      setOveralComplete(data.data[1].Number);
-      setOveralIncomplete(data.data[0].Number);
-    } else {
-      setOveralComplete(0);
-      setOveralIncomplete(0);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getAssignmentProgress({ cID: classID });
+      if (data.status === "success") {
+        setOveralComplete(data.data[1].Number);
+        setOveralIncomplete(data.data[0].Number);
+      } else {
+        setOveralComplete(0);
+        setOveralIncomplete(0);
+      }
     }
+    fetchData();
   }, [classID]);
   if (isSearching)
     return (

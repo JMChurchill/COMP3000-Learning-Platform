@@ -82,8 +82,11 @@ const TeacherEdit = () => {
       }
     }
   };
-  useEffect(async () => {
-    await getDetails();
+  useEffect(() => {
+    async function fetchData() {
+      await getDetails();
+    }
+    fetchData();
   }, []);
   return (
     <div className="content-box">

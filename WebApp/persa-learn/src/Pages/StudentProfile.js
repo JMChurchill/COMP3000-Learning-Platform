@@ -27,47 +27,44 @@ const StudentProfile = () => {
   const [coins, setCoins] = useState(0);
 
   const tabs = ["Assignments", "Feed"];
-  useEffect(async () => {
-    //get page details
-    // const dataAssignment = null,
-    const dataAssignment = await getStudentsAssignmentQuizzes();
-    // const [dataStudentDetails, dataAssignment, dataFeed] = await Promise.all([
-    //   getUserDetails(),
-    //   getStudentsAssignmentQuizzes(),
-    //   getFeedRequest(),
-    // ]);
+  useEffect(() => {
+    async function fetchData() {
+      //get page details
+      // const dataAssignment = null,
+      const dataAssignment = await getStudentsAssignmentQuizzes();
 
-    const dataStudentDetails = await getUserDetails();
-    const dataFeed = await getFeedRequest();
-    //student details
-    if (dataStudentDetails.hasOwnProperty("data")) {
-      const {
-        FirstName,
-        LastName,
-        Email,
-        Coins,
-        Xp,
-        RequiredXp,
-        Level,
-        ProfilePicture,
-        Banner,
-      } = dataStudentDetails.data;
-      setUsersName(`${FirstName} ${LastName}`);
-      setXp(Xp);
-      setRequiredXp(RequiredXp);
-      setLevel(Level);
-      setCoins(Coins);
-      setBanner(Banner);
-      setProfilePicture(ProfilePicture);
+      const dataStudentDetails = await getUserDetails();
+      const dataFeed = await getFeedRequest();
+      //student details
+      if (dataStudentDetails.hasOwnProperty("data")) {
+        const {
+          FirstName,
+          LastName,
+          Email,
+          Coins,
+          Xp,
+          RequiredXp,
+          Level,
+          ProfilePicture,
+          Banner,
+        } = dataStudentDetails.data;
+        setUsersName(`${FirstName} ${LastName}`);
+        setXp(Xp);
+        setRequiredXp(RequiredXp);
+        setLevel(Level);
+        setCoins(Coins);
+        setBanner(Banner);
+        setProfilePicture(ProfilePicture);
+      }
+      // assignments
+      if (dataAssignment.hasOwnProperty("quizzes")) {
+        setAssignments(dataAssignment.quizzes);
+      }
+      if (dataFeed.status == "success") {
+        setFeed(dataFeed.data);
+      }
     }
-    // console.log("asd");
-    // assignments
-    if (dataAssignment.hasOwnProperty("quizzes")) {
-      setAssignments(dataAssignment.quizzes);
-    }
-    if (dataFeed.status == "success") {
-      setFeed(dataFeed.data);
-    }
+    fetchData();
   }, []);
 
   return (

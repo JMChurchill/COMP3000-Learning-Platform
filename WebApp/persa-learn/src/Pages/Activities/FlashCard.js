@@ -22,15 +22,21 @@ const FlashCard = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    const data = await getFlashCards(state);
-    setDeck(data.flashCards);
-    // setCurrentCard(deck[0]);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getFlashCards(state);
+      setDeck(data.flashCards);
+      // setCurrentCard(deck[0]);
+    }
+    fetchData();
   }, []);
-  useEffect(async () => {
-    setNumCards(deck.length);
+  useEffect(() => {
+    async function fetchData() {
+      setNumCards(deck.length);
 
-    setCurrentCard(deck[0]);
+      setCurrentCard(deck[0]);
+    }
+    fetchData();
   }, [deck]);
 
   const nextCard = () => {

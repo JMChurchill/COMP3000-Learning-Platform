@@ -15,9 +15,12 @@ const AdminProfile = () => {
   const navigate = useNavigate();
   const [monthlySignups, setMonthlySignups] = useState([]);
 
-  useEffect(async () => {
-    const data = await getMonthlySignups();
-    setMonthlySignups(data.data);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getMonthlySignups();
+      setMonthlySignups(data.data);
+    }
+    fetchData();
   }, []);
 
   return (

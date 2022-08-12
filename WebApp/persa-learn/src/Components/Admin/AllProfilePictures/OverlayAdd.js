@@ -3,10 +3,7 @@ import CustomButton from "../../CustomButton";
 import CustomInput from "../../CustomInput";
 import styles from "./OverlayAdd.module.css";
 import { MdZoomIn, MdZoomOut } from "react-icons/md";
-import {
-  addBannerAdmin,
-  addProfilePictureAdmin,
-} from "../../../http_Requests/StudentRequests/ItemRequests";
+import { addProfilePictureAdmin } from "../../../http_Requests/StudentRequests/ItemRequests";
 
 const OverlayAdd = ({ close, getProfilePictures }) => {
   const [isMagnified, setIsMagnified] = useState(false);

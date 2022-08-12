@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ClassItem from "../../Components/TeacherProfile/ClassList/ClassItem";
-import {
-  getTeachersClasses,
-  getTeachersDetails,
-} from "../../http_Requests/teacherRequests";
-import { useNavigate } from "react-router-dom";
-import ClassDetails from "../../Components/TeacherProfile/DetailsBox/ClassDetails";
-import AddClass from "../../Components/TeacherProfile/DetailsBox/AddClass";
-import ClassList from "../../Components/TeacherProfile/ClassList/ClassList";
+import { getTeachersDetails } from "../../http_Requests/teacherRequests";
 
 import styles from "./TeacherProfile.module.css";
-import CustomButton from "../../Components/CustomButton";
 import BarStacked from "../../Components/Charts/BarStacked";
 import BarChart from "../../Components/Charts/BarChart";
 import {
@@ -22,8 +13,6 @@ const TeacherProfile = () => {
   const [firstName, setFirstName] = useState();
   const [assignProgress, setAssignProgress] = useState([]);
   const [averageRating, setAverageRating] = useState([]);
-
-  const navigate = useNavigate();
 
   // const [usersName, setUsersName] = useState();
   const getDetails = async () => {
@@ -91,10 +80,13 @@ const TeacherProfile = () => {
     }
   };
 
-  useEffect(async () => {
-    await getDetails();
-    await getAssignmentProg();
-    await getAverageRatings();
+  useEffect(() => {
+    async function fetchData() {
+      await getDetails();
+      await getAssignmentProg();
+      await getAverageRatings();
+    }
+    fetchData();
   }, []);
 
   return (

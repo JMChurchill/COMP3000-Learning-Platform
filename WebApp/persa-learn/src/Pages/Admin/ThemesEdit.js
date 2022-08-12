@@ -25,21 +25,24 @@ const ThemesEdit = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  useEffect(async () => {
-    setThemeID(state.ThemeID);
-    // get themes details
-    const data = await getThemeDetails(state.ThemeID);
-    if (data.status === "success") {
-      setName(data.data[0].Name);
-      setDetails(data.data[0].Details);
-      setPrimaryColor(data.data[0].PrimaryColor);
-      setBackgroundColor(data.data[0].BackgroundColor);
-      setBtnTextColor(data.data[0].BtnTextColor);
+  useEffect(() => {
+    async function fetchData() {
+      setThemeID(state.ThemeID);
+      // get themes details
+      const data = await getThemeDetails(state.ThemeID);
+      if (data.status === "success") {
+        setName(data.data[0].Name);
+        setDetails(data.data[0].Details);
+        setPrimaryColor(data.data[0].PrimaryColor);
+        setBackgroundColor(data.data[0].BackgroundColor);
+        setBtnTextColor(data.data[0].BtnTextColor);
 
-      setIsDark(data.data[0].IsDark == "true" || data.data[0].IsDark == true);
-      setCost(data.data[0].Cost);
-      setRequiredLevel(data.data[0].RequiredLevel);
+        setIsDark(data.data[0].IsDark == "true" || data.data[0].IsDark == true);
+        setCost(data.data[0].Cost);
+        setRequiredLevel(data.data[0].RequiredLevel);
+      }
     }
+    fetchData();
   }, []);
 
   const editTheme = async () => {

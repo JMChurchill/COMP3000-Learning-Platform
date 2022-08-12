@@ -29,18 +29,21 @@ const Quiz = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    // get quiz data
-    if (state !== null) {
-      const data = await getQuiz(state.quizID);
+  useEffect(() => {
+    async function fetchData() {
+      // get quiz data
+      if (state !== null) {
+        const data = await getQuiz(state.quizID);
 
-      if (data.status === "success") {
-        //set quiz title
-        setTitle(data.quiz.quizName);
-        setQuizID(data.quiz.quizID);
-        setQuestions(data.quiz.questions);
+        if (data.status === "success") {
+          //set quiz title
+          setTitle(data.quiz.quizName);
+          setQuizID(data.quiz.quizID);
+          setQuestions(data.quiz.questions);
+        }
       }
     }
+    fetchData();
   }, []);
 
   const addAnswer = (questionID, answerIdx) => {
