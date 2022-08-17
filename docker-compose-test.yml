@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile.test
     volumes:
       - ./WebApp/persa-learn/src:/app/src
+      - "./test_reports:/test_reports"
     environment:
       - NODE_ENV=development
       - WAIT_HOSTS=api:8080,db:3306
@@ -26,4 +27,4 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-    command: npm start
+    command: npm run dev

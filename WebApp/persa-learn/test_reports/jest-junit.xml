@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="18" failures="0" errors="0" time="2.329">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-08-17T16:44:48" time="0.556" tests="1">
+    <testcase classname=" renders without crashing " name=" renders without crashing " time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-08-17T16:44:49" time="0.161" tests="8">
+    <testcase classname=" renders without crashing " name=" renders without crashing " time="0.013">
+    </testcase>
+    <testcase classname=" renders login screen without crashing " name=" renders login screen without crashing " time="0.006">
+    </testcase>
+    <testcase classname="clickButton onClickSignUp" name="clickButton onClickSignUp" time="0.01">
+    </testcase>
+    <testcase classname="clickButton onClickAdmin" name="clickButton onClickAdmin" time="0.005">
+    </testcase>
+    <testcase classname="login form can enter values login form" name="login form can enter values login form" time="0.005">
+    </testcase>
+    <testcase classname="login form Error messages show" name="login form Error messages show" time="0.005">
+    </testcase>
+    <testcase classname="login form Error messages show password error" name="login form Error messages show password error" time="0.005">
+    </testcase>
+    <testcase classname="login form Error messages show email error" name="login form Error messages show email error" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-08-17T16:44:49" time="0.131" tests="4">
+    <testcase classname=" renders without crashing " name=" renders without crashing " time="0.011">
+    </testcase>
+    <testcase classname="all views render renders student view correctly" name="all views render renders student view correctly" time="0.005">
+    </testcase>
+    <testcase classname="all views render renders teacher view correctly" name="all views render renders teacher view correctly" time="0.006">
+    </testcase>
+    <testcase classname="all views render renders admin view correctly" name="all views render renders admin view correctly" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-08-17T16:44:49" time="0.129" tests="1">
+    <testcase classname=" renders without crashing " name=" renders without crashing " time="0.023">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-08-17T16:44:49" time="0.127" tests="2">
+    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.007">
+    </testcase>
+    <testcase classname="clickButton onClick" name="clickButton onClick" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-08-17T16:44:49" time="0.09" tests="1">
+    <testcase classname=" renders without crashing " name=" renders without crashing " time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="studentRequests" errors="0" failures="0" skipped="0" timestamp="2022-08-17T16:44:50" time="0.043" tests="1">
+    <testcase classname="studentRequests temp" name="studentRequests temp" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>
