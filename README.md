@@ -2,8 +2,6 @@
 ## Project Vision
 PersaLearn is a digital learning platform that incorporate game-design elements and principals. The goal of the platform is to create a more enjoyable learning experience that will make studying less of a chore.
 ## Access
-### Live site 
-http://178.62.104.116:3000/
 ### APK download
 A download of the APK is available in the releases section of this GitHub.
 ## Run Locally
